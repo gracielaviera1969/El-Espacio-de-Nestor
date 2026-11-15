@@ -382,7 +382,7 @@
             border: 2px solid var(--vivid-yellow);
             padding: 3px 12px;
             border-radius: 999px;
-            display: none;
+            display: inline-block;
         }
 
         .card-tag {
@@ -783,7 +783,7 @@
             <span class="module-tag">Sentir</span>
             <span class="module-icon-wrap" aria-hidden="true">💙</span>
             <span class="module-title">¿CÓMO ESTOY?</span>
-            <span class="module-desc">Reconocimiento emocional extendido.</span>
+            <span class="module-desc">Reconocimiento emocional con explicaciones.</span>
         </button>
     </main>
 
@@ -963,7 +963,7 @@
         </div>
     </section>
 
-    <!-- Vista: El Parque -->
+    <!-- Vista: El Parque con Iconos Corregidos -->
     <section id="parkView" class="view-section" aria-labelledby="parkHeading">
         <div class="view-header">
             <div>
@@ -974,12 +974,20 @@
         </div>
         <div class="items-grid">
             <button type="button" class="item-card" onclick="selectParkActivity('Me subo al columpio y voy despacio hacia adelante y hacia atrás')">
-                <div class="item-icon" aria-hidden="true">🛝</div>
+                <div class="item-icon" aria-hidden="true">🎠</div>
                 <h3>Columpio</h3>
             </button>
             <button type="button" class="item-card" onclick="selectParkActivity('Subo por la escalera y me deslizo con cuidado por el tobogán')">
                 <div class="item-icon" aria-hidden="true">🛝</div>
                 <h3>Tobogán</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectParkActivity('Me subo al subibaja y subo y bajo con un amigo con mucha diversión')">
+                <div class="item-icon" aria-hidden="true">🔄</div>
+                <h3>Subibaja</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectParkActivity('Juego en la arena haciendo castillos y formas con el balde')">
+                <div class="item-icon" aria-hidden="true">🏖️</div>
+                <h3>Jugar en la arena</h3>
             </button>
             <button type="button" class="item-card" onclick="selectParkActivity('Ando en bicicleta sintiendo el viento en la cara con mucha alegría')">
                 <div class="item-icon" aria-hidden="true">🚲</div>
@@ -990,12 +998,28 @@
                 <h3>Correr</h3>
             </button>
             <button type="button" class="item-card" onclick="selectParkActivity('Salto alto y divertido con mucha energía')">
-                <div class="item-icon" aria-hidden="true">⬆️</div>
+                <div class="item-icon" aria-hidden="true">🦘</div>
                 <h3>Saltar</h3>
             </button>
             <button type="button" class="item-card" onclick="selectParkActivity('Juego al fútbol pateando la pelota con mis amigos')">
                 <div class="item-icon" aria-hidden="true">⚽</div>
                 <h3>Jugar al fútbol</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectParkActivity('Hago volar un barrilete alto en el cielo con el viento')">
+                <div class="item-icon" aria-hidden="true">🪁</div>
+                <h3>Volar barrilete</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectParkActivity('Empujo mi carrito o andador con mucha alegría')">
+                <div class="item-icon" aria-hidden="true">🛴</div>
+                <h3>Empujar carrito</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectParkActivity('Miro a los pajaritos volar y cantar en los árboles')">
+                <div class="item-icon" aria-hidden="true">🐦</div>
+                <h3>Ver pajaritos</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectParkActivity('Me siento un ratito en el banco a descansar y respirar aire fresco')">
+                <div class="item-icon" aria-hidden="true">🪑</div>
+                <h3>Descansar en banco</h3>
             </button>
         </div>
         <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
@@ -1039,7 +1063,7 @@
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Alimentos -->
+    <!-- Vista: Alimentos Completa (Sin etiquetas de categoría) -->
     <section id="foodView" class="view-section" aria-labelledby="foodHeading">
         <div class="view-header">
             <div>
@@ -1054,7 +1078,7 @@
             <button type="button" class="cat-btn" onclick="filterFood('verdura')">Verduras</button>
             <button type="button" class="cat-btn" onclick="filterFood('carne')">Carnes y Pollo</button>
             <button type="button" class="cat-btn" onclick="filterFood('pescado')">Pescado</button>
-            <button type="button" class="cat-btn" onclick="filterFood('comida')">Platos</button>
+            <button type="button" class="cat-btn" onclick="filterFood('comida')">Platos y Bebidas</button>
         </div>
         <div class="items-grid" id="foodGrid"></div>
         <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
@@ -1094,6 +1118,8 @@
         
         <div class="category-selector" role="group" aria-label="Elegir historia visual">
             <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🏥 Ir al médico</button>
+            <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Supermercado</button>
+            <button type="button" class="cat-btn" id="tab-pasear" onclick="loadStory('pasear')">🌳 Salir a pasear</button>
             <button type="button" class="cat-btn" id="tab-playa" onclick="loadStory('playa')">🏖️ Ir a la playa</button>
             <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar el pelo</button>
             <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Hora de dormir</button>
@@ -1165,12 +1191,12 @@
         </div>
     </section>
 
-    <!-- Vista: Emociones -->
+    <!-- Vista: Emociones con Explicaciones -->
     <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
         <div class="view-header">
             <div>
                 <h2 id="emotionHeading">¿Cómo me siento?</h2>
-                <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
+                <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual para entenderlo.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
@@ -1191,13 +1217,21 @@
                 <div class="item-icon" aria-hidden="true">🥱</div>
                 <h3>Cansado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Sientes un poco de hambre. Vamos a buscar algo rico para comer juntos.')">
+            <button type="button" class="item-card" onclick="selectEmotion('Sientes un poco de hambre. Vamos a buscar algo rico para comer.')">
                 <div class="item-icon" aria-hidden="true">🍎</div>
                 <h3>Hambriento</h3>
             </button>
             <button type="button" class="item-card" onclick="selectEmotion('Respiramos hondo y despacio. Todo está bien y va a pasar.')">
                 <div class="item-icon" aria-hidden="true">😤</div>
                 <h3>Enojado</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('A veces nos sentimos tristes y está bien. Un abrazo y un mimo nos hacen sentir mejor.')">
+                <div class="item-icon" aria-hidden="true">💙</div>
+                <h3>Triste</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('Si sientes miedo o susto, respira hondo conmigo. Estás a salvo y muy protegido.')">
+                <div class="item-icon" aria-hidden="true">🫨</div>
+                <h3>Asustado</h3>
             </button>
         </div>
         <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
@@ -1279,7 +1313,33 @@
             { name: 'Fresa', icon: '🍓', category: 'fruta', desc: 'Fresa dulce y roja' },
             { name: 'Naranja', icon: '🍊', category: 'fruta', desc: 'Naranja jugosa' },
             { name: 'Uvas', icon: '🍇', category: 'fruta', desc: 'Uvas dulces' },
-            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' }
+            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' },
+            { name: 'Pera', icon: '🍐', category: 'fruta', desc: 'Pera suave y jugosa' },
+            { name: 'Kiwi', icon: '🥝', category: 'fruta', desc: 'Kiwi fresco y saludable' },
+            { name: 'Lechuga', icon: '🥬', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
+            { name: 'Tomate', icon: '🍅', category: 'verdura', desc: 'Tomate rojo y fresco' },
+            { name: 'Zanahoria', icon: '🥕', category: 'verdura', desc: 'Zanahoria crujiente y sana' },
+            { name: 'Brócoli', icon: '🥦', category: 'verdura', desc: 'Brócoli verde nutritivo' },
+            { name: 'Patata', icon: '🥔', category: 'verdura', desc: 'Patata rica y nutritiva' },
+            { name: 'Calabaza', icon: '🎃', category: 'verdura', desc: 'Calabaza dulce y suave' },
+            { name: 'Carne', icon: '🥩', category: 'carne', desc: 'Carne de res tierna y rica' },
+            { name: 'Pollo', icon: '🍗', category: 'carne', desc: 'Pollo tierno y sabroso' },
+            { name: 'Jamón', icon: '🥓', category: 'carne', desc: 'Jamón rico y salado' },
+            { name: 'Salchicha', icon: '🌭', category: 'carne', desc: 'Salchicha rica' },
+            { name: 'Pescado', icon: '🐟', category: 'pescado', desc: 'Pescado fresco del mar' },
+            { name: 'Atún', icon: '🍣', category: 'pescado', desc: 'Atún fresco y nutritivo' },
+            { name: 'Camarón', icon: '🍤', category: 'pescado', desc: 'Camarón sabroso' },
+            { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita y reconfortante' },
+            { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz blanco calentito' },
+            { name: 'Puré', icon: '🥔', category: 'comida', desc: 'Puré suave y cremoso' },
+            { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta rica con salsa' },
+            { name: 'Pizza', icon: '🍕', category: 'comida', desc: 'Porción de pizza rica' },
+            { name: 'Hamburguesa', icon: '🍔', category: 'comida', desc: 'Hamburguesa sabrosa' },
+            { name: 'Huevo', icon: '🍳', category: 'comida', desc: 'Huevo frito nutritivo' },
+            { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan tierno y fresco' },
+            { name: 'Yogur', icon: '🥛', category: 'comida', desc: 'Yogur suave y fresco' },
+            { name: 'Agua', icon: '🥤', category: 'comida', desc: 'Agua fresca para hidratarse' },
+            { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta' }
         ];
 
         const stories = {
@@ -1288,6 +1348,18 @@
                 { icon: '🪑', title: 'Esperamos un ratito', text: 'En la sala de espera nos sentamos tranquilos mientras llaman nuestro nombre. Podemos mirar nuestro juguete favorito.' },
                 { icon: '🩺', title: 'El doctor nos revisa', text: 'El médico es amable: escucha nuestro corazón con un aparato frío un segundo y mira nuestra garganta sin hacer daño.' },
                 { icon: '🏠', title: 'Regresamos a casa', text: '¡Lo hicimos muy bien! Ya terminó la visita y volvemos contentos a casa a jugar y descansar.' }
+            ],
+            super: [
+                { icon: '🛒', title: 'Entramos al supermercado', text: 'Vamos de compras con un adulto. Hay luces y gente, nos mantenemos cerquita y tranquilos.' },
+                { icon: '🛍️', title: 'Buscamos los alimentos', text: 'Elegimos las cosas ricas y necesarias para la semana anotadas en la lista, ayudando a ponerlas en el carro.' },
+                { icon: '💳', title: 'Pasamos por la caja', text: 'Esperamos nuestro turno con paciencia mientras pasan los productos por el lector de código.' },
+                { icon: '🏠', title: 'Volvemos a casa', text: 'Guardamos todo en su lugar. ¡La misión de compras salió perfecta!' }
+            ],
+            pasear: [
+                { icon: '🧥', title: 'Nos preparamos para salir', text: 'Elegimos ropa cómoda, zapatos adecuados y miramos el clima antes de abrir la puerta.' },
+                { icon: '🌳', title: 'Disfrutamos el camino', text: 'Caminamos observando los árboles, los autos y el cielo, siempre respetando la mano de un adulto.' },
+                { icon: '🛝', title: 'Momento de recreo', text: 'Llegamos a un espacio lindo para explorar, correr con cuidado o descansar en un banco.' },
+                { icon: '🏡', title: 'Regreso tranquilo', text: 'Con la energía recargada y una sonrisa, volvemos a casa a descansar.' }
             ],
             playa: [
                 { icon: '🎒', title: 'Preparamos nuestras cosas', text: 'Antes de salir guardamos la toalla, el traje de baño y el protector solar para cuidar nuestra piel del sol.' },
@@ -1561,7 +1633,6 @@
                 card.className = 'grid-card';
                 card.onclick = () => selectFoodItem(item);
                 card.innerHTML = `
-                    <span class="pill-badge">${item.category.toUpperCase()}</span>
                     <div class="item-icon" aria-hidden="true">${item.icon}</div>
                     <h3 style="color:#FFFFFF; font-size:1.2rem;">${item.name}</h3>
                     <span class="card-tag">${item.desc}</span>
