@@ -256,13 +256,6 @@
             font-weight: 600;
         }
 
-        .sub-heading {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #38BDF8;
-            margin: 28px 0 16px;
-        }
-
         .back-btn {
             min-height: 50px;
             background: #334155;
@@ -360,8 +353,8 @@
             border-color: var(--vivid-blue);
         }
 
-        /* Tarjetas de Animales */
-        .animal-card {
+        /* Tarjetas de Grilla */
+        .grid-card {
             background: #0F172A;
             border: 3px solid var(--vivid-yellow);
             border-radius: 20px;
@@ -374,12 +367,12 @@
             transition: transform 0.15s;
         }
 
-        .animal-card:hover {
+        .grid-card:hover {
             transform: scale(1.03);
             background: #1E293B;
         }
 
-        .habitat-pill {
+        .pill-badge {
             font-size: 0.9rem;
             font-weight: 700;
             background: var(--vivid-yellow-bg);
@@ -389,7 +382,7 @@
             border-radius: 999px;
         }
 
-        .animal-sound-tag {
+        .card-tag {
             font-size: 1.1rem;
             font-weight: 700;
             color: #FFFFFF;
@@ -599,43 +592,75 @@
             color: #FFFFFF;
         }
 
-        /* Zona de Calma */
+        /* Zona de Calma adaptada TEA */
         .calm-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
+            padding: 20px 0;
         }
 
-        .breathing-circle {
-            width: 190px;
-            height: 190px;
-            background: var(--vivid-blue-bg);
-            border: 4px solid var(--vivid-blue);
-            border-radius: 50%;
+        .calm-steps-preview {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .calm-badge-step {
+            background: #0F172A;
+            border: 2px solid #38BDF8;
+            padding: 8px 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #38BDF8;
+        }
+
+        .breathing-box {
+            position: relative;
+            width: 220px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
-            animation: breathe 8s infinite ease-in-out;
-            margin-bottom: 36px;
+            margin-bottom: 24px;
         }
 
-        @keyframes breathe {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
-            50% { transform: scale(1.32); box-shadow: 0 0 0 32px rgba(59, 130, 246, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        .breathing-circle {
+            width: 100%;
+            height: 100%;
+            background: var(--vivid-blue-bg);
+            border: 5px solid var(--vivid-blue);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .breath-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 4px;
         }
 
         .calm-text {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #38BDF8;
             text-align: center;
+            background: #0F172A;
+            border: 2px solid #334155;
+            padding: 12px 24px;
+            border-radius: 16px;
+            max-width: 500px;
         }
     </style>
 </head>
@@ -646,11 +671,11 @@
             <div class="brand-badge" aria-hidden="true">🚀</div>
             <div>
                 <h1>El espacio de Néstor</h1>
-                <p class="brand-sub">Panel interactivo de alto contraste y colores vivos</p>
+                <p class="brand-sub">Panel interactivo</p>
             </div>
         </div>
         <div class="audio-controls">
-            <button type="button" class="btn-control" id="speechToggle" aria-pressed="false" onclick="toggleSpeech()">🗣️ Voz: Apagada</button>
+            <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()">🗣️ Voz: Encendida</button>
         </div>
     </header>
 
@@ -670,6 +695,13 @@
             <span class="module-desc">Colegio y pasos del día en orden.</span>
         </button>
 
+        <button type="button" class="module-card cyan" onclick="showView('autonomyView')">
+            <span class="module-tag">Independencia</span>
+            <span class="module-icon-wrap" aria-hidden="true">👕</span>
+            <span class="module-title">ME VISTO Y PEINO</span>
+            <span class="module-desc">Pasos para vestirme y arreglarme solo.</span>
+        </button>
+
         <button type="button" class="module-card pink" onclick="showView('colorsLearnView')">
             <span class="module-tag">Aprender</span>
             <span class="module-icon-wrap" aria-hidden="true">🎨</span>
@@ -680,8 +712,15 @@
         <button type="button" class="module-card yellow" onclick="showView('animalsView')">
             <span class="module-tag">Gran Zoo</span>
             <span class="module-icon-wrap" aria-hidden="true">🦁</span>
-            <span class="module-title">MUNDO ANIMAL</span>
-            <span class="module-desc">Más animales y sus sonidos reales.</span>
+            <span class="module-title">ANIMALES</span>
+            <span class="module-desc">Animales y sus sonidos reales.</span>
+        </button>
+
+        <button type="button" class="module-card green" onclick="showView('foodView')">
+            <span class="module-tag">Nutrición</span>
+            <span class="module-icon-wrap" aria-hidden="true">🥗</span>
+            <span class="module-title">ALIMENTOS</span>
+            <span class="module-desc">Frutas, verduras, carnes y platos.</span>
         </button>
 
         <button type="button" class="module-card cyan" onclick="showView('numbers100View')">
@@ -730,11 +769,11 @@
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua, por favor')">
                 <div class="item-icon" aria-hidden="true">🥤</div>
                 <h3>Agua</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero comer algo')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero comer algo rico')">
                 <div class="item-icon" aria-hidden="true">🍌</div>
                 <h3>Comer</h3>
             </button>
@@ -742,35 +781,35 @@
                 <div class="item-icon" aria-hidden="true">🚽</div>
                 <h3>Baño</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito descansar')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito descansar un momento')">
                 <div class="item-icon" aria-hidden="true">🛏️</div>
                 <h3>Descansar</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito silencio')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito un poco de silencio')">
                 <div class="item-icon" aria-hidden="true">🤫</div>
                 <h3>Silencio</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero escuchar música')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero escuchar música linda')">
                 <div class="item-icon" aria-hidden="true">🎵</div>
                 <h3>Música</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero jugar con mi juguete')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero jugar con mi juguete favorito')">
                 <div class="item-icon" aria-hidden="true">🧸</div>
                 <h3>Juguete</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero salir a pasear')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero salir a pasear un ratito')">
                 <div class="item-icon" aria-hidden="true">🌳</div>
                 <h3>Pasear</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ayuda')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ayuda, por favor')">
                 <div class="item-icon" aria-hidden="true">🙋‍♂️</div>
                 <h3>Ayuda</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero un abrazo')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero dar un gran abrazo')">
                 <div class="item-icon" aria-hidden="true">🫂</div>
                 <h3>Abrazo</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Hay mucho ruido')">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Hay demasiado ruido por aquí')">
                 <div class="item-icon" aria-hidden="true">🙉</div>
                 <h3>Mucho ruido</h3>
             </button>
@@ -782,7 +821,7 @@
         <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Rutina con el Colegio integrado -->
+    <!-- Vista: Rutina Diaria Completa -->
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
         <div class="view-header">
             <div>
@@ -792,29 +831,74 @@
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="items-grid">
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar')">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar rico')">
                 <div class="item-icon" aria-hidden="true">🥣</div>
                 <h3>Desayunar</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Ir al colegio')">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse los dientes con cepillo y pasta')">
+                <div class="item-icon" aria-hidden="true">🪥</div>
+                <h3>Lavarse dientes</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Bañarse con agua calentita y jabón')">
+                <div class="item-icon" aria-hidden="true">🚿</div>
+                <h3>Bañarse</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Ir al colegio a aprender')">
                 <div class="item-icon" aria-hidden="true">🏫</div>
                 <h3>Ir al colegio</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Llegar a casa')">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Llegar a casa a descansar')">
                 <div class="item-icon" aria-hidden="true">🏠</div>
                 <h3>Llegar a casa</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse las manos')">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse las manos con agua y jabón')">
                 <div class="item-icon" aria-hidden="true">🧼</div>
                 <h3>Lavarse manos</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Comer rico')">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Comer rico y saludable')">
                 <div class="item-icon" aria-hidden="true">🍎</div>
                 <h3>Comer rico</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo')">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo y feliz')">
                 <div class="item-icon" aria-hidden="true">🧸</div>
                 <h3>Jugar tranquilo</h3>
+            </button>
+        </div>
+    </section>
+
+    <!-- Vista: Me visto y peino (Autonomía Personal) -->
+    <section id="autonomyView" class="view-section" aria-labelledby="autonomyHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
+                <p class="section-subtitle">Toca cada paso de autonomía cuando lo completes.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir la ropa limpia y cómoda')">
+                <div class="item-icon" aria-hidden="true">👕</div>
+                <h3>Elegir ropa</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse la ropa con calma y orden')">
+                <div class="item-icon" aria-hidden="true">👖</div>
+                <h3>Ponerse la ropa</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Colocarse los zapatos y abrocharlos')">
+                <div class="item-icon" aria-hidden="true">👟</div>
+                <h3>Zapatos</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Cepillar y peinar el cabello frente al espejo')">
+                <div class="item-icon" aria-hidden="true">💇‍♂️</div>
+                <h3>Peinarse</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse la cara con agua fresca')">
+                <div class="item-icon" aria-hidden="true">💧</div>
+                <h3>Lavarse la cara</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, '¡Listo y preparado para empezar el día!')">
+                <div class="item-icon" aria-hidden="true">🌟</div>
+                <h3>¡Todo listo!</h3>
             </button>
         </div>
     </section>
@@ -829,32 +913,32 @@
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectColorLearn('ROJO VIVO', 'Rojo intenso, como fuego y tomate')">
+            <button type="button" class="item-card" onclick="selectColorLearn('ROJO INTENSO', 'El rojo es un color muy vivo, como el fuego y los tomates frescos')">
                 <div class="item-icon" aria-hidden="true">🔥</div>
                 <h3>Rojo Intenso</h3>
                 <div style="width: 40px; height: 12px; background: #EF4444; border-radius: 6px; margin-top: 6px;"></div>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('AZUL ELÉCTRICO', 'Azul eléctrico brillante, como el cielo y el rayo')">
+            <button type="button" class="item-card" onclick="selectColorLearn('AZUL ELÉCTRICO', 'El azul eléctrico brilla muchísimo, como el cielo abierto y los rayos')">
                 <div class="item-icon" aria-hidden="true">⚡</div>
                 <h3>Azul Eléctrico</h3>
                 <div style="width: 40px; height: 12px; background: #3B82F6; border-radius: 6px; margin-top: 6px;"></div>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('AMARILLO BRILLANTE', 'Amarillo brillante, como el sol y el oro')">
+            <button type="button" class="item-card" onclick="selectColorLearn('AMARILLO SOL', 'El amarillo sol es brillante y alegre, como un día hermoso de verano')">
                 <div class="item-icon" aria-hidden="true">⭐</div>
                 <h3>Amarillo Sol</h3>
                 <div style="width: 40px; height: 12px; background: #EAB308; border-radius: 6px; margin-top: 6px;"></div>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('VERDE NEÓN', 'Verde neón brillante, como la hierba y el semáforo')">
+            <button type="button" class="item-card" onclick="selectColorLearn('VERDE NEÓN', 'El verde neón es muy llamativo, como la hierba fresca y los campos')">
                 <div class="item-icon" aria-hidden="true">🟢</div>
                 <h3>Verde Neón</h3>
                 <div style="width: 40px; height: 12px; background: #22C55E; border-radius: 6px; margin-top: 6px;"></div>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('NARANJA FUEGO', 'Naranja fuego, como el atardecer y la zanahoria')">
+            <button type="button" class="item-card" onclick="selectColorLearn('NARANJA FUEGO', 'El naranja fuego es cálido y brillante, como las ricas zanahorias')">
                 <div class="item-icon" aria-hidden="true">🦊</div>
                 <h3>Naranja Fuego</h3>
                 <div style="width: 40px; height: 12px; background: #F97316; border-radius: 6px; margin-top: 6px;"></div>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('VIOLETA MÁGICO', 'Violeta mágico, como la galaxia y la uva')">
+            <button type="button" class="item-card" onclick="selectColorLearn('VIOLETA MÁGICO', 'El violeta mágico es hermoso, como las uvas dulces y la gran galaxia')">
                 <div class="item-icon" aria-hidden="true">🌌</div>
                 <h3>Violeta Mágico</h3>
                 <div style="width: 40px; height: 12px; background: #A855F7; border-radius: 6px; margin-top: 6px;"></div>
@@ -863,11 +947,11 @@
         <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Mundo Animal Ampliado -->
+    <!-- Vista: Mundo Animal -->
     <section id="animalsView" class="view-section" aria-labelledby="animalsHeading">
         <div class="view-header">
             <div>
-                <h2 id="animalsHeading">Gran Mundo Animal</h2>
+                <h2 id="animalsHeading">Mundo Animal</h2>
                 <p class="section-subtitle">Explora animales por hábitat y sus sonidos naturales.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
@@ -885,7 +969,30 @@
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Números del 1 al 100 optimizados -->
+    <!-- Vista: Alimentos -->
+    <section id="foodView" class="view-section" aria-labelledby="foodHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="foodHeading">Frutas, Verduras, Carnes y Alimentos</h2>
+                <p class="section-subtitle">Toca un alimento para nombrarlo y aprender.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+
+        <div class="category-selector">
+            <button type="button" class="cat-btn active-cat" onclick="filterFood('all')">Todos</button>
+            <button type="button" class="cat-btn" onclick="filterFood('fruta')">Frutas</button>
+            <button type="button" class="cat-btn" onclick="filterFood('verdura')">Verduras</button>
+            <button type="button" class="cat-btn" onclick="filterFood('carne')">Carnes y Pollo</button>
+            <button type="button" class="cat-btn" onclick="filterFood('pescado')">Pescado</button>
+            <button type="button" class="cat-btn" onclick="filterFood('comida')">Platos</button>
+        </div>
+
+        <div class="items-grid" id="foodGrid"></div>
+        <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Vista: Números del 1 al 100 -->
     <section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
         <div class="view-header">
             <div>
@@ -907,7 +1014,7 @@
         <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
     </section>
 
-    <!-- Vista: Historias Visuales Ampliadas -->
+    <!-- Vista: Historias Visuales con Contexto Enriquecido -->
     <section id="storyView" class="view-section" aria-labelledby="storyHeading">
         <div class="view-header">
             <div>
@@ -918,17 +1025,17 @@
         </div>
         
         <div class="category-selector" role="group" aria-label="Elegir historia visual">
-            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🩺 Médico</button>
-            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar pelo</button>
-            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Dormir</button>
-            <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Supermercado</button>
-            <button type="button" class="cat-btn" id="tab-viaje" onclick="loadStory('viaje')">🚗 Viaje en auto</button>
+            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🩺 Ir al médico</button>
+            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar el pelo</button>
+            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Hora de dormir</button>
+            <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Ir al supermercado</button>
+            <button type="button" class="cat-btn" id="tab-viaje" onclick="loadStory('viaje')">🚗 Viaje en coche</button>
         </div>
 
         <div id="storyContent" class="items-grid"></div>
     </section>
 
-    <!-- Vista: Emociones Ampliadas -->
+    <!-- Vista: Emociones -->
     <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
         <div class="view-header">
             <div>
@@ -938,35 +1045,35 @@
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectEmotion('¡Qué alegría! Tu sonrisa ilumina el espacio.')">
+            <button type="button" class="item-card" onclick="selectEmotion('¡Qué alegría más linda! Tu sonrisa ilumina todo el espacio.')">
                 <div class="item-icon" aria-hidden="true">😊</div>
                 <h3>Feliz</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Estás en un lugar seguro y calmado.')">
+            <button type="button" class="item-card" onclick="selectEmotion('Estás en un lugar muy seguro, tranquilo y en paz.')">
                 <div class="item-icon" aria-hidden="true">😌</div>
                 <h3>Tranquilo</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('¡Cuánta energía y entusiasmo tienes hoy!')">
+            <button type="button" class="item-card" onclick="selectEmotion('¡Cuánta energía y entusiasmo tienes para hoy!')">
                 <div class="item-icon" aria-hidden="true">🤩</div>
                 <h3>Emocionado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Es momento de descansar un poquito.')">
+            <button type="button" class="item-card" onclick="selectEmotion('Es momento de descansar un poquito y recargar energías.')">
                 <div class="item-icon" aria-hidden="true">🥱</div>
                 <h3>Cansado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Tienes hambre. Vamos a buscar algo rico para comer.')">
+            <button type="button" class="item-card" onclick="selectEmotion('Sientes un poco de hambre. Vamos a buscar algo rico para comer juntos.')">
                 <div class="item-icon" aria-hidden="true">😋</div>
                 <h3>Hambriento</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Respiramos hondo. Todo está bien y va a pasar.')">
+            <button type="button" class="item-card" onclick="selectEmotion('Respiramos hondo y despacio. Todo está bien y va a pasar.')">
                 <div class="item-icon" aria-hidden="true">😣</div>
                 <h3>Enojado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Te acompaño con un abrazo cerquita. Todo pasa.')">
+            <button type="button" class="item-card" onclick="selectEmotion('Te acompaño cerquita con un abrazo muy fuerte. Todo pasa.')">
                 <div class="item-icon" aria-hidden="true">😢</div>
                 <h3>Triste</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('No pasa nada, estamos protegidos y seguros aquí.')">
+            <button type="button" class="item-card" onclick="selectEmotion('No te preocupes, estamos protegidos y seguros aquí.')">
                 <div class="item-icon" aria-hidden="true">😨</div>
                 <h3>Asustado</h3>
             </button>
@@ -1017,93 +1124,180 @@
         </div>
     </section>
 
-    <!-- Vista: Zona de Calma -->
+    <!-- Zona de Calma Adaptada TEA -->
     <section id="calmView" class="view-section" aria-labelledby="calmHeading">
         <div class="view-header">
             <div>
-                <h2 id="calmHeading">Zona de Calma</h2>
-                <p class="section-subtitle">Respira profundo al ritmo del círculo luminoso.</p>
+                <h2 id="calmHeading">Zona de Calma y Respiración</h2>
+                <p class="section-subtitle">Un espacio seguro para relajarnos paso a paso.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="calm-container">
-            <div class="breathing-circle" id="breathCircle">Respirar</div>
-            <div class="calm-text" id="breathInstruction">Inhala despacio... Exhala suave...</div>
+            <div class="calm-steps-preview">
+                <div class="calm-badge-step">1. Inhala (4s)</div>
+                <div class="calm-badge-step">2. Mantén (2s)</div>
+                <div class="calm-badge-step">3. Exhala (4s)</div>
+            </div>
+            <div class="breathing-box">
+                <div class="breathing-circle" id="breathCircle">
+                    <span id="breathPhaseText" style="font-size: 1.2rem; font-weight: 700;">Inhala</span>
+                    <span class="breath-number" id="breathTimer">4</span>
+                </div>
+            </div>
+            <div class="calm-text" id="breathInstruction">Toma aire despacio por la nariz...</div>
         </div>
     </section>
 
     <script>
-        let speechEnabled = false;
+        let speechEnabled = true;
+        let selectedVoice = null;
+        let calmInterval = null;
+
+        function loadVoices() {
+            if (!('speechSynthesis' in window)) return;
+            const voices = window.speechSynthesis.getVoices();
+            
+            selectedVoice = voices.find(v => v.lang.startsWith('es') && (
+                v.name.toLowerCase().includes('google español') || 
+                v.name.toLowerCase().includes('microsoft pablo') || 
+                v.name.toLowerCase().includes('microsoft helena') || 
+                v.name.toLowerCase().includes('es-es') ||
+                v.name.toLowerCase().includes('natural')
+            )) || voices.find(v => v.lang.startsWith('es-ES')) || voices.find(v => v.lang.startsWith('es')) || voices[0];
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+            loadVoices();
+        }
 
         const animalDatabase = [
-            { name: 'Perro', icon: '🐶', habitat: 'casa', sound: 'Guau guau' },
-            { name: 'Gato', icon: '🐱', habitat: 'casa', sound: 'Miau miau' },
-            { name: 'Loro', icon: '🦜', habitat: 'casa', sound: 'Hola hola' },
-            { name: 'Vaca', icon: '🐮', habitat: 'granja', sound: 'Muu' },
-            { name: 'Pato', icon: '🦆', habitat: 'granja', sound: 'Cua cua' },
-            { name: 'Oveja', icon: '🐑', habitat: 'granja', sound: 'Bee' },
-            { name: 'Caballo', icon: '🐴', habitat: 'granja', sound: 'Iiií' },
-            { name: 'Cerdo', icon: '🐷', habitat: 'granja', sound: 'Oinc oinc' },
-            { name: 'León', icon: '🦁', habitat: 'selva', sound: 'Roar' },
-            { name: 'Elefante', icon: '🐘', habitat: 'selva', sound: 'Prrr' },
-            { name: 'Mono', icon: '🐵', habitat: 'selva', sound: 'Uu uu aa aa' },
-            { name: 'Jirafa', icon: '🦒', habitat: 'selva', sound: 'Cuello largo' },
-            { name: 'Tigre', icon: '🐯', habitat: 'selva', sound: 'Grrr' },
-            { name: 'Pez', icon: '🐠', habitat: 'agua', sound: 'Glup glup' },
-            { name: 'Ballena', icon: '🐳', habitat: 'agua', sound: 'Fiuuu' },
-            { name: 'Delfín', icon: '🐬', habitat: 'agua', sound: 'Chik chik' },
-            { name: 'Tiburón', icon: '🦈', habitat: 'agua', sound: 'Navega' }
+            { name: 'Perro', gender: 'el', icon: '🐶', habitat: 'casa', action: 'el perro es un gran compañero en el hogar y hace guau guau' },
+            { name: 'Gato', gender: 'el', icon: '🐱', habitat: 'casa', action: 'el gato vive en el hogar y hace miau con cariño' },
+            { name: 'Loro', gender: 'el', icon: '🦜', habitat: 'casa', action: 'el loro vive en el hogar y repite palabras muy divertido' },
+            { name: 'Vaca', gender: 'la', icon: '🐮', habitat: 'granja', action: 'la vaca vive en el campo y hace muu' },
+            { name: 'Pato', gender: 'el', icon: '🦆', habitat: 'granja', action: 'el pato vive en la granja y nada haciendo cuac cuac' },
+            { name: 'Oveja', gender: 'la', icon: '🐑', habitat: 'granja', action: 'la oveja vive en el campo, tiene lana muy suave y hace bee' },
+            { name: 'Caballo', gender: 'el', icon: '🐴', habitat: 'granja', action: 'el caballo corre veloz por el campo haciendo iiii' },
+            { name: 'Cerdo', gender: 'el', icon: '🐷', habitat: 'granja', action: 'el cerdo vive feliz en la granja haciendo oinc oinc' },
+            { name: 'León', gender: 'el', icon: '🦁', habitat: 'selva', action: 'el león es el rey de la selva y ruge con fuerza' },
+            { name: 'Elefante', gender: 'el', icon: '🐘', habitat: 'selva', action: 'el elefante camina por la selva con su trompa larga' },
+            { name: 'Mono', gender: 'el', icon: '🐵', habitat: 'selva', action: 'el mono salta alegremente por los árboles de la selva' },
+            { name: 'Jirafa', gender: 'la', icon: '🦒', habitat: 'selva', action: 'la jirafa es un animal muy alto que camina por la selva' },
+            { name: 'Tigre', gender: 'el', icon: '🐯', habitat: 'selva', action: 'el tigre camina sigiloso por la selva con rayas hermosas' },
+            { name: 'Pez', gender: 'el', icon: '🐠', habitat: 'agua', action: 'el pez nada feliz y tranquilo bajo el agua' },
+            { name: 'Ballena', gender: 'la', icon: '🐳', habitat: 'agua', action: 'la ballena nada por el mar profundo y emite cantos graves' },
+            { name: 'Delfín', gender: 'el', icon: '🐬', habitat: 'agua', action: 'el delfín salta alegremente sobre las olas del agua' },
+            { name: 'Tiburón', gender: 'el', icon: '🦈', habitat: 'agua', action: 'el tiburón nada elegante y rápido por el mar' }
         ];
 
+        const foodDatabase = [
+            { name: 'Plátano', icon: '🍌', category: 'fruta', desc: 'Plátano dulce y rico' },
+            { name: 'Manzana', icon: '🍎', category: 'fruta', desc: 'Manzana roja crujiente' },
+            { name: 'Fresa', icon: '🍓', category: 'fruta', desc: 'Fresa dulce y roja' },
+            { name: 'Naranja', icon: '🍊', category: 'fruta', desc: 'Naranja jugosa' },
+            { name: 'Uvas', icon: '🍇', category: 'fruta', desc: 'Uvas dulces' },
+            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' },
+            { name: 'Melocotón', icon: '🍑', category: 'fruta', desc: 'Melocotón jugoso y suave' },
+            { name: 'Pera', icon: '🍐', category: 'fruta', desc: 'Pera jugosa y tierna' },
+            { name: 'Kiwi', icon: '🥝', category: 'fruta', desc: 'Kiwi verde lleno de vitaminas' },
+            { name: 'Piña', icon: '🍍', category: 'fruta', desc: 'Piña tropical muy refrescante' },
+            { name: 'Ciruela', icon: '🟣', category: 'fruta', desc: 'Ciruela dulce y jugosa' },
+            { name: 'Melón', icon: '🍈', category: 'fruta', desc: 'Melón fresco y dulce' },
+            { name: 'Zanahoria', icon: '🥕', category: 'verdura', desc: 'Zanahoria crujiente' },
+            { name: 'Brócoli', icon: '🥦', category: 'verdura', desc: 'Brócoli verde y sano' },
+            { name: 'Tomate', icon: '🍅', category: 'verdura', desc: 'Tomate rojo fresco' },
+            { name: 'Patata', icon: '🥔', category: 'verdura', desc: 'Patata nutritiva' },
+            { name: 'Maíz', icon: '🌽', category: 'verdura', desc: 'Maíz tierno y rico' },
+            { name: 'Calabacín', icon: '🥒', category: 'verdura', desc: 'Calabacín tierno y saludable' },
+            { name: 'Judías verdes', icon: '🟢', category: 'verdura', desc: 'Judías verdes sanas' },
+            { name: 'Lechuga', icon: '🥗', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
+            { name: 'Espinacas', icon: '🥬', category: 'verdura', desc: 'Espinacas llenas de energía' },
+            { name: 'Cebolla', icon: '🧅', category: 'verdura', desc: 'Cebolla fresca' },
+            { name: 'Ajo', icon: '🧄', category: 'verdura', desc: 'Ajo aromático' },
+            { name: 'Pechuga de pollo', icon: '🍗', category: 'carne', desc: 'Pechuga de pollo tierna y jugosa' },
+            { name: 'Carne de ternera', icon: '🥩', category: 'carne', desc: 'Filete de ternera nutritivo' },
+            { name: 'Lomo de cerdo', icon: '🥓', category: 'carne', desc: 'Lomo de cerdo sabroso' },
+            { name: 'Albóndigas', icon: '🧆', category: 'carne', desc: 'Albóndigas de carne caseras' },
+            { name: 'Salmón', icon: '🐟', category: 'pescado', desc: 'Filete de salmón fresco y rico' },
+            { name: 'Merluza', icon: '🐠', category: 'pescado', desc: 'Pescado blanco tierno y sano' },
+            { name: 'Atún', icon: '🍣', category: 'pescado', desc: 'Atún sabroso y nutritivo' },
+            { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan fresco del día' },
+            { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz calentito' },
+            { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta deliciosa' },
+            { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita' },
+            { name: 'Huevo', icon: '🍳', category: 'comida', desc: 'Huevo nutritivo' }
+        ];
+
+        /* Historias visuales con contexto enriquecido */
         const stories = {
             medico: [
-                { icon: '🚗', title: '1. Viaje al médico', text: 'Vamos en auto a ver al doctor para revisión general.' },
-                { icon: '🪑', title: '2. Sala de espera', text: 'Esperamos tranquilos con nuestro juguete favorito.' },
-                { icon: '🩺', title: '3. Revisión', text: 'El doctor ausculta el pecho y revisa la garganta.' },
-                { icon: '🏡', title: '4. Vuelta a casa', text: '¡Excelente trabajo! Regresamos a casa.' }
+                { icon: '🚗', title: '1. Viaje en coche', text: 'Subimos al coche y viajamos tranquilos para una revisión general de salud.' },
+                { icon: '🪑', title: '2. Sala de espera', text: 'Llegamos a la clínica, nos sentamos y esperamos con nuestro juguete favorito.' },
+                { icon: '🩺', title: '3. Revisión con el doctor', text: 'El doctor, muy amable, ausculta el pecho y revisa la garganta sin dolor.' },
+                { icon: '🏡', title: '4. Vuelta a casa', text: '¡Excelente trabajo! Ya podemos regresar a casa contentos a descansar.' }
             ],
             pelo: [
-                { icon: '💺', title: '1. Silla de barbero', text: 'Nos sentamos cómodos con la capa puesta.' },
-                { icon: '✂️', title: '2. Corte suave', text: 'Las tijeras cortan el cabello despacio.' },
-                { icon: '🪮', title: '3. Peinado final', text: '¡Quedamos listos y muy guapos!' }
+                { icon: '🚗', title: '1. Ir a la peluquería', text: 'Vamos de camino al salón para mantener nuestro cabello prolijo y cómodo.' },
+                { icon: '💺', title: '2. Silla y capa', text: 'Nos sentamos cómodos en el sillón y nos ponemos la capa protectora.' },
+                { icon: '✂️', title: '3. Corte suave', text: 'Las tijeras cortan el cabello despacio y con mucho cuidado.' },
+                { icon: '🌟', title: '4. ¡Terminamos!', text: '¡Quedamos listos, guapos y listos para volver a casa!' }
             ],
             dormir: [
-                { icon: '👕', title: '1. Pijama', text: 'Nos ponemos ropa cómoda para dormir.' },
-                { icon: '🪥', title: '2. Dientes', text: 'Cepillamos los dientes para dejarlos brillantes.' },
-                { icon: '🛏️', title: '3. Descanso', text: 'Apagamos la luz y dormimos plácidamente.' }
+                { icon: '👕', title: '1. Ponerse el pijama', text: 'Nos quitamos la ropa del día y nos ponemos el pijama suave y cómodo.' },
+                { icon: '🪥', title: '2. Cepillar dientes', text: 'Lavamos bien nuestros dientes para dejarlos limpios y brillantes.' },
+                { icon: '📖', title: '3. Cuento y luz baja', text: 'Leemos un cuento corto en la cama con una luz suave y tranquila.' },
+                { icon: '🌙', title: '4. Descanso total', text: 'Apagamos la luz y dormimos plácidamente toda la noche.' }
             ],
             super: [
-                { icon: '🛒', title: '1. Carrito', text: 'Entramos al supermercado y subimos al carrito.' },
-                { icon: '🍎', title: '2. Elegir comida', text: 'Buscamos frutas y alimentos ricos.' },
-                { icon: '💳', title: '3. Pagar y salir', text: 'Pasamos por caja y volvemos a casa.' }
+                { icon: '🛒', title: '1. Entrar al supermercado', text: 'Entramos al supermercado a hacer la compra y subimos al carrito.' },
+                { icon: '🍎', title: '2. Elegir alimentos', text: 'Buscamos juntos las frutas, verduras y alimentos ricos que necesitamos.' },
+                { icon: '💳', title: '3. Pasar por caja', text: 'Colocamos los productos en la cinta y pagamos con una sonrisa.' },
+                { icon: '🚗', title: '4. Regreso a casa', text: 'Guardamos las bolsas en el coche y volvemos felices a casa.' }
             ],
             viaje: [
-                { icon: '🎒', title: '1. Preparar bolso', text: 'Guardamos nuestras cosas favoritas en el bolso.' },
-                { icon: '🚗', title: '2. Cinturón', text: 'Subimos al auto y nos ponemos el cinturón de seguridad.' },
-                { icon: '🗺️', title: '3. Llegada', text: 'Disfrutamos el viaje y llegamos al destino.' }
+                { icon: '🎒', title: '1. Preparar mochila', text: 'Guardamos nuestras cosas favoritas y un juguete dentro de la mochila.' },
+                { icon: '🚗', title: '2. Cinturón de seguridad', text: 'Subimos al coche y nos abrochamos firmemente el cinturón.' },
+                { icon: '🗺️', title: '3. Disfrutar el viaje', text: 'Miramos por la ventanilla el paisaje mientras escuchamos música linda.' },
+                { icon: '🏁', title: '4. Llegada al destino', text: 'Llegamos al lugar de paseo y bajamos tranquilos.' }
             ]
         };
 
         window.onload = function() {
             renderAnimals('all');
+            renderFood('all');
             showNumberRange(1, 25);
             initVividColorsGame();
+            
+            setTimeout(() => {
+                speak("Hola Néstor, bienvenido a tu espacio");
+            }, 600);
         };
 
         function showView(viewId) {
             const mainMenu = document.getElementById('mainMenu');
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             
+            if (calmInterval) {
+                clearInterval(calmInterval);
+                calmInterval = null;
+            }
+
             if (viewId === 'mainMenu') {
                 mainMenu.classList.remove('hidden');
             } else {
                 mainMenu.classList.add('hidden');
                 const targetSection = document.getElementById(viewId);
                 targetSection.classList.add('active');
+                
                 const title = targetSection.querySelector('h2').innerText;
-                speak(title);
+                const subtitle = targetSection.querySelector('.section-subtitle').innerText;
+                speak(`${title}. ${subtitle}`);
+
                 if (viewId === 'storyView') loadStory('medico');
                 if (viewId === 'gameView') switchGameTab('colors');
+                if (viewId === 'calmView') startCalmBreathing();
             }
         }
 
@@ -1114,7 +1308,7 @@
             if (speechEnabled) {
                 btn.classList.add('active');
                 btn.innerText = '🗣️ Voz: Encendida';
-                speak('Voz encendida');
+                speak('Voz encendida y lista');
             } else {
                 btn.classList.remove('active');
                 btn.innerText = '🗣️ Voz: Apagada';
@@ -1123,12 +1317,68 @@
         }
 
         function speak(text) {
-            if (!speechEnabled) return;
+            if (!speechEnabled || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
-            utterance.rate = 0.85;
+            utterance.rate = 0.92;
+            utterance.pitch = 1.0;
+            
+            if (!selectedVoice) loadVoices();
+            if (selectedVoice) utterance.voice = selectedVoice;
+            
             window.speechSynthesis.speak(utterance);
+        }
+
+        function startCalmBreathing() {
+            const circle = document.getElementById('breathCircle');
+            const phaseText = document.getElementById('breathPhaseText');
+            const timerEl = document.getElementById('breathTimer');
+            const instruction = document.getElementById('breathInstruction');
+
+            let state = 0; 
+            let timeLeft = 4;
+
+            function runStep() {
+                if (state === 0) {
+                    phaseText.innerText = "Inhala";
+                    instruction.innerText = "Toma aire despacio por la nariz...";
+                    circle.style.transform = "scale(1.25)";
+                    timerEl.innerText = timeLeft;
+                    if (timeLeft === 4) speak("Inhala despacio");
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        state = 1;
+                        timeLeft = 2;
+                    }
+                } else if (state === 1) {
+                    phaseText.innerText = "Mantén";
+                    instruction.innerText = "Sostén el aire un momento sin forzar...";
+                    circle.style.transform = "scale(1.25)";
+                    timerEl.innerText = timeLeft;
+                    if (timeLeft === 2) speak("Mantén el aire");
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        state = 2;
+                        timeLeft = 4;
+                    }
+                } else if (state === 2) {
+                    phaseText.innerText = "Exhala";
+                    instruction.innerText = "Suelta el aire suavemente por la boca...";
+                    circle.style.transform = "scale(1)";
+                    timerEl.innerText = timeLeft;
+                    if (timeLeft === 4) speak("Exhala suave");
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        state = 0;
+                        timeLeft = 4;
+                    }
+                }
+            }
+
+            runStep();
+            if (calmInterval) clearInterval(calmInterval);
+            calmInterval = setInterval(runStep, 1000);
         }
 
         function selectNeed(element, phrase) {
@@ -1144,7 +1394,7 @@
             const isCompleted = element.classList.toggle('completed');
             element.setAttribute('aria-pressed', isCompleted);
             if (isCompleted) {
-                speak(text + ', completado');
+                speak(text + ', ¡excelente trabajo!');
             } else {
                 speak(text);
             }
@@ -1158,6 +1408,10 @@
         }
 
         function renderAnimals(filter) {
+            const banner = document.getElementById('animalBanner');
+            banner.style.display = 'none';
+            banner.innerText = '';
+
             const grid = document.getElementById('animalsGrid');
             grid.innerHTML = '';
             
@@ -1169,13 +1423,13 @@
             filtered.forEach(animal => {
                 const card = document.createElement('button');
                 card.type = 'button';
-                card.className = 'animal-card';
+                card.className = 'grid-card';
                 card.onclick = () => selectAnimal(animal);
                 card.innerHTML = `
-                    <span class="habitat-pill">${animal.habitat.toUpperCase()}</span>
+                    <span class="pill-badge">${animal.habitat.toUpperCase()}</span>
                     <div class="item-icon" aria-hidden="true">${animal.icon}</div>
                     <h3 style="color:#FFFFFF; font-size:1.2rem;">${animal.name}</h3>
-                    <span class="animal-sound-tag">${animal.sound}</span>
+                    <span class="card-tag">${animal.name}</span>
                 `;
                 grid.appendChild(card);
             });
@@ -1186,8 +1440,48 @@
         }
 
         function selectAnimal(animal) {
-            const text = `El ${animal.name.toLowerCase()} vive en la ${animal.habitat} y hace ${animal.sound.toLowerCase()}`;
+            const text = animal.action;
             const banner = document.getElementById('animalBanner');
+            banner.style.display = 'block';
+            banner.innerText = text;
+            speak(text);
+        }
+
+        function renderFood(filter) {
+            const banner = document.getElementById('foodBanner');
+            banner.style.display = 'none';
+            banner.innerText = '';
+
+            const grid = document.getElementById('foodGrid');
+            grid.innerHTML = '';
+            
+            document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
+            event && event.target && event.target.classList.add('active-cat');
+
+            const filtered = filter === 'all' ? foodDatabase : foodDatabase.filter(f => f.category === filter);
+
+            filtered.forEach(item => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'grid-card';
+                card.onclick = () => selectFoodItem(item);
+                card.innerHTML = `
+                    <span class="pill-badge">${item.category.toUpperCase()}</span>
+                    <div class="item-icon" aria-hidden="true">${item.icon}</div>
+                    <h3 style="color:#FFFFFF; font-size:1.2rem;">${item.name}</h3>
+                    <span class="card-tag">${item.desc}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterFood(category) {
+            renderFood(category);
+        }
+
+        function selectFoodItem(item) {
+            const text = `${item.name}. ${item.desc}`;
+            const banner = document.getElementById('foodBanner');
             banner.style.display = 'block';
             banner.innerText = text;
             speak(text);
@@ -1292,7 +1586,7 @@
             if (selectedName === target.name) {
                 feedback.style.color = '#22C55E';
                 feedback.innerText = '¡Excelente! Acertaste el color vivo 🌟';
-                speak('¡Excelente!');
+                speak('¡Excelente! Muy bien hecho');
                 currentVividIndex = (currentVividIndex + 1) % vividColors.length;
                 setTimeout(() => {
                     feedback.innerText = '';
@@ -1369,7 +1663,7 @@
             if (chosen.name === target1.name || chosen.name === target2.name) {
                 feedback.style.color = '#22C55E';
                 feedback.innerText = `¡Correcto! Encontraste al ${chosen.name} 🌟`;
-                speak(`¡Correcto! Era el ${chosen.name}`);
+                speak(`¡Correcto! Era ${chosen.gender === 'la' ? 'la' : 'el'} ${chosen.name}`);
                 setTimeout(initMemoryRound, 1800);
             } else {
                 feedback.style.color = '#38BDF8';
@@ -1380,7 +1674,7 @@
 
         const seriesPuzzles = [
             { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }] },
-            { seq: ['🍎', '🍌', '🍇', '🍎'], answer: { icon: '🍌', name: 'Banana' }, options: [{ icon: '🍌', name: 'Banana' }, { icon: '🍇', name: 'Uvas' }] },
+            { seq: ['🍎', '🍌', '🍇', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }] },
             { seq: ['⭐', '🌙', '⭐', '🌙'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }] }
         ];
         let currentSeriesIndex = 0;
