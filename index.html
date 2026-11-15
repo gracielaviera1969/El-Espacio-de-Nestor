@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El espacio de Néstor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --text-main: #F8FAFC;
+            --text-secondary: #94A3B8;
+
+            /* Colores Vivos y Vibrantes de Alto Contraste AAA */
+            --vivid-blue: #3B82F6;
+            --vivid-blue-bg: #1D4ED8;
+            --vivid-green: #22C55E;
+            --vivid-green-bg: #15803D;
+            --vivid-purple: #A855F7;
+            --vivid-purple-bg: #7E22CE;
+            --vivid-yellow: #EAB308;
+            --vivid-yellow-bg: #854D0E;
+            --vivid-orange: #F97316;
+            --vivid-orange-bg: #9A3412;
+            --vivid-pink: #EC4899;
+            --vivid-pink-bg: #9D174D;
+            --vivid-cyan: #06B6D4;
+            --vivid-cyan-bg: #0E7490;
+            --vivid-red: #EF4444;
+            --vivid-red-bg: #991B1B;
+
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* Cabecera vibrante */
+        header {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            background: var(--card-bg);
+            border: 3px solid #38BDF8;
+            padding: 20px 26px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 26px;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: var(--vivid-blue);
+            border: 3px solid #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #38BDF8;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .brand-sub {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .audio-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-control {
+            min-height: 50px;
+            background: #334155;
+            border: 3px solid #64748B;
+            padding: 12px 22px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s, background-color 0.15s;
+            color: #FFFFFF;
+        }
+
+        .btn-control:hover {
+            background: #475569;
+        }
+
+        button:focus-visible {
+            outline: 4px solid #38BDF8;
+            outline-offset: 3px;
+            box-shadow: 0 0 0 2px #0F172A;
+        }
+
+        .btn-control.active {
+            background: var(--vivid-green-bg);
+            border-color: var(--vivid-green);
+        }
+
+        /* Menú Principal */
+        .main-container {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .main-container.hidden {
+            display: none;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 26px 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 3px solid transparent;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        }
+
+        .module-tag {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 14px;
+            border-radius: 10px;
+            background: #0F172A;
+            border: 2px solid currentColor;
+            margin-bottom: 14px;
+        }
+
+        .module-card.orange { border-color: var(--vivid-orange); color: var(--vivid-orange); }
+        .module-card.blue { border-color: var(--vivid-blue); color: var(--vivid-blue); }
+        .module-card.pink { border-color: var(--vivid-pink); color: var(--vivid-pink); }
+        .module-card.yellow { border-color: var(--vivid-yellow); color: var(--vivid-yellow); }
+        .module-card.purple { border-color: var(--vivid-purple); color: var(--vivid-purple); }
+        .module-card.cyan { border-color: var(--vivid-cyan); color: var(--vivid-cyan); }
+        .module-card.green { border-color: var(--vivid-green); color: var(--vivid-green); }
+        .module-card.red { border-color: var(--vivid-red); color: var(--vivid-red); }
+
+        .module-icon-wrap {
+            width: 88px;
+            height: 88px;
+            border-radius: 22px;
+            background: #0F172A;
+            border: 3px solid currentColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            margin-bottom: 14px;
+        }
+
+        .module-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #FFFFFF;
+        }
+
+        .module-desc {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Vistas Internas */
+        .view-section {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            background: var(--card-bg);
+            border: 3px solid #334155;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        .view-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #334155;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .sub-heading {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #38BDF8;
+            margin: 28px 0 16px;
+        }
+
+        .back-btn {
+            min-height: 50px;
+            background: #334155;
+            border: 3px solid #64748B;
+            padding: 12px 22px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #FFFFFF;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+        }
+
+        /* Cuadrículas */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+        }
+
+        .item-card {
+            min-height: 145px;
+            background: #0F172A;
+            border: 3px solid #475569;
+            border-radius: 20px;
+            padding: 20px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.15s, background-color 0.15s;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .item-card:hover {
+            transform: scale(1.03);
+            border-color: var(--vivid-blue);
+            background: #1E293B;
+        }
+
+        .item-card.completed {
+            background: var(--vivid-green-bg);
+            border-color: var(--vivid-green);
+        }
+
+        .item-card.completed h3::after {
+            content: " ✓";
+        }
+
+        .item-card.selected-need {
+            background: var(--vivid-orange-bg);
+            border-color: var(--vivid-orange);
+        }
+
+        .item-icon {
+            font-size: 3.3rem;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        /* Selector de Categorías */
+        .category-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .cat-btn {
+            min-height: 48px;
+            background: #0F172A;
+            border: 3px solid #64748B;
+            padding: 10px 20px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #FFFFFF;
+        }
+
+        .cat-btn.active-cat {
+            background: var(--vivid-blue-bg);
+            border-color: var(--vivid-blue);
+        }
+
+        /* Tarjetas de Animales */
+        .animal-card {
+            background: #0F172A;
+            border: 3px solid var(--vivid-yellow);
+            border-radius: 20px;
+            padding: 18px 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.15s;
+        }
+
+        .animal-card:hover {
+            transform: scale(1.03);
+            background: #1E293B;
+        }
+
+        .habitat-pill {
+            font-size: 0.9rem;
+            font-weight: 700;
+            background: var(--vivid-yellow-bg);
+            color: #FDE047;
+            border: 2px solid var(--vivid-yellow);
+            padding: 3px 12px;
+            border-radius: 999px;
+        }
+
+        .animal-sound-tag {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            background: #1E293B;
+            border: 2px solid #64748B;
+            padding: 4px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+        }
+
+        /* Tablero de Números del 1 al 100 */
+        .numbers-container {
+            background: #0F172A;
+            border: 3px solid #334155;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .numbers-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+            justify-content: center;
+        }
+
+        .range-btn {
+            background: #334155;
+            border: 2px solid #64748B;
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .range-btn.active-range {
+            background: var(--vivid-cyan-bg);
+            border-color: var(--vivid-cyan);
+        }
+
+        .numbers-grid-100 {
+            display: grid;
+            grid-template-columns: repeat(10, minmax(45px, 1fr));
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .numbers-grid-100 {
+                grid-template-columns: repeat(5, minmax(45px, 1fr));
+            }
+        }
+
+        .num-box {
+            background: #1E293B;
+            border: 2px solid var(--vivid-blue);
+            border-radius: 12px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #FFFFFF;
+            transition: transform 0.1s, background-color 0.1s;
+        }
+
+        .num-box:hover {
+            transform: scale(1.1);
+            background: var(--vivid-blue-bg);
+        }
+
+        /* Banners de Feedback */
+        .feedback-banner {
+            margin-top: 24px;
+            padding: 20px 24px;
+            border-radius: 18px;
+            background: var(--vivid-blue-bg);
+            border: 3px solid var(--vivid-blue);
+            color: #FFFFFF;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            display: none;
+        }
+
+        .feedback-banner.orange-active { background: var(--vivid-orange-bg); border-color: var(--vivid-orange); }
+        .feedback-banner.pink-active { background: var(--vivid-pink-bg); border-color: var(--vivid-pink); }
+        .feedback-banner.yellow-active { background: var(--vivid-yellow-bg); border-color: var(--vivid-yellow); }
+        .feedback-banner.green-active { background: var(--vivid-green-bg); border-color: var(--vivid-green); }
+
+        /* Juegos */
+        .game-panel {
+            display: none;
+            text-align: center;
+            padding: 12px 0;
+        }
+
+        .game-panel.active-game {
+            display: block;
+        }
+
+        .game-prompt {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            background: var(--vivid-purple-bg);
+            border: 3px solid var(--vivid-purple);
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 18px;
+        }
+
+        .color-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-top: 30px;
+        }
+
+        .color-ball {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 4px solid #FFFFFF;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.15s;
+        }
+
+        .color-ball:hover {
+            transform: scale(1.1);
+        }
+
+        .sequence-board {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 26px 0;
+        }
+
+        .seq-slot {
+            width: 96px;
+            height: 96px;
+            border-radius: 20px;
+            background: #0F172A;
+            border: 3px solid #64748B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .seq-slot.mystery {
+            background: #581C87;
+            border: 4px dashed var(--vivid-purple);
+            color: #E9D5FF;
+        }
+
+        .choice-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .choice-btn {
+            min-width: 110px;
+            min-height: 100px;
+            border-radius: 20px;
+            background: #0F172A;
+            border: 3px solid var(--vivid-purple);
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 12px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #FFFFFF;
+            transition: transform 0.15s, background-color 0.15s;
+        }
+
+        .choice-btn:hover {
+            transform: scale(1.05);
+            background: var(--vivid-purple-bg);
+        }
+
+        .choice-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .game-feedback-text {
+            margin-top: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            min-height: 36px;
+            color: #FFFFFF;
+        }
+
+        /* Zona de Calma */
+        .calm-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .breathing-circle {
+            width: 190px;
+            height: 190px;
+            background: var(--vivid-blue-bg);
+            border: 4px solid var(--vivid-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+            animation: breathe 8s infinite ease-in-out;
+            margin-bottom: 36px;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
+            50% { transform: scale(1.32); box-shadow: 0 0 0 32px rgba(59, 130, 246, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        .calm-text {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #38BDF8;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-box">
+            <div class="brand-badge" aria-hidden="true">🚀</div>
+            <div>
+                <h1>El espacio de Néstor</h1>
+                <p class="brand-sub">Panel interactivo de alto contraste y colores vivos</p>
+            </div>
+        </div>
+        <div class="audio-controls">
+            <button type="button" class="btn-control" id="speechToggle" aria-pressed="false" onclick="toggleSpeech()">🗣️ Voz: Apagada</button>
+        </div>
+    </header>
+
+    <!-- Menú Principal -->
+    <main class="main-container" id="mainMenu">
+        <button type="button" class="module-card orange" onclick="showView('commView')">
+            <span class="module-tag">Comunicar</span>
+            <span class="module-icon-wrap" aria-hidden="true">💬</span>
+            <span class="module-title">QUIERO...</span>
+            <span class="module-desc">Tablero amplio de necesidades cotidianas.</span>
+        </button>
+
+        <button type="button" class="module-card blue" onclick="showView('routineView')">
+            <span class="module-tag">Orden</span>
+            <span class="module-icon-wrap" aria-hidden="true">📅</span>
+            <span class="module-title">MI RUTINA</span>
+            <span class="module-desc">Colegio y pasos del día en orden.</span>
+        </button>
+
+        <button type="button" class="module-card pink" onclick="showView('colorsLearnView')">
+            <span class="module-tag">Aprender</span>
+            <span class="module-icon-wrap" aria-hidden="true">🎨</span>
+            <span class="module-title">COLORES VIVOS</span>
+            <span class="module-desc">Explora colores de alta intensidad.</span>
+        </button>
+
+        <button type="button" class="module-card yellow" onclick="showView('animalsView')">
+            <span class="module-tag">Gran Zoo</span>
+            <span class="module-icon-wrap" aria-hidden="true">🦁</span>
+            <span class="module-title">MUNDO ANIMAL</span>
+            <span class="module-desc">Más animales y sus sonidos reales.</span>
+        </button>
+
+        <button type="button" class="module-card cyan" onclick="showView('numbers100View')">
+            <span class="module-tag">Contar Pro</span>
+            <span class="module-icon-wrap" aria-hidden="true">💯</span>
+            <span class="module-title">NÚMEROS AL 100</span>
+            <span class="module-desc">Tablero completo de conteo avanzado.</span>
+        </button>
+
+        <button type="button" class="module-card purple" onclick="showView('storyView')">
+            <span class="module-tag">Anticipar</span>
+            <span class="module-icon-wrap" aria-hidden="true">📖</span>
+            <span class="module-title">HISTORIAS</span>
+            <span class="module-desc">Paso a paso para las salidas y rutinas.</span>
+        </button>
+
+        <button type="button" class="module-card green" onclick="showView('emotionView')">
+            <span class="module-tag">Sentir</span>
+            <span class="module-icon-wrap" aria-hidden="true">💙</span>
+            <span class="module-title">¿CÓMO ESTOY?</span>
+            <span class="module-desc">Reconocimiento emocional extendido.</span>
+        </button>
+
+        <button type="button" class="module-card red" onclick="showView('gameView')">
+            <span class="module-tag">Retos Max</span>
+            <span class="module-icon-wrap" aria-hidden="true">⚡</span>
+            <span class="module-title">JUEGOS Y RETOS</span>
+            <span class="module-desc">Memoria avanzada y secuencias lógicas.</span>
+        </button>
+
+        <button type="button" class="module-card blue" onclick="showView('calmView')">
+            <span class="module-tag">Relajar</span>
+            <span class="module-icon-wrap" aria-hidden="true">🌿</span>
+            <span class="module-title">ZONA DE CALMA</span>
+            <span class="module-desc">Respiración guiada inmersiva.</span>
+        </button>
+    </main>
+
+    <!-- Vista: Tablero de Comunicación Ampliado ("Quiero...") -->
+    <section id="commView" class="view-section" aria-labelledby="commHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="commHeading">¿Qué necesito ahora?</h2>
+                <p class="section-subtitle">Toca el dibujo para mostrar o decir lo que quieres.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua')">
+                <div class="item-icon" aria-hidden="true">🥤</div>
+                <h3>Agua</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero comer algo')">
+                <div class="item-icon" aria-hidden="true">🍌</div>
+                <h3>Comer</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ir al baño')">
+                <div class="item-icon" aria-hidden="true">🚽</div>
+                <h3>Baño</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito descansar')">
+                <div class="item-icon" aria-hidden="true">🛏️</div>
+                <h3>Descansar</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito silencio')">
+                <div class="item-icon" aria-hidden="true">🤫</div>
+                <h3>Silencio</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero escuchar música')">
+                <div class="item-icon" aria-hidden="true">🎵</div>
+                <h3>Música</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero jugar con mi juguete')">
+                <div class="item-icon" aria-hidden="true">🧸</div>
+                <h3>Juguete</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero salir a pasear')">
+                <div class="item-icon" aria-hidden="true">🌳</div>
+                <h3>Pasear</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ayuda')">
+                <div class="item-icon" aria-hidden="true">🙋‍♂️</div>
+                <h3>Ayuda</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero un abrazo')">
+                <div class="item-icon" aria-hidden="true">🫂</div>
+                <h3>Abrazo</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Hay mucho ruido')">
+                <div class="item-icon" aria-hidden="true">🙉</div>
+                <h3>Mucho ruido</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ver mi dibujo favorito')">
+                <div class="item-icon" aria-hidden="true">📺</div>
+                <h3>Dibujos</h3>
+            </button>
+        </div>
+        <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Vista: Rutina con el Colegio integrado -->
+    <section id="routineView" class="view-section" aria-labelledby="routineHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="routineHeading">Mi Rutina Diaria</h2>
+                <p class="section-subtitle">Toca cada paso cuando lo termines.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar')">
+                <div class="item-icon" aria-hidden="true">🥣</div>
+                <h3>Desayunar</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Ir al colegio')">
+                <div class="item-icon" aria-hidden="true">🏫</div>
+                <h3>Ir al colegio</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Llegar a casa')">
+                <div class="item-icon" aria-hidden="true">🏠</div>
+                <h3>Llegar a casa</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse las manos')">
+                <div class="item-icon" aria-hidden="true">🧼</div>
+                <h3>Lavarse manos</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Comer rico')">
+                <div class="item-icon" aria-hidden="true">🍎</div>
+                <h3>Comer rico</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo')">
+                <div class="item-icon" aria-hidden="true">🧸</div>
+                <h3>Jugar tranquilo</h3>
+            </button>
+        </div>
+    </section>
+
+    <!-- Vista: Colores Vivos -->
+    <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="colorsLearnHeading">Explorador de Colores Vivos</h2>
+                <p class="section-subtitle">Toca un color para ver su intensidad y objetos.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" onclick="selectColorLearn('ROJO VIVO', 'Rojo intenso, como fuego y tomate')">
+                <div class="item-icon" aria-hidden="true">🔥</div>
+                <h3>Rojo Intenso</h3>
+                <div style="width: 40px; height: 12px; background: #EF4444; border-radius: 6px; margin-top: 6px;"></div>
+            </button>
+            <button type="button" class="item-card" onclick="selectColorLearn('AZUL ELÉCTRICO', 'Azul eléctrico brillante, como el cielo y el rayo')">
+                <div class="item-icon" aria-hidden="true">⚡</div>
+                <h3>Azul Eléctrico</h3>
+                <div style="width: 40px; height: 12px; background: #3B82F6; border-radius: 6px; margin-top: 6px;"></div>
+            </button>
+            <button type="button" class="item-card" onclick="selectColorLearn('AMARILLO BRILLANTE', 'Amarillo brillante, como el sol y el oro')">
+                <div class="item-icon" aria-hidden="true">⭐</div>
+                <h3>Amarillo Sol</h3>
+                <div style="width: 40px; height: 12px; background: #EAB308; border-radius: 6px; margin-top: 6px;"></div>
+            </button>
+            <button type="button" class="item-card" onclick="selectColorLearn('VERDE NEÓN', 'Verde neón brillante, como la hierba y el semáforo')">
+                <div class="item-icon" aria-hidden="true">🟢</div>
+                <h3>Verde Neón</h3>
+                <div style="width: 40px; height: 12px; background: #22C55E; border-radius: 6px; margin-top: 6px;"></div>
+            </button>
+            <button type="button" class="item-card" onclick="selectColorLearn('NARANJA FUEGO', 'Naranja fuego, como el atardecer y la zanahoria')">
+                <div class="item-icon" aria-hidden="true">🦊</div>
+                <h3>Naranja Fuego</h3>
+                <div style="width: 40px; height: 12px; background: #F97316; border-radius: 6px; margin-top: 6px;"></div>
+            </button>
+            <button type="button" class="item-card" onclick="selectColorLearn('VIOLETA MÁGICO', 'Violeta mágico, como la galaxia y la uva')">
+                <div class="item-icon" aria-hidden="true">🌌</div>
+                <h3>Violeta Mágico</h3>
+                <div style="width: 40px; height: 12px; background: #A855F7; border-radius: 6px; margin-top: 6px;"></div>
+            </button>
+        </div>
+        <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Vista: Mundo Animal Ampliado -->
+    <section id="animalsView" class="view-section" aria-labelledby="animalsHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="animalsHeading">Gran Mundo Animal</h2>
+                <p class="section-subtitle">Explora animales por hábitat y sus sonidos naturales.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+
+        <div class="category-selector">
+            <button type="button" class="cat-btn active-cat" onclick="filterAnimals('all')">Todos</button>
+            <button type="button" class="cat-btn" onclick="filterAnimals('casa')">Casa</button>
+            <button type="button" class="cat-btn" onclick="filterAnimals('granja')">Granja</button>
+            <button type="button" class="cat-btn" onclick="filterAnimals('selva')">Selva</button>
+            <button type="button" class="cat-btn" onclick="filterAnimals('agua')">Agua</button>
+        </div>
+
+        <div class="items-grid" id="animalsGrid"></div>
+        <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Vista: Números del 1 al 100 optimizados -->
+    <section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
+        <div class="view-header">
+            <div>
+                <h2 id="nums100Heading">Tablero de Números del 1 al 100</h2>
+                <p class="section-subtitle">Toca cualquier número para escucharlo.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="numbers-container">
+            <div class="numbers-toolbar">
+                <button type="button" class="range-btn active-range" onclick="showNumberRange(1, 25)">1 - 25</button>
+                <button type="button" class="range-btn" onclick="showNumberRange(26, 50)">26 - 50</button>
+                <button type="button" class="range-btn" onclick="showNumberRange(51, 75)">51 - 75</button>
+                <button type="button" class="range-btn" onclick="showNumberRange(76, 100)">76 - 100</button>
+                <button type="button" class="range-btn" onclick="showNumberRange(1, 100)" style="background:var(--vivid-blue-bg)">Ver Todos</button>
+            </div>
+            <div class="numbers-grid-100" id="numbersGrid100"></div>
+        </div>
+        <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
+    </section>
+
+    <!-- Vista: Historias Visuales Ampliadas -->
+    <section id="storyView" class="view-section" aria-labelledby="storyHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="storyHeading">Historias Visuales</h2>
+                <p class="section-subtitle">Elige una historia y toca cada paso para anticipar la salida.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        
+        <div class="category-selector" role="group" aria-label="Elegir historia visual">
+            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🩺 Médico</button>
+            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar pelo</button>
+            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Dormir</button>
+            <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Supermercado</button>
+            <button type="button" class="cat-btn" id="tab-viaje" onclick="loadStory('viaje')">🚗 Viaje en auto</button>
+        </div>
+
+        <div id="storyContent" class="items-grid"></div>
+    </section>
+
+    <!-- Vista: Emociones Ampliadas -->
+    <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="emotionHeading">¿Cómo me siento?</h2>
+                <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" onclick="selectEmotion('¡Qué alegría! Tu sonrisa ilumina el espacio.')">
+                <div class="item-icon" aria-hidden="true">😊</div>
+                <h3>Feliz</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('Estás en un lugar seguro y calmado.')">
+                <div class="item-icon" aria-hidden="true">😌</div>
+                <h3>Tranquilo</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('¡Cuánta energía y entusiasmo tienes hoy!')">
+                <div class="item-icon" aria-hidden="true">🤩</div>
+                <h3>Emocionado</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('Es momento de descansar un poquito.')">
+                <div class="item-icon" aria-hidden="true">🥱</div>
+                <h3>Cansado</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('Tienes hambre. Vamos a buscar algo rico para comer.')">
+                <div class="item-icon" aria-hidden="true">😋</div>
+                <h3>Hambriento</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('Respiramos hondo. Todo está bien y va a pasar.')">
+                <div class="item-icon" aria-hidden="true">😣</div>
+                <h3>Enojado</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('Te acompaño con un abrazo cerquita. Todo pasa.')">
+                <div class="item-icon" aria-hidden="true">😢</div>
+                <h3>Triste</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectEmotion('No pasa nada, estamos protegidos y seguros aquí.')">
+                <div class="item-icon" aria-hidden="true">😨</div>
+                <h3>Asustado</h3>
+            </button>
+        </div>
+        <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Vista: Juegos con Mayor Dificultad -->
+    <section id="gameView" class="view-section" aria-labelledby="gameHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
+                <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+
+        <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
+            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores Vivos (8 opciones)</button>
+            <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
+            <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
+        </div>
+
+        <!-- Juego 1: 8 Colores Vivos -->
+        <div id="panel-colors" class="game-panel active-game">
+            <h3 id="targetPrompt" class="game-prompt">Toca el círculo: AZUL ELÉCTRICO</h3>
+            <div class="color-options" id="vividColorOptions"></div>
+            <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- Juego 2: Memoria Avanzada -->
+        <div id="panel-memory" class="game-panel">
+            <h3 id="memoryPrompt" class="game-prompt">Memoriza estos 4 animales</h3>
+            <div class="sequence-board" id="memoryBoard"></div>
+            <div id="memoryActionArea">
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()">🙈 Esconder dos</button>
+            </div>
+            <div class="choice-row" id="memoryChoices" style="display: none;"></div>
+            <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- Juego 3: Series Complejas -->
+        <div id="panel-series" class="game-panel">
+            <h3 id="seriesPrompt" class="game-prompt">¿Qué elemento continúa la serie?</h3>
+            <div class="sequence-board" id="seriesBoard"></div>
+            <div class="choice-row" id="seriesChoices"></div>
+            <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
+    </section>
+
+    <!-- Vista: Zona de Calma -->
+    <section id="calmView" class="view-section" aria-labelledby="calmHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="calmHeading">Zona de Calma</h2>
+                <p class="section-subtitle">Respira profundo al ritmo del círculo luminoso.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="calm-container">
+            <div class="breathing-circle" id="breathCircle">Respirar</div>
+            <div class="calm-text" id="breathInstruction">Inhala despacio... Exhala suave...</div>
+        </div>
+    </section>
+
+    <script>
+        let speechEnabled = false;
+
+        const animalDatabase = [
+            { name: 'Perro', icon: '🐶', habitat: 'casa', sound: 'Guau guau' },
+            { name: 'Gato', icon: '🐱', habitat: 'casa', sound: 'Miau miau' },
+            { name: 'Loro', icon: '🦜', habitat: 'casa', sound: 'Hola hola' },
+            { name: 'Vaca', icon: '🐮', habitat: 'granja', sound: 'Muu' },
+            { name: 'Pato', icon: '🦆', habitat: 'granja', sound: 'Cua cua' },
+            { name: 'Oveja', icon: '🐑', habitat: 'granja', sound: 'Bee' },
+            { name: 'Caballo', icon: '🐴', habitat: 'granja', sound: 'Iiií' },
+            { name: 'Cerdo', icon: '🐷', habitat: 'granja', sound: 'Oinc oinc' },
+            { name: 'León', icon: '🦁', habitat: 'selva', sound: 'Roar' },
+            { name: 'Elefante', icon: '🐘', habitat: 'selva', sound: 'Prrr' },
+            { name: 'Mono', icon: '🐵', habitat: 'selva', sound: 'Uu uu aa aa' },
+            { name: 'Jirafa', icon: '🦒', habitat: 'selva', sound: 'Cuello largo' },
+            { name: 'Tigre', icon: '🐯', habitat: 'selva', sound: 'Grrr' },
+            { name: 'Pez', icon: '🐠', habitat: 'agua', sound: 'Glup glup' },
+            { name: 'Ballena', icon: '🐳', habitat: 'agua', sound: 'Fiuuu' },
+            { name: 'Delfín', icon: '🐬', habitat: 'agua', sound: 'Chik chik' },
+            { name: 'Tiburón', icon: '🦈', habitat: 'agua', sound: 'Navega' }
+        ];
+
+        const stories = {
+            medico: [
+                { icon: '🚗', title: '1. Viaje al médico', text: 'Vamos en auto a ver al doctor para revisión general.' },
+                { icon: '🪑', title: '2. Sala de espera', text: 'Esperamos tranquilos con nuestro juguete favorito.' },
+                { icon: '🩺', title: '3. Revisión', text: 'El doctor ausculta el pecho y revisa la garganta.' },
+                { icon: '🏡', title: '4. Vuelta a casa', text: '¡Excelente trabajo! Regresamos a casa.' }
+            ],
+            pelo: [
+                { icon: '💺', title: '1. Silla de barbero', text: 'Nos sentamos cómodos con la capa puesta.' },
+                { icon: '✂️', title: '2. Corte suave', text: 'Las tijeras cortan el cabello despacio.' },
+                { icon: '🪮', title: '3. Peinado final', text: '¡Quedamos listos y muy guapos!' }
+            ],
+            dormir: [
+                { icon: '👕', title: '1. Pijama', text: 'Nos ponemos ropa cómoda para dormir.' },
+                { icon: '🪥', title: '2. Dientes', text: 'Cepillamos los dientes para dejarlos brillantes.' },
+                { icon: '🛏️', title: '3. Descanso', text: 'Apagamos la luz y dormimos plácidamente.' }
+            ],
+            super: [
+                { icon: '🛒', title: '1. Carrito', text: 'Entramos al supermercado y subimos al carrito.' },
+                { icon: '🍎', title: '2. Elegir comida', text: 'Buscamos frutas y alimentos ricos.' },
+                { icon: '💳', title: '3. Pagar y salir', text: 'Pasamos por caja y volvemos a casa.' }
+            ],
+            viaje: [
+                { icon: '🎒', title: '1. Preparar bolso', text: 'Guardamos nuestras cosas favoritas en el bolso.' },
+                { icon: '🚗', title: '2. Cinturón', text: 'Subimos al auto y nos ponemos el cinturón de seguridad.' },
+                { icon: '🗺️', title: '3. Llegada', text: 'Disfrutamos el viaje y llegamos al destino.' }
+            ]
+        };
+
+        window.onload = function() {
+            renderAnimals('all');
+            showNumberRange(1, 25);
+            initVividColorsGame();
+        };
+
+        function showView(viewId) {
+            const mainMenu = document.getElementById('mainMenu');
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            
+            if (viewId === 'mainMenu') {
+                mainMenu.classList.remove('hidden');
+            } else {
+                mainMenu.classList.add('hidden');
+                const targetSection = document.getElementById(viewId);
+                targetSection.classList.add('active');
+                const title = targetSection.querySelector('h2').innerText;
+                speak(title);
+                if (viewId === 'storyView') loadStory('medico');
+                if (viewId === 'gameView') switchGameTab('colors');
+            }
+        }
+
+        function toggleSpeech() {
+            speechEnabled = !speechEnabled;
+            const btn = document.getElementById('speechToggle');
+            btn.setAttribute('aria-pressed', speechEnabled);
+            if (speechEnabled) {
+                btn.classList.add('active');
+                btn.innerText = '🗣️ Voz: Encendida';
+                speak('Voz encendida');
+            } else {
+                btn.classList.remove('active');
+                btn.innerText = '🗣️ Voz: Apagada';
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        function speak(text) {
+            if (!speechEnabled) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.85;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function selectNeed(element, phrase) {
+            document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
+            element.classList.add('selected-need');
+            const banner = document.getElementById('needBanner');
+            banner.style.display = 'block';
+            banner.innerText = phrase;
+            speak(phrase);
+        }
+
+        function toggleRoutine(element, text) {
+            const isCompleted = element.classList.toggle('completed');
+            element.setAttribute('aria-pressed', isCompleted);
+            if (isCompleted) {
+                speak(text + ', completado');
+            } else {
+                speak(text);
+            }
+        }
+
+        function selectColorLearn(name, description) {
+            const banner = document.getElementById('colorLearnBanner');
+            banner.style.display = 'block';
+            banner.innerText = `${name}: ${description}`;
+            speak(description);
+        }
+
+        function renderAnimals(filter) {
+            const grid = document.getElementById('animalsGrid');
+            grid.innerHTML = '';
+            
+            document.querySelectorAll('#animalsView .cat-btn').forEach(b => b.classList.remove('active-cat'));
+            event && event.target && event.target.classList.add('active-cat');
+
+            const filtered = filter === 'all' ? animalDatabase : animalDatabase.filter(a => a.habitat === filter);
+
+            filtered.forEach(animal => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'animal-card';
+                card.onclick = () => selectAnimal(animal);
+                card.innerHTML = `
+                    <span class="habitat-pill">${animal.habitat.toUpperCase()}</span>
+                    <div class="item-icon" aria-hidden="true">${animal.icon}</div>
+                    <h3 style="color:#FFFFFF; font-size:1.2rem;">${animal.name}</h3>
+                    <span class="animal-sound-tag">${animal.sound}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterAnimals(habitat) {
+            renderAnimals(habitat);
+        }
+
+        function selectAnimal(animal) {
+            const text = `El ${animal.name.toLowerCase()} vive en la ${animal.habitat} y hace ${animal.sound.toLowerCase()}`;
+            const banner = document.getElementById('animalBanner');
+            banner.style.display = 'block';
+            banner.innerText = text;
+            speak(text);
+        }
+
+        function showNumberRange(start, end) {
+            document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active-range'));
+            event && event.target && event.target.classList.add('active-range');
+
+            const grid = document.getElementById('numbersGrid100');
+            grid.innerHTML = '';
+            for (let i = start; i <= end; i++) {
+                const box = document.createElement('button');
+                box.type = 'button';
+                box.className = 'num-box';
+                box.onclick = () => {
+                    const banner = document.getElementById('num100Banner');
+                    banner.style.display = 'block';
+                    banner.innerText = `Número ${i}`;
+                    speak(`Número ${i}`);
+                };
+                box.innerHTML = `<span>${i}</span>`;
+                grid.appendChild(box);
+            }
+        }
+
+        function loadStory(storyKey) {
+            document.querySelectorAll('#storyView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+            document.getElementById(`tab-${storyKey}`).classList.add('active-cat');
+
+            const container = document.getElementById('storyContent');
+            container.innerHTML = '';
+            stories[storyKey].forEach(step => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'item-card';
+                card.onclick = () => speak(`${step.title}. ${step.text}`);
+                card.innerHTML = `
+                    <span style="background:#38BDF8; color:#0F172A; padding:4px 10px; border-radius:8px; font-weight:700; margin-bottom:8px; font-size:0.9rem;">${step.title}</span>
+                    <div class="item-icon" aria-hidden="true">${step.icon}</div>
+                    <p style="font-size:1rem; font-weight:600; color:#FFFFFF; margin-top:6px;">${step.text}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectEmotion(message) {
+            const box = document.getElementById('emotionMessage');
+            box.style.display = 'block';
+            box.innerText = message;
+            speak(message);
+        }
+
+        function switchGameTab(gameKey) {
+            document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+            document.getElementById(`gtab-${gameKey}`).classList.add('active-cat');
+
+            document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
+            document.getElementById(`panel-${gameKey}`).classList.add('active-game');
+
+            if (gameKey === 'colors') initVividColorsGame();
+            if (gameKey === 'memory') initMemoryRound();
+            if (gameKey === 'series') initSeriesRound();
+        }
+
+        const vividColors = [
+            { name: 'ROJO FUEGO', hex: '#EF4444' },
+            { name: 'AZUL ELÉCTRICO', hex: '#3B82F6' },
+            { name: 'AMARILLO SOL', hex: '#EAB308' },
+            { name: 'VERDE NEÓN', hex: '#22C55E' },
+            { name: 'NARANJA BRILLANTE', hex: '#F97316' },
+            { name: 'VIOLETA MÁGICO', hex: '#A855F7' },
+            { name: 'ROSA INTENSO', hex: '#EC4899' },
+            { name: 'CIAN PURO', hex: '#06B6D4' }
+        ];
+        let currentVividIndex = 0;
+
+        function initVividColorsGame() {
+            const container = document.getElementById('vividColorOptions');
+            container.innerHTML = '';
+            vividColors.forEach(c => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'color-ball';
+                btn.style.backgroundColor = c.hex;
+                btn.setAttribute('aria-label', c.name);
+                btn.onclick = () => checkVividColor(c.name);
+                container.appendChild(btn);
+            });
+            updateVividPrompt();
+        }
+
+        function updateVividPrompt() {
+            const target = vividColors[currentVividIndex];
+            document.getElementById('targetPrompt').innerText = `Toca el círculo: ${target.name}`;
+            speak(`Toca el círculo ${target.name}`);
+        }
+
+        function checkVividColor(selectedName) {
+            const target = vividColors[currentVividIndex];
+            const feedback = document.getElementById('gameFeedback');
+            if (selectedName === target.name) {
+                feedback.style.color = '#22C55E';
+                feedback.innerText = '¡Excelente! Acertaste el color vivo 🌟';
+                speak('¡Excelente!');
+                currentVividIndex = (currentVividIndex + 1) % vividColors.length;
+                setTimeout(() => {
+                    feedback.innerText = '';
+                    updateVividPrompt();
+                }, 1400);
+            } else {
+                feedback.style.color = '#38BDF8';
+                feedback.innerText = 'Inténtalo otra vez con calma';
+                speak('Inténtalo otra vez con calma');
+            }
+        }
+
+        let memorySet = [];
+        let hiddenIndices = [];
+
+        function initMemoryRound() {
+            const shuffled = [...animalDatabase].sort(() => Math.random() - 0.5);
+            memorySet = shuffled.slice(0, 4);
+            hiddenIndices = [1, 3];
+
+            document.getElementById('memoryPrompt').innerText = 'Memoriza estos 4 animales';
+            document.getElementById('memoryFeedback').innerText = '';
+            document.getElementById('memoryActionArea').style.display = 'block';
+            document.getElementById('memoryChoices').style.display = 'none';
+
+            const board = document.getElementById('memoryBoard');
+            board.innerHTML = '';
+            memorySet.forEach(item => {
+                const slot = document.createElement('div');
+                slot.className = 'seq-slot';
+                slot.innerText = item.icon;
+                board.appendChild(slot);
+            });
+        }
+
+        function hideTwoAnimals() {
+            document.getElementById('memoryPrompt').innerText = '¿Qué animales se escondieron?';
+            speak('¿Qué animales se escondieron?');
+            document.getElementById('memoryActionArea').style.display = 'none';
+
+            const board = document.getElementById('memoryBoard');
+            board.innerHTML = '';
+            memorySet.forEach((item, idx) => {
+                const slot = document.createElement('div');
+                if (hiddenIndices.includes(idx)) {
+                    slot.className = 'seq-slot mystery';
+                    slot.innerText = '?';
+                } else {
+                    slot.className = 'seq-slot';
+                    slot.innerText = item.icon;
+                }
+                board.appendChild(slot);
+            });
+
+            const choicesDiv = document.getElementById('memoryChoices');
+            choicesDiv.innerHTML = '';
+            choicesDiv.style.display = 'flex';
+            
+            const options = [memorySet[hiddenIndices[0]], memorySet[hiddenIndices[1]], animalDatabase[5], animalDatabase[8]].sort(() => Math.random() - 0.5);
+            options.forEach(item => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'choice-btn';
+                btn.onclick = () => checkMemoryChoice(item);
+                btn.innerHTML = `<span aria-hidden="true">${item.icon}</span><span class="choice-label">${item.name}</span>`;
+                choicesDiv.appendChild(btn);
+            });
+        }
+
+        function checkMemoryChoice(chosen) {
+            const target1 = memorySet[hiddenIndices[0]];
+            const target2 = memorySet[hiddenIndices[1]];
+            const feedback = document.getElementById('memoryFeedback');
+            if (chosen.name === target1.name || chosen.name === target2.name) {
+                feedback.style.color = '#22C55E';
+                feedback.innerText = `¡Correcto! Encontraste al ${chosen.name} 🌟`;
+                speak(`¡Correcto! Era el ${chosen.name}`);
+                setTimeout(initMemoryRound, 1800);
+            } else {
+                feedback.style.color = '#38BDF8';
+                feedback.innerText = 'Prueba con otro animal';
+                speak('Prueba con otro animal');
+            }
+        }
+
+        const seriesPuzzles = [
+            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }] },
+            { seq: ['🍎', '🍌', '🍇', '🍎'], answer: { icon: '🍌', name: 'Banana' }, options: [{ icon: '🍌', name: 'Banana' }, { icon: '🍇', name: 'Uvas' }] },
+            { seq: ['⭐', '🌙', '⭐', '🌙'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }] }
+        ];
+        let currentSeriesIndex = 0;
+
+        function initSeriesRound() {
+            const puzzle = seriesPuzzles[currentSeriesIndex];
+            document.getElementById('seriesFeedback').innerText = '';
+            const board = document.getElementById('seriesBoard');
+            board.innerHTML = '';
+
+            puzzle.seq.forEach(emoji => {
+                const slot = document.createElement('div');
+                slot.className = 'seq-slot';
+                slot.innerText = emoji;
+                board.appendChild(slot);
+            });
+
+            const mysterySlot = document.createElement('div');
+            mysterySlot.className = 'seq-slot mystery';
+            mysterySlot.innerText = '?';
+            board.appendChild(mysterySlot);
+
+            const choicesDiv = document.getElementById('seriesChoices');
+            choicesDiv.innerHTML = '';
+            puzzle.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'choice-btn';
+                btn.onclick = () => checkSeriesChoice(opt);
+                btn.innerHTML = `<span aria-hidden="true">${opt.icon}</span><span class="choice-label">${opt.name}</span>`;
+                choicesDiv.appendChild(btn);
+            });
+        }
+
+        function checkSeriesChoice(chosen) {
+            const puzzle = seriesPuzzles[currentSeriesIndex];
+            const feedback = document.getElementById('seriesFeedback');
+            if (chosen.name === puzzle.answer.name) {
+                feedback.style.color = '#22C55E';
+                feedback.innerText = `¡Perfecto! Continuaba ${puzzle.answer.name} 🌟`;
+                speak(`¡Perfecto! Continuaba ${puzzle.answer.name}`);
+                currentSeriesIndex = (currentSeriesIndex + 1) % seriesPuzzles.length;
+                setTimeout(initSeriesRound, 1600);
+            } else {
+                feedback.style.color = '#38BDF8';
+                feedback.innerText = 'Mira la secuencia y prueba otra opción';
+                speak('Mira la secuencia y prueba otra opción');
+            }
+        }
+    </script>
+</body>
+</html>
