@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El espacio de Néstor</title>
+    <title>El Espacio de Néstor</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,7 +12,7 @@
             --text-main: #F8FAFC;
             --text-secondary: #94A3B8;
 
-            /* Colores Vivos y Vibrantes de Alto Contraste AAA */
+            /* Colores Vivos y de Alto Contraste AAA */
             --vivid-blue: #3B82F6;
             --vivid-blue-bg: #1D4ED8;
             --vivid-green: #22C55E;
@@ -380,6 +380,7 @@
             border: 2px solid var(--vivid-yellow);
             padding: 3px 12px;
             border-radius: 999px;
+            display: none;
         }
 
         .card-tag {
@@ -662,15 +663,33 @@
             border-radius: 16px;
             max-width: 500px;
         }
+
+        /* Pie de página profesional */
+        footer {
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            border-top: 2px solid #334155;
+            margin-top: auto;
+        }
+
+        footer span {
+            color: #38BDF8;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="brand-box">
-            <div class="brand-badge" aria-hidden="true">🚀</div>
+            <div class="brand-badge" aria-hidden="true">👦</div>
             <div>
-                <h1>El espacio de Néstor</h1>
+                <h1>El Espacio de Néstor</h1>
                 <p class="brand-sub">Panel interactivo</p>
             </div>
         </div>
@@ -681,6 +700,20 @@
 
     <!-- Menú Principal -->
     <main class="main-container" id="mainMenu">
+        <button type="button" class="module-card blue" onclick="showView('routineView')">
+            <span class="module-tag">Orden</span>
+            <span class="module-icon-wrap" aria-hidden="true">📅</span>
+            <span class="module-title">MI RUTINA</span>
+            <span class="module-desc">Colegio y actividades del día en orden.</span>
+        </button>
+
+        <button type="button" class="module-card cyan" onclick="showView('autonomyView')">
+            <span class="module-tag">Independencia</span>
+            <span class="module-icon-wrap" aria-hidden="true">👕</span>
+            <span class="module-title">ME VISTO Y PEINO</span>
+            <span class="module-desc">Acciones para vestirme y arreglarme solo.</span>
+        </button>
+
         <button type="button" class="module-card orange" onclick="showView('commView')">
             <span class="module-tag">Comunicar</span>
             <span class="module-icon-wrap" aria-hidden="true">💬</span>
@@ -688,29 +721,29 @@
             <span class="module-desc">Tablero amplio de necesidades cotidianas.</span>
         </button>
 
-        <button type="button" class="module-card blue" onclick="showView('routineView')">
-            <span class="module-tag">Orden</span>
-            <span class="module-icon-wrap" aria-hidden="true">📅</span>
-            <span class="module-title">MI RUTINA</span>
-            <span class="module-desc">Colegio y pasos del día en orden.</span>
+        <button type="button" class="module-card purple" onclick="showView('storyView')">
+            <span class="module-tag">Anticipar</span>
+            <span class="module-icon-wrap" aria-hidden="true">📖</span>
+            <span class="module-title">HISTORIAS</span>
+            <span class="module-desc">Relatos visuales para anticipar las salidas.</span>
         </button>
 
-        <button type="button" class="module-card cyan" onclick="showView('autonomyView')">
-            <span class="module-tag">Independencia</span>
-            <span class="module-icon-wrap" aria-hidden="true">👕</span>
-            <span class="module-title">ME VISTO Y PEINO</span>
-            <span class="module-desc">Pasos para vestirme y arreglarme solo.</span>
+        <button type="button" class="module-card green" onclick="showView('parkView')">
+            <span class="module-tag">Diversión</span>
+            <span class="module-icon-wrap" aria-hidden="true">🛝</span>
+            <span class="module-title">EL PARQUE</span>
+            <span class="module-desc">Juegos al aire libre, correr y amigos.</span>
         </button>
 
         <button type="button" class="module-card pink" onclick="showView('colorsLearnView')">
             <span class="module-tag">Aprender</span>
             <span class="module-icon-wrap" aria-hidden="true">🎨</span>
-            <span class="module-title">COLORES VIVOS</span>
-            <span class="module-desc">Explora colores de alta intensidad.</span>
+            <span class="module-title">COLORES</span>
+            <span class="module-desc">Explora colores comunes y vivos.</span>
         </button>
 
         <button type="button" class="module-card yellow" onclick="showView('animalsView')">
-            <span class="module-tag">Gran Zoo</span>
+            <span class="module-tag">Animales</span>
             <span class="module-icon-wrap" aria-hidden="true">🦁</span>
             <span class="module-title">ANIMALES</span>
             <span class="module-desc">Animales y sus sonidos reales.</span>
@@ -724,28 +757,14 @@
         </button>
 
         <button type="button" class="module-card cyan" onclick="showView('numbers100View')">
-            <span class="module-tag">Contar Pro</span>
+            <span class="module-tag">Contar</span>
             <span class="module-icon-wrap" aria-hidden="true">💯</span>
             <span class="module-title">NÚMEROS AL 100</span>
             <span class="module-desc">Tablero completo de conteo avanzado.</span>
         </button>
 
-        <button type="button" class="module-card purple" onclick="showView('storyView')">
-            <span class="module-tag">Anticipar</span>
-            <span class="module-icon-wrap" aria-hidden="true">📖</span>
-            <span class="module-title">HISTORIAS</span>
-            <span class="module-desc">Paso a paso para las salidas y rutinas.</span>
-        </button>
-
-        <button type="button" class="module-card green" onclick="showView('emotionView')">
-            <span class="module-tag">Sentir</span>
-            <span class="module-icon-wrap" aria-hidden="true">💙</span>
-            <span class="module-title">¿CÓMO ESTOY?</span>
-            <span class="module-desc">Reconocimiento emocional extendido.</span>
-        </button>
-
         <button type="button" class="module-card red" onclick="showView('gameView')">
-            <span class="module-tag">Retos Max</span>
+            <span class="module-tag">Retos</span>
             <span class="module-icon-wrap" aria-hidden="true">⚡</span>
             <span class="module-title">JUEGOS Y RETOS</span>
             <span class="module-desc">Memoria avanzada y secuencias lógicas.</span>
@@ -757,9 +776,16 @@
             <span class="module-title">ZONA DE CALMA</span>
             <span class="module-desc">Respiración guiada inmersiva.</span>
         </button>
+
+        <button type="button" class="module-card green" onclick="showView('emotionView')">
+            <span class="module-tag">Sentir</span>
+            <span class="module-icon-wrap" aria-hidden="true">💙</span>
+            <span class="module-title">¿CÓMO ESTOY?</span>
+            <span class="module-desc">Reconocimiento emocional extendido.</span>
+        </button>
     </main>
 
-    <!-- Vista: Tablero de Comunicación Ampliado ("Quiero...") -->
+    <!-- Vista: Tablero de Comunicación ("Quiero...") -->
     <section id="commView" class="view-section" aria-labelledby="commHeading">
         <div class="view-header">
             <div>
@@ -821,12 +847,12 @@
         <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Rutina Diaria Completa -->
+    <!-- Vista: Rutina Diaria -->
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
         <div class="view-header">
             <div>
                 <h2 id="routineHeading">Mi Rutina Diaria</h2>
-                <p class="section-subtitle">Toca cada paso cuando lo termines.</p>
+                <p class="section-subtitle">Toca cada actividad cuando la termines.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
@@ -866,12 +892,12 @@
         </div>
     </section>
 
-    <!-- Vista: Me visto y peino (Autonomía Personal) -->
+    <!-- Vista: Me visto y peino -->
     <section id="autonomyView" class="view-section" aria-labelledby="autonomyHeading">
         <div class="view-header">
             <div>
                 <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
-                <p class="section-subtitle">Toca cada paso de autonomía cuando lo completes.</p>
+                <p class="section-subtitle">Toca cada acción cuando la completes.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
@@ -903,47 +929,140 @@
         </div>
     </section>
 
-    <!-- Vista: Colores Vivos -->
-    <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
+    <!-- Vista: El Parque -->
+    <section id="parkView" class="view-section" aria-labelledby="parkHeading">
         <div class="view-header">
             <div>
-                <h2 id="colorsLearnHeading">Explorador de Colores Vivos</h2>
-                <p class="section-subtitle">Toca un color para ver su intensidad y objetos.</p>
+                <h2 id="parkHeading">¿Qué hacemos en el parque?</h2>
+                <p class="section-subtitle">Toca cada actividad para escucharla y disfrutar al aire libre.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectColorLearn('ROJO INTENSO', 'El rojo es un color muy vivo, como el fuego y los tomates frescos')">
-                <div class="item-icon" aria-hidden="true">🔥</div>
-                <h3>Rojo Intenso</h3>
-                <div style="width: 40px; height: 12px; background: #EF4444; border-radius: 6px; margin-top: 6px;"></div>
+            <button type="button" class="item-card" onclick="selectParkActivity('Me subo al columpio y voy despacio hacia adelante y hacia atrás')">
+                <div class="item-icon" aria-hidden="true">
+                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 56L22 10H42L52 56" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="16" y1="10" x2="48" y2="10" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+                        <line x1="26" y1="10" x2="26" y2="39" stroke="#F8FAFC" stroke-width="3" stroke-dasharray="3 2"/>
+                        <line x1="38" y1="10" x2="38" y2="39" stroke="#F8FAFC" stroke-width="3" stroke-dasharray="3 2"/>
+                        <rect x="21" y="39" width="22" height="6" rx="3" fill="#F97316"/>
+                        <path d="M14 42H18M14 42L16 39M14 42L16 45" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M50 42H46M50 42L48 39M50 42L48 45" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>Columpio</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('AZUL ELÉCTRICO', 'El azul eléctrico brilla muchísimo, como el cielo abierto y los rayos')">
-                <div class="item-icon" aria-hidden="true">⚡</div>
-                <h3>Azul Eléctrico</h3>
-                <div style="width: 40px; height: 12px; background: #3B82F6; border-radius: 6px; margin-top: 6px;"></div>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Subo por la escalera y me deslizo con cuidado por el tobogán')">
+                <div class="item-icon" aria-hidden="true">🛝</div>
+                <h3>Tobogán</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('AMARILLO SOL', 'El amarillo sol es brillante y alegre, como un día hermoso de verano')">
-                <div class="item-icon" aria-hidden="true">⭐</div>
-                <h3>Amarillo Sol</h3>
-                <div style="width: 40px; height: 12px; background: #EAB308; border-radius: 6px; margin-top: 6px;"></div>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Ando en bicicleta sintiendo el viento en la cara con mucha alegría')">
+                <div class="item-icon" aria-hidden="true">🚲</div>
+                <h3>Andar en bici</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('VERDE NEÓN', 'El verde neón es muy llamativo, como la hierba fresca y los campos')">
-                <div class="item-icon" aria-hidden="true">🟢</div>
-                <h3>Verde Neón</h3>
-                <div style="width: 40px; height: 12px; background: #22C55E; border-radius: 6px; margin-top: 6px;"></div>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Corro rápido por el césped sintiendo la libertad y la energía')">
+                <div class="item-icon" aria-hidden="true">🏃‍♂️</div>
+                <h3>Correr</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('NARANJA FUEGO', 'El naranja fuego es cálido y brillante, como las ricas zanahorias')">
-                <div class="item-icon" aria-hidden="true">🦊</div>
-                <h3>Naranja Fuego</h3>
-                <div style="width: 40px; height: 12px; background: #F97316; border-radius: 6px; margin-top: 6px;"></div>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Salto alto y divertido con mucha energía')">
+                <div class="item-icon" aria-hidden="true">
+                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="11" r="5.5" fill="#FACC15"/>
+                        <path d="M21 15L28 23H36L43 15" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="32" y1="22" x2="32" y2="34" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M32 34L24 41L27 46" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 34L40 41L37 46" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 56V48M32 48L28 52M32 48L36 52" stroke="#22C55E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="16" y1="59" x2="48" y2="59" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3>Saltar</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectColorLearn('VIOLETA MÁGICO', 'El violeta mágico es hermoso, como las uvas dulces y la gran galaxia')">
-                <div class="item-icon" aria-hidden="true">🌌</div>
-                <h3>Violeta Mágico</h3>
-                <div style="width: 40px; height: 12px; background: #A855F7; border-radius: 6px; margin-top: 6px;"></div>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Salto la soga contando cada vez que pasa por debajo de mis pies')">
+                <div class="item-icon" aria-hidden="true">
+                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="13" r="5" fill="#FACC15"/>
+                        <line x1="32" y1="20" x2="32" y2="33" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round"/>
+                        <path d="M20 27L28 24H36L44 27" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 33L26 40L28 45" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 33L38 40L36 45" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="18" y1="25" x2="21" y2="29" stroke="#F97316" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="46" y1="25" x2="43" y2="29" stroke="#F97316" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M19 28C11 45 20 55 32 55C44 55 53 45 45 28" stroke="#22C55E" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3>Saltar la soga</h3>
+            </button>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Juego al fútbol pateando la pelota con mis amigos')">
+                <div class="item-icon" aria-hidden="true">⚽</div>
+                <h3>Jugar al fútbol</h3>
+            </button>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Hago volar la cometa muy alto en el cielo azul')">
+                <div class="item-icon" aria-hidden="true">🪁</div>
+                <h3>Volar cometa</h3>
+            </button>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Juego y comparto alegremente con otros niños y amigas')">
+                <div class="item-icon" aria-hidden="true">🧒👧</div>
+                <h3>Jugar con otros niños</h3>
+            </button>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Construyo castillos divertidos y formas con la arena')">
+                <div class="item-icon" aria-hidden="true">
+                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 43C18 35 28 33 36 37C43 40 49 36 54 43H10Z" fill="#FACC15"/>
+                        <path d="M19 25H31L29 38H21L19 25Z" fill="#EF4444"/>
+                        <path d="M19 25C19 20 31 20 31 25" stroke="#F8FAFC" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="43" y1="21" x2="38" y2="33" stroke="#38BDF8" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M35 32L41 34L39 40C38 41 35 40 34 38L35 32Z" fill="#38BDF8"/>
+                        <rect x="8" y="43" width="48" height="11" rx="3" fill="#B45309" stroke="#F59E0B" stroke-width="2.5"/>
+                    </svg>
+                </div>
+                <h3>Caja de arena</h3>
+            </button>
+
+            <button type="button" class="item-card" onclick="selectParkActivity('Descansamos un momento en el banco tomando agua fresca')">
+                <div class="item-icon" aria-hidden="true">
+                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="29" width="44" height="5" rx="2" fill="#D97706"/>
+                        <rect x="8" y="40" width="48" height="5" rx="2" fill="#F59E0B"/>
+                        <line x1="14" y1="27" x2="14" y2="54" stroke="#94A3B8" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="50" y1="27" x2="50" y2="54" stroke="#94A3B8" stroke-width="3.5" stroke-linecap="round"/>
+                        <circle cx="28" cy="15" r="5" fill="#FACC15"/>
+                        <path d="M28 22V39H39L43 52" stroke="#38BDF8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M28 26L36 31" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+                        <rect x="36" y="25" width="5" height="9" rx="1.5" fill="#22C55E"/>
+                    </svg>
+                </div>
+                <h3>Descansar un poco</h3>
             </button>
         </div>
+        <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Vista: Explorador de Colores Ampliado y sin etiquetas superiores -->
+    <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="colorsLearnHeading">Explorador de Colores</h2>
+                <p class="section-subtitle">Toca un color para escuchar su nombre y ver sus características.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="category-selector">
+            <button type="button" class="cat-btn active-cat" onclick="filterColors('todos')">Todos</button>
+            <button type="button" class="cat-btn" onclick="filterColors('comun')">Comunes</button>
+            <button type="button" class="cat-btn" onclick="filterColors('vivo')">Vivos</button>
+        </div>
+        <div class="items-grid" id="colorsGrid"></div>
         <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
     </section>
 
@@ -956,15 +1075,13 @@
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
-
         <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="filterAnimals('all')">Todos</button>
+            <button type="button" class="cat-btn active-cat" onclick="filterAnimals('todos')">Todos</button>
             <button type="button" class="cat-btn" onclick="filterAnimals('casa')">Casa</button>
             <button type="button" class="cat-btn" onclick="filterAnimals('granja')">Granja</button>
             <button type="button" class="cat-btn" onclick="filterAnimals('selva')">Selva</button>
             <button type="button" class="cat-btn" onclick="filterAnimals('agua')">Agua</button>
         </div>
-
         <div class="items-grid" id="animalsGrid"></div>
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
     </section>
@@ -978,16 +1095,14 @@
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
-
         <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="filterFood('all')">Todos</button>
+            <button type="button" class="cat-btn active-cat" onclick="filterFood('todos')">Todos</button>
             <button type="button" class="cat-btn" onclick="filterFood('fruta')">Frutas</button>
             <button type="button" class="cat-btn" onclick="filterFood('verdura')">Verduras</button>
             <button type="button" class="cat-btn" onclick="filterFood('carne')">Carnes y Pollo</button>
             <button type="button" class="cat-btn" onclick="filterFood('pescado')">Pescado</button>
             <button type="button" class="cat-btn" onclick="filterFood('comida')">Platos</button>
         </div>
-
         <div class="items-grid" id="foodGrid"></div>
         <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
@@ -1014,25 +1129,89 @@
         <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
     </section>
 
-    <!-- Vista: Historias Visuales con Contexto Enriquecido -->
+    <!-- Vista: Historias Visuales -->
     <section id="storyView" class="view-section" aria-labelledby="storyHeading">
         <div class="view-header">
             <div>
                 <h2 id="storyHeading">Historias Visuales</h2>
-                <p class="section-subtitle">Elige una historia y toca cada paso para anticipar la salida.</p>
+                <p class="section-subtitle">Elige una situación y toca cada tarjeta para saber qué va a pasar y cómo nos cuidamos.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         
         <div class="category-selector" role="group" aria-label="Elegir historia visual">
-            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🩺 Ir al médico</button>
+            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🏥 Ir al médico</button>
+            <button type="button" class="cat-btn" id="tab-playa" onclick="loadStory('playa')">🏖️ Ir a la playa</button>
             <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar el pelo</button>
             <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Hora de dormir</button>
             <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Ir al supermercado</button>
             <button type="button" class="cat-btn" id="tab-viaje" onclick="loadStory('viaje')">🚗 Viaje en coche</button>
         </div>
+        <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;"></div>
+    </section>
 
-        <div id="storyContent" class="items-grid"></div>
+    <!-- Vista: Juegos -->
+    <section id="gameView" class="view-section" aria-labelledby="gameHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
+                <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
+            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores (8 opciones)</button>
+            <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
+            <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
+        </div>
+
+        <div id="panel-colors" class="game-panel active-game">
+            <h3 id="targetPrompt" class="game-prompt">Toca el círculo: AZUL ELÉCTRICO</h3>
+            <div class="color-options" id="vividColorOptions"></div>
+            <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
+
+        <div id="panel-memory" class="game-panel">
+            <h3 id="memoryPrompt" class="game-prompt">Memoriza estos 4 animales</h3>
+            <div class="sequence-board" id="memoryBoard"></div>
+            <div id="memoryActionArea">
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()">🙈 Esconder dos</button>
+            </div>
+            <div class="choice-row" id="memoryChoices" style="display: none;"></div>
+            <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
+
+        <div id="panel-series" class="game-panel">
+            <h3 id="seriesPrompt" class="game-prompt">¿Qué elemento continúa la serie?</h3>
+            <div class="sequence-board" id="seriesBoard"></div>
+            <div class="choice-row" id="seriesChoices"></div>
+            <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
+    </section>
+
+    <!-- Zona de Calma -->
+    <section id="calmView" class="view-section" aria-labelledby="calmHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="calmHeading">Zona de Calma y Respiración</h2>
+                <p class="section-subtitle">Un espacio seguro para relajarnos despacio.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="calm-container">
+            <div class="calm-steps-preview">
+                <div class="calm-badge-step">Inhala (4s)</div>
+                <div class="calm-badge-step">Mantén (2s)</div>
+                <div class="calm-badge-step">Exhala (4s)</div>
+            </div>
+            <div class="breathing-box">
+                <div class="breathing-circle" id="breathCircle">
+                    <span id="breathPhaseText" style="font-size: 1.2rem; font-weight: 700;">Inhala</span>
+                    <span class="breath-number" id="breathTimer">4</span>
+                </div>
+            </div>
+            <div class="calm-text" id="breathInstruction">Toma aire despacio por la nariz...</div>
+        </div>
     </section>
 
     <!-- Vista: Emociones -->
@@ -1046,7 +1225,7 @@
         </div>
         <div class="items-grid">
             <button type="button" class="item-card" onclick="selectEmotion('¡Qué alegría más linda! Tu sonrisa ilumina todo el espacio.')">
-                <div class="item-icon" aria-hidden="true">😊</div>
+                <div class="item-icon" aria-hidden="true">😄</div>
                 <h3>Feliz</h3>
             </button>
             <button type="button" class="item-card" onclick="selectEmotion('Estás en un lugar muy seguro, tranquilo y en paz.')">
@@ -1062,92 +1241,28 @@
                 <h3>Cansado</h3>
             </button>
             <button type="button" class="item-card" onclick="selectEmotion('Sientes un poco de hambre. Vamos a buscar algo rico para comer juntos.')">
-                <div class="item-icon" aria-hidden="true">😋</div>
+                <div class="item-icon" aria-hidden="true">🍎</div>
                 <h3>Hambriento</h3>
             </button>
             <button type="button" class="item-card" onclick="selectEmotion('Respiramos hondo y despacio. Todo está bien y va a pasar.')">
-                <div class="item-icon" aria-hidden="true">😣</div>
+                <div class="item-icon" aria-hidden="true">😤</div>
                 <h3>Enojado</h3>
             </button>
             <button type="button" class="item-card" onclick="selectEmotion('Te acompaño cerquita con un abrazo muy fuerte. Todo pasa.')">
-                <div class="item-icon" aria-hidden="true">😢</div>
+                <div class="item-icon" aria-hidden="true">💙</div>
                 <h3>Triste</h3>
             </button>
             <button type="button" class="item-card" onclick="selectEmotion('No te preocupes, estamos protegidos y seguros aquí.')">
-                <div class="item-icon" aria-hidden="true">😨</div>
+                <div class="item-icon" aria-hidden="true">🛡️</div>
                 <h3>Asustado</h3>
             </button>
         </div>
         <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Juegos con Mayor Dificultad -->
-    <section id="gameView" class="view-section" aria-labelledby="gameHeading">
-        <div class="view-header">
-            <div>
-                <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
-                <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
-
-        <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
-            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores Vivos (8 opciones)</button>
-            <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
-            <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
-        </div>
-
-        <!-- Juego 1: 8 Colores Vivos -->
-        <div id="panel-colors" class="game-panel active-game">
-            <h3 id="targetPrompt" class="game-prompt">Toca el círculo: AZUL ELÉCTRICO</h3>
-            <div class="color-options" id="vividColorOptions"></div>
-            <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
-        </div>
-
-        <!-- Juego 2: Memoria Avanzada -->
-        <div id="panel-memory" class="game-panel">
-            <h3 id="memoryPrompt" class="game-prompt">Memoriza estos 4 animales</h3>
-            <div class="sequence-board" id="memoryBoard"></div>
-            <div id="memoryActionArea">
-                <button type="button" class="btn-control active" onclick="hideTwoAnimals()">🙈 Esconder dos</button>
-            </div>
-            <div class="choice-row" id="memoryChoices" style="display: none;"></div>
-            <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
-        </div>
-
-        <!-- Juego 3: Series Complejas -->
-        <div id="panel-series" class="game-panel">
-            <h3 id="seriesPrompt" class="game-prompt">¿Qué elemento continúa la serie?</h3>
-            <div class="sequence-board" id="seriesBoard"></div>
-            <div class="choice-row" id="seriesChoices"></div>
-            <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
-        </div>
-    </section>
-
-    <!-- Zona de Calma Adaptada TEA -->
-    <section id="calmView" class="view-section" aria-labelledby="calmHeading">
-        <div class="view-header">
-            <div>
-                <h2 id="calmHeading">Zona de Calma y Respiración</h2>
-                <p class="section-subtitle">Un espacio seguro para relajarnos paso a paso.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
-        <div class="calm-container">
-            <div class="calm-steps-preview">
-                <div class="calm-badge-step">1. Inhala (4s)</div>
-                <div class="calm-badge-step">2. Mantén (2s)</div>
-                <div class="calm-badge-step">3. Exhala (4s)</div>
-            </div>
-            <div class="breathing-box">
-                <div class="breathing-circle" id="breathCircle">
-                    <span id="breathPhaseText" style="font-size: 1.2rem; font-weight: 700;">Inhala</span>
-                    <span class="breath-number" id="breathTimer">4</span>
-                </div>
-            </div>
-            <div class="calm-text" id="breathInstruction">Toma aire despacio por la nariz...</div>
-        </div>
-    </section>
+    <footer>
+        Desarrollado por <span>Graciela Viera</span>
+    </footer>
 
     <script>
         let speechEnabled = true;
@@ -1157,7 +1272,6 @@
         function loadVoices() {
             if (!('speechSynthesis' in window)) return;
             const voices = window.speechSynthesis.getVoices();
-            
             selectedVoice = voices.find(v => v.lang.startsWith('es') && (
                 v.name.toLowerCase().includes('google español') || 
                 v.name.toLowerCase().includes('microsoft pablo') || 
@@ -1171,6 +1285,30 @@
             window.speechSynthesis.onvoiceschanged = loadVoices;
             loadVoices();
         }
+
+        const colorDatabase = [
+            { name: 'Rojo', type: 'comun', icon: '❤️', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
+            { name: 'Azul', type: 'comun', icon: '💙', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
+            { name: 'Amarillo', type: 'comun', icon: '💛', hex: '#EAB308', desc: 'Amarillo suave, como los plátanos.' },
+            { name: 'Verde', type: 'comun', icon: '💚', hex: '#22C55E', desc: 'Verde natural de las hojas y el pasto.' },
+            { name: 'Naranja', type: 'comun', icon: '🧡', hex: '#F97316', desc: 'Naranja cálido de las naranjas.' },
+            { name: 'Violeta', type: 'comun', icon: '💜', hex: '#A855F7', desc: 'Violeta clásico como las uvas.' },
+            { name: 'Rosa', type: 'comun', icon: '🌸', hex: '#EC4899', desc: 'Rosa tierno y suave.' },
+            { name: 'Celeste', type: 'comun', icon: '🌐', hex: '#38BDF8', desc: 'Celeste suave como el agua clara.' },
+            { name: 'Gris', type: 'comun', icon: '🔘', hex: '#64748B', desc: 'Gris como las piedras del camino.' },
+            { name: 'Marrón', type: 'comun', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
+            { name: 'Negro', type: 'comun', icon: '⬛', hex: '#1E293B', desc: 'Negro profundo y elegante.' },
+            { name: 'Blanco', type: 'comun', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
+            { name: 'Rojo Fuego', type: 'vivo', icon: '❤️', hex: '#EF4444', desc: 'Rojo intenso y muy brillante.' },
+            { name: 'Azul Eléctrico', type: 'vivo', icon: '💙', hex: '#2563EB', desc: 'Azul eléctrico que resplandece.' },
+            { name: 'Amarillo Sol', type: 'vivo', icon: '💛', hex: '#FACC15', desc: 'Amarillo sol radiante y alegre.' },
+            { name: 'Verde Neón', type: 'vivo', icon: '💚', hex: '#10B981', desc: 'Verde neón fosforescente.' },
+            { name: 'Naranja Brillante', type: 'vivo', icon: '🧡', hex: '#EA580C', desc: 'Naranja brillante de alta intensidad.' },
+            { name: 'Violeta Mágico', type: 'vivo', icon: '💜', hex: '#7E22CE', desc: 'Violeta mágico y profundo.' },
+            { name: 'Turquesa', type: 'vivo', icon: '💎', hex: '#06B6D4', desc: 'Turquesa brillante como el mar tropical.' },
+            { name: 'Fucsia', type: 'vivo', icon: '💖', hex: '#D946EF', desc: 'Fucsia intenso y muy llamativo.' },
+            { name: 'Dorado', type: 'vivo', icon: '✨', hex: '#F59E0B', desc: 'Dorado brillante como una estrella.' }
+        ];
 
         const animalDatabase = [
             { name: 'Perro', gender: 'el', icon: '🐶', habitat: 'casa', action: 'el perro es un gran compañero en el hogar y hace guau guau' },
@@ -1212,73 +1350,92 @@
             { name: 'Maíz', icon: '🌽', category: 'verdura', desc: 'Maíz tierno y rico' },
             { name: 'Calabacín', icon: '🥒', category: 'verdura', desc: 'Calabacín tierno y saludable' },
             { name: 'Judías verdes', icon: '🟢', category: 'verdura', desc: 'Judías verdes sanas' },
-            { name: 'Lechuga', icon: '🥗', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
-            { name: 'Espinacas', icon: '🥬', category: 'verdura', desc: 'Espinacas llenas de energía' },
+            { name: 'Lechuga', icon: '🥬', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
+            { name: 'Espinacas', icon: '🍃', category: 'verdura', desc: 'Espinacas llenas de energía' },
             { name: 'Cebolla', icon: '🧅', category: 'verdura', desc: 'Cebolla fresca' },
             { name: 'Ajo', icon: '🧄', category: 'verdura', desc: 'Ajo aromático' },
             { name: 'Pechuga de pollo', icon: '🍗', category: 'carne', desc: 'Pechuga de pollo tierna y jugosa' },
             { name: 'Carne de ternera', icon: '🥩', category: 'carne', desc: 'Filete de ternera nutritivo' },
             { name: 'Lomo de cerdo', icon: '🥓', category: 'carne', desc: 'Lomo de cerdo sabroso' },
             { name: 'Albóndigas', icon: '🧆', category: 'carne', desc: 'Albóndigas de carne caseras' },
-            { name: 'Salmón', icon: '🐟', category: 'pescado', desc: 'Filete de salmón fresco y rico' },
-            { name: 'Merluza', icon: '🐠', category: 'pescado', desc: 'Pescado blanco tierno y sano' },
-            { name: 'Atún', icon: '🍣', category: 'pescado', desc: 'Atún sabroso y nutritivo' },
+            { name: 'Salmón', icon: '🍣', category: 'pescado', desc: 'Filete de salmón fresco y rico' },
+            { name: 'Merluza', icon: '🐟', category: 'pescado', desc: 'Pescado blanco tierno y sano' },
+            { name: 'Atún', icon: '🥫', category: 'pescado', desc: 'Atún sabroso y nutritivo' },
             { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan fresco del día' },
             { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz calentito' },
             { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta deliciosa' },
             { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita' },
-            { name: 'Huevo', icon: '🍳', category: 'comida', desc: 'Huevo nutritivo' }
+            { name: 'Huevo', icon: '🥚', category: 'comida', desc: 'Huevo nutritivo' }
         ];
 
-        /* Historias visuales con contexto enriquecido */
         const stories = {
             medico: [
-                { icon: '🚗', title: '1. Viaje en coche', text: 'Subimos al coche y viajamos tranquilos para una revisión general de salud.' },
-                { icon: '🪑', title: '2. Sala de espera', text: 'Llegamos a la clínica, nos sentamos y esperamos con nuestro juguete favorito.' },
-                { icon: '🩺', title: '3. Revisión con el doctor', text: 'El doctor, muy amable, ausculta el pecho y revisa la garganta sin dolor.' },
-                { icon: '🏡', title: '4. Vuelta a casa', text: '¡Excelente trabajo! Ya podemos regresar a casa contentos a descansar.' }
+                { icon: '🚗', title: 'Vamos a la clínica', text: 'Hoy visitamos al doctor porque nos ayuda a cuidar nuestro cuerpo y estar fuertes. Vamos acompañados y seguros.' },
+                { icon: '🪑', title: 'Esperamos un ratito', text: 'En la sala de espera nos sentamos tranquilos mientras llaman nuestro nombre. Podemos mirar nuestro juguete favorito.' },
+                { icon: '🩺', title: 'El doctor nos revisa', text: 'El médico es amable: escucha nuestro corazón con un aparato frío un segundo y mira nuestra garganta sin hacer daño.' },
+                { icon: '🏠', title: 'Regresamos a casa', text: '¡Lo hicimos muy bien! Ya terminó la visita y volvemos contentos a casa a jugar y descansar.' }
+            ],
+            playa: [
+                { icon: '🎒', title: 'Preparamos nuestras cosas', text: 'Antes de salir guardamos la toalla, el traje de baño y el protector solar para cuidar nuestra piel del sol.' },
+                { icon: '🚗', title: 'Llegamos junto al mar', text: 'Viajamos hasta la playa donde el aire es fresco y se escucha el sonido suave de las olas del mar.' },
+                { icon: '🏖️', title: 'Jugamos en la arena', text: 'La arena se siente tibiecita en los pies. Podemos hacer castillos, caminos y figuras con el balde y la pala.' },
+                { icon: '🌊', title: 'Disfrutamos del agua', text: 'Vamos hasta la orilla siempre acompañados de un adulto para mojar los pies y refrescarnos con alegría.' }
             ],
             pelo: [
-                { icon: '🚗', title: '1. Ir a la peluquería', text: 'Vamos de camino al salón para mantener nuestro cabello prolijo y cómodo.' },
-                { icon: '💺', title: '2. Silla y capa', text: 'Nos sentamos cómodos en el sillón y nos ponemos la capa protectora.' },
-                { icon: '✂️', title: '3. Corte suave', text: 'Las tijeras cortan el cabello despacio y con mucho cuidado.' },
-                { icon: '🌟', title: '4. ¡Terminamos!', text: '¡Quedamos listos, guapos y listos para volver a casa!' }
+                { icon: '🚶‍♂️', title: 'Vamos a la peluquería', text: 'Cuando el cabello crece mucho nos molesta en los ojos o da calor. Por eso vamos a cortarlo para estar más cómodos.' },
+                { icon: '💺', title: 'Nos ponemos la capa', text: 'Nos sentamos en una silla especial y nos colocan una capa suave para que los pelitos cortados no piquen en la ropa.' },
+                { icon: '✂️', title: 'Corte suave y cuidadoso', text: 'Las tijeras hacen un sonido suave como un susurro mientras recortan las puntas. Solo tenemos que quedarnos quietos un momento.' },
+                { icon: '✨', title: '¡Quedamos listos!', text: 'Nos sacuden los pelitos con un cepillo muy suave. Ya estamos prolijos, frescos y listos para volver a casa.' }
             ],
             dormir: [
-                { icon: '👕', title: '1. Ponerse el pijama', text: 'Nos quitamos la ropa del día y nos ponemos el pijama suave y cómodo.' },
-                { icon: '🪥', title: '2. Cepillar dientes', text: 'Lavamos bien nuestros dientes para dejarlos limpios y brillantes.' },
-                { icon: '📖', title: '3. Cuento y luz baja', text: 'Leemos un cuento corto en la cama con una luz suave y tranquila.' },
-                { icon: '🌙', title: '4. Descanso total', text: 'Apagamos la luz y dormimos plácidamente toda la noche.' }
+                { icon: '👕', title: 'Nos ponemos el pijama', text: 'Cuando llega la noche el cuerpo necesita descansar. Nos cambiamos la ropa del día por un pijama suave y cómodo.' },
+                { icon: '🪥', title: 'Lavamos los dientes', text: 'Cepillamos nuestros dientes con pasta para que queden limpios, sanos y listos para ir a la cama.' },
+                { icon: '📖', title: 'Un momento tranquilo', text: 'En la cama bajamos la luz y compartimos un cuento corto o música muy suave para que la mente se relaje.' },
+                { icon: '🛌', title: 'Dormimos toda la noche', text: 'Cerramos los ojos en nuestra cama segura y calentita para recuperar toda la energía para mañana.' }
             ],
             super: [
-                { icon: '🛒', title: '1. Entrar al supermercado', text: 'Entramos al supermercado a hacer la compra y subimos al carrito.' },
-                { icon: '🍎', title: '2. Elegir alimentos', text: 'Buscamos juntos las frutas, verduras y alimentos ricos que necesitamos.' },
-                { icon: '💳', title: '3. Pasar por caja', text: 'Colocamos los productos en la cinta y pagamos con una sonrisa.' },
-                { icon: '🚗', title: '4. Regreso a casa', text: 'Guardamos las bolsas en el coche y volvemos felices a casa.' }
+                { icon: '🛒', title: 'Entramos al supermercado', text: 'Vamos a buscar alimentos ricos para tener en casa. Hay luces y gente, pero siempre vamos juntos y tranquilos.' },
+                { icon: '🍎', title: 'Elegimos los alimentos', text: 'Recorremos los pasillos mirando las frutas, las verduras y las cosas ricas que necesitamos poner en el carrito.' },
+                { icon: '💳', title: 'Pagamos en la caja', text: 'Al terminar pasamos por la caja, saludamos con una sonrisa y guardamos todo en nuestras bolsas.' },
+                { icon: '🏡', title: 'Volvemos con la compra', text: 'Regresamos a casa para guardar cada alimento en su lugar y disfrutar de lo que elegimos.' }
             ],
             viaje: [
-                { icon: '🎒', title: '1. Preparar mochila', text: 'Guardamos nuestras cosas favoritas y un juguete dentro de la mochila.' },
-                { icon: '🚗', title: '2. Cinturón de seguridad', text: 'Subimos al coche y nos abrochamos firmemente el cinturón.' },
-                { icon: '🗺️', title: '3. Disfrutar el viaje', text: 'Miramos por la ventanilla el paisaje mientras escuchamos música linda.' },
-                { icon: '🏁', title: '4. Llegada al destino', text: 'Llegamos al lugar de paseo y bajamos tranquilos.' }
+                { icon: '🎒', title: 'Llevamos algo favorito', text: 'Antes de subir al coche elegimos un juguete, un libro o música linda para entretenernos durante el camino.' },
+                { 
+                  icon: `<svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <rect x="16" y="24" width="32" height="20" rx="4" fill="#3B82F6"/>
+                           <line x1="22" y1="24" x2="42" y2="44" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
+                           <line x1="42" y1="24" x2="22" y2="44" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
+                           <circle cx="32" cy="34" r="5" fill="#22C55E"/>
+                         </svg>`, 
+                  title: 'Abróchamos el cinturón', 
+                  text: 'Nos sentamos en nuestro asiento y cruzamos firmemente el cinturón de seguridad porque nos protege durante todo el viaje.' 
+                },
+                { icon: '🎶', title: 'Miramos por la ventana', text: 'Mientras el coche avanza podemos ver los árboles, las casas y las nubes pasar por la ventanilla.' },
+                { icon: '🌴', title: 'Llegamos al destino', text: 'Cuando el coche se detiene por completo, desabrochamos el cinturón y bajamos tranquilos a disfrutar del paseo.' }
             ]
         };
 
         window.onload = function() {
-            renderAnimals('all');
-            renderFood('all');
+            renderColors('todos');
+            renderAnimals('todos');
+            renderFood('todos');
             showNumberRange(1, 25);
             initVividColorsGame();
-            
+
             setTimeout(() => {
-                speak("Hola Néstor, bienvenido a tu espacio");
-            }, 600);
+                speak("El Espacio de Néstor");
+            }, 500);
         };
 
         function showView(viewId) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+
             const mainMenu = document.getElementById('mainMenu');
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            
+
             if (calmInterval) {
                 clearInterval(calmInterval);
                 calmInterval = null;
@@ -1290,7 +1447,7 @@
                 mainMenu.classList.add('hidden');
                 const targetSection = document.getElementById(viewId);
                 targetSection.classList.add('active');
-                
+
                 const title = targetSection.querySelector('h2').innerText;
                 const subtitle = targetSection.querySelector('.section-subtitle').innerText;
                 speak(`${title}. ${subtitle}`);
@@ -1311,22 +1468,25 @@
                 speak('Voz encendida y lista');
             } else {
                 btn.classList.remove('active');
-                btn.innerText = '🗣️ Voz: Apagada';
-                window.speechSynthesis.cancel();
+                btn.innerText = '🔇 Voz: Apagada';
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
             }
         }
 
         function speak(text) {
             if (!speechEnabled || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
+            
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
             utterance.rate = 0.92;
             utterance.pitch = 1.0;
-            
+
             if (!selectedVoice) loadVoices();
             if (selectedVoice) utterance.voice = selectedVoice;
-            
+
             window.speechSynthesis.speak(utterance);
         }
 
@@ -1335,7 +1495,6 @@
             const phaseText = document.getElementById('breathPhaseText');
             const timerEl = document.getElementById('breathTimer');
             const instruction = document.getElementById('breathInstruction');
-
             let state = 0; 
             let timeLeft = 4;
 
@@ -1400,26 +1559,66 @@
             }
         }
 
-        function selectColorLearn(name, description) {
+        function renderColors(filter) {
             const banner = document.getElementById('colorLearnBanner');
+            banner.style.display = 'none';
+            banner.innerText = '';
+            const grid = document.getElementById('colorsGrid');
+            grid.innerHTML = '';
+
+            document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
+            if (event && event.target && event.target.classList.contains('cat-btn')) {
+                event.target.classList.add('active-cat');
+            } else {
+                document.querySelector('#colorsLearnView .cat-btn').classList.add('active-cat');
+            }
+
+            const filtered = filter === 'todos' ? colorDatabase : colorDatabase.filter(c => c.type === filter);
+            filtered.forEach(item => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'grid-card';
+                card.onclick = () => {
+                    banner.style.display = 'block';
+                    banner.innerText = `${item.name}: ${item.desc}`;
+                    speak(`${item.name}. ${item.desc}`);
+                };
+                card.innerHTML = `
+                    <div style="width: 60px; height: 60px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF; margin: 10px 0;"></div>
+                    <h3 style="color:#FFFFFF; font-size:1.2rem;">${item.name}</h3>
+                    <span class="card-tag">${item.desc}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterColors(type) {
+            renderColors(type);
+            speak(`Mostrando colores`);
+        }
+
+        function selectParkActivity(message) {
+            const banner = document.getElementById('parkBanner');
             banner.style.display = 'block';
-            banner.innerText = `${name}: ${description}`;
-            speak(description);
+            banner.innerText = message;
+            speak(message);
         }
 
         function renderAnimals(filter) {
             const banner = document.getElementById('animalBanner');
             banner.style.display = 'none';
             banner.innerText = '';
-
             const grid = document.getElementById('animalsGrid');
             grid.innerHTML = '';
-            
+
             document.querySelectorAll('#animalsView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            event && event.target && event.target.classList.add('active-cat');
+            if (event && event.target && event.target.classList.contains('cat-btn')) {
+                event.target.classList.add('active-cat');
+            } else {
+                document.querySelector('#animalsView .cat-btn').classList.add('active-cat');
+            }
 
-            const filtered = filter === 'all' ? animalDatabase : animalDatabase.filter(a => a.habitat === filter);
-
+            const filtered = filter === 'todos' ? animalDatabase : animalDatabase.filter(a => a.habitat === filter);
             filtered.forEach(animal => {
                 const card = document.createElement('button');
                 card.type = 'button';
@@ -1437,6 +1636,7 @@
 
         function filterAnimals(habitat) {
             renderAnimals(habitat);
+            speak(`Mostrando animales de ${habitat}`);
         }
 
         function selectAnimal(animal) {
@@ -1451,15 +1651,17 @@
             const banner = document.getElementById('foodBanner');
             banner.style.display = 'none';
             banner.innerText = '';
-
             const grid = document.getElementById('foodGrid');
             grid.innerHTML = '';
-            
+
             document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            event && event.target && event.target.classList.add('active-cat');
+            if (event && event.target && event.target.classList.contains('cat-btn')) {
+                event.target.classList.add('active-cat');
+            } else {
+                document.querySelector('#foodView .cat-btn').classList.add('active-cat');
+            }
 
-            const filtered = filter === 'all' ? foodDatabase : foodDatabase.filter(f => f.category === filter);
-
+            const filtered = filter === 'todos' ? foodDatabase : foodDatabase.filter(f => f.category === filter);
             filtered.forEach(item => {
                 const card = document.createElement('button');
                 card.type = 'button';
@@ -1477,6 +1679,7 @@
 
         function filterFood(category) {
             renderFood(category);
+            speak(`Mostrando alimentos`);
         }
 
         function selectFoodItem(item) {
@@ -1489,7 +1692,9 @@
 
         function showNumberRange(start, end) {
             document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active-range'));
-            event && event.target && event.target.classList.add('active-range');
+            if (event && event.target && event.target.classList.contains('range-btn')) {
+                event.target.classList.add('active-range');
+            }
 
             const grid = document.getElementById('numbersGrid100');
             grid.innerHTML = '';
@@ -1514,18 +1719,36 @@
 
             const container = document.getElementById('storyContent');
             container.innerHTML = '';
-            stories[storyKey].forEach(step => {
+            
+            stories[storyKey].forEach(scene => {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
-                card.onclick = () => speak(`${step.title}. ${step.text}`);
+                card.style.cssText = "min-height: 230px; justify-content: flex-start; padding: 24px 18px; border: 3px solid #334155; transition: all 0.2s ease;";
+                
+                card.onclick = () => {
+                    document.querySelectorAll('#storyContent .item-card').forEach(c => c.style.borderColor = '#334155');
+                    card.style.borderColor = 'var(--vivid-purple)';
+                    card.style.transform = 'scale(1.03)';
+                    setTimeout(() => card.style.transform = 'scale(1)', 200);
+
+                    speak(`${scene.title}. ${scene.text}`);
+                };
+
+                let iconHtml = typeof scene.icon === 'string' && scene.icon.startsWith('<svg') 
+                    ? `<div class="item-icon" aria-hidden="true" style="margin: 8px 0 12px 0;">${scene.icon}</div>` 
+                    : `<div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0;">${scene.icon}</div>`;
+
                 card.innerHTML = `
-                    <span style="background:#38BDF8; color:#0F172A; padding:4px 10px; border-radius:8px; font-weight:700; margin-bottom:8px; font-size:0.9rem;">${step.title}</span>
-                    <div class="item-icon" aria-hidden="true">${step.icon}</div>
-                    <p style="font-size:1rem; font-weight:600; color:#FFFFFF; margin-top:6px;">${step.text}</p>
+                    <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px;">${scene.title}</span>
+                    ${iconHtml}
+                    <p style="font-size: 1.05rem; font-weight: 600; color: #F8FAFC; line-height: 1.45; text-align: center;">${scene.text}</p>
                 `;
                 container.appendChild(card);
             });
+            
+            const storyLabel = document.getElementById(`tab-${storyKey}`).innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
+            speak(`Historia: ${storyLabel}`);
         }
 
         function selectEmotion(message) {
@@ -1644,7 +1867,7 @@
             const choicesDiv = document.getElementById('memoryChoices');
             choicesDiv.innerHTML = '';
             choicesDiv.style.display = 'flex';
-            
+
             const options = [memorySet[hiddenIndices[0]], memorySet[hiddenIndices[1]], animalDatabase[5], animalDatabase[8]].sort(() => Math.random() - 0.5);
             options.forEach(item => {
                 const btn = document.createElement('button');
@@ -1662,7 +1885,7 @@
             const feedback = document.getElementById('memoryFeedback');
             if (chosen.name === target1.name || chosen.name === target2.name) {
                 feedback.style.color = '#22C55E';
-                feedback.innerText = `¡Correcto! Encontraste al ${chosen.name} 🌟`;
+                feedback.innerText = `¡Correcto! Encontraste al ${chosen.name} 🎉`;
                 speak(`¡Correcto! Era ${chosen.gender === 'la' ? 'la' : 'el'} ${chosen.name}`);
                 setTimeout(initMemoryRound, 1800);
             } else {
@@ -1674,24 +1897,23 @@
 
         const seriesPuzzles = [
             { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }] },
-            { seq: ['🍎', '🍌', '🍇', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }] },
-            { seq: ['⭐', '🌙', '⭐', '🌙'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }] }
+            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }] },
+            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }] }
         ];
         let currentSeriesIndex = 0;
 
         function initSeriesRound() {
             const puzzle = seriesPuzzles[currentSeriesIndex];
             document.getElementById('seriesFeedback').innerText = '';
+
             const board = document.getElementById('seriesBoard');
             board.innerHTML = '';
-
             puzzle.seq.forEach(emoji => {
                 const slot = document.createElement('div');
                 slot.className = 'seq-slot';
                 slot.innerText = emoji;
                 board.appendChild(slot);
             });
-
             const mysterySlot = document.createElement('div');
             mysterySlot.className = 'seq-slot mystery';
             mysterySlot.innerText = '?';
@@ -1714,7 +1936,7 @@
             const feedback = document.getElementById('seriesFeedback');
             if (chosen.name === puzzle.answer.name) {
                 feedback.style.color = '#22C55E';
-                feedback.innerText = `¡Perfecto! Continuaba ${puzzle.answer.name} 🌟`;
+                feedback.innerText = `¡Perfecto! Continuaba ${puzzle.answer.name} ⭐`;
                 speak(`¡Perfecto! Continuaba ${puzzle.answer.name}`);
                 currentSeriesIndex = (currentSeriesIndex + 1) % seriesPuzzles.length;
                 setTimeout(initSeriesRound, 1600);
