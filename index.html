@@ -320,6 +320,8 @@
         .item-card.selected-need {
             background: var(--vivid-orange-bg);
             border-color: var(--vivid-orange);
+            transform: scale(1.05);
+            box-shadow: 0 0 16px rgba(249, 115, 22, 0.6);
         }
 
         .item-icon {
@@ -687,7 +689,7 @@
 
     <header>
         <div class="brand-box">
-            <div class="brand-badge" aria-hidden="true">👦</div>
+            <div class="brand-badge" aria-hidden="true">👦🏻</div>
             <div>
                 <h1>El Espacio de Néstor</h1>
                 <p class="brand-sub">Panel interactivo</p>
@@ -718,7 +720,7 @@
             <span class="module-tag">Comunicar</span>
             <span class="module-icon-wrap" aria-hidden="true">💬</span>
             <span class="module-title">QUIERO...</span>
-            <span class="module-desc">Tablero amplio de necesidades cotidianas.</span>
+            <span class="module-desc">Tablero visual simple para pedir y comunicar.</span>
         </button>
 
         <button type="button" class="module-card purple" onclick="showView('storyView')">
@@ -785,69 +787,7 @@
         </button>
     </main>
 
-    <!-- Vista: Tablero de Comunicación ("Quiero...") -->
-    <section id="commView" class="view-section" aria-labelledby="commHeading">
-        <div class="view-header">
-            <div>
-                <h2 id="commHeading">¿Qué necesito ahora?</h2>
-                <p class="section-subtitle">Toca el dibujo para mostrar o decir lo que quieres.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
-        <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua, por favor')">
-                <div class="item-icon" aria-hidden="true">🥤</div>
-                <h3>Agua</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero comer algo rico')">
-                <div class="item-icon" aria-hidden="true">🍌</div>
-                <h3>Comer</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ir al baño')">
-                <div class="item-icon" aria-hidden="true">🚽</div>
-                <h3>Baño</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito descansar un momento')">
-                <div class="item-icon" aria-hidden="true">🛏️</div>
-                <h3>Descansar</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito un poco de silencio')">
-                <div class="item-icon" aria-hidden="true">🤫</div>
-                <h3>Silencio</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero escuchar música linda')">
-                <div class="item-icon" aria-hidden="true">🎵</div>
-                <h3>Música</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero jugar con mi juguete favorito')">
-                <div class="item-icon" aria-hidden="true">🧸</div>
-                <h3>Juguete</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero salir a pasear un ratito')">
-                <div class="item-icon" aria-hidden="true">🌳</div>
-                <h3>Pasear</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ayuda, por favor')">
-                <div class="item-icon" aria-hidden="true">🙋‍♂️</div>
-                <h3>Ayuda</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero dar un gran abrazo')">
-                <div class="item-icon" aria-hidden="true">🫂</div>
-                <h3>Abrazo</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Hay demasiado ruido por aquí')">
-                <div class="item-icon" aria-hidden="true">🙉</div>
-                <h3>Mucho ruido</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ver mi dibujo favorito')">
-                <div class="item-icon" aria-hidden="true">📺</div>
-                <h3>Dibujos</h3>
-            </button>
-        </div>
-        <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
-    </section>
-
-    <!-- Vista: Rutina Diaria -->
+    <!-- Vista: Rutina Diaria Completa -->
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
         <div class="view-header">
             <div>
@@ -865,6 +805,10 @@
                 <div class="item-icon" aria-hidden="true">🪥</div>
                 <h3>Lavarse dientes</h3>
             </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Vestirse con ropa limpia y cómoda')">
+                <div class="item-icon" aria-hidden="true">👕</div>
+                <h3>Vestirse</h3>
+            </button>
             <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Bañarse con agua calentita y jabón')">
                 <div class="item-icon" aria-hidden="true">🚿</div>
                 <h3>Bañarse</h3>
@@ -881,15 +825,105 @@
                 <div class="item-icon" aria-hidden="true">🧼</div>
                 <h3>Lavarse manos</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Comer rico y saludable')">
-                <div class="item-icon" aria-hidden="true">🍎</div>
-                <h3>Comer rico</h3>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Almorzar y comer rico y saludable')">
+                <div class="item-icon" aria-hidden="true">🥗</div>
+                <h3>Almorzar</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Descansar un ratito tranquilo')">
+                <div class="item-icon" aria-hidden="true">🛏️</div>
+                <h3>Descansar</h3>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Hacer deberes o tareas con calma')">
+                <div class="item-icon" aria-hidden="true">📚</div>
+                <h3>Hacer deberes</h3>
             </button>
             <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo y feliz')">
                 <div class="item-icon" aria-hidden="true">🧸</div>
                 <h3>Jugar tranquilo</h3>
             </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Cenar rico y prepararse para dormir')">
+                <div class="item-icon" aria-hidden="true">🌙</div>
+                <h3>Cenar y dormir</h3>
+            </button>
         </div>
+    </section>
+
+    <!-- Vista: Tablero "QUIERO..." Ampliado y Directo -->
+    <section id="commView" class="view-section" aria-labelledby="commHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="commHeading">¿Qué quiero o necesito?</h2>
+                <p class="section-subtitle">Toca una tarjeta para que la voz la diga claramente y puedas repetirla.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua, por favor')">
+                <div class="item-icon" aria-hidden="true">🥤</div>
+                <h3>Quiero agua</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero comer algo rico, por favor')">
+                <div class="item-icon" aria-hidden="true">🍌</div>
+                <h3>Quiero comer</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ir al baño, por favor')">
+                <div class="item-icon" aria-hidden="true">🚽</div>
+                <h3>Ir al baño</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ayuda, por favor')">
+                <div class="item-icon" aria-hidden="true">🙋‍♂️</div>
+                <h3>Necesito ayuda</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero parar un momento y descansar')">
+                <div class="item-icon" aria-hidden="true">🛏️</div>
+                <h3>Quiero descansar</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito un poco de silencio, por favor')">
+                <div class="item-icon" aria-hidden="true">🤫</div>
+                <h3>Quiero silencio</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Hay demasiado ruido y me molesta')">
+                <div class="item-icon" aria-hidden="true">🙉</div>
+                <h3>Mucho ruido</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero escuchar música linda')">
+                <div class="item-icon" aria-hidden="true">🎵</div>
+                <h3>Quiero música</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero jugar con mi juguete favorito')">
+                <div class="item-icon" aria-hidden="true">🧸</div>
+                <h3>Quiero jugar</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero salir a pasear un ratito')">
+                <div class="item-icon" aria-hidden="true">🌳</div>
+                <h3>Quiero pasear</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero dar un gran abrazo')">
+                <div class="item-icon" aria-hidden="true">🫂</div>
+                <h3>Quiero un abrazo</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ver mi dibujo favorito')">
+                <div class="item-icon" aria-hidden="true">📺</div>
+                <h3>Ver dibujos</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ponerme mi abrigo')">
+                <div class="item-icon" aria-hidden="true">🧥</div>
+                <h3>Quiero mi abrigo</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Tengo frío, necesito abrigarme')">
+                <div class="item-icon" aria-hidden="true">🥶</div>
+                <h3>Tengo frío</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Tengo calor, necesito refrescarme')">
+                <div class="item-icon" aria-hidden="true">🥵</div>
+                <h3>Tengo calor</h3>
+            </button>
+            <button type="button" class="item-card" onclick="selectNeed(this, 'Ya terminé, lo hice muy bien')">
+                <div class="item-icon" aria-hidden="true">✅</div>
+                <h3>Ya terminé</h3>
+            </button>
+        </div>
+        <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
     </section>
 
     <!-- Vista: Me visto y peino -->
@@ -940,115 +974,34 @@
         </div>
         <div class="items-grid">
             <button type="button" class="item-card" onclick="selectParkActivity('Me subo al columpio y voy despacio hacia adelante y hacia atrás')">
-                <div class="item-icon" aria-hidden="true">
-                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 56L22 10H42L52 56" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="16" y1="10" x2="48" y2="10" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
-                        <line x1="26" y1="10" x2="26" y2="39" stroke="#F8FAFC" stroke-width="3" stroke-dasharray="3 2"/>
-                        <line x1="38" y1="10" x2="38" y2="39" stroke="#F8FAFC" stroke-width="3" stroke-dasharray="3 2"/>
-                        <rect x="21" y="39" width="22" height="6" rx="3" fill="#F97316"/>
-                        <path d="M14 42H18M14 42L16 39M14 42L16 45" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M50 42H46M50 42L48 39M50 42L48 45" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
+                <div class="item-icon" aria-hidden="true">🛝</div>
                 <h3>Columpio</h3>
             </button>
-
             <button type="button" class="item-card" onclick="selectParkActivity('Subo por la escalera y me deslizo con cuidado por el tobogán')">
                 <div class="item-icon" aria-hidden="true">🛝</div>
                 <h3>Tobogán</h3>
             </button>
-
             <button type="button" class="item-card" onclick="selectParkActivity('Ando en bicicleta sintiendo el viento en la cara con mucha alegría')">
                 <div class="item-icon" aria-hidden="true">🚲</div>
                 <h3>Andar en bici</h3>
             </button>
-
             <button type="button" class="item-card" onclick="selectParkActivity('Corro rápido por el césped sintiendo la libertad y la energía')">
                 <div class="item-icon" aria-hidden="true">🏃‍♂️</div>
                 <h3>Correr</h3>
             </button>
-
             <button type="button" class="item-card" onclick="selectParkActivity('Salto alto y divertido con mucha energía')">
-                <div class="item-icon" aria-hidden="true">
-                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="11" r="5.5" fill="#FACC15"/>
-                        <path d="M21 15L28 23H36L43 15" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="32" y1="22" x2="32" y2="34" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
-                        <path d="M32 34L24 41L27 46" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 34L40 41L37 46" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 56V48M32 48L28 52M32 48L36 52" stroke="#22C55E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="16" y1="59" x2="48" y2="59" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                </div>
+                <div class="item-icon" aria-hidden="true">⬆️</div>
                 <h3>Saltar</h3>
             </button>
-
-            <button type="button" class="item-card" onclick="selectParkActivity('Salto la soga contando cada vez que pasa por debajo de mis pies')">
-                <div class="item-icon" aria-hidden="true">
-                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="13" r="5" fill="#FACC15"/>
-                        <line x1="32" y1="20" x2="32" y2="33" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round"/>
-                        <path d="M20 27L28 24H36L44 27" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 33L26 40L28 45" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 33L38 40L36 45" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="18" y1="25" x2="21" y2="29" stroke="#F97316" stroke-width="3.5" stroke-linecap="round"/>
-                        <line x1="46" y1="25" x2="43" y2="29" stroke="#F97316" stroke-width="3.5" stroke-linecap="round"/>
-                        <path d="M19 28C11 45 20 55 32 55C44 55 53 45 45 28" stroke="#22C55E" stroke-width="3.5" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <h3>Saltar la soga</h3>
-            </button>
-
             <button type="button" class="item-card" onclick="selectParkActivity('Juego al fútbol pateando la pelota con mis amigos')">
                 <div class="item-icon" aria-hidden="true">⚽</div>
                 <h3>Jugar al fútbol</h3>
-            </button>
-
-            <button type="button" class="item-card" onclick="selectParkActivity('Hago volar la cometa muy alto en el cielo azul')">
-                <div class="item-icon" aria-hidden="true">🪁</div>
-                <h3>Volar cometa</h3>
-            </button>
-
-            <button type="button" class="item-card" onclick="selectParkActivity('Juego y comparto alegremente con otros niños y amigas')">
-                <div class="item-icon" aria-hidden="true">🧒👧</div>
-                <h3>Jugar con otros niños</h3>
-            </button>
-
-            <button type="button" class="item-card" onclick="selectParkActivity('Construyo castillos divertidos y formas con la arena')">
-                <div class="item-icon" aria-hidden="true">
-                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 43C18 35 28 33 36 37C43 40 49 36 54 43H10Z" fill="#FACC15"/>
-                        <path d="M19 25H31L29 38H21L19 25Z" fill="#EF4444"/>
-                        <path d="M19 25C19 20 31 20 31 25" stroke="#F8FAFC" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="43" y1="21" x2="38" y2="33" stroke="#38BDF8" stroke-width="3.5" stroke-linecap="round"/>
-                        <path d="M35 32L41 34L39 40C38 41 35 40 34 38L35 32Z" fill="#38BDF8"/>
-                        <rect x="8" y="43" width="48" height="11" rx="3" fill="#B45309" stroke="#F59E0B" stroke-width="2.5"/>
-                    </svg>
-                </div>
-                <h3>Caja de arena</h3>
-            </button>
-
-            <button type="button" class="item-card" onclick="selectParkActivity('Descansamos un momento en el banco tomando agua fresca')">
-                <div class="item-icon" aria-hidden="true">
-                    <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="10" y="29" width="44" height="5" rx="2" fill="#D97706"/>
-                        <rect x="8" y="40" width="48" height="5" rx="2" fill="#F59E0B"/>
-                        <line x1="14" y1="27" x2="14" y2="54" stroke="#94A3B8" stroke-width="3.5" stroke-linecap="round"/>
-                        <line x1="50" y1="27" x2="50" y2="54" stroke="#94A3B8" stroke-width="3.5" stroke-linecap="round"/>
-                        <circle cx="28" cy="15" r="5" fill="#FACC15"/>
-                        <path d="M28 22V39H39L43 52" stroke="#38BDF8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M28 26L36 31" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
-                        <rect x="36" y="25" width="5" height="9" rx="1.5" fill="#22C55E"/>
-                    </svg>
-                </div>
-                <h3>Descansar un poco</h3>
             </button>
         </div>
         <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Explorador de Colores Ampliado y sin etiquetas superiores -->
+    <!-- Vista: Explorador de Colores -->
     <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
         <div class="view-header">
             <div>
@@ -1144,8 +1097,6 @@
             <button type="button" class="cat-btn" id="tab-playa" onclick="loadStory('playa')">🏖️ Ir a la playa</button>
             <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar el pelo</button>
             <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Hora de dormir</button>
-            <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Ir al supermercado</button>
-            <button type="button" class="cat-btn" id="tab-viaje" onclick="loadStory('viaje')">🚗 Viaje en coche</button>
         </div>
         <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;"></div>
     </section>
@@ -1248,14 +1199,6 @@
                 <div class="item-icon" aria-hidden="true">😤</div>
                 <h3>Enojado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Te acompaño cerquita con un abrazo muy fuerte. Todo pasa.')">
-                <div class="item-icon" aria-hidden="true">💙</div>
-                <h3>Triste</h3>
-            </button>
-            <button type="button" class="item-card" onclick="selectEmotion('No te preocupes, estamos protegidos y seguros aquí.')">
-                <div class="item-icon" aria-hidden="true">🛡️</div>
-                <h3>Asustado</h3>
-            </button>
         </div>
         <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
@@ -1336,36 +1279,7 @@
             { name: 'Fresa', icon: '🍓', category: 'fruta', desc: 'Fresa dulce y roja' },
             { name: 'Naranja', icon: '🍊', category: 'fruta', desc: 'Naranja jugosa' },
             { name: 'Uvas', icon: '🍇', category: 'fruta', desc: 'Uvas dulces' },
-            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' },
-            { name: 'Melocotón', icon: '🍑', category: 'fruta', desc: 'Melocotón jugoso y suave' },
-            { name: 'Pera', icon: '🍐', category: 'fruta', desc: 'Pera jugosa y tierna' },
-            { name: 'Kiwi', icon: '🥝', category: 'fruta', desc: 'Kiwi verde lleno de vitaminas' },
-            { name: 'Piña', icon: '🍍', category: 'fruta', desc: 'Piña tropical muy refrescante' },
-            { name: 'Ciruela', icon: '🟣', category: 'fruta', desc: 'Ciruela dulce y jugosa' },
-            { name: 'Melón', icon: '🍈', category: 'fruta', desc: 'Melón fresco y dulce' },
-            { name: 'Zanahoria', icon: '🥕', category: 'verdura', desc: 'Zanahoria crujiente' },
-            { name: 'Brócoli', icon: '🥦', category: 'verdura', desc: 'Brócoli verde y sano' },
-            { name: 'Tomate', icon: '🍅', category: 'verdura', desc: 'Tomate rojo fresco' },
-            { name: 'Patata', icon: '🥔', category: 'verdura', desc: 'Patata nutritiva' },
-            { name: 'Maíz', icon: '🌽', category: 'verdura', desc: 'Maíz tierno y rico' },
-            { name: 'Calabacín', icon: '🥒', category: 'verdura', desc: 'Calabacín tierno y saludable' },
-            { name: 'Judías verdes', icon: '🟢', category: 'verdura', desc: 'Judías verdes sanas' },
-            { name: 'Lechuga', icon: '🥬', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
-            { name: 'Espinacas', icon: '🍃', category: 'verdura', desc: 'Espinacas llenas de energía' },
-            { name: 'Cebolla', icon: '🧅', category: 'verdura', desc: 'Cebolla fresca' },
-            { name: 'Ajo', icon: '🧄', category: 'verdura', desc: 'Ajo aromático' },
-            { name: 'Pechuga de pollo', icon: '🍗', category: 'carne', desc: 'Pechuga de pollo tierna y jugosa' },
-            { name: 'Carne de ternera', icon: '🥩', category: 'carne', desc: 'Filete de ternera nutritivo' },
-            { name: 'Lomo de cerdo', icon: '🥓', category: 'carne', desc: 'Lomo de cerdo sabroso' },
-            { name: 'Albóndigas', icon: '🧆', category: 'carne', desc: 'Albóndigas de carne caseras' },
-            { name: 'Salmón', icon: '🍣', category: 'pescado', desc: 'Filete de salmón fresco y rico' },
-            { name: 'Merluza', icon: '🐟', category: 'pescado', desc: 'Pescado blanco tierno y sano' },
-            { name: 'Atún', icon: '🥫', category: 'pescado', desc: 'Atún sabroso y nutritivo' },
-            { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan fresco del día' },
-            { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz calentito' },
-            { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta deliciosa' },
-            { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita' },
-            { name: 'Huevo', icon: '🥚', category: 'comida', desc: 'Huevo nutritivo' }
+            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' }
         ];
 
         const stories = {
@@ -1392,27 +1306,6 @@
                 { icon: '🪥', title: 'Lavamos los dientes', text: 'Cepillamos nuestros dientes con pasta para que queden limpios, sanos y listos para ir a la cama.' },
                 { icon: '📖', title: 'Un momento tranquilo', text: 'En la cama bajamos la luz y compartimos un cuento corto o música muy suave para que la mente se relaje.' },
                 { icon: '🛌', title: 'Dormimos toda la noche', text: 'Cerramos los ojos en nuestra cama segura y calentita para recuperar toda la energía para mañana.' }
-            ],
-            super: [
-                { icon: '🛒', title: 'Entramos al supermercado', text: 'Vamos a buscar alimentos ricos para tener en casa. Hay luces y gente, pero siempre vamos juntos y tranquilos.' },
-                { icon: '🍎', title: 'Elegimos los alimentos', text: 'Recorremos los pasillos mirando las frutas, las verduras y las cosas ricas que necesitamos poner en el carrito.' },
-                { icon: '💳', title: 'Pagamos en la caja', text: 'Al terminar pasamos por la caja, saludamos con una sonrisa y guardamos todo en nuestras bolsas.' },
-                { icon: '🏡', title: 'Volvemos con la compra', text: 'Regresamos a casa para guardar cada alimento en su lugar y disfrutar de lo que elegimos.' }
-            ],
-            viaje: [
-                { icon: '🎒', title: 'Llevamos algo favorito', text: 'Antes de subir al coche elegimos un juguete, un libro o música linda para entretenernos durante el camino.' },
-                { 
-                  icon: `<svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <rect x="16" y="24" width="32" height="20" rx="4" fill="#3B82F6"/>
-                           <line x1="22" y1="24" x2="42" y2="44" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
-                           <line x1="42" y1="24" x2="22" y2="44" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
-                           <circle cx="32" cy="34" r="5" fill="#22C55E"/>
-                         </svg>`, 
-                  title: 'Abróchamos el cinturón', 
-                  text: 'Nos sentamos en nuestro asiento y cruzamos firmemente el cinturón de seguridad porque nos protege durante todo el viaje.' 
-                },
-                { icon: '🎶', title: 'Miramos por la ventana', text: 'Mientras el coche avanza podemos ver los árboles, las casas y las nubes pasar por la ventanilla.' },
-                { icon: '🌴', title: 'Llegamos al destino', text: 'Cuando el coche se detiene por completo, desabrochamos el cinturón y bajamos tranquilos a disfrutar del paseo.' }
             ]
         };
 
@@ -1424,7 +1317,7 @@
             initVividColorsGame();
 
             setTimeout(() => {
-                speak("El Espacio de Néstor");
+                speak("Bienvenido al espacio de Néstor");
             }, 500);
         };
 
@@ -1490,6 +1383,15 @@
             window.speechSynthesis.speak(utterance);
         }
 
+        function selectNeed(element, phrase) {
+            document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
+            element.classList.add('selected-need');
+            const banner = document.getElementById('needBanner');
+            banner.style.display = 'block';
+            banner.innerText = phrase;
+            speak(phrase);
+        }
+
         function startCalmBreathing() {
             const circle = document.getElementById('breathCircle');
             const phaseText = document.getElementById('breathPhaseText');
@@ -1538,15 +1440,6 @@
             runStep();
             if (calmInterval) clearInterval(calmInterval);
             calmInterval = setInterval(runStep, 1000);
-        }
-
-        function selectNeed(element, phrase) {
-            document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
-            element.classList.add('selected-need');
-            const banner = document.getElementById('needBanner');
-            banner.style.display = 'block';
-            banner.innerText = phrase;
-            speak(phrase);
         }
 
         function toggleRoutine(element, text) {
@@ -1735,13 +1628,9 @@
                     speak(`${scene.title}. ${scene.text}`);
                 };
 
-                let iconHtml = typeof scene.icon === 'string' && scene.icon.startsWith('<svg') 
-                    ? `<div class="item-icon" aria-hidden="true" style="margin: 8px 0 12px 0;">${scene.icon}</div>` 
-                    : `<div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0;">${scene.icon}</div>`;
-
                 card.innerHTML = `
                     <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px;">${scene.title}</span>
-                    ${iconHtml}
+                    <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0;">${scene.icon}</div>
                     <p style="font-size: 1.05rem; font-weight: 600; color: #F8FAFC; line-height: 1.45; text-align: center;">${scene.text}</p>
                 `;
                 container.appendChild(card);
