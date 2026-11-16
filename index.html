@@ -42,12 +42,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes gentlePulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 0 16px 4px rgba(59, 130, 246, 0.3); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -71,7 +65,7 @@
             line-height: 1.5;
         }
 
-        /* Cabecera vibrante */
+        /* Cabecera estática */
         header {
             width: 100%;
             max-width: 1100px;
@@ -104,7 +98,6 @@
             align-items: center;
             justify-content: center;
             font-size: 2.2rem;
-            animation: gentlePulse 3s infinite ease-in-out;
         }
 
         h1 {
@@ -135,7 +128,7 @@
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.15s, background-color 0.15s;
+            transition: background-color 0.15s;
             color: #FFFFFF;
             display: flex;
             align-items: center;
@@ -158,7 +151,7 @@
             color: #FFFFFF;
         }
 
-        /* Menú Principal */
+        /* Menú Principal estático */
         .main-container {
             width: 100%;
             max-width: 1100px;
@@ -183,12 +176,11 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: box-shadow 0.2s;
             border: 3px solid transparent;
         }
 
         .module-card:hover {
-            transform: translateY(-4px);
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
         }
 
@@ -237,7 +229,9 @@
             font-size: 1.05rem;
             font-weight: 700;
             color: #FFFFFF;
-            line-height: 1.4;
+            line-height: 1.5;
+            text-align: left;
+            width: 100%;
         }
 
         /* Vistas Internas */
@@ -312,13 +306,13 @@
             border: 3px solid #FFFFFF;
             border-radius: 20px;
             padding: 20px 14px;
-            text-align: center;
+            text-align: left;
             cursor: pointer;
-            transition: transform 0.15s, background-color 0.15s, border-color 0.15s;
+            transition: background-color 0.15s, border-color 0.15s;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
         }
 
@@ -326,10 +320,12 @@
             font-size: 1.25rem;
             font-weight: 700;
             color: #FFFFFF;
+            line-height: 1.5;
+            text-align: left;
+            width: 100%;
         }
 
         .item-card:hover {
-            transform: scale(1.03);
             border-color: var(--vivid-blue);
             background: #1E293B;
         }
@@ -337,7 +333,6 @@
         .item-card.completed {
             background: var(--vivid-green-bg);
             border-color: var(--vivid-green);
-            animation: gentlePulse 0.4s ease-out;
         }
 
         .item-card.completed h3::after {
@@ -347,7 +342,6 @@
         .item-card.selected-need {
             background: var(--vivid-orange-bg);
             border-color: var(--vivid-orange);
-            transform: scale(1.05);
             box-shadow: 0 0 16px rgba(249, 115, 22, 0.6);
         }
 
@@ -355,6 +349,9 @@
             font-size: 3.3rem;
             margin-bottom: 10px;
             line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Selector de Categorías */
@@ -382,7 +379,7 @@
             border-color: var(--vivid-blue);
         }
 
-        /* Tarjetas de Grilla con etiqueta arriba e icono abajo */
+        /* Tarjetas de Grilla */
         .grid-card {
             background: #0F172A;
             border: 3px solid var(--vivid-yellow);
@@ -394,12 +391,11 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: transform 0.15s, background-color 0.15s;
+            transition: background-color 0.15s;
             min-height: 145px;
         }
 
         .grid-card:hover {
-            transform: scale(1.03);
             background: #1E293B;
             border-color: var(--vivid-blue);
         }
@@ -412,6 +408,8 @@
             border: 2px solid #FFFFFF;
             padding: 4px 12px;
             border-radius: 10px;
+            line-height: 1.5;
+            text-align: left;
         }
 
         /* Tablero de Números del 1 al 100 */
@@ -469,11 +467,10 @@
             font-weight: 700;
             cursor: pointer;
             color: #FFFFFF;
-            transition: transform 0.1s, background-color 0.1s;
+            transition: background-color 0.1s;
         }
 
         .num-box:hover {
-            transform: scale(1.1);
             background: var(--vivid-blue-bg);
         }
 
@@ -487,7 +484,8 @@
             color: #FFFFFF;
             font-size: 1.4rem;
             font-weight: 700;
-            text-align: center;
+            text-align: left;
+            line-height: 1.5;
             display: none;
             animation: fadeIn 0.25s ease-out;
         }
@@ -518,29 +516,26 @@
             display: inline-block;
             padding: 14px 28px;
             border-radius: 18px;
+            line-height: 1.5;
+            text-align: left;
         }
 
         .color-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            max-width: 780px;
+            max-width: 840px;
             margin: 30px auto 0 auto;
             justify-items: center;
-            gap: 24px;
+            gap: 20px;
         }
 
         .color-ball {
-            width: 105px;
-            height: 105px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             cursor: pointer;
             border: 4px solid #FFFFFF;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
-            transition: transform 0.15s;
-        }
-
-        .color-ball:hover {
-            transform: scale(1.1);
         }
 
         .sequence-board {
@@ -563,20 +558,6 @@
             font-size: 3.1rem;
             font-weight: 700;
             color: #FFFFFF;
-            transition: all 0.2s ease;
-        }
-
-        .seq-slot.mystery {
-            background: #581C87;
-            border: 4px dashed var(--vivid-purple);
-            color: #E9D5FF;
-        }
-
-        .seq-slot.revealed {
-            background: var(--vivid-green-bg);
-            border: 4px solid var(--vivid-green);
-            transform: scale(1.06);
-            animation: gentlePulse 0.4s ease-out;
         }
 
         .choice-row {
@@ -602,25 +583,26 @@
             justify-content: center;
             gap: 4px;
             color: #FFFFFF;
-            transition: transform 0.15s, background-color 0.15s;
+            transition: background-color 0.15s;
         }
 
         .choice-btn:hover:not(:disabled) {
-            transform: scale(1.05);
             background: var(--vivid-purple-bg);
         }
 
         .choice-btn:disabled {
-            background: var(--vivid-green-bg);
-            border-color: var(--vivid-green);
+            background: #334155;
+            border-color: #64748B;
             cursor: default;
-            opacity: 0.95;
+            opacity: 0.5;
         }
 
         .choice-label {
             font-size: 1rem;
             font-weight: 700;
             color: #FFFFFF;
+            line-height: 1.5;
+            text-align: left;
         }
 
         .game-feedback-text {
@@ -629,6 +611,129 @@
             font-weight: 700;
             min-height: 36px;
             color: #FFFFFF;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* Estilos específicos para Buscador de Animales */
+        .find-arena {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .find-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 16px;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .find-card {
+            background: #0F172A;
+            border: 3px solid #334155;
+            border-radius: 20px;
+            height: 96px;
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.15s, border-color 0.15s;
+        }
+
+        .find-card:hover {
+            border-color: var(--vivid-yellow);
+            background: #1E293B;
+        }
+
+        .find-card.found-correct {
+            background: var(--vivid-green-bg);
+            border-color: var(--vivid-green);
+        }
+
+        /* Estilos para el Modal de Trazo */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 3px solid #38BDF8;
+            border-radius: var(--radius);
+            padding: 24px;
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            color: #38BDF8;
+            font-weight: 700;
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background: #0F172A;
+            border: 4px solid #38BDF8;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .tracing-guide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12rem;
+            font-weight: 700;
+            color: rgba(56, 189, 248, 0.2);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .modal-toolbar {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
         }
 
         /* Pie de página profesional */
@@ -642,6 +747,7 @@
             font-weight: 700;
             border-top: 2px solid #334155;
             margin-top: auto;
+            line-height: 1.5;
         }
 
         footer span {
@@ -694,7 +800,6 @@
             <span class="module-desc">Tablero visual simple para pedir y comunicar.</span>
         </button>
 
-        <!-- Posición 4 (después de QUIERO...): HISTORIAS -->
         <button type="button" class="module-card cyan" onclick="showView('anticipateView')">
             <span class="module-tag">Anticipar</span>
             <span class="module-icon-wrap" aria-hidden="true">🗺️</span>
@@ -702,7 +807,6 @@
             <span class="module-desc">Relatos paso a paso para las salidas.</span>
         </button>
 
-        <!-- Posición 5: LAS AVENTURAS DE NÉSTOR Y LA MANI -->
         <button type="button" class="module-card" style="border-color: #A855F7; color: #A855F7;" onclick="showView('storyView')">
             <span class="module-tag" style="background: #0F172A;">Cuentos</span>
             <span class="module-icon-wrap" aria-hidden="true">📖</span>
@@ -720,8 +824,8 @@
         <button type="button" class="module-card pink" onclick="showView('colorsLearnView')">
             <span class="module-tag">Aprender</span>
             <span class="module-icon-wrap" aria-hidden="true">🎨</span>
-            <span class="module-title">COLORES</span>
-            <span class="module-desc">Explora colores comunes y vivos.</span>
+            <span class="module-title">APRENDER</span>
+            <span class="module-desc">Colores, transportes, abecedario y trazos.</span>
         </button>
 
         <button type="button" class="module-card yellow" onclick="showView('animalsView')">
@@ -742,7 +846,7 @@
             <span class="module-tag">Contar</span>
             <span class="module-icon-wrap" aria-hidden="true">💯</span>
             <span class="module-title">NÚMEROS AL 100</span>
-            <span class="module-desc">Tablero completo de conteo avanzado.</span>
+            <span class="module-desc">Tablero completo de conteo y trazo.</span>
         </button>
 
         <button type="button" class="module-card" style="border-color: #EF4444; color: #EF4444;" onclick="showView('gameView')">
@@ -765,7 +869,7 @@
         <div class="view-header">
             <div>
                 <h2 id="routineHeading">Mi Rutina Diaria</h2>
-                <p class="section-subtitle">Toca cada actividad cuando la termines (se guarda automáticamente).</p>
+                <p class="section-subtitle">Toca cada actividad cuando la termines.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
@@ -821,7 +925,7 @@
         </div>
     </section>
 
-    <!-- Vista: Tablero "QUIERO..." Ampliado y Directo -->
+    <!-- Vista: Tablero "QUIERO..." -->
     <section id="commView" class="view-section" aria-labelledby="commHeading">
         <div class="view-header">
             <div>
@@ -904,7 +1008,7 @@
         <div class="view-header">
             <div>
                 <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
-                <p class="section-subtitle">Toca cada acción cuando la completes (se guarda automáticamente).</p>
+                <p class="section-subtitle">Toca cada acción cuando la completes.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
@@ -1037,21 +1141,21 @@
         <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Explorador de Colores -->
+    <!-- Vista: Aprender (Colores, Transportes y Abecedario con Trazo) -->
     <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
         <div class="view-header">
             <div>
-                <h2 id="colorsLearnHeading">Explorador de Colores</h2>
-                <p class="section-subtitle">Toca un color para escuchar su nombre y ver sus características.</p>
+                <h2 id="colorsLearnHeading">Aprender</h2>
+                <p class="section-subtitle">Toca cada elemento para explorar, escuchar y practicar su trazo.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="filterColors('todos')">Todos</button>
-            <button type="button" class="cat-btn" onclick="filterColors('comun')">Comunes</button>
-            <button type="button" class="cat-btn" onclick="filterColors('vivo')">Vivos</button>
+            <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('colores')">🎨 Colores</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('transporte')">🚗 Medios de Transporte</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('abecedario')">🔤 Abecedario</button>
         </div>
-        <div class="items-grid" id="colorsGrid"></div>
+        <div class="items-grid" id="learnGrid"></div>
         <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
     </section>
 
@@ -1068,7 +1172,7 @@
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Alimentos Completa -->
+    <!-- Vista: Alimentos -->
     <section id="foodView" class="view-section" aria-labelledby="foodHeading">
         <div class="view-header">
             <div>
@@ -1089,12 +1193,12 @@
         <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Números del 1 al 100 -->
+    <!-- Vista: Números del 1 al 100 (Con Trazo al tocar) -->
     <section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
         <div class="view-header">
             <div>
                 <h2 id="nums100Heading">Tablero de Números del 1 al 100</h2>
-                <p class="section-subtitle">Toca cualquier número para escucharlo.</p>
+                <p class="section-subtitle">Toca cualquier número para escucharlo o practicar su trazo.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
@@ -1124,6 +1228,7 @@
             <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores</button>
             <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
             <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
+            <button type="button" class="cat-btn" id="gtab-find" onclick="switchGameTab('find')">4. Buscar Animal</button>
         </div>
 
         <div id="panel-colors" class="game-panel active-game">
@@ -1149,9 +1254,17 @@
             <div class="choice-row" id="seriesChoices"></div>
             <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
         </div>
+
+        <div id="panel-find" class="game-panel">
+            <h3 id="findPrompt" class="game-prompt">¿Dónde está el animal?</h3>
+            <div class="find-arena">
+                <div class="find-grid" id="findGrid"></div>
+            </div>
+            <p id="findFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+        </div>
     </section>
 
-    <!-- Vista: Emociones con Explicaciones (¿Cómo estoy?) -->
+    <!-- Vista: Emociones -->
     <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
         <div class="view-header">
             <div>
@@ -1197,6 +1310,25 @@
         <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
     </section>
 
+    <!-- Modal de Trazo Táctil -->
+    <div id="tracingModal" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalCharTitle">Practicar trazo</h3>
+            <div class="canvas-wrapper" id="canvasWrapper">
+                <div class="tracing-guide" id="tracingGuide">A</div>
+                <canvas id="drawCanvas"></canvas>
+            </div>
+            <div class="modal-toolbar">
+                <button type="button" class="btn-control" onclick="clearCanvas()" style="background:#0E7490; border-color:#06B6D4; color:#FFFFFF;">
+                    <span>🧹 Borrar</span>
+                </button>
+                <button type="button" class="btn-control" onclick="closeTracingModal()" style="background:#334155; border-color:#FFFFFF; color:#FFFFFF;">
+                    <span>✖ Cerrar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         Desarrollado por <span>Graciela Viera</span>
     </footer>
@@ -1208,6 +1340,8 @@
 
         const megaphoneOnSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>`;
         const megaphoneOffSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg>`;
+
+        const submarinoSvg = `<svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20M12 2v4M8 6h8l2 6H6l2-6zM15 12v3l3 2v2H6v-2l3-2v-3"></path></svg>`;
 
         function loadVoices() {
             if (!('speechSynthesis' in window)) return;
@@ -1240,27 +1374,50 @@
         document.addEventListener('click', unlockMobileAudio, { once: true });
 
         const colorDatabase = [
-            { name: 'Rojo', type: 'comun', icon: '❤️', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
-            { name: 'Azul', type: 'comun', icon: '💙', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
-            { name: 'Amarillo', type: 'comun', icon: '💛', hex: '#EAB308', desc: 'Amarillo suave, como los plátanos.' },
-            { name: 'Verde', type: 'comun', icon: '💚', hex: '#22C55E', desc: 'Verde natural de las hojas y el pasto.' },
-            { name: 'Naranja', type: 'comun', icon: '🧡', hex: '#F97316', desc: 'Naranja cálido de las naranjas.' },
-            { name: 'Violeta', type: 'comun', icon: '💜', hex: '#A855F7', desc: 'Violeta clásico como las uvas.' },
-            { name: 'Rosa', type: 'comun', icon: '🌸', hex: '#EC4899', desc: 'Rosa tierno y suave.' },
-            { name: 'Celeste', type: 'comun', icon: '🌐', hex: '#38BDF8', desc: 'Celeste suave como el agua clara.' },
-            { name: 'Gris', type: 'comun', icon: '🔘', hex: '#64748B', desc: 'Gris como las piedras del camino.' },
-            { name: 'Marrón', type: 'comun', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
-            { name: 'Negro', type: 'comun', icon: '⬛', hex: '#1E293B', desc: 'Negro profundo y elegante.' },
-            { name: 'Blanco', type: 'comun', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
-            { name: 'Rojo Intenso', type: 'vivo', icon: '❤️', hex: '#DC2626', desc: 'Rojo fuerte y muy brillante.' },
-            { name: 'Azul Fuerte', type: 'vivo', icon: '💙', hex: '#2563EB', desc: 'Azul brillante como el mar profundo.' },
-            { name: 'Amarillo Sol', type: 'vivo', icon: '💛', hex: '#FACC15', desc: 'Amarillo sol radiante y alegre.' },
-            { name: 'Verde Claro', type: 'vivo', icon: '💚', hex: '#4ADE80', desc: 'Verde brillante como el pasto nuevo.' },
-            { name: 'Naranja Brillante', type: 'vivo', icon: '🧡', hex: '#EA580C', desc: 'Naranja brillante y alegre.' },
-            { name: 'Violeta Oscuro', type: 'vivo', icon: '💜', hex: '#7E22CE', desc: 'Violeta profundo y llamativo.' },
-            { name: 'Rosa Fuerte', type: 'vivo', icon: '💖', hex: '#D946EF', desc: 'Rosa brillante y muy alegre.' },
-            { name: 'Dorado', type: 'vivo', icon: '✨', hex: '#F59E0B', desc: 'Dorado brillante como una estrella.' }
+            { name: 'Rojo', icon: '❤️', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
+            { name: 'Azul', icon: '💙', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
+            { name: 'Amarillo', icon: '💛', hex: '#EAB308', desc: 'Amarillo suave, como los plátanos.' },
+            { name: 'Verde', icon: '💚', hex: '#22C55E', desc: 'Verde natural de las hojas y el pasto.' },
+            { name: 'Naranja', icon: '🧡', hex: '#F97316', desc: 'Naranja cálido de las naranjas.' },
+            { name: 'Violeta', icon: '💜', hex: '#A855F7', desc: 'Violeta clásico como las uvas.' },
+            { name: 'Rosa', icon: '🌸', hex: '#EC4899', desc: 'Rosa tierno y suave.' },
+            { name: 'Celeste', icon: '🌐', hex: '#38BDF8', desc: 'Celeste suave como el agua clara.' },
+            { name: 'Marrón', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
+            { name: 'Blanco', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
+            { name: 'Negro', icon: '⬛', hex: '#020617', desc: 'Negro profundo de la noche.' },
+            { name: 'Gris', icon: '🪙', hex: '#64748B', desc: 'Gris metálico y moderno.' },
+            { name: 'Turquesa', icon: '🌊', hex: '#14B8A6', desc: 'Turquesa brillante como el mar tropical.' },
+            { name: 'Fucsia', icon: '🌺', hex: '#D946EF', desc: 'Fucsia vibrante y muy alegre.' },
+            { name: 'Dorado', icon: '✨', hex: '#EAB308', desc: 'Dorado resplandeciente.' },
+            { name: 'Plateado', icon: '🪙', hex: '#94A3B8', desc: 'Plateado brillante.' },
+            { name: 'Lila', icon: '💜', hex: '#C084FC', desc: 'Lila suave y delicado.' },
+            { name: 'Coral', icon: '🪸', hex: '#FB7185', desc: 'Coral cálido y hermoso.' },
+            { name: 'Esmeralda', icon: '💎', hex: '#059669', desc: 'Verde esmeralda intenso y brillante.' },
+            { name: 'Bordo', icon: '🍷', hex: '#881337', desc: 'Bordo elegante y profundo.' },
+            { name: 'Mostaza', icon: '🌻', hex: '#CA8A04', desc: 'Amarillo mostaza cálido.' },
+            { name: 'Lavanda', icon: '🪻', hex: '#A78BFA', desc: 'Lavanda aromático y suave.' }
         ];
+
+        const transportDatabase = [
+            { name: 'Tren', icon: '🚂', isSvg: false, desc: 'El tren es un medio de transporte muy grande que viaja por largas vías metálicas conectando diferentes ciudades y lugares.' },
+            { name: 'Taxi', icon: '🚕', isSvg: false, desc: 'El taxi es un automóvil particular que nos busca y nos lleva con comodidad directamente hasta el lugar donde deseamos llegar.' },
+            { name: 'Autobús', icon: '🚌', isSvg: false, desc: 'El autobús es un vehículo grande que recorre las calles de la ciudad transportando a muchas personas juntas en cada viaje.' },
+            { name: 'Lancha', icon: '🚤', isSvg: false, desc: 'La lancha es una embarcación rápida impulsada por un motor que nos permite navegar con agilidad sobre el agua de ríos o lagos.' },
+            { name: 'Barco', icon: '🚢', isSvg: false, desc: 'El barco es una embarcación gigante capaz de navegar por el mar profundo transportando pasajeros y grandes cargas de un país a otro.' },
+            { name: 'Avión', icon: '✈️', isSvg: false, desc: 'El avión es un medio de transporte aéreo con grandes alas que vuela muy alto por el cielo para llevarnos a recorrer todo el mundo.' },
+            { name: 'Bicicleta', icon: '🚲', isSvg: false, desc: 'La bicicleta tiene dos ruedas y avanza impulsada por la fuerza de nuestras piernas al pedalear al aire libre.' },
+            { name: 'Auto', icon: '🚗', isSvg: false, desc: 'El auto es un vehículo con cuatro ruedas que se utiliza para pasear y viajar por las calles y carreteras con comodidad.' },
+            { name: 'Moto', icon: '🏍️', isSvg: false, desc: 'La moto es un vehículo ágil de dos ruedas que circula con velocidad por el asfalto.' },
+            { name: 'Helicóptero', icon: '🚁', isSvg: false, desc: 'El helicóptero es una nave aérea que cuenta con grandes hélices giratorias en su parte superior, lo que le permite despegar y aterrizar en espacios pequeños.' },
+            { name: 'Submarino', icon: submarinoSvg, isSvg: true, desc: 'El submarino es una embarcación especial diseñada para navegar y explorar por debajo del agua en las profundidades del mar.' },
+            { name: 'Cohete', icon: '🚀', isSvg: false, desc: 'El cohete es una nave espacial impulsada con gran potencia para viajar fuera del planeta y explorar el espacio exterior.' }
+        ];
+
+        const alphabetDatabase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(letter => ({
+            name: 'Letra ' + letter,
+            char: letter,
+            desc: 'Letra ' + letter + '. Toca para practicar su trazo.'
+        }));
 
         const animalDatabase = [
             { name: 'Perro', gender: 'el', icon: '🐶', action: 'el perro es un gran compañero en el hogar y hace guau guau' },
@@ -1314,33 +1471,57 @@
             { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' },
             { name: 'Pera', icon: '🍐', category: 'fruta', desc: 'Pera suave y jugosa' },
             { name: 'Kiwi', icon: '🥝', category: 'fruta', desc: 'Kiwi fresco y saludable' },
+            { name: 'Piña', icon: '🍍', category: 'fruta', desc: 'Piña tropical muy dulce' },
+            { name: 'Melón', icon: '🍈', category: 'fruta', desc: 'Melón fresco y jugoso' },
+            { name: 'Cereza', icon: '🍒', category: 'fruta', desc: 'Cerezas rojas y ricas' },
+            { name: 'Melocotón', icon: '🍑', category: 'fruta', desc: 'Melocotón tierno y jugoso' },
+            { name: 'Limón', icon: '🍋', category: 'fruta', desc: 'Limón fresco y cítrico' },
+            { name: 'Mandarina', icon: '🍊', category: 'fruta', desc: 'Mandarina fácil de pelar' },
+            { name: 'Arándanos', icon: '🫐', category: 'fruta', desc: 'Arándanos dulces y pequeños' },
+            { name: 'Mango', icon: '🥭', category: 'fruta', desc: 'Mango tropical delicioso' },
             { name: 'Lechuga', icon: '🥬', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
             { name: 'Tomate', icon: '🍅', category: 'verdura', desc: 'Tomate rojo y fresco' },
             { name: 'Zanahoria', icon: '🥕', category: 'verdura', desc: 'Zanahoria crujiente y sana' },
             { name: 'Brócoli', icon: '🥦', category: 'verdura', desc: 'Brócoli verde nutritivo' },
             { name: 'Patata', icon: '🥔', category: 'verdura', desc: 'Patata rica y nutritiva' },
             { name: 'Calabaza', icon: '🎃', category: 'verdura', desc: 'Calabaza dulce y suave' },
+            { name: 'Maíz', icon: '🌽', category: 'verdura', desc: 'Maíz tierno y dulce' },
+            { name: 'Palta', icon: '🥑', category: 'verdura', desc: 'Palta cremosa y saludable' },
+            { name: 'Pepino', icon: '🥒', category: 'verdura', desc: 'Pepino fresco y crujiente' },
+            { name: 'Berenjena', icon: '🍆', category: 'verdura', desc: 'Berenjena suave y nutritiva' },
+            { name: 'Ajo', icon: '🧄', category: 'verdura', desc: 'Ajo para dar sabor a las comidas' },
+            { name: 'Cebolla', icon: '🧅', category: 'verdura', desc: 'Cebolla fresca para cocinar' },
             { name: 'Carne', icon: '🥩', category: 'carne', desc: 'Carne de res tierna y rica' },
             { name: 'Pollo', icon: '🍗', category: 'carne', desc: 'Pollo tierno y sabroso' },
             { name: 'Jamón', icon: '🥓', category: 'carne', desc: 'Jamón rico y salado' },
             { name: 'Salchicha', icon: '🌭', category: 'carne', desc: 'Salchicha rica' },
+            { name: 'Chuleta', icon: '🍖', category: 'carne', desc: 'Chuleta jugosa' },
+            { name: 'Hamburguesa', icon: '🍔', category: 'carne', desc: 'Hamburguesa sabrosa' },
             { name: 'Pescado', icon: '🐟', category: 'pescado', desc: 'Pescado fresco del mar' },
             { name: 'Atún', icon: '🍣', category: 'pescado', desc: 'Atún fresco y nutritivo' },
             { name: 'Camarón', icon: '🍤', category: 'pescado', desc: 'Camarón sabroso' },
+            { name: 'Langosta', icon: '🦞', category: 'pescado', desc: 'Langosta del mar' },
+            { name: 'Cangrejo', icon: '🦀', category: 'pescado', desc: 'Cangrejo marino' },
+            { name: 'Ostras', icon: '🦪', category: 'pescado', desc: 'Mariscos frescos' },
             { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita y reconfortante' },
             { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz blanco calentito' },
             { name: 'Puré', icon: '🥔', category: 'comida', desc: 'Puré suave y cremoso' },
             { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta rica con salsa' },
             { name: 'Pizza', icon: '🍕', category: 'comida', desc: 'Porción de pizza rica' },
-            { name: 'Hamburguesa', icon: '🍔', category: 'comida', desc: 'Hamburguesa sabrosa' },
             { name: 'Huevo', icon: '🍳', category: 'comida', desc: 'Huevo frito nutritivo' },
             { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan tierno y fresco' },
             { name: 'Yogur', icon: '🥛', category: 'comida', desc: 'Yogur suave y fresco' },
             { name: 'Agua', icon: '🥤', category: 'comida', desc: 'Agua fresca para hidratarse' },
-            { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta' }
+            { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta' },
+            { name: 'Queso', icon: '🧀', category: 'comida', desc: 'Queso rico y cremoso' },
+            { name: 'Helado', icon: '🍨', category: 'comida', desc: 'Helado dulce y refrescante' },
+            { name: 'Tarta', icon: '🎂', category: 'comida', desc: 'Tarta dulce de celebración' },
+            { name: 'Galletas', icon: '🍪', category: 'comida', desc: 'Galletas dulces y crujientes' },
+            { name: 'Chocolate', icon: '🍫', category: 'comida', desc: 'Chocolate dulce y rico' },
+            { name: 'Café', icon: '☕', category: 'comida', desc: 'Café calentito' },
+            { name: 'Té', icon: '🫖', category: 'comida', desc: 'Té caliente y relajante' }
         ];
 
-        /* Colección de cuentos con mujer de pelo oscuro y bastón integrado (👩🏻‍🦯) y Néstor (👦🏻) */
         const stories = {
             aeropuerto: [
                 { icon: '✈️🇺🇾', title: 'Cruzando el gran océano', text: 'Desde Uruguay, la Mani cruza el gran océano azul en un viaje largo y lleno de ilusión, lista para volar hacia Gran Canaria y reencontrarse con Néstor.' },
@@ -1356,7 +1537,6 @@
             ]
         };
 
-        /* Guías de Anticipación para Salidas */
         const anticipations = {
             medico: [
                 { icon: '🚗', title: 'El viaje a la clínica', text: 'Hoy nos dirigimos al consultorio médico. El doctor nos espera para revisar que nuestro cuerpo funcione de maravilla y estemos llenos de salud y energía.' },
@@ -1390,7 +1570,7 @@
             ],
             pelo: [
                 { icon: '✂️', title: 'Anticipando el corte', text: 'Cuando el cabello crece mucho da calor y molesta en los ojos. Cortarlo nos ayuda a estar frescos. Podemos llevar auriculares o un juguete para sentirnos seguros.' },
-                { icon: '💺', title: 'Silla y capa protectora', text: 'Nos sentamos cómodos en la silla del salón y nos colocan una capa suave alrededor del cuello para que los cabellos sueltos no piquen en la ropa.' },
+                { icon: '🪺', title: 'Silla y capa protectora', text: 'Nos sentamos cómodos en la silla del salón y nos colocan una capa suave alrededor del cuello para que los cabellos sueltos no piquen en la ropa.' },
                 { icon: '🔌', title: 'Uso de la máquina', text: 'La máquina de cortar pelo se desliza suavemente sobre la cabeza para emprolijar el cabello con cuidado y sin dolor.' },
                 { icon: '✨', title: '¡Quedamos impecables!', text: 'Nos limpian con una brocha suave. Ya estamos frescos, prolijos y listos para volver muy contentos a casa.' }
             ],
@@ -1404,11 +1584,12 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             loadSavedRoutines();
-            renderColors('todos');
+            renderLearnTab('colores');
             renderAnimals();
             renderFood('todos');
             showNumberRange(1, 25);
             initVividColorsGame();
+            initCanvas();
         });
 
         function loadSavedRoutines() {
@@ -1429,7 +1610,7 @@
                 localStorage.setItem(key, isCompleted);
             }
             if (isCompleted) {
-                speak(text + ', ¡excelente trabajo!');
+                speak('¡Excelente!');
             } else {
                 speak(text);
             }
@@ -1444,7 +1625,7 @@
                     localStorage.removeItem(key);
                 }
             });
-            speak('Día reiniciado. ¡Empezamos de nuevo!');
+            speak('Día reiniciado');
         }
 
         function showView(viewId) {
@@ -1463,23 +1644,24 @@
                 targetSection.classList.add('active');
 
                 const title = targetSection.querySelector('h2').innerText;
-                const subtitle = targetSection.querySelector('.section-subtitle').innerText;
+                const subtitleElement = targetSection.querySelector('.section-subtitle');
+                const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
                 
                 if (viewId === 'anticipateView') {
-                    speak(`Historias de Anticipación. Elige una situación.`);
+                    speak('Historias de Anticipación' + subtitleText);
                     loadAnticipation('medico', false);
                 } else if (viewId === 'storyView') {
-                    speak(`Las aventuras de Néstor y la Mani. Historias hermosas para compartir, leer juntos y disfrutar.`);
+                    speak('Las aventuras de Néstor y la Mani' + subtitleText);
                     loadStory('aeropuerto', false);
                 } else if (viewId === 'gameView') {
-                    speak(`Juegos y Retos Avanzados`);
+                    speak('Juegos y Retos' + subtitleText);
                     switchGameTab('colors');
                 } else {
-                    speak(`${title}. ${subtitle}`);
+                    speak(title + subtitleText);
                 }
 
                 if (viewId === 'animalsView') renderAnimals();
-                if (viewId === 'colorsLearnView') renderColors('todos');
+                if (viewId === 'colorsLearnView') renderLearnTab('colores');
                 if (viewId === 'foodView') renderFood('todos');
             }
         }
@@ -1490,11 +1672,11 @@
             btn.setAttribute('aria-pressed', speechEnabled);
             if (speechEnabled) {
                 btn.classList.add('active');
-                btn.innerHTML = `${megaphoneOnSvg}<span style="color: #FFFFFF;">Voz: Encendida</span>`;
-                speak('Voz encendida y lista');
+                btn.innerHTML = megaphoneOnSvg + '<span style="color: #FFFFFF;">Voz: Encendida</span>';
+                speak('Voz encendida');
             } else {
                 btn.classList.remove('active');
-                btn.innerHTML = `${megaphoneOffSvg}<span style="color: #FFFFFF;">Voz: Apagada</span>`;
+                btn.innerHTML = megaphoneOffSvg + '<span style="color: #FFFFFF;">Voz: Apagada</span>';
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                 }
@@ -1525,43 +1707,176 @@
             speak(phrase);
         }
 
-        function renderColors(filter, clickedBtn) {
+        function switchLearnTab(tabType) {
+            document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
+            if (window.event && window.event.target) {
+                window.event.target.classList.add('active-cat');
+            }
+            renderLearnTab(tabType);
+            if (tabType === 'colores') speak('Colores');
+            else if (tabType === 'transporte') speak('Medios de transporte');
+            else if (tabType === 'abecedario') speak('Abecedario. Toca una letra para practicar su trazo');
+        }
+
+        function renderLearnTab(tabType) {
             const banner = document.getElementById('colorLearnBanner');
             banner.style.display = 'none';
             banner.innerText = '';
-            const grid = document.getElementById('colorsGrid');
+            const grid = document.getElementById('learnGrid');
             grid.innerHTML = '';
 
-            document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (clickedBtn) {
-                clickedBtn.classList.add('active-cat');
-            } else {
-                const firstBtn = document.querySelector('#colorsLearnView .cat-btn');
-                if (firstBtn) firstBtn.classList.add('active-cat');
+            if (tabType === 'colores') {
+                colorDatabase.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.onclick = () => {
+                        banner.style.display = 'block';
+                        banner.innerText = item.name + ': ' + item.desc;
+                        speak(item.name + '. ' + item.desc);
+                    };
+                    card.innerHTML = `
+                        <span class="card-top-label">${item.name}</span>
+                        <div style="width: 55px; height: 55px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF;"></div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (tabType === 'transporte') {
+                transportDatabase.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.onclick = () => {
+                        banner.style.display = 'block';
+                        banner.innerText = item.name + ': ' + item.desc;
+                        speak(item.name + '. ' + item.desc);
+                    };
+                    const iconContent = item.isSvg ? item.icon : `<span class="item-icon" aria-hidden="true">${item.icon}</span>`;
+                    card.innerHTML = `
+                        <span class="card-top-label">${item.name}</span>
+                        ${iconContent}
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (tabType === 'abecedario') {
+                alphabetDatabase.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.onclick = () => openTracingModal(item.char);
+                    card.innerHTML = `
+                        <span class="card-top-label">${item.name}</span>
+                        <div class="item-icon" aria-hidden="true" style="font-size: 3rem; color: #38BDF8;">${item.char}</div>
+                    `;
+                    grid.appendChild(card);
+                });
             }
-
-            const filtered = filter === 'todos' ? colorDatabase : colorDatabase.filter(c => c.type === filter);
-            filtered.forEach(item => {
-                const card = document.createElement('button');
-                card.type = 'button';
-                card.className = 'grid-card';
-                card.onclick = () => {
-                    banner.style.display = 'block';
-                    banner.innerText = `${item.name}: ${item.desc}`;
-                    speak(`${item.name}. ${item.desc}`);
-                };
-                card.innerHTML = `
-                    <span class="card-top-label">${item.name}</span>
-                    <div style="width: 55px; height: 55px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF;"></div>
-                `;
-                grid.appendChild(card);
-            });
         }
 
-        function filterColors(type) {
-            const btn = window.event ? window.event.target : null;
-            renderColors(type, btn);
-            speak(`Mostrando colores`);
+        /* Lógica del Modal y Pizarrón de Trazo */
+        let canvas, ctx;
+        let isDrawing = false;
+
+        function initCanvas() {
+            canvas = document.getElementById('drawCanvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function openTracingModal(char) {
+            const modal = document.getElementById('tracingModal');
+            const guide = document.getElementById('tracingGuide');
+            const title = document.getElementById('modalCharTitle');
+            if (!modal || !guide) return;
+
+            guide.innerText = char;
+            title.innerText = 'Practicar trazo: ' + char;
+            modal.classList.add('active');
+            speak('Trazar ' + char);
+
+            setTimeout(() => {
+                const wrapper = document.getElementById('canvasWrapper');
+                if (wrapper) {
+                    canvas.width = wrapper.clientWidth;
+                    canvas.height = wrapper.clientHeight;
+                    ctx.strokeStyle = '#38BDF8';
+                    ctx.lineWidth = 10;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }, 50);
+        }
+
+        function closeTracingModal() {
+            const modal = document.getElementById('tracingModal');
+            if (modal) modal.classList.remove('active');
+            speak('Cerrar');
+        }
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        function getTouchPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.touches[0].clientX - rect.left,
+                y: e.touches[0].clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getMousePos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = getMousePos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            isDrawing = true;
+            const pos = getTouchPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const pos = getTouchPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function clearCanvas() {
+            if (!ctx || !canvas) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            speak('Borrando');
         }
 
         function selectParkActivity(message) {
@@ -1635,11 +1950,11 @@
             const btn = window.event ? window.event.target : null;
             renderFood(category, btn);
             const categoryName = btn ? btn.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim() : 'alimentos';
-            speak(`Mostrando ${categoryName}`);
+            speak(categoryName);
         }
 
         function selectFoodItem(item) {
-            const text = `${item.name}. ${item.desc}`;
+            const text = item.name + '. ' + item.desc;
             const banner = document.getElementById('foodBanner');
             banner.style.display = 'block';
             banner.innerText = text;
@@ -1659,19 +1974,17 @@
                 box.type = 'button';
                 box.className = 'num-box';
                 box.onclick = () => {
-                    const banner = document.getElementById('num100Banner');
-                    banner.style.display = 'block';
-                    banner.innerText = `Número ${i}`;
-                    speak(`Número ${i}`);
+                    openTracingModal(i.toString());
+                    speak('Número ' + i);
                 };
-                box.innerHTML = `<span>${i}</span>`;
+                box.innerHTML = '<span>' + i + '</span>';
                 grid.appendChild(box);
             }
         }
 
         function loadStory(storyKey, shouldSpeak = true) {
             document.querySelectorAll('#storyView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            const activeTab = document.getElementById(`tab-${storyKey}`);
+            const activeTab = document.getElementById('tab-' + storyKey);
             if (activeTab) activeTab.classList.add('active-cat');
 
             const container = document.getElementById('storyContent');
@@ -1681,21 +1994,18 @@
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
-                card.style.cssText = "min-height: 250px; justify-content: flex-start; text-align: left; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
+                card.style.cssText = "min-height: 250px; justify-content: flex-start; align-items: flex-start; padding: 24px 20px; border: 3px solid #FFFFFF;";
                 
                 card.onclick = () => {
-                    document.querySelectorAll('#storyContent .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
+                    document.querySelectorAll('#storyView .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
                     card.style.borderColor = 'var(--vivid-purple)';
-                    card.style.transform = 'scale(1.03)';
-                    setTimeout(() => card.style.transform = 'scale(1)', 200);
-
-                    speak(`${scene.title}. ${scene.text}`);
+                    speak(scene.title + '. ' + scene.text);
                 };
 
                 card.innerHTML = `
-                    <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px; text-align: left; width: 100%; display: block;">${scene.title}</span>
+                    <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px; align-self: center;">${scene.title}</span>
                     <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0; align-self: center;">${scene.icon}</div>
-                    <p style="font-size: 1.02rem; font-weight: 700; color: #FFFFFF; line-height: 1.5; text-align: left; width: 100%;">${scene.text}</p>
+                    <p style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; line-height: 1.5; text-align: left; width: 100%;">${scene.text}</p>
                 `;
                 container.appendChild(card);
             });
@@ -1708,7 +2018,7 @@
 
         function loadAnticipation(anticipateKey, shouldSpeak = true) {
             document.querySelectorAll('#anticipateView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            const activeTab = document.getElementById(`tab-${anticipateKey}`);
+            const activeTab = document.getElementById('tab-' + anticipateKey);
             if (activeTab) activeTab.classList.add('active-cat');
 
             const container = document.getElementById('anticipateContent');
@@ -1718,21 +2028,18 @@
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
-                card.style.cssText = "min-height: 250px; justify-content: flex-start; text-align: left; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
+                card.style.cssText = "min-height: 250px; justify-content: flex-start; align-items: flex-start; padding: 24px 20px; border: 3px solid #FFFFFF;";
                 
                 card.onclick = () => {
-                    document.querySelectorAll('#anticipateContent .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
+                    document.querySelectorAll('#anticipateView .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
                     card.style.borderColor = 'var(--vivid-cyan)';
-                    card.style.transform = 'scale(1.03)';
-                    setTimeout(() => card.style.transform = 'scale(1)', 200);
-
-                    speak(`${scene.title}. ${scene.text}`);
+                    speak(scene.title + '. ' + scene.text);
                 };
 
                 card.innerHTML = `
-                    <span style="background: var(--vivid-cyan-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-cyan); margin-bottom: 12px; text-align: left; width: 100%; display: block;">${scene.title}</span>
+                    <span style="background: var(--vivid-cyan-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-cyan); margin-bottom: 12px; align-self: center;">${scene.title}</span>
                     <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0; align-self: center;">${scene.icon}</div>
-                    <p style="font-size: 1.02rem; font-weight: 700; color: #FFFFFF; line-height: 1.5; text-align: left; width: 100%;">${scene.text}</p>
+                    <p style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; line-height: 1.5; text-align: left; width: 100%;">${scene.text}</p>
                 `;
                 container.appendChild(card);
             });
@@ -1752,16 +2059,17 @@
 
         function switchGameTab(gameKey) {
             document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            const tabBtn = document.getElementById(`gtab-${gameKey}`);
+            const tabBtn = document.getElementById('gtab-' + gameKey);
             if (tabBtn) tabBtn.classList.add('active-cat');
 
             document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
-            const targetPanel = document.getElementById(`panel-${gameKey}`);
+            const targetPanel = document.getElementById('panel-' + gameKey);
             if (targetPanel) targetPanel.classList.add('active-game');
 
             if (gameKey === 'colors') initVividColorsGame();
             if (gameKey === 'memory') initMemoryRound();
             if (gameKey === 'series') initSeriesRound();
+            if (gameKey === 'find') initFindAnimalRound();
         }
 
         const vividColors = [
@@ -1776,7 +2084,15 @@
             { name: 'MARRÓN', hex: '#92400E' },
             { name: 'BLANCO', hex: '#F8FAFC' },
             { name: 'NEGRO', hex: '#020617' },
-            { name: 'GRIS', hex: '#64748B' }
+            { name: 'GRIS', hex: '#64748B' },
+            { name: 'TURQUESA', hex: '#14B8A6' },
+            { name: 'FUCSIA', hex: '#D946EF' },
+            { name: 'DORADO', hex: '#EAB308' },
+            { name: 'CORAL', hex: '#FB7185' },
+            { name: 'ESMERALDA', hex: '#059669' },
+            { name: 'BORDO', hex: '#881337' },
+            { name: 'MOSTAZA', hex: '#CA8A04' },
+            { name: 'LAVANDA', hex: '#A78BFA' }
         ];
         let currentVividIndex = 0;
 
@@ -1799,8 +2115,8 @@
         function updateVividPrompt() {
             const target = vividColors[currentVividIndex];
             const promptEl = document.getElementById('targetPrompt');
-            if (promptEl) promptEl.innerText = `Toca el círculo: ${target.name}`;
-            speak(`Toca el círculo de color ${target.name.toLowerCase()}`);
+            if (promptEl) promptEl.innerText = 'Toca el círculo: ' + target.name;
+            speak('Toca el color ' + target.name.toLowerCase());
         }
 
         function checkVividColor(selectedName) {
@@ -1808,17 +2124,17 @@
             const feedback = document.getElementById('gameFeedback');
             if (selectedName === target.name) {
                 feedback.style.color = '#22C55E';
-                feedback.innerText = `¡Excelente! Tocaste el color ${target.name} 🌟`;
-                speak(`¡Excelente! Tocaste el color ${target.name.toLowerCase()}`);
+                feedback.innerText = '¡Excelente! 🌟';
+                speak('¡Excelente!');
                 currentVividIndex = (currentVividIndex + 1) % vividColors.length;
                 setTimeout(() => {
                     feedback.innerText = '';
                     updateVividPrompt();
-                }, 1400);
+                }, 1200);
             } else {
                 feedback.style.color = '#38BDF8';
-                feedback.innerText = 'Inténtalo otra vez con calma';
-                speak('Inténtalo otra vez con calma');
+                feedback.innerText = 'Inténtalo otra vez';
+                speak('Inténtalo otra vez');
             }
         }
 
@@ -1949,9 +2265,10 @@
                 renderMemoryBoardState();
 
                 feedback.style.color = '#22C55E';
-                feedback.innerText = `¡Excelente! Encontraste ${chosen.gender === 'la' ? 'a la' : 'al'} ${chosen.name} 🎉`;
-                speak(`¡Excelente! Encontraste ${chosen.gender === 'la' ? 'a la' : 'al'} ${chosen.name}`);
-                setTimeout(initMemoryRound, 2200);
+                feedback.innerText = '¡Muy bien!';
+                speak('¡Muy bien!');
+
+                setTimeout(initMemoryRound, 2000);
             } else {
                 feedback.style.color = '#38BDF8';
                 feedback.innerText = 'Prueba con otro animal';
@@ -1960,18 +2277,18 @@
         }
 
         const seriesPuzzles = [
-            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }, { icon: '🐸', name: 'Rana' }] },
-            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }, { icon: '🍉', name: 'Sandía' }] },
-            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }, { icon: '🌙', name: 'Luna' }] },
-            { seq: ['🚗', '🚌', '🚗', '🚌'], answer: { icon: '🚗', name: 'Auto' }, options: [{ icon: '🚗', name: 'Auto' }, { icon: '🚲', name: 'Bicicleta' }, { icon: '✈️', name: 'Avión' }] },
-            { seq: ['🔵', '🟡', '🔵', '🟡'], answer: { icon: '🔵', name: 'Círculo azul' }, options: [{ icon: '🔵', name: 'Círculo azul' }, { icon: '🔴', name: 'Círculo rojo' }, { icon: '🟢', name: 'Círculo verde' }] },
-            { seq: ['⚽', '🏀', '⚽', '🏀'], answer: { icon: '⚽', name: 'Pelota de fútbol' }, options: [{ icon: '⚽', name: 'Pelota de fútbol' }, { icon: '🎾', name: 'Pelota de tenis' }, { icon: '🎈', name: 'Globo' }] },
-            { seq: ['🌧️', '🌈', '🌧️', '🌈'], answer: { icon: '🌧️', name: 'Lluvia' }, options: [{ icon: '🌧️', name: 'Lluvia' }, { icon: '❄️', name: 'Nieve' }, { icon: '☀️', name: 'Sol' }] },
-            { seq: ['🐢', '🐇', '🐢', '🐇'], answer: { icon: '🐢', name: 'Tortuga' }, options: [{ icon: '🐢', name: 'Tortuga' }, { icon: '🐘', name: 'Elefante' }, { icon: '🐬', name: 'Delfín' }] },
-            { seq: ['🍓', '🍊', '🍓', '🍊'], answer: { icon: '🍓', name: 'Fresa' }, options: [{ icon: '🍓', name: 'Fresa' }, { icon: '🍐', name: 'Pera' }, { icon: '🥕', name: 'Zanahoria' }] },
-            { seq: ['🌳', '🌸', '🌳', '🌸'], answer: { icon: '🌳', name: 'Árbol' }, options: [{ icon: '🌳', name: 'Árbol' }, { icon: '🍄', name: 'Hongo' }, { icon: '🌵', name: 'Cactus' }] },
-            { seq: ['🚂', '⛵', '🚂', '⛵'], answer: { icon: '🚂', name: 'Tren' }, options: [{ icon: '🚂', name: 'Tren' }, { icon: '🚀', name: 'Cohete' }, { icon: '🚁', name: 'Helicóptero' }] },
-            { seq: ['🔺', '🟦', '🔺', '🟦'], answer: { icon: '🔺', name: 'Triángulo' }, options: [{ icon: '🔺', name: 'Triángulo' }, { icon: '⭐', name: 'Estrella' }, { icon: '🟡', name: 'Círculo' }] }
+            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro', gender: 'el' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }, { icon: '🐸', name: 'Rana' }] },
+            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano', gender: 'el' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }, { icon: '🍉', name: 'Sandía' }] },
+            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella', gender: 'la' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }, { icon: '🌙', name: 'Luna' }] },
+            { seq: ['🚗', '🚌', '🚗', '🚌'], answer: { icon: '🚗', name: 'Auto', gender: 'el' }, options: [{ icon: '🚗', name: 'Auto' }, { icon: '🚲', name: 'Bicicleta' }, { icon: '✈️', name: 'Avión' }] },
+            { seq: ['🔵', '🟡', '🔵', '🟡'], answer: { icon: '🔵', name: 'Círculo azul', gender: 'el' }, options: [{ icon: '🔵', name: 'Círculo azul' }, { icon: '🔴', name: 'Círculo rojo' }, { icon: '🟢', name: 'Círculo verde' }] },
+            { seq: ['⚽', '🏀', '⚽', '🏀'], answer: { icon: '⚽', name: 'Pelota de fútbol', gender: 'la' }, options: [{ icon: '⚽', name: 'Pelota de fútbol' }, { icon: '🎾', name: 'Pelota de tenis' }, { icon: '🎈', name: 'Globo' }] },
+            { seq: ['🌧️', '🌈', '🌧️', '🌈'], answer: { icon: '🌧️', name: 'Lluvia', gender: 'la' }, options: [{ icon: '🌧️', name: 'Lluvia' }, { icon: '❄️', name: 'Nieve' }, { icon: '☀️', name: 'Sol' }] },
+            { seq: ['🐢', '🐇', '🐢', '🐇'], answer: { icon: '🐢', name: 'Tortuga', gender: 'la' }, options: [{ icon: '🐢', name: 'Tortuga' }, { icon: '🐘', name: 'Elefante' }, { icon: '🐬', name: 'Delfín' }] },
+            { seq: ['🍓', '🍊', '🍓', '🍊'], answer: { icon: '🍓', name: 'Fresa', gender: 'la' }, options: [{ icon: '🍓', name: 'Fresa' }, { icon: '🍐', name: 'Pera' }, { icon: '🥕', name: 'Zanahoria' }] },
+            { seq: ['🌳', '🌸', '🌳', '🌸'], answer: { icon: '🌳', name: 'Árbol', gender: 'el' }, options: [{ icon: '🌳', name: 'Árbol' }, { icon: '🍄', name: 'Hongo' }, { icon: '🌵', name: 'Cactus' }] },
+            { seq: ['🚂', '⛵', '🚂', '⛵'], answer: { icon: '🚂', name: 'Tren', gender: 'el' }, options: [{ icon: '🚂', name: 'Tren' }, { icon: '🚀', name: 'Cohete' }, { icon: '🚁', name: 'Helicóptero' }] },
+            { seq: ['🔺', '🟦', '🔺', '🟦'], answer: { icon: '🔺', name: 'Triángulo', gender: 'el' }, options: [{ icon: '🔺', name: 'Triángulo' }, { icon: '⭐', name: 'Estrella' }, { icon: '🟡', name: 'Círculo' }] }
         ];
         let lastSeriesIndex = -1;
         let currentSeriesIndex = 0;
@@ -2021,13 +2338,58 @@
             const feedback = document.getElementById('seriesFeedback');
             if (chosen.name === puzzle.answer.name) {
                 feedback.style.color = '#22C55E';
-                feedback.innerText = `¡Perfecto! Continuaba ${puzzle.answer.name} ⭐`;
-                speak(`¡Perfecto! Continuaba ${puzzle.answer.name}`);
-                setTimeout(initSeriesRound, 1600);
+                feedback.innerText = '¡Excelente! ⭐';
+                speak('¡Excelente!');
+                setTimeout(initSeriesRound, 1800);
             } else {
                 feedback.style.color = '#38BDF8';
-                feedback.innerText = 'Mira la secuencia y prueba otra opción';
-                speak('Mira la secuencia y prueba otra opción');
+                feedback.innerText = 'Prueba otra opción';
+                speak('Prueba otra opción');
+            }
+        }
+
+        let targetFindAnimal = null;
+
+        function initFindAnimalRound() {
+            const shuffled = [...animalDatabase].sort(() => Math.random() - 0.5);
+            targetFindAnimal = shuffled[0];
+            const distractors = shuffled.slice(1, 6);
+            const gridAnimals = [targetFindAnimal, ...distractors].sort(() => Math.random() - 0.5);
+
+            const promptEl = document.getElementById('findPrompt');
+            if (promptEl) promptEl.innerText = '¿Dónde está ' + (targetFindAnimal.gender === 'la' ? 'la ' : 'el ') + targetFindAnimal.name + '?';
+            
+            const feedback = document.getElementById('findFeedback');
+            if (feedback) feedback.innerText = '';
+
+            const grid = document.getElementById('findGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            gridAnimals.forEach(animal => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'find-card';
+                card.innerHTML = `<span aria-hidden="true">${animal.icon}</span>`;
+                card.onclick = () => checkFindChoice(animal, card);
+                grid.appendChild(card);
+            });
+
+            speak('¿Dónde está ' + (targetFindAnimal.gender === 'la' ? 'la ' : 'el ') + targetFindAnimal.name + '?');
+        }
+
+        function checkFindChoice(chosenAnimal, cardElement) {
+            const feedback = document.getElementById('findFeedback');
+            if (chosenAnimal.name === targetFindAnimal.name) {
+                cardElement.classList.add('found-correct');
+                feedback.style.color = '#22C55E';
+                feedback.innerText = '¡Muy bien! 🌟';
+                speak('¡Muy bien!');
+                setTimeout(initFindAnimalRound, 2000);
+            } else {
+                feedback.style.color = '#38BDF8';
+                feedback.innerText = 'Sigue buscando';
+                speak('Sigue buscando');
             }
         }
     </script>
