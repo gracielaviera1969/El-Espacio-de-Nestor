@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0F172A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>El Espacio de Néstor</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -34,11 +37,27 @@
             --radius: 24px;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gentlePulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 16px 4px rgba(59, 130, 246, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            touch-action: manipulation;
         }
 
         body {
@@ -85,6 +104,7 @@
             align-items: center;
             justify-content: center;
             font-size: 2.2rem;
+            animation: gentlePulse 3s infinite ease-in-out;
         }
 
         h1 {
@@ -146,6 +166,7 @@
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 32px;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .main-container.hidden {
@@ -230,6 +251,7 @@
             padding: 30px;
             box-shadow: var(--shadow);
             margin-bottom: 32px;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .view-section.active {
@@ -292,7 +314,7 @@
             padding: 20px 14px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.15s, background-color 0.15s;
+            transition: transform 0.15s, background-color 0.15s, border-color 0.15s;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
@@ -315,6 +337,7 @@
         .item-card.completed {
             background: var(--vivid-green-bg);
             border-color: var(--vivid-green);
+            animation: gentlePulse 0.4s ease-out;
         }
 
         .item-card.completed h3::after {
@@ -466,6 +489,7 @@
             font-weight: 700;
             text-align: center;
             display: none;
+            animation: fadeIn 0.25s ease-out;
         }
 
         .feedback-banner.orange-active { background: var(--vivid-orange-bg); border-color: var(--vivid-orange); }
@@ -482,6 +506,7 @@
 
         .game-panel.active-game {
             display: block;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .game-prompt {
@@ -496,16 +521,17 @@
         }
 
         .color-options {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 28px;
-            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            max-width: 780px;
+            margin: 30px auto 0 auto;
+            justify-items: center;
+            gap: 24px;
         }
 
         .color-ball {
-            width: 110px;
-            height: 110px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             cursor: pointer;
             border: 4px solid #FFFFFF;
@@ -537,12 +563,20 @@
             font-size: 3.1rem;
             font-weight: 700;
             color: #FFFFFF;
+            transition: all 0.2s ease;
         }
 
         .seq-slot.mystery {
             background: #581C87;
             border: 4px dashed var(--vivid-purple);
             color: #E9D5FF;
+        }
+
+        .seq-slot.revealed {
+            background: var(--vivid-green-bg);
+            border: 4px solid var(--vivid-green);
+            transform: scale(1.06);
+            animation: gentlePulse 0.4s ease-out;
         }
 
         .choice-row {
@@ -554,8 +588,8 @@
         }
 
         .choice-btn {
-            min-width: 110px;
-            min-height: 100px;
+            min-width: 115px;
+            min-height: 105px;
             border-radius: 20px;
             background: #0F172A;
             border: 3px solid var(--vivid-purple);
@@ -571,9 +605,16 @@
             transition: transform 0.15s, background-color 0.15s;
         }
 
-        .choice-btn:hover {
+        .choice-btn:hover:not(:disabled) {
             transform: scale(1.05);
             background: var(--vivid-purple-bg);
+        }
+
+        .choice-btn:disabled {
+            background: var(--vivid-green-bg);
+            border-color: var(--vivid-green);
+            cursor: default;
+            opacity: 0.95;
         }
 
         .choice-label {
@@ -687,12 +728,15 @@
             <div class="brand-badge" aria-hidden="true">👦🏻</div>
             <div>
                 <h1>El Espacio de Néstor</h1>
-                <p class="brand-sub">Panel interactivo</p>
+                <p class="brand-sub">Panel Interactivo</p>
             </div>
         </div>
         <div class="audio-controls">
+            <button type="button" class="btn-control" onclick="resetDayRoutines()" style="background:#334155; border-color:#38BDF8; color:#FFFFFF;" title="Reiniciar el día en blanco">
+                <span>🔄 Reiniciar día</span>
+            </button>
             <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()" style="color: #FFFFFF;">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
                 <span style="color: #FFFFFF;">Voz: Encendida</span>
             </button>
         </div>
@@ -790,56 +834,56 @@
         <div class="view-header">
             <div>
                 <h2 id="routineHeading">Mi Rutina Diaria</h2>
-                <p class="section-subtitle">Toca cada actividad cuando la termines.</p>
+                <p class="section-subtitle">Toca cada actividad cuando la termines (se guarda automáticamente).</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
-        <div class="items-grid">
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar rico')">
+        <div class="items-grid" id="routineGrid">
+            <button type="button" class="item-card" data-key="rutina-desayunar" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar rico')">
                 <div class="item-icon" aria-hidden="true">🥣</div>
                 <h3>Desayunar</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse los dientes con cepillo y pasta')">
+            <button type="button" class="item-card" data-key="rutina-dientes" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse los dientes con cepillo y pasta')">
                 <div class="item-icon" aria-hidden="true">🪥</div>
                 <h3>Lavarse dientes</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Vestirse con ropa limpia y cómoda')">
+            <button type="button" class="item-card" data-key="rutina-vestirse" aria-pressed="false" onclick="toggleRoutine(this, 'Vestirse con ropa limpia y cómoda')">
                 <div class="item-icon" aria-hidden="true">👕</div>
                 <h3>Vestirse</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Bañarse con agua calentita y jabón')">
+            <button type="button" class="item-card" data-key="rutina-banarse" aria-pressed="false" onclick="toggleRoutine(this, 'Bañarse con agua calentita y jabón')">
                 <div class="item-icon" aria-hidden="true">🚿</div>
                 <h3>Bañarse</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Ir al colegio a aprender')">
+            <button type="button" class="item-card" data-key="rutina-colegio" aria-pressed="false" onclick="toggleRoutine(this, 'Ir al colegio a aprender')">
                 <div class="item-icon" aria-hidden="true">🏫</div>
                 <h3>Ir al colegio</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Llegar a casa a descansar')">
+            <button type="button" class="item-card" data-key="rutina-casa" aria-pressed="false" onclick="toggleRoutine(this, 'Llegar a casa a descansar')">
                 <div class="item-icon" aria-hidden="true">🏠</div>
                 <h3>Llegar a casa</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse las manos con agua y jabón')">
+            <button type="button" class="item-card" data-key="rutina-manos" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse las manos con agua y jabón')">
                 <div class="item-icon" aria-hidden="true">🧼</div>
                 <h3>Lavarse manos</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Almorzar y comer rico y saludable')">
+            <button type="button" class="item-card" data-key="rutina-almorzar" aria-pressed="false" onclick="toggleRoutine(this, 'Almorzar y comer rico y saludable')">
                 <div class="item-icon" aria-hidden="true">🥗</div>
                 <h3>Almorzar</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Descansar un ratito tranquilo')">
+            <button type="button" class="item-card" data-key="rutina-descansar" aria-pressed="false" onclick="toggleRoutine(this, 'Descansar un ratito tranquilo')">
                 <div class="item-icon" aria-hidden="true">🛏️</div>
                 <h3>Descansar</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Hacer deberes o tareas con calma')">
+            <button type="button" class="item-card" data-key="rutina-deberes" aria-pressed="false" onclick="toggleRoutine(this, 'Hacer deberes o tareas con calma')">
                 <div class="item-icon" aria-hidden="true">📚</div>
                 <h3>Hacer deberes</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo y feliz')">
+            <button type="button" class="item-card" data-key="rutina-jugar" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo y feliz')">
                 <div class="item-icon" aria-hidden="true">🧸</div>
                 <h3>Jugar tranquilo</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Cenar rico y prepararse para dormir')">
+            <button type="button" class="item-card" data-key="rutina-cenar" aria-pressed="false" onclick="toggleRoutine(this, 'Cenar rico y prepararse para dormir')">
                 <div class="item-icon" aria-hidden="true">🌙</div>
                 <h3>Cenar y dormir</h3>
             </button>
@@ -929,39 +973,39 @@
         <div class="view-header">
             <div>
                 <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
-                <p class="section-subtitle">Toca cada acción cuando la completes.</p>
+                <p class="section-subtitle">Toca cada acción cuando la completes (se guarda automáticamente).</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
-        <div class="items-grid">
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir la ropa limpia y cómoda')">
+        <div class="items-grid" id="autonomyGrid">
+            <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir la ropa limpia y cómoda')">
                 <div class="item-icon" aria-hidden="true">👕</div>
                 <h3>Elegir ropa</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse la ropa con calma y orden')">
+            <button type="button" class="item-card" data-key="auto-ponerse" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse la ropa con calma y orden')">
                 <div class="item-icon" aria-hidden="true">👖</div>
                 <h3>Ponerse la ropa</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Colocarse los zapatos y abrocharlos')">
+            <button type="button" class="item-card" data-key="auto-zapatos" aria-pressed="false" onclick="toggleRoutine(this, 'Colocarse los zapatos y abrocharlos')">
                 <div class="item-icon" aria-hidden="true">👟</div>
                 <h3>Zapatos</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Cepillar y peinar el cabello frente al espejo')">
+            <button type="button" class="item-card" data-key="auto-peinarse" aria-pressed="false" onclick="toggleRoutine(this, 'Cepillar y peinar el cabello frente al espejo')">
                 <div class="item-icon" aria-hidden="true">💇‍♂️</div>
                 <h3>Peinarse</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse la cara con agua fresca')">
+            <button type="button" class="item-card" data-key="auto-cara" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse la cara con agua fresca')">
                 <div class="item-icon" aria-hidden="true">💧</div>
                 <h3>Lavarse la cara</h3>
             </button>
-            <button type="button" class="item-card" aria-pressed="false" onclick="toggleRoutine(this, '¡Listo y preparado para empezar el día!')">
+            <button type="button" class="item-card" data-key="auto-listo" aria-pressed="false" onclick="toggleRoutine(this, '¡Listo y preparado para empezar el día!')">
                 <div class="item-icon" aria-hidden="true">🌟</div>
                 <h3>¡Todo listo!</h3>
             </button>
         </div>
     </section>
 
-    <!-- Vista: El Parque con Iconos Corregidos -->
+    <!-- Vista: El Parque -->
     <section id="parkView" class="view-section" aria-labelledby="parkHeading">
         <div class="view-header">
             <div>
@@ -1097,18 +1141,19 @@
         <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
     </section>
 
-    <!-- Vista: Historias -->
+    <!-- Vista: Historias (incluyendo "Néstor y la Mani") -->
     <section id="storyView" class="view-section" aria-labelledby="storyHeading">
         <div class="view-header">
             <div>
                 <h2 id="storyHeading">Historias</h2>
-                <p class="section-subtitle">Elige una situación y toca cada tarjeta para saber qué va a pasar y cómo nos cuidamos.</p>
+                <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         
         <div class="category-selector" role="group" aria-label="Elegir situación">
-            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🏥 Ir al médico</button>
+            <button type="button" class="cat-btn active-cat" id="tab-nestormani" onclick="loadStory('nestormani')">💙 Néstor y la Mani</button>
+            <button type="button" class="cat-btn" id="tab-medico" onclick="loadStory('medico')">🏥 Ir al médico</button>
             <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Supermercado</button>
             <button type="button" class="cat-btn" id="tab-coche" onclick="loadStory('coche')">🚗 Ir en coche</button>
             <button type="button" class="cat-btn" id="tab-pasear" onclick="loadStory('pasear')">🌳 Salir a pasear</button>
@@ -1129,13 +1174,13 @@
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
-            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores (8 opciones)</button>
+            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores</button>
             <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
             <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
         </div>
 
         <div id="panel-colors" class="game-panel active-game">
-            <h3 id="targetPrompt" class="game-prompt">Toca el círculo: AZUL ELÉCTRICO</h3>
+            <h3 id="targetPrompt" class="game-prompt">Toca el círculo: ROJO</h3>
             <div class="color-options" id="vividColorOptions"></div>
             <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
         </div>
@@ -1143,8 +1188,9 @@
         <div id="panel-memory" class="game-panel">
             <h3 id="memoryPrompt" class="game-prompt">Memoriza estos 4 animales</h3>
             <div class="sequence-board" id="memoryBoard"></div>
-            <div id="memoryActionArea">
-                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" style="color: #FFFFFF;">🙈 Esconder dos</button>
+            <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" style="color: #FFFFFF;">🙈 Esconder animal</button>
+                <button type="button" id="memoryRepeekBtn" class="btn-control" onclick="repeekAnimals()" style="display: none; background: #0E7490; border-color: #06B6D4; color: #FFFFFF;">👀 Volver a mirar</button>
             </div>
             <div class="choice-row" id="memoryChoices" style="display: none;"></div>
             <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
@@ -1237,9 +1283,10 @@
         let speechEnabled = true;
         let selectedVoice = null;
         let calmInterval = null;
+        let audioUnlocked = false;
 
-        const micIconSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
-        const muteIconSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+        const megaphoneOnSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>`;
+        const megaphoneOffSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg>`;
 
         function loadVoices() {
             if (!('speechSynthesis' in window)) return;
@@ -1258,6 +1305,19 @@
             loadVoices();
         }
 
+        function unlockMobileAudio() {
+            if (audioUnlocked || !('speechSynthesis' in window)) return;
+            const silentUtterance = new SpeechSynthesisUtterance('');
+            silentUtterance.volume = 0;
+            window.speechSynthesis.speak(silentUtterance);
+            audioUnlocked = true;
+            document.removeEventListener('touchstart', unlockMobileAudio);
+            document.removeEventListener('click', unlockMobileAudio);
+        }
+
+        document.addEventListener('touchstart', unlockMobileAudio, { once: true });
+        document.addEventListener('click', unlockMobileAudio, { once: true });
+
         const colorDatabase = [
             { name: 'Rojo', type: 'comun', icon: '❤️', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
             { name: 'Azul', type: 'comun', icon: '💙', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
@@ -1271,14 +1331,13 @@
             { name: 'Marrón', type: 'comun', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
             { name: 'Negro', type: 'comun', icon: '⬛', hex: '#1E293B', desc: 'Negro profundo y elegante.' },
             { name: 'Blanco', type: 'comun', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
-            { name: 'Rojo Fuego', type: 'vivo', icon: '❤️', hex: '#EF4444', desc: 'Rojo intenso y muy brillante.' },
-            { name: 'Azul Eléctrico', type: 'vivo', icon: '💙', hex: '#2563EB', desc: 'Azul eléctrico que resplandece.' },
+            { name: 'Rojo Intenso', type: 'vivo', icon: '❤️', hex: '#DC2626', desc: 'Rojo fuerte y muy brillante.' },
+            { name: 'Azul Fuerte', type: 'vivo', icon: '💙', hex: '#2563EB', desc: 'Azul brillante como el mar profundo.' },
             { name: 'Amarillo Sol', type: 'vivo', icon: '💛', hex: '#FACC15', desc: 'Amarillo sol radiante y alegre.' },
-            { name: 'Verde Neón', type: 'vivo', icon: '💚', hex: '#10B981', desc: 'Verde neón fosforescente.' },
-            { name: 'Naranja Brillante', type: 'vivo', icon: '🧡', hex: '#EA580C', desc: 'Naranja brillante de alta intensidad.' },
-            { name: 'Violeta Mágico', type: 'vivo', icon: '💜', hex: '#7E22CE', desc: 'Violeta mágico y profundo.' },
-            { name: 'Turquesa', type: 'vivo', icon: '💎', hex: '#06B6D4', desc: 'Turquesa brillante como el mar tropical.' },
-            { name: 'Fucsia', type: 'vivo', icon: '💖', hex: '#D946EF', desc: 'Fucsia intenso y muy llamativo.' },
+            { name: 'Verde Claro', type: 'vivo', icon: '💚', hex: '#4ADE80', desc: 'Verde brillante como el pasto nuevo.' },
+            { name: 'Naranja Brillante', type: 'vivo', icon: '🧡', hex: '#EA580C', desc: 'Naranja brillante y alegre.' },
+            { name: 'Violeta Oscuro', type: 'vivo', icon: '💜', hex: '#7E22CE', desc: 'Violeta profundo y llamativo.' },
+            { name: 'Rosa Fuerte', type: 'vivo', icon: '💖', hex: '#D946EF', desc: 'Rosa brillante y muy alegre.' },
             { name: 'Dorado', type: 'vivo', icon: '✨', hex: '#F59E0B', desc: 'Dorado brillante como una estrella.' }
         ];
 
@@ -1314,7 +1373,7 @@
             { name: 'Canguro', gender: 'el', icon: '🦘', action: 'el canguro salta muy alto llevando a su bebé en la bolsa' },
             { name: 'Búho', gender: 'el', icon: '🦉', action: 'el búho abre sus grandes ojos de noche y hace uju uju' },
             { name: 'Rana', gender: 'la', icon: '🐸', action: 'la rana salta sobre las hojas y hace croac croac' },
-            { name: 'Pingüino', gender: 'el', icon: '🐧', action: 'el pingüino camina divertido con su frac y NADA en el hielo' },
+            { name: 'Pingüino', gender: 'el', icon: '🐧', action: 'el pingüino camina divertido con su frac y nada en el hielo' },
             { name: 'Camello', gender: 'el', icon: '🐪', action: 'el camello camina tranquilo por la arena del desierto' },
             { name: 'Serpiente', gender: 'la', icon: '🐍', action: 'la serpiente se desliza suavemente haciendo sss' },
             { name: 'Águila', gender: 'la', icon: '🦅', action: 'el águila vuela alto en el cielo extendiendo sus grandes alas' },
@@ -1360,62 +1419,102 @@
             { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta' }
         ];
 
+        /* Historias (con "Néstor y la Mani" agregado en primer lugar) */
         const stories = {
+            nestormani: [
+                { icon: '👦🏻💙', title: '1. El encuentro y la sonrisa', text: 'Es un día hermoso y soleado. Néstor ve llegar a la Mani con su bastón y su carita se llena de una gran sonrisa. Juntitos de la mano, están listos para compartir una aventura llena de alegría y complicidad.' },
+                { icon: '🛝🌳', title: '2. Compartiendo risas y juegos', text: 'Caminan hacia el parque favorito con paso firme y tranquilo. Néstor se sube al columpio mientras la Mani lo empuja despacito y con mucho cariño. Se escuchan risas felices que vuelan alto como globos de colores.' },
+                { icon: '🥤🪑', title: '3. Un momento de pausa y descanso', text: 'Después de correr y jugar tanto, llega el momento de descansar un ratito en el banco. La Mani apoya su bastón con cuidado y le acerca un vaso con agua fresca a Néstor para recuperar energías.' },
+                { icon: '🫂✨', title: '4. El abrazo que abriga el corazón', text: 'El día va cayendo y llega la hora de volver a casa. Se dan un abrazo muy fuerte, cálido y seguro. Néstor sabe que estar juntos es el mejor regalo del mundo.' }
+            ],
             medico: [
-                { icon: '🚗', title: 'Vamos a la clínica', text: 'Hoy visitamos al doctor porque nos ayuda a cuidar nuestro cuerpo y estar fuertes. Vamos acompañados y seguros.' },
-                { icon: '🪑', title: 'Esperamos un ratito', text: 'En la sala de espera nos sentamos tranquilos mientras llaman nuestro nombre. Podemos mirar nuestro juguete favorito.' },
-                { icon: '🩺', title: 'El doctor nos revisa', text: 'El médico es amable: escucha nuestro corazón con un aparato frío un segundo y mira nuestra garganta sin hacer daño.' },
-                { icon: '🏠', title: 'Regresamos a casa', text: '¡Lo hicimos muy bien! Ya terminó la visita y volvemos contentos a casa a jugar y descansar.' }
+                { icon: '🚗', title: '1. El viaje a la clínica', text: 'Hoy nos dirigimos al consultorio médico. El doctor nos espera para revisar que nuestro cuerpo funcione de maravilla y estemos llenos de salud y energía.' },
+                { icon: '🪑', title: '2. Espera tranquila', text: 'Al llegar a la sala de espera nos sentamos junto a un adulto con total tranquilidad. Podemos mirar un libro ilustrado o un juguete favorito mientras nombran nuestro turno.' },
+                { icon: '🩺', title: '3. La revisión médica', text: 'El doctor es muy amable. Usa un estetoscopio frío un segundito en nuestro pecho para escuchar los latidos del corazón y revisa nuestra garganta de forma rápida y sin dolor.' },
+                { icon: '⭐', title: '4. ¡Misión cumplida!', text: '¡Excelente trabajo! La visita médica terminó perfectamente. Nos despedimos con una gran sonrisa y regresamos a casa sabiendo que cuidamos de nuestro cuerpo.' }
             ],
             super: [
-                { icon: '🛒', title: 'Entramos al supermercado', text: 'Vamos de compras con un adulto. Hay luces y gente, nos mantenemos cerquita y tranquilos.' },
-                { icon: '🛍️', title: 'Buscamos los alimentos', text: 'Elegimos las cosas ricas y necesarias para la semana anotadas en la lista, ayudando a ponerlas en el carro.' },
-                { icon: '💳', title: 'Pasamos por la caja', text: 'Esperamos nuestro turno con paciencia mientras pasan los productos por el lector de código.' },
-                { icon: '🏠', title: 'Volvemos a casa', text: 'Guardamos todo en su lugar. ¡La misión de compras salió perfecta!' }
+                { icon: '🛒', title: '1. Llegada al supermercado', text: 'Llegamos al supermercado acompañados de un adulto. Aunque hay movimiento y luces encendidas, nos mantenemos cerquita de la mano y caminamos con absoluta calma.' },
+                { icon: '🛍️', title: '2. Eligiendo los productos', text: 'Recorremos los pasillos buscando los alimentos sanos y ricos que tenemos anotados en la lista de compras, ayudando a colocarlos dentro del carrito con alegría.' },
+                { icon: '💳', title: '3. Pago en la caja', text: 'Llegamos a la caja registradora. Esperamos nuestro turno con paciencia mientras la cajera pasa cada artículo por el lector que emite un sonido bip.' },
+                { icon: '🏡', title: '4. Regreso al hogar', text: 'Subimos las bolsas al coche y volvemos a casa. Guardamos cada cosa en su lugar con orden y satisfacción. ¡Las compras salieron perfectas!' }
             ],
             coche: [
-                { icon: '🔑', title: 'Nos subimos al coche', text: 'Salimos de casa y nos subimos al coche. Nos acomodamos tranquilos en nuestro asiento.' },
-                { icon: '🔒', title: 'Abrochamos el cinturón', text: 'Por seguridad, nos ponemos y abrochamos bien el cinturón de seguridad antes de que el coche arranque.' },
-                { icon: '🛣️', title: 'Disfrutamos el viaje', text: 'El coche se mueve suavemente por la calle. Miramos por la ventana los edificios, los árboles y los autos pasar.' },
-                { icon: '🎯', title: 'Llegamos a destino', text: 'El viaje terminó muy bien. Nos desabrochamos el cinturón y bajamos con alegría a nuestro destino.' }
+                { icon: '🚗', title: '1. Subiendo al vehículo', text: 'Salimos de casa, abrimos la puerta del auto con cuidado y nos acomodamos cómodamente en nuestro asiento especial y seguro.' },
+                { icon: '💺', title: '2. El cinturón de seguridad', text: 'Por nuestra protección y cuidado, pasamos la correa y abrochamos firmemente el cinturón de seguridad antes de que el motor comience a marchar.' },
+                { icon: '🏙️', title: '3. Disfrutando el recorrido', text: 'El coche avanza suavemente por la calle. Miramos atentos por la ventanilla los edificios, los árboles verdes y los automóviles que pasan.' },
+                { icon: '🏁', title: '4. Llegando a destino', text: 'El viaje en coche ha finalizado con total seguridad. Nos desabrochamos el cinturón con calma y bajamos con una sonrisa a nuestro destino.' }
             ],
             pasear: [
-                { icon: '🧥', title: 'Nos preparamos para salir', text: 'Elegimos ropa cómoda, zapatos adecuados y miramos el clima antes de abrir la puerta.' },
-                { icon: '🌳', title: 'Disfrutamos el camino', text: 'Caminamos observando los árboles, los autos y el cielo, siempre respetando la mano de un adulto.' },
-                { icon: '🛝', title: 'Momento de recreo', text: 'Llegamos a un espacio lindo para explorar, correr con cuidado o descansar en un banco.' },
-                { icon: '🏡', title: 'Regreso tranquilo', text: 'Con la energía recargada y una sonrisa, volvemos a casa a descansar.' }
+                { icon: '👟', title: '1. Preparándonos para salir', text: 'Elegimos ropa cómoda, nos calzamos las zapatillas adecuadas y miramos el estado del clima por la ventana antes de abrir la puerta de casa.' },
+                { icon: '🌳', title: '2. Caminando al aire libre', text: 'Caminamos por la acera observando los árboles, escuchando el canto de los pájaros y respirando aire fresco de la mano de un adulto.' },
+                { icon: '🛝', title: '3. Disfrutando la plaza', text: 'Llegamos a la zona verde. Podemos correr con cuidado, explorar los juegos del parque o sentarnos un momento en un banco a descansar.' },
+                { icon: '🏡', title: '4. Retorno reconfortante', text: 'Con la energía recargada y una hermosa sensación de paz, volvemos a casa para descansar un rato y tomar un vaso de agua fresca.' }
             ],
             playa: [
-                { icon: '🎒', title: 'Preparamos nuestras cosas', text: 'Antes de salir guardamos la toalla, el traje de baño y el protector solar para cuidar nuestra piel del sol.' },
-                { icon: '🚗', title: 'Llegamos junto al mar', text: 'Viajamos hasta la playa donde el aire es fresco y se escucha el sonido suave de las olas del mar.' },
-                { icon: '🏖️', title: 'Jugamos en la arena', text: 'La arena se siente tibiecita en los pies. Podemos hacer castillos, caminos y figuras con el balde y la pala.' },
-                { icon: '🌊', title: 'Disfrutamos del agua', text: 'Vamos hasta la orilla siempre acompañados de un adulto para mojar los pies y refrescarnos con alegría.' }
+                { icon: '🎒', title: '1. Preparando la mochila', text: 'Guardamos en el bolso la toalla suave, el traje de baño y el protector solar indispensable para cuidar nuestra piel bajo el sol.' },
+                { icon: '🌊', title: '2. Llegando a la orilla', text: 'Llegamos a la playa donde el aire huele a mar y se escucha el sonido constante, rítmico y relajante de las olas al romper.' },
+                { icon: '🏖️', title: '3. Jugando en la arena', text: 'Sentimos la arena tibia bajo nuestros pies. Usamos el balde y la pala para construir castillos, caminos y torres muy divertidas.' },
+                { icon: '👣', title: '4. Refrescando los pies', text: 'Caminamos hasta la orilla acompañados de un adulto para dejar que el agua del mar nos moje los pies con suavidad.' }
             ],
             pelo: [
-                { icon: '🚶‍♂️', title: 'Vamos a la peluquería', text: 'Cuando el cabello crece mucho nos molesta en los ojos o da calor. Por eso vamos a cortarlo para estar más cómodos.' },
-                { icon: '💺', title: 'Nos ponemos la capa', text: 'Nos sentamos en una silla especial y nos colocan una capa suave para que los pelitos cortados no piquen en la ropa.' },
-                { icon: '✂️', title: 'Corte suave y cuidadoso', text: 'Las tijeras hacen un sonido suave como un susurro mientras recortan las puntas. Solo tenemos que quedarnos quietos un momento.' },
-                { icon: '✨', title: '¡Quedamos listos!', text: 'Nos sacuden los pelitos con un cepillo muy suave. Ya estamos prolijos, frescos y listos para volver a casa.' }
+                { icon: '✂️', title: '1. Anticipando el corte', text: 'Cuando el cabello crece mucho da calor y molesta en los ojos. Cortarlo nos ayuda a estar frescos. Podemos llevar auriculares o un juguete para sentirnos seguros.' },
+                { icon: '💺', title: '2. Silla y capa protectora', text: 'Nos sentamos cómodos en la silla del salón y nos colocan una capa suave alrededor del cuello para que los cabellos sueltos no piquen en la ropa.' },
+                { icon: '🔌', title: '3. Uso de la máquina', text: 'La máquina de cortar pelo se desliza suavemente sobre la cabeza para emprolijar el cabello con cuidado y sin dolor.' },
+                { icon: '✨', title: '4. ¡Quedamos impecables!', text: 'Nos limpian con una brocha suave. Ya estamos frescos, prolijos y listos para volver muy contentos a casa.' }
             ],
             dormir: [
-                { icon: '👕', title: 'Nos ponemos el pijama', text: 'Cuando llega la noche el cuerpo necesita descansar. Nos cambiamos la ropa del día por un pijama suave y cómodo.' },
-                { icon: '🪥', title: 'Lavamos los dientes', text: 'Cepillamos nuestros dientes con pasta para que queden limpios, sanos y listos para ir a la cama.' },
-                { icon: '📖', title: 'Un momento tranquilo', text: 'En la cama bajamos la luz y compartimos un cuento corto o música muy suave para que la mente se relaje.' },
-                { icon: '🛌', title: 'Dormimos toda la noche', text: 'Cerramos los ojos en nuestra cama segura y calentita para recuperar toda la energía para mañana.' }
+                { icon: '👕', title: '1. Cambiándonos al pijama', text: 'Cuando llega la noche el cuerpo y la mente necesitan descansar. Nos sacamos la ropa del día y nos ponemos un pijama suave y cómodo.' },
+                { icon: '🪥', title: '2. Cepillado de dientes', text: 'Vamos al baño y cepillamos nuestros dientes con pasta limpiadora para dejarlos relucientes y blancos antes de ir a la cama.' },
+                { icon: '📖', title: '3. Momento de cuento y calma', text: 'En la habitación bajamos la intensidad de las luces y leemos un cuento corto o escuchamos música muy suave para relajarnos por completo.' },
+                { icon: '🛌', title: '4. Dormir toda la noche', text: 'Nos acostamos en nuestra cama calentita y segura, cerramos los ojos y dormimos plácidamente hasta el nuevo día.' }
             ]
         };
 
         document.addEventListener('DOMContentLoaded', function() {
+            loadSavedRoutines();
             renderColors('todos');
             renderAnimals();
             renderFood('todos');
             showNumberRange(1, 25);
             initVividColorsGame();
-
-            setTimeout(() => {
-                speak("Bienvenido al espacio de Néstor");
-            }, 500);
         });
+
+        function loadSavedRoutines() {
+            document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
+                const key = card.getAttribute('data-key');
+                if (key && localStorage.getItem(key) === 'true') {
+                    card.classList.add('completed');
+                    card.setAttribute('aria-pressed', 'true');
+                }
+            });
+        }
+
+        function toggleRoutine(element, text) {
+            const isCompleted = element.classList.toggle('completed');
+            element.setAttribute('aria-pressed', isCompleted);
+            const key = element.getAttribute('data-key');
+            if (key) {
+                localStorage.setItem(key, isCompleted);
+            }
+            if (isCompleted) {
+                speak(text + ', ¡excelente trabajo!');
+            } else {
+                speak(text);
+            }
+        }
+
+        function resetDayRoutines() {
+            document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
+                card.classList.remove('completed');
+                card.setAttribute('aria-pressed', 'false');
+                const key = card.getAttribute('data-key');
+                if (key) {
+                    localStorage.removeItem(key);
+                }
+            });
+            speak('Día reiniciado. ¡Empezamos de nuevo!');
+        }
 
         function showView(viewId) {
             if ('speechSynthesis' in window) {
@@ -1441,8 +1540,11 @@
                 const subtitle = targetSection.querySelector('.section-subtitle').innerText;
                 
                 if (viewId === 'storyView') {
-                    speak(`Historias. Elige una situación y toca cada tarjeta para saber qué va a pasar y cómo nos cuidamos.`);
-                    loadStory('medico', false);
+                    speak(`Historias. Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.`);
+                    loadStory('nestormani', false);
+                } else if (viewId === 'gameView') {
+                    speak(`Juegos y Retos Avanzados`);
+                    switchGameTab('colors');
                 } else {
                     speak(`${title}. ${subtitle}`);
                 }
@@ -1450,7 +1552,6 @@
                 if (viewId === 'animalsView') renderAnimals();
                 if (viewId === 'colorsLearnView') renderColors('todos');
                 if (viewId === 'foodView') renderFood('todos');
-                if (viewId === 'gameView') switchGameTab('colors');
                 if (viewId === 'calmView') startCalmBreathing();
             }
         }
@@ -1461,11 +1562,11 @@
             btn.setAttribute('aria-pressed', speechEnabled);
             if (speechEnabled) {
                 btn.classList.add('active');
-                btn.innerHTML = `${micIconSvg}<span style="color: #FFFFFF;">Voz: Encendida</span>`;
+                btn.innerHTML = `${megaphoneOnSvg}<span style="color: #FFFFFF;">Voz: Encendida</span>`;
                 speak('Voz encendida y lista');
             } else {
                 btn.classList.remove('active');
-                btn.innerHTML = `${muteIconSvg}<span style="color: #FFFFFF;">Voz: Apagada</span>`;
+                btn.innerHTML = `${megaphoneOffSvg}<span style="color: #FFFFFF;">Voz: Apagada</span>`;
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                 }
@@ -1544,16 +1645,6 @@
             runStep();
             if (calmInterval) clearInterval(calmInterval);
             calmInterval = setInterval(runStep, 1000);
-        }
-
-        function toggleRoutine(element, text) {
-            const isCompleted = element.classList.toggle('completed');
-            element.setAttribute('aria-pressed', isCompleted);
-            if (isCompleted) {
-                speak(text + ', ¡excelente trabajo!');
-            } else {
-                speak(text);
-            }
         }
 
         function renderColors(filter, clickedBtn) {
@@ -1712,7 +1803,7 @@
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
-                card.style.cssText = "min-height: 230px; justify-content: flex-start; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
+                card.style.cssText = "min-height: 250px; justify-content: flex-start; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
                 
                 card.onclick = () => {
                     document.querySelectorAll('#storyContent .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
@@ -1726,7 +1817,7 @@
                 card.innerHTML = `
                     <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px;">${scene.title}</span>
                     <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0;">${scene.icon}</div>
-                    <p style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; line-height: 1.45; text-align: center;">${scene.text}</p>
+                    <p style="font-size: 1.02rem; font-weight: 700; color: #FFFFFF; line-height: 1.45; text-align: center;">${scene.text}</p>
                 `;
                 container.appendChild(card);
             });
@@ -1746,10 +1837,12 @@
 
         function switchGameTab(gameKey) {
             document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            document.getElementById(`gtab-${gameKey}`).classList.add('active-cat');
+            const tabBtn = document.getElementById(`gtab-${gameKey}`);
+            if (tabBtn) tabBtn.classList.add('active-cat');
 
             document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
-            document.getElementById(`panel-${gameKey}`).classList.add('active-game');
+            const targetPanel = document.getElementById(`panel-${gameKey}`);
+            if (targetPanel) targetPanel.classList.add('active-game');
 
             if (gameKey === 'colors') initVividColorsGame();
             if (gameKey === 'memory') initMemoryRound();
@@ -1757,19 +1850,24 @@
         }
 
         const vividColors = [
-            { name: 'ROJO FUEGO', hex: '#EF4444' },
-            { name: 'AZUL ELÉCTRICO', hex: '#3B82F6' },
-            { name: 'AMARILLO SOL', hex: '#EAB308' },
-            { name: 'VERDE NEÓN', hex: '#22C55E' },
-            { name: 'NARANJA BRILLANTE', hex: '#F97316' },
-            { name: 'VIOLETA MÁGICO', hex: '#A855F7' },
-            { name: 'ROSA INTENSO', hex: '#EC4899' },
-            { name: 'CIAN PURO', hex: '#06B6D4' }
+            { name: 'ROJO', hex: '#EF4444' },
+            { name: 'AZUL', hex: '#2563EB' },
+            { name: 'AMARILLO', hex: '#FACC15' },
+            { name: 'VERDE', hex: '#22C55E' },
+            { name: 'NARANJA', hex: '#F97316' },
+            { name: 'VIOLETA', hex: '#A855F7' },
+            { name: 'ROSA', hex: '#EC4899' },
+            { name: 'CELESTE', hex: '#38BDF8' },
+            { name: 'MARRÓN', hex: '#92400E' },
+            { name: 'BLANCO', hex: '#F8FAFC' },
+            { name: 'NEGRO', hex: '#020617' },
+            { name: 'GRIS', hex: '#64748B' }
         ];
         let currentVividIndex = 0;
 
         function initVividColorsGame() {
             const container = document.getElementById('vividColorOptions');
+            if (!container) return;
             container.innerHTML = '';
             vividColors.forEach(c => {
                 const btn = document.createElement('button');
@@ -1785,8 +1883,9 @@
 
         function updateVividPrompt() {
             const target = vividColors[currentVividIndex];
-            document.getElementById('targetPrompt').innerText = `Toca el círculo: ${target.name}`;
-            speak(`Toca el círculo ${target.name}`);
+            const promptEl = document.getElementById('targetPrompt');
+            if (promptEl) promptEl.innerText = `Toca el círculo: ${target.name}`;
+            speak(`Toca el círculo de color ${target.name.toLowerCase()}`);
         }
 
         function checkVividColor(selectedName) {
@@ -1794,8 +1893,8 @@
             const feedback = document.getElementById('gameFeedback');
             if (selectedName === target.name) {
                 feedback.style.color = '#22C55E';
-                feedback.innerText = '¡Excelente! Acertaste el color vivo 🌟';
-                speak('¡Excelente! Muy bien hecho');
+                feedback.innerText = `¡Excelente! Tocaste el color ${target.name} 🌟`;
+                speak(`¡Excelente! Tocaste el color ${target.name.toLowerCase()}`);
                 currentVividIndex = (currentVividIndex + 1) % vividColors.length;
                 setTimeout(() => {
                     feedback.innerText = '';
@@ -1810,18 +1909,34 @@
 
         let memorySet = [];
         let hiddenIndices = [];
+        let foundIndices = [];
 
         function initMemoryRound() {
             const shuffled = [...animalDatabase].sort(() => Math.random() - 0.5);
             memorySet = shuffled.slice(0, 4);
-            hiddenIndices = [1, 3];
+            const posPool = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+            hiddenIndices = [posPool[0]];
+            foundIndices = [];
 
-            document.getElementById('memoryPrompt').innerText = 'Memoriza estos 4 animales';
-            document.getElementById('memoryFeedback').innerText = '';
-            document.getElementById('memoryActionArea').style.display = 'block';
-            document.getElementById('memoryChoices').style.display = 'none';
+            const promptEl = document.getElementById('memoryPrompt');
+            if (promptEl) promptEl.innerText = 'Memoriza estos 4 animales';
+            const feedbackEl = document.getElementById('memoryFeedback');
+            if (feedbackEl) feedbackEl.innerText = '';
+            
+            const actionArea = document.getElementById('memoryActionArea');
+            if (actionArea) actionArea.style.display = 'flex';
+            
+            const hideBtn = document.querySelector('#memoryActionArea button:first-child');
+            if (hideBtn) hideBtn.style.display = 'inline-flex';
+
+            const repeekBtn = document.getElementById('memoryRepeekBtn');
+            if (repeekBtn) repeekBtn.style.display = 'none';
+
+            const choicesDiv = document.getElementById('memoryChoices');
+            if (choicesDiv) choicesDiv.style.display = 'none';
 
             const board = document.getElementById('memoryBoard');
+            if (!board) return;
             board.innerHTML = '';
             memorySet.forEach(item => {
                 const slot = document.createElement('div');
@@ -1831,49 +1946,97 @@
             });
         }
 
-        function hideTwoAnimals() {
-            document.getElementById('memoryPrompt').innerText = '¿Qué animales se escondieron?';
-            speak('¿Qué animales se escondieron?');
-            document.getElementById('memoryActionArea').style.display = 'none';
-
+        function renderMemoryBoardState() {
             const board = document.getElementById('memoryBoard');
+            if (!board) return;
             board.innerHTML = '';
             memorySet.forEach((item, idx) => {
                 const slot = document.createElement('div');
-                if (hiddenIndices.includes(idx)) {
+                if (hiddenIndices.includes(idx) && !foundIndices.includes(idx)) {
                     slot.className = 'seq-slot mystery';
                     slot.innerText = '?';
+                } else if (foundIndices.includes(idx)) {
+                    slot.className = 'seq-slot revealed';
+                    slot.innerText = item.icon;
                 } else {
                     slot.className = 'seq-slot';
                     slot.innerText = item.icon;
                 }
                 board.appendChild(slot);
             });
+        }
+
+        function hideTwoAnimals() {
+            foundIndices = [];
+            const promptEl = document.getElementById('memoryPrompt');
+            if (promptEl) promptEl.innerText = '¿Qué animal se escondió?';
+            speak('¿Qué animal se escondió?');
+            
+            const hideBtn = document.querySelector('#memoryActionArea button:first-child');
+            if (hideBtn) hideBtn.style.display = 'none';
+
+            const repeekBtn = document.getElementById('memoryRepeekBtn');
+            if (repeekBtn) repeekBtn.style.display = 'inline-flex';
+
+            renderMemoryBoardState();
 
             const choicesDiv = document.getElementById('memoryChoices');
+            if (!choicesDiv) return;
             choicesDiv.innerHTML = '';
             choicesDiv.style.display = 'flex';
 
-            const options = [memorySet[hiddenIndices[0]], memorySet[hiddenIndices[1]], animalDatabase[5], animalDatabase[8]].sort(() => Math.random() - 0.5);
+            const usedNames = new Set(memorySet.map(a => a.name));
+            const distractors = animalDatabase.filter(a => !usedNames.has(a.name)).sort(() => Math.random() - 0.5).slice(0, 3);
+
+            const options = [
+                memorySet[hiddenIndices[0]],
+                distractors[0],
+                distractors[1],
+                distractors[2]
+            ].sort(() => Math.random() - 0.5);
+
             options.forEach(item => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'choice-btn';
-                btn.onclick = () => checkMemoryChoice(item);
+                btn.onclick = () => checkMemoryChoice(item, btn);
                 btn.innerHTML = `<span aria-hidden="true">${item.icon}</span><span class="choice-label">${item.name}</span>`;
                 choicesDiv.appendChild(btn);
             });
         }
 
-        function checkMemoryChoice(chosen) {
-            const target1 = memorySet[hiddenIndices[0]];
-            const target2 = memorySet[hiddenIndices[1]];
+        function repeekAnimals() {
+            const board = document.getElementById('memoryBoard');
+            if (!board) return;
+            board.innerHTML = '';
+            memorySet.forEach(item => {
+                const slot = document.createElement('div');
+                slot.className = 'seq-slot revealed';
+                slot.innerText = item.icon;
+                board.appendChild(slot);
+            });
+            speak('Miramos un momento');
+
+            setTimeout(() => {
+                renderMemoryBoardState();
+            }, 2000);
+        }
+
+        function checkMemoryChoice(chosen, btnElement) {
+            if (foundIndices.length >= 1) return;
+
+            const matchedSlotIndex = hiddenIndices.find(idx => memorySet[idx].name === chosen.name && !foundIndices.includes(idx));
             const feedback = document.getElementById('memoryFeedback');
-            if (chosen.name === target1.name || chosen.name === target2.name) {
+
+            if (matchedSlotIndex !== undefined) {
+                foundIndices.push(matchedSlotIndex);
+                btnElement.disabled = true;
+                renderMemoryBoardState();
+
                 feedback.style.color = '#22C55E';
-                feedback.innerText = `¡Correcto! Encontraste al ${chosen.name} 🎉`;
-                speak(`¡Correcto! Era ${chosen.gender === 'la' ? 'la' : 'el'} ${chosen.name}`);
-                setTimeout(initMemoryRound, 1800);
+                feedback.innerText = `¡Excelente! Encontraste ${chosen.gender === 'la' ? 'a la' : 'al'} ${chosen.name} 🎉`;
+                speak(`¡Excelente! Encontraste ${chosen.gender === 'la' ? 'a la' : 'al'} ${chosen.name}`);
+                setTimeout(initMemoryRound, 2200);
             } else {
                 feedback.style.color = '#38BDF8';
                 feedback.innerText = 'Prueba con otro animal';
@@ -1882,17 +2045,36 @@
         }
 
         const seriesPuzzles = [
-            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }] },
-            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }] },
-            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }] }
+            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }, { icon: '🐸', name: 'Rana' }] },
+            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }, { icon: '🍉', name: 'Sandía' }] },
+            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }, { icon: '🌙', name: 'Luna' }] },
+            { seq: ['🚗', '🚌', '🚗', '🚌'], answer: { icon: '🚗', name: 'Auto' }, options: [{ icon: '🚗', name: 'Auto' }, { icon: '🚲', name: 'Bicicleta' }, { icon: '✈️', name: 'Avión' }] },
+            { seq: ['🔵', '🟡', '🔵', '🟡'], answer: { icon: '🔵', name: 'Círculo azul' }, options: [{ icon: '🔵', name: 'Círculo azul' }, { icon: '🔴', name: 'Círculo rojo' }, { icon: '🟢', name: 'Círculo verde' }] },
+            { seq: ['⚽', '🏀', '⚽', '🏀'], answer: { icon: '⚽', name: 'Pelota de fútbol' }, options: [{ icon: '⚽', name: 'Pelota de fútbol' }, { icon: '🎾', name: 'Pelota de tenis' }, { icon: '🎈', name: 'Globo' }] },
+            { seq: ['🌧️', '🌈', '🌧️', '🌈'], answer: { icon: '🌧️', name: 'Lluvia' }, options: [{ icon: '🌧️', name: 'Lluvia' }, { icon: '❄️', name: 'Nieve' }, { icon: '☀️', name: 'Sol' }] },
+            { seq: ['🐢', '🐇', '🐢', '🐇'], answer: { icon: '🐢', name: 'Tortuga' }, options: [{ icon: '🐢', name: 'Tortuga' }, { icon: '🐘', name: 'Elefante' }, { icon: '🐬', name: 'Delfín' }] },
+            { seq: ['🍓', '🍊', '🍓', '🍊'], answer: { icon: '🍓', name: 'Fresa' }, options: [{ icon: '🍓', name: 'Fresa' }, { icon: '🍐', name: 'Pera' }, { icon: '🥕', name: 'Zanahoria' }] },
+            { seq: ['🌳', '🌸', '🌳', '🌸'], answer: { icon: '🌳', name: 'Árbol' }, options: [{ icon: '🌳', name: 'Árbol' }, { icon: '🍄', name: 'Hongo' }, { icon: '🌵', name: 'Cactus' }] },
+            { seq: ['🚂', '⛵', '🚂', '⛵'], answer: { icon: '🚂', name: 'Tren' }, options: [{ icon: '🚂', name: 'Tren' }, { icon: '🚀', name: 'Cohete' }, { icon: '🚁', name: 'Helicóptero' }] },
+            { seq: ['🔺', '🟦', '🔺', '🟦'], answer: { icon: '🔺', name: 'Triángulo' }, options: [{ icon: '🔺', name: 'Triángulo' }, { icon: '⭐', name: 'Estrella' }, { icon: '🟡', name: 'Círculo' }] }
         ];
+        let lastSeriesIndex = -1;
         let currentSeriesIndex = 0;
 
         function initSeriesRound() {
+            let nextIdx;
+            do {
+                nextIdx = Math.floor(Math.random() * seriesPuzzles.length);
+            } while (nextIdx === lastSeriesIndex && seriesPuzzles.length > 1);
+            lastSeriesIndex = nextIdx;
+            currentSeriesIndex = nextIdx;
+
             const puzzle = seriesPuzzles[currentSeriesIndex];
-            document.getElementById('seriesFeedback').innerText = '';
+            const feedbackEl = document.getElementById('seriesFeedback');
+            if (feedbackEl) feedbackEl.innerText = '';
 
             const board = document.getElementById('seriesBoard');
+            if (!board) return;
             board.innerHTML = '';
             puzzle.seq.forEach(emoji => {
                 const slot = document.createElement('div');
@@ -1906,8 +2088,10 @@
             board.appendChild(mysterySlot);
 
             const choicesDiv = document.getElementById('seriesChoices');
+            if (!choicesDiv) return;
             choicesDiv.innerHTML = '';
-            puzzle.options.forEach(opt => {
+            const shuffledOptions = [...puzzle.options].sort(() => Math.random() - 0.5);
+            shuffledOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'choice-btn';
@@ -1924,7 +2108,6 @@
                 feedback.style.color = '#22C55E';
                 feedback.innerText = `¡Perfecto! Continuaba ${puzzle.answer.name} ⭐`;
                 speak(`¡Perfecto! Continuaba ${puzzle.answer.name}`);
-                currentSeriesIndex = (currentSeriesIndex + 1) % seriesPuzzles.length;
                 setTimeout(initSeriesRound, 1600);
             } else {
                 feedback.style.color = '#38BDF8';
