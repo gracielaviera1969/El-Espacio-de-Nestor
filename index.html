@@ -631,77 +631,6 @@
             color: #FFFFFF;
         }
 
-        /* Zona de Calma adaptada TEA */
-        .calm-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 0;
-        }
-
-        .calm-steps-preview {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .calm-badge-step {
-            background: #0F172A;
-            border: 2px solid #38BDF8;
-            padding: 8px 16px;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #38BDF8;
-        }
-
-        .breathing-box {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .breathing-circle {
-            width: 100%;
-            height: 100%;
-            background: var(--vivid-blue-bg);
-            border: 5px solid var(--vivid-blue);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .breath-number {
-            font-size: 2.8rem;
-            font-weight: 700;
-            line-height: 1;
-            margin-top: 4px;
-        }
-
-        .calm-text {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #38BDF8;
-            text-align: center;
-            background: #0F172A;
-            border: 2px solid #334155;
-            padding: 12px 24px;
-            border-radius: 16px;
-            max-width: 500px;
-        }
-
         /* Pie de página profesional */
         footer {
             width: 100%;
@@ -765,11 +694,20 @@
             <span class="module-desc">Tablero visual simple para pedir y comunicar.</span>
         </button>
 
-        <button type="button" class="module-card" style="border-color: #A855F7; color: #A855F7;" onclick="showView('storyView')">
-            <span class="module-tag" style="background: #0F172A;">Anticipar</span>
-            <span class="module-icon-wrap" aria-hidden="true">📖</span>
+        <!-- Posición 4 (después de QUIERO...): HISTORIAS -->
+        <button type="button" class="module-card cyan" onclick="showView('anticipateView')">
+            <span class="module-tag">Anticipar</span>
+            <span class="module-icon-wrap" aria-hidden="true">🗺️</span>
             <span class="module-title">HISTORIAS</span>
-            <span class="module-desc">Relatos para anticipar las salidas.</span>
+            <span class="module-desc">Relatos paso a paso para las salidas.</span>
+        </button>
+
+        <!-- Posición 5: LAS AVENTURAS DE NÉSTOR Y LA MANI -->
+        <button type="button" class="module-card" style="border-color: #A855F7; color: #A855F7;" onclick="showView('storyView')">
+            <span class="module-tag" style="background: #0F172A;">Cuentos</span>
+            <span class="module-icon-wrap" aria-hidden="true">📖</span>
+            <span class="module-title">LAS AVENTURAS DE NÉSTOR Y LA MANI</span>
+            <span class="module-desc">Historias hermosas para compartir, leer juntos y disfrutar.</span>
         </button>
 
         <button type="button" class="module-card green" onclick="showView('parkView')">
@@ -812,13 +750,6 @@
             <span class="module-icon-wrap" aria-hidden="true">⚡</span>
             <span class="module-title">JUEGOS Y RETOS</span>
             <span class="module-desc">Memoria avanzada y secuencias lógicas.</span>
-        </button>
-
-        <button type="button" class="module-card blue" onclick="showView('calmView')">
-            <span class="module-tag">Relajar</span>
-            <span class="module-icon-wrap" aria-hidden="true">🌿</span>
-            <span class="module-title">ZONA DE CALMA</span>
-            <span class="module-desc">Respiración guiada inmersiva.</span>
         </button>
 
         <button type="button" class="module-card green" onclick="showView('emotionView')">
@@ -1005,6 +936,45 @@
         </div>
     </section>
 
+    <!-- Vista: Historias de Anticipación -->
+    <section id="anticipateView" class="view-section" aria-labelledby="anticipateHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="anticipateHeading">Historias de Anticipación</h2>
+                <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        
+        <div class="category-selector" role="group" aria-label="Elegir situación">
+            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadAnticipation('medico')">🏥 Ir al médico</button>
+            <button type="button" class="cat-btn" id="tab-super" onclick="loadAnticipation('super')">🛒 Supermercado</button>
+            <button type="button" class="cat-btn" id="tab-coche" onclick="loadAnticipation('coche')">🚗 Ir en coche</button>
+            <button type="button" class="cat-btn" id="tab-pasear" onclick="loadAnticipation('pasear')">🌳 Salir a pasear</button>
+            <button type="button" class="cat-btn" id="tab-playa" onclick="loadAnticipation('playa')">🏖️ Ir a la playa</button>
+            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadAnticipation('pelo')">✂️ Cortar el pelo</button>
+            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadAnticipation('dormir')">🌙 Hora de dormir</button>
+        </div>
+        <div id="anticipateContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;"></div>
+    </section>
+
+    <!-- Vista: Las aventuras de Néstor y la Mani -->
+    <section id="storyView" class="view-section" aria-labelledby="storyHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="storyHeading">Las aventuras de Néstor y la Mani</h2>
+                <p class="section-subtitle">Historias hermosas para compartir, leer juntos y disfrutar.</p>
+            </div>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
+        </div>
+        
+        <div class="category-selector" role="group" aria-label="Elegir cuento">
+            <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto')">✈️ El reencuentro</button>
+            <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque')">🛝 Tarde en el parque</button>
+        </div>
+        <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;"></div>
+    </section>
+
     <!-- Vista: El Parque -->
     <section id="parkView" class="view-section" aria-labelledby="parkHeading">
         <div class="view-header">
@@ -1141,29 +1111,6 @@
         <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
     </section>
 
-    <!-- Vista: Historias (incluyendo "Néstor y la Mani") -->
-    <section id="storyView" class="view-section" aria-labelledby="storyHeading">
-        <div class="view-header">
-            <div>
-                <h2 id="storyHeading">Historias</h2>
-                <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
-        
-        <div class="category-selector" role="group" aria-label="Elegir situación">
-            <button type="button" class="cat-btn active-cat" id="tab-nestormani" onclick="loadStory('nestormani')">💙 Néstor y la Mani</button>
-            <button type="button" class="cat-btn" id="tab-medico" onclick="loadStory('medico')">🏥 Ir al médico</button>
-            <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Supermercado</button>
-            <button type="button" class="cat-btn" id="tab-coche" onclick="loadStory('coche')">🚗 Ir en coche</button>
-            <button type="button" class="cat-btn" id="tab-pasear" onclick="loadStory('pasear')">🌳 Salir a pasear</button>
-            <button type="button" class="cat-btn" id="tab-playa" onclick="loadStory('playa')">🏖️ Ir a la playa</button>
-            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar el pelo</button>
-            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadStory('dormir')">🌙 Hora de dormir</button>
-        </div>
-        <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;"></div>
-    </section>
-
     <!-- Vista: Juegos -->
     <section id="gameView" class="view-section" aria-labelledby="gameHeading">
         <div class="view-header">
@@ -1204,36 +1151,11 @@
         </div>
     </section>
 
-    <!-- Zona de Calma -->
-    <section id="calmView" class="view-section" aria-labelledby="calmHeading">
-        <div class="view-header">
-            <div>
-                <h2 id="calmHeading">Zona de Calma y Respiración</h2>
-                <p class="section-subtitle">Un espacio seguro para relajarnos despacio.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
-        <div class="calm-container">
-            <div class="calm-steps-preview">
-                <div class="calm-badge-step">Inhala (4s)</div>
-                <div class="calm-badge-step">Mantén (2s)</div>
-                <div class="calm-badge-step">Exhala (4s)</div>
-            </div>
-            <div class="breathing-box">
-                <div class="breathing-circle" id="breathCircle">
-                    <span id="breathPhaseText" style="font-size: 1.2rem; font-weight: 700;">Inhala</span>
-                    <span class="breath-number" id="breathTimer">4</span>
-                </div>
-            </div>
-            <div class="calm-text" id="breathInstruction">Toma aire despacio por la nariz...</div>
-        </div>
-    </section>
-
-    <!-- Vista: Emociones con Explicaciones -->
+    <!-- Vista: Emociones con Explicaciones (¿Cómo estoy?) -->
     <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
         <div class="view-header">
             <div>
-                <h2 id="emotionHeading">¿Cómo me siento?</h2>
+                <h2 id="emotionHeading">¿Cómo estoy?</h2>
                 <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual para entenderlo.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
@@ -1282,7 +1204,6 @@
     <script>
         let speechEnabled = true;
         let selectedVoice = null;
-        let calmInterval = null;
         let audioUnlocked = false;
 
         const megaphoneOnSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>`;
@@ -1419,55 +1340,65 @@
             { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta' }
         ];
 
-        /* Historias (con "Néstor y la Mani" agregado en primer lugar) */
+        /* Colección de cuentos con mujer de pelo oscuro y bastón integrado (👩🏻‍🦯) y Néstor (👦🏻) */
         const stories = {
-            nestormani: [
-                { icon: '👦🏻💙', title: '1. El encuentro y la sonrisa', text: 'Es un día hermoso y soleado. Néstor ve llegar a la Mani con su bastón y su carita se llena de una gran sonrisa. Juntitos de la mano, están listos para compartir una aventura llena de alegría y complicidad.' },
-                { icon: '🛝🌳', title: '2. Compartiendo risas y juegos', text: 'Caminan hacia el parque favorito con paso firme y tranquilo. Néstor se sube al columpio mientras la Mani lo empuja despacito y con mucho cariño. Se escuchan risas felices que vuelan alto como globos de colores.' },
-                { icon: '🥤🪑', title: '3. Un momento de pausa y descanso', text: 'Después de correr y jugar tanto, llega el momento de descansar un ratito en el banco. La Mani apoya su bastón con cuidado y le acerca un vaso con agua fresca a Néstor para recuperar energías.' },
-                { icon: '🫂✨', title: '4. El abrazo que abriga el corazón', text: 'El día va cayendo y llega la hora de volver a casa. Se dan un abrazo muy fuerte, cálido y seguro. Néstor sabe que estar juntos es el mejor regalo del mundo.' }
+            aeropuerto: [
+                { icon: '✈️🇺🇾', title: 'Cruzando el gran océano', text: 'Desde Uruguay, la Mani cruza el gran océano azul en un viaje largo y lleno de ilusión, lista para volar hacia Gran Canaria y reencontrarse con Néstor.' },
+                { icon: '🛫👩🏻‍🦯', title: 'El reencuentro en el aeropuerto', text: 'El avión aterriza y las puertas se abren. Al salir al aeropuerto con su bastón, la Mani ve a Néstor esperándola con los brazos abiertos y una enorme sonrisa.' },
+                { icon: '👦🏻🛝', title: 'Muchos días de juegos y risas', text: 'Comienzan días maravillosos compartiendo paseos al aire libre, risas cómplices y juegos divertidos por cada rincón bajo el sol.' },
+                { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Uruguay y Gran Canaria estén lejos, el cariño que nos une es tan fuerte que cada abrazo guarda la magia de estar siempre juntos.' }
             ],
+            parque: [
+                { icon: '☀️🏝️', title: 'Una gran tarde al sol', text: 'Bajo el sol radiante de Gran Canaria, Néstor y la Mani salen a disfrutar de una hermosa jornada al aire libre llenos de energía y alegría.' },
+                { icon: '👩🏻‍🦯👦🏻', title: 'Caminando juntos', text: 'Con su bastón firme, la Mani camina junto a Néstor hacia la zona de juegos, listos para compartir risas y momentos inolvidables.' },
+                { icon: '🎠🌳', title: 'Diversión en los columpios', text: 'Ambos se suben a los columpios y se hamacan suavemente sintiendo la brisa fresca, mientras la tarde se llena de juegos y complicidad.' },
+                { icon: '💛🏡', title: 'De regreso a casa', text: 'Al terminar de jugar, regresan a casa con una gran sonrisa, sabiendo que cada aventura compartida fortalece el cariño inmenso que los une.' }
+            ]
+        };
+
+        /* Guías de Anticipación para Salidas */
+        const anticipations = {
             medico: [
-                { icon: '🚗', title: '1. El viaje a la clínica', text: 'Hoy nos dirigimos al consultorio médico. El doctor nos espera para revisar que nuestro cuerpo funcione de maravilla y estemos llenos de salud y energía.' },
-                { icon: '🪑', title: '2. Espera tranquila', text: 'Al llegar a la sala de espera nos sentamos junto a un adulto con total tranquilidad. Podemos mirar un libro ilustrado o un juguete favorito mientras nombran nuestro turno.' },
-                { icon: '🩺', title: '3. La revisión médica', text: 'El doctor es muy amable. Usa un estetoscopio frío un segundito en nuestro pecho para escuchar los latidos del corazón y revisa nuestra garganta de forma rápida y sin dolor.' },
-                { icon: '⭐', title: '4. ¡Misión cumplida!', text: '¡Excelente trabajo! La visita médica terminó perfectamente. Nos despedimos con una gran sonrisa y regresamos a casa sabiendo que cuidamos de nuestro cuerpo.' }
+                { icon: '🚗', title: 'El viaje a la clínica', text: 'Hoy nos dirigimos al consultorio médico. El doctor nos espera para revisar que nuestro cuerpo funcione de maravilla y estemos llenos de salud y energía.' },
+                { icon: '🪑', title: 'Espera tranquila', text: 'Al llegar a la sala de espera nos sentamos junto a un adulto con total tranquilidad. Podemos mirar un libro ilustrado o un juguete favorito mientras nombran nuestro turno.' },
+                { icon: '🩺', title: 'La revisión médica', text: 'El doctor es muy amable. Usa un estetoscopio frío un segundito en nuestro pecho para escuchar los latidos del corazón y revisa nuestra garganta de forma rápida y sin dolor.' },
+                { icon: '⭐', title: '¡Misión cumplida!', text: '¡Excelente trabajo! La visita médica terminó perfectamente. Nos despedimos con una gran sonrisa y regresamos a casa sabiendo que cuidamos de nuestro cuerpo.' }
             ],
             super: [
-                { icon: '🛒', title: '1. Llegada al supermercado', text: 'Llegamos al supermercado acompañados de un adulto. Aunque hay movimiento y luces encendidas, nos mantenemos cerquita de la mano y caminamos con absoluta calma.' },
-                { icon: '🛍️', title: '2. Eligiendo los productos', text: 'Recorremos los pasillos buscando los alimentos sanos y ricos que tenemos anotados en la lista de compras, ayudando a colocarlos dentro del carrito con alegría.' },
-                { icon: '💳', title: '3. Pago en la caja', text: 'Llegamos a la caja registradora. Esperamos nuestro turno con paciencia mientras la cajera pasa cada artículo por el lector que emite un sonido bip.' },
-                { icon: '🏡', title: '4. Regreso al hogar', text: 'Subimos las bolsas al coche y volvemos a casa. Guardamos cada cosa en su lugar con orden y satisfacción. ¡Las compras salieron perfectas!' }
+                { icon: '🛒', title: 'Llegada al supermercado', text: 'Llegamos al supermercado acompañados de un adulto. Aunque hay movimiento y luces encendidas, nos mantenemos cerquita de la mano y caminamos con absoluta calma.' },
+                { icon: '🛍️', title: 'Eligiendo los productos', text: 'Recorremos los pasillos buscando los alimentos sanos y ricos que tenemos anotados en la lista de compras, ayudando a colocarlos dentro del carrito con alegría.' },
+                { icon: '💳', title: 'Pago en la caja', text: 'Llegamos a la caja registradora. Esperamos nuestro turno con paciencia mientras la cajera pasa cada artículo por el lector que emite un sonido bip.' },
+                { icon: '🏡', title: 'Regreso al hogar', text: 'Subimos las bolsas al coche y volvemos a casa. Guardamos cada cosa en su lugar con orden y satisfacción. ¡Las compras salieron perfectas!' }
             ],
             coche: [
-                { icon: '🚗', title: '1. Subiendo al vehículo', text: 'Salimos de casa, abrimos la puerta del auto con cuidado y nos acomodamos cómodamente en nuestro asiento especial y seguro.' },
-                { icon: '💺', title: '2. El cinturón de seguridad', text: 'Por nuestra protección y cuidado, pasamos la correa y abrochamos firmemente el cinturón de seguridad antes de que el motor comience a marchar.' },
-                { icon: '🏙️', title: '3. Disfrutando el recorrido', text: 'El coche avanza suavemente por la calle. Miramos atentos por la ventanilla los edificios, los árboles verdes y los automóviles que pasan.' },
-                { icon: '🏁', title: '4. Llegando a destino', text: 'El viaje en coche ha finalizado con total seguridad. Nos desabrochamos el cinturón con calma y bajamos con una sonrisa a nuestro destino.' }
+                { icon: '🚗', title: 'Subiendo al vehículo', text: 'Salimos de casa, abrimos la puerta del auto con cuidado y nos acomodamos cómodamente en nuestro asiento especial y seguro.' },
+                { icon: '💺', title: 'El cinturón de seguridad', text: 'Por nuestra protección y cuidado, pasamos la correa y abrochamos firmemente el cinturón de seguridad antes de que el motor comience a marchar.' },
+                { icon: '🏙️', title: 'Disfrutando el recorrido', text: 'El coche avanza suavemente por la calle. Miramos atentos por la ventanilla los edificios, los árboles verdes y los automóviles que pasan.' },
+                { icon: '🏁', title: 'Llegando a destino', text: 'El viaje en coche ha finalizado con total seguridad. Nos desabrochamos el cinturón con calma y bajamos con una sonrisa a nuestro destino.' }
             ],
             pasear: [
-                { icon: '👟', title: '1. Preparándonos para salir', text: 'Elegimos ropa cómoda, nos calzamos las zapatillas adecuadas y miramos el estado del clima por la ventana antes de abrir la puerta de casa.' },
-                { icon: '🌳', title: '2. Caminando al aire libre', text: 'Caminamos por la acera observando los árboles, escuchando el canto de los pájaros y respirando aire fresco de la mano de un adulto.' },
-                { icon: '🛝', title: '3. Disfrutando la plaza', text: 'Llegamos a la zona verde. Podemos correr con cuidado, explorar los juegos del parque o sentarnos un momento en un banco a descansar.' },
-                { icon: '🏡', title: '4. Retorno reconfortante', text: 'Con la energía recargada y una hermosa sensación de paz, volvemos a casa para descansar un rato y tomar un vaso de agua fresca.' }
+                { icon: '👟', title: 'Preparándonos para salir', text: 'Elegimos ropa cómoda, nos calzamos las zapatillas adecuadas y miramos el estado del clima por la ventana antes de abrir la puerta de casa.' },
+                { icon: '🌳', title: 'Caminando al aire libre', text: 'Caminamos por la acera observando los árboles, escuchando el canto de los pájaros y respirando aire fresco de la mano de un adulto.' },
+                { icon: '🛝', title: 'Disfrutando la plaza', text: 'Llegamos a la zona verde. Podemos correr con cuidado, explorar los juegos del parque o sentarnos un momento en un banco a descansar.' },
+                { icon: '🏡', title: 'Retorno reconfortante', text: 'Con la energía recargada y una hermosa sensación de paz, volvemos a casa para descansar un rato y tomar un vaso de agua fresca.' }
             ],
             playa: [
-                { icon: '🎒', title: '1. Preparando la mochila', text: 'Guardamos en el bolso la toalla suave, el traje de baño y el protector solar indispensable para cuidar nuestra piel bajo el sol.' },
-                { icon: '🌊', title: '2. Llegando a la orilla', text: 'Llegamos a la playa donde el aire huele a mar y se escucha el sonido constante, rítmico y relajante de las olas al romper.' },
-                { icon: '🏖️', title: '3. Jugando en la arena', text: 'Sentimos la arena tibia bajo nuestros pies. Usamos el balde y la pala para construir castillos, caminos y torres muy divertidas.' },
-                { icon: '👣', title: '4. Refrescando los pies', text: 'Caminamos hasta la orilla acompañados de un adulto para dejar que el agua del mar nos moje los pies con suavidad.' }
+                { icon: '🎒', title: 'Preparando la mochila', text: 'Guardamos en el bolso la toalla suave, el traje de baño y el protector solar indispensable para cuidar nuestra piel bajo el sol.' },
+                { icon: '🌊', title: 'Llegando a la orilla', text: 'Llegamos a la playa donde el aire huele a mar y se escucha el sonido constante, rítmico y relajante de las olas al romper.' },
+                { icon: '🏖️', title: 'Jugando en la arena', text: 'Sentimos la arena tibia bajo nuestros pies. Usamos el balde y la pala para construir castillos, caminos y torres muy divertidas.' },
+                { icon: '👣', title: 'Refrescando los pies', text: 'Caminamos hasta la orilla acompañados de un adulto para dejar que el agua del mar nos moje los pies con suavidad.' }
             ],
             pelo: [
-                { icon: '✂️', title: '1. Anticipando el corte', text: 'Cuando el cabello crece mucho da calor y molesta en los ojos. Cortarlo nos ayuda a estar frescos. Podemos llevar auriculares o un juguete para sentirnos seguros.' },
-                { icon: '💺', title: '2. Silla y capa protectora', text: 'Nos sentamos cómodos en la silla del salón y nos colocan una capa suave alrededor del cuello para que los cabellos sueltos no piquen en la ropa.' },
-                { icon: '🔌', title: '3. Uso de la máquina', text: 'La máquina de cortar pelo se desliza suavemente sobre la cabeza para emprolijar el cabello con cuidado y sin dolor.' },
-                { icon: '✨', title: '4. ¡Quedamos impecables!', text: 'Nos limpian con una brocha suave. Ya estamos frescos, prolijos y listos para volver muy contentos a casa.' }
+                { icon: '✂️', title: 'Anticipando el corte', text: 'Cuando el cabello crece mucho da calor y molesta en los ojos. Cortarlo nos ayuda a estar frescos. Podemos llevar auriculares o un juguete para sentirnos seguros.' },
+                { icon: '💺', title: 'Silla y capa protectora', text: 'Nos sentamos cómodos en la silla del salón y nos colocan una capa suave alrededor del cuello para que los cabellos sueltos no piquen en la ropa.' },
+                { icon: '🔌', title: 'Uso de la máquina', text: 'La máquina de cortar pelo se desliza suavemente sobre la cabeza para emprolijar el cabello con cuidado y sin dolor.' },
+                { icon: '✨', title: '¡Quedamos impecables!', text: 'Nos limpian con una brocha suave. Ya estamos frescos, prolijos y listos para volver muy contentos a casa.' }
             ],
             dormir: [
-                { icon: '👕', title: '1. Cambiándonos al pijama', text: 'Cuando llega la noche el cuerpo y la mente necesitan descansar. Nos sacamos la ropa del día y nos ponemos un pijama suave y cómodo.' },
-                { icon: '🪥', title: '2. Cepillado de dientes', text: 'Vamos al baño y cepillamos nuestros dientes con pasta limpiadora para dejarlos relucientes y blancos antes de ir a la cama.' },
-                { icon: '📖', title: '3. Momento de cuento y calma', text: 'En la habitación bajamos la intensidad de las luces y leemos un cuento corto o escuchamos música muy suave para relajarnos por completo.' },
-                { icon: '🛌', title: '4. Dormir toda la noche', text: 'Nos acostamos en nuestra cama calentita y segura, cerramos los ojos y dormimos plácidamente hasta el nuevo día.' }
+                { icon: '👕', title: 'Cambiándonos al pijama', text: 'Cuando llega la noche el cuerpo y la mente necesitan descansar. Nos sacamos la ropa del día y nos ponemos un pijama suave y cómodo.' },
+                { icon: '🪥', title: 'Cepillado de dientes', text: 'Vamos al baño y cepillamos nuestros dientes con pasta limpiadora para dejarlos relucientes y blancos antes de ir a la cama.' },
+                { icon: '📖', title: 'Momento de cuento y calma', text: 'En la habitación bajamos la intensidad de las luces y leemos un cuento corto o escuchamos música muy suave para relajarnos por completo.' },
+                { icon: '🛌', title: 'Dormir toda la noche', text: 'Nos acostamos en nuestra cama calentita y segura, cerramos los ojos y dormimos plácidamente hasta el nuevo día.' }
             ]
         };
 
@@ -1524,11 +1455,6 @@
             const mainMenu = document.getElementById('mainMenu');
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
 
-            if (calmInterval) {
-                clearInterval(calmInterval);
-                calmInterval = null;
-            }
-
             if (viewId === 'mainMenu') {
                 mainMenu.classList.remove('hidden');
             } else {
@@ -1539,9 +1465,12 @@
                 const title = targetSection.querySelector('h2').innerText;
                 const subtitle = targetSection.querySelector('.section-subtitle').innerText;
                 
-                if (viewId === 'storyView') {
-                    speak(`Historias. Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.`);
-                    loadStory('nestormani', false);
+                if (viewId === 'anticipateView') {
+                    speak(`Historias de Anticipación. Elige una situación.`);
+                    loadAnticipation('medico', false);
+                } else if (viewId === 'storyView') {
+                    speak(`Las aventuras de Néstor y la Mani. Historias hermosas para compartir, leer juntos y disfrutar.`);
+                    loadStory('aeropuerto', false);
                 } else if (viewId === 'gameView') {
                     speak(`Juegos y Retos Avanzados`);
                     switchGameTab('colors');
@@ -1552,7 +1481,6 @@
                 if (viewId === 'animalsView') renderAnimals();
                 if (viewId === 'colorsLearnView') renderColors('todos');
                 if (viewId === 'foodView') renderFood('todos');
-                if (viewId === 'calmView') startCalmBreathing();
             }
         }
 
@@ -1595,56 +1523,6 @@
             banner.style.display = 'block';
             banner.innerText = phrase;
             speak(phrase);
-        }
-
-        function startCalmBreathing() {
-            const circle = document.getElementById('breathCircle');
-            const phaseText = document.getElementById('breathPhaseText');
-            const timerEl = document.getElementById('breathTimer');
-            const instruction = document.getElementById('breathInstruction');
-            let state = 0; 
-            let timeLeft = 4;
-
-            function runStep() {
-                if (state === 0) {
-                    phaseText.innerText = "Inhala";
-                    instruction.innerText = "Toma aire despacio por la nariz...";
-                    circle.style.transform = "scale(1.25)";
-                    timerEl.innerText = timeLeft;
-                    if (timeLeft === 4) speak("Inhala despacio");
-                    timeLeft--;
-                    if (timeLeft < 0) {
-                        state = 1;
-                        timeLeft = 2;
-                    }
-                } else if (state === 1) {
-                    phaseText.innerText = "Mantén";
-                    instruction.innerText = "Sostén el aire un momento sin forzar...";
-                    circle.style.transform = "scale(1.25)";
-                    timerEl.innerText = timeLeft;
-                    if (timeLeft === 2) speak("Mantén el aire");
-                    timeLeft--;
-                    if (timeLeft < 0) {
-                        state = 2;
-                        timeLeft = 4;
-                    }
-                } else if (state === 2) {
-                    phaseText.innerText = "Exhala";
-                    instruction.innerText = "Suelta el aire suavemente por la boca...";
-                    circle.style.transform = "scale(1)";
-                    timerEl.innerText = timeLeft;
-                    if (timeLeft === 4) speak("Exhala suave");
-                    timeLeft--;
-                    if (timeLeft < 0) {
-                        state = 0;
-                        timeLeft = 4;
-                    }
-                }
-            }
-
-            runStep();
-            if (calmInterval) clearInterval(calmInterval);
-            calmInterval = setInterval(runStep, 1000);
         }
 
         function renderColors(filter, clickedBtn) {
@@ -1803,7 +1681,7 @@
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
-                card.style.cssText = "min-height: 250px; justify-content: flex-start; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
+                card.style.cssText = "min-height: 250px; justify-content: flex-start; text-align: left; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
                 
                 card.onclick = () => {
                     document.querySelectorAll('#storyContent .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
@@ -1815,9 +1693,9 @@
                 };
 
                 card.innerHTML = `
-                    <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px;">${scene.title}</span>
-                    <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0;">${scene.icon}</div>
-                    <p style="font-size: 1.02rem; font-weight: 700; color: #FFFFFF; line-height: 1.45; text-align: center;">${scene.text}</p>
+                    <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px; text-align: left; width: 100%; display: block;">${scene.title}</span>
+                    <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0; align-self: center;">${scene.icon}</div>
+                    <p style="font-size: 1.02rem; font-weight: 700; color: #FFFFFF; line-height: 1.5; text-align: left; width: 100%;">${scene.text}</p>
                 `;
                 container.appendChild(card);
             });
@@ -1825,6 +1703,43 @@
             if (shouldSpeak && activeTab) {
                 const storyLabel = activeTab.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
                 speak(storyLabel);
+            }
+        }
+
+        function loadAnticipation(anticipateKey, shouldSpeak = true) {
+            document.querySelectorAll('#anticipateView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+            const activeTab = document.getElementById(`tab-${anticipateKey}`);
+            if (activeTab) activeTab.classList.add('active-cat');
+
+            const container = document.getElementById('anticipateContent');
+            container.innerHTML = '';
+            
+            anticipations[anticipateKey].forEach(scene => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'item-card';
+                card.style.cssText = "min-height: 250px; justify-content: flex-start; text-align: left; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
+                
+                card.onclick = () => {
+                    document.querySelectorAll('#anticipateContent .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
+                    card.style.borderColor = 'var(--vivid-cyan)';
+                    card.style.transform = 'scale(1.03)';
+                    setTimeout(() => card.style.transform = 'scale(1)', 200);
+
+                    speak(`${scene.title}. ${scene.text}`);
+                };
+
+                card.innerHTML = `
+                    <span style="background: var(--vivid-cyan-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-cyan); margin-bottom: 12px; text-align: left; width: 100%; display: block;">${scene.title}</span>
+                    <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0; align-self: center;">${scene.icon}</div>
+                    <p style="font-size: 1.02rem; font-weight: 700; color: #FFFFFF; line-height: 1.5; text-align: left; width: 100%;">${scene.text}</p>
+                `;
+                container.appendChild(card);
+            });
+            
+            if (shouldSpeak && activeTab) {
+                const label = activeTab.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
+                speak(label);
             }
         }
 
