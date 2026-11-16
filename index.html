@@ -9,8 +9,8 @@
         :root {
             --bg-color: #0F172A;
             --card-bg: #1E293B;
-            --text-main: #F8FAFC;
-            --text-secondary: #94A3B8;
+            --text-main: #FFFFFF;
+            --text-secondary: #FFFFFF;
 
             /* Colores Vivos y de Alto Contraste AAA */
             --vivid-blue: #3B82F6;
@@ -79,7 +79,7 @@
             width: 60px;
             height: 60px;
             border-radius: 18px;
-            background: var(--vivid-blue);
+            background: #1E6FF5;
             border: 3px solid #FFFFFF;
             display: flex;
             align-items: center;
@@ -96,8 +96,8 @@
 
         .brand-sub {
             font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-secondary);
+            font-weight: 700;
+            color: #FFFFFF;
         }
 
         .audio-controls {
@@ -109,7 +109,7 @@
         .btn-control {
             min-height: 50px;
             background: #334155;
-            border: 3px solid #64748B;
+            border: 3px solid #FFFFFF;
             padding: 12px 22px;
             border-radius: 16px;
             font-size: 1.1rem;
@@ -117,6 +117,9 @@
             cursor: pointer;
             transition: transform 0.15s, background-color 0.15s;
             color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-control:hover {
@@ -130,8 +133,9 @@
         }
 
         .btn-control.active {
-            background: var(--vivid-green-bg);
+            background: #15803D;
             border-color: var(--vivid-green);
+            color: #FFFFFF;
         }
 
         /* Menú Principal */
@@ -210,8 +214,8 @@
 
         .module-desc {
             font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-secondary);
+            font-weight: 700;
+            color: #FFFFFF;
             line-height: 1.4;
         }
 
@@ -250,16 +254,16 @@
         }
 
         .section-subtitle {
-            color: var(--text-secondary);
+            color: #FFFFFF;
             margin-top: 4px;
             font-size: 1.15rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .back-btn {
             min-height: 50px;
             background: #334155;
-            border: 3px solid #64748B;
+            border: 3px solid #FFFFFF;
             padding: 12px 22px;
             border-radius: 16px;
             font-size: 1.1rem;
@@ -283,7 +287,7 @@
         .item-card {
             min-height: 145px;
             background: #0F172A;
-            border: 3px solid #475569;
+            border: 3px solid #FFFFFF;
             border-radius: 20px;
             padding: 20px 14px;
             text-align: center;
@@ -341,7 +345,7 @@
         .cat-btn {
             min-height: 48px;
             background: #0F172A;
-            border: 3px solid #64748B;
+            border: 3px solid #FFFFFF;
             padding: 10px 20px;
             border-radius: 14px;
             font-size: 1.1rem;
@@ -355,45 +359,36 @@
             border-color: var(--vivid-blue);
         }
 
-        /* Tarjetas de Grilla */
+        /* Tarjetas de Grilla con etiqueta arriba e icono abajo */
         .grid-card {
             background: #0F172A;
             border: 3px solid var(--vivid-yellow);
             border-radius: 20px;
-            padding: 18px 14px;
+            padding: 16px 14px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            transition: transform 0.15s;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.15s, background-color 0.15s;
+            min-height: 145px;
         }
 
         .grid-card:hover {
             transform: scale(1.03);
             background: #1E293B;
+            border-color: var(--vivid-blue);
         }
 
-        .pill-badge {
-            font-size: 0.9rem;
-            font-weight: 700;
-            background: var(--vivid-yellow-bg);
-            color: #FDE047;
-            border: 2px solid var(--vivid-yellow);
-            padding: 3px 12px;
-            border-radius: 999px;
-            display: inline-block;
-        }
-
-        .card-tag {
+        .card-top-label {
             font-size: 1.1rem;
             font-weight: 700;
             color: #FFFFFF;
             background: #1E293B;
-            border: 2px solid #64748B;
+            border: 2px solid #FFFFFF;
             padding: 4px 12px;
             border-radius: 10px;
-            margin-top: 4px;
         }
 
         /* Tablero de Números del 1 al 100 */
@@ -414,7 +409,7 @@
 
         .range-btn {
             background: #334155;
-            border: 2px solid #64748B;
+            border: 2px solid #FFFFFF;
             color: #FFFFFF;
             padding: 8px 16px;
             border-radius: 12px;
@@ -535,7 +530,7 @@
             height: 96px;
             border-radius: 20px;
             background: #0F172A;
-            border: 3px solid #64748B;
+            border: 3px solid #FFFFFF;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -672,9 +667,9 @@
             max-width: 1100px;
             text-align: center;
             padding: 20px 0;
-            color: var(--text-secondary);
+            color: #FFFFFF;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             border-top: 2px solid #334155;
             margin-top: auto;
         }
@@ -696,14 +691,17 @@
             </div>
         </div>
         <div class="audio-controls">
-            <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()">🗣️ Voz: Encendida</button>
+            <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()" style="color: #FFFFFF;">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                <span style="color: #FFFFFF;">Voz: Encendida</span>
+            </button>
         </div>
     </header>
 
     <!-- Menú Principal -->
     <main class="main-container" id="mainMenu">
-        <button type="button" class="module-card blue" onclick="showView('routineView')">
-            <span class="module-tag">Orden</span>
+        <button type="button" class="module-card" style="border-color: #3B82F6; color: #3B82F6;" onclick="showView('routineView')">
+            <span class="module-tag" style="background: #0F172A;">Orden</span>
             <span class="module-icon-wrap" aria-hidden="true">📅</span>
             <span class="module-title">MI RUTINA</span>
             <span class="module-desc">Colegio y actividades del día en orden.</span>
@@ -716,18 +714,18 @@
             <span class="module-desc">Acciones para vestirme y arreglarme solo.</span>
         </button>
 
-        <button type="button" class="module-card orange" onclick="showView('commView')">
-            <span class="module-tag">Comunicar</span>
+        <button type="button" class="module-card" style="border-color: #F97316; color: #F97316;" onclick="showView('commView')">
+            <span class="module-tag" style="background: #0F172A;">Comunicar</span>
             <span class="module-icon-wrap" aria-hidden="true">💬</span>
             <span class="module-title">QUIERO...</span>
             <span class="module-desc">Tablero visual simple para pedir y comunicar.</span>
         </button>
 
-        <button type="button" class="module-card purple" onclick="showView('storyView')">
-            <span class="module-tag">Anticipar</span>
+        <button type="button" class="module-card" style="border-color: #A855F7; color: #A855F7;" onclick="showView('storyView')">
+            <span class="module-tag" style="background: #0F172A;">Anticipar</span>
             <span class="module-icon-wrap" aria-hidden="true">📖</span>
             <span class="module-title">HISTORIAS</span>
-            <span class="module-desc">Relatos visuales para anticipar las salidas.</span>
+            <span class="module-desc">Relatos para anticipar las salidas.</span>
         </button>
 
         <button type="button" class="module-card green" onclick="showView('parkView')">
@@ -765,8 +763,8 @@
             <span class="module-desc">Tablero completo de conteo avanzado.</span>
         </button>
 
-        <button type="button" class="module-card red" onclick="showView('gameView')">
-            <span class="module-tag">Retos</span>
+        <button type="button" class="module-card" style="border-color: #EF4444; color: #EF4444;" onclick="showView('gameView')">
+            <span class="module-tag" style="background: #0F172A;">Retos</span>
             <span class="module-icon-wrap" aria-hidden="true">⚡</span>
             <span class="module-title">JUEGOS Y RETOS</span>
             <span class="module-desc">Memoria avanzada y secuencias lógicas.</span>
@@ -1048,22 +1046,15 @@
         <div class="view-header">
             <div>
                 <h2 id="animalsHeading">Mundo Animal</h2>
-                <p class="section-subtitle">Explora animales por hábitat y sus sonidos naturales.</p>
+                <p class="section-subtitle">Explora animales y sus sonidos naturales.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
-        <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="filterAnimals('todos')">Todos</button>
-            <button type="button" class="cat-btn" onclick="filterAnimals('casa')">Casa</button>
-            <button type="button" class="cat-btn" onclick="filterAnimals('granja')">Granja</button>
-            <button type="button" class="cat-btn" onclick="filterAnimals('selva')">Selva</button>
-            <button type="button" class="cat-btn" onclick="filterAnimals('agua')">Agua</button>
         </div>
         <div class="items-grid" id="animalsGrid"></div>
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Vista: Alimentos Completa (Sin etiquetas de categoría) -->
+    <!-- Vista: Alimentos Completa -->
     <section id="foodView" class="view-section" aria-labelledby="foodHeading">
         <div class="view-header">
             <div>
@@ -1106,19 +1097,20 @@
         <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
     </section>
 
-    <!-- Vista: Historias Visuales -->
+    <!-- Vista: Historias -->
     <section id="storyView" class="view-section" aria-labelledby="storyHeading">
         <div class="view-header">
             <div>
-                <h2 id="storyHeading">Historias Visuales</h2>
+                <h2 id="storyHeading">Historias</h2>
                 <p class="section-subtitle">Elige una situación y toca cada tarjeta para saber qué va a pasar y cómo nos cuidamos.</p>
             </div>
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         
-        <div class="category-selector" role="group" aria-label="Elegir historia visual">
+        <div class="category-selector" role="group" aria-label="Elegir situación">
             <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadStory('medico')">🏥 Ir al médico</button>
             <button type="button" class="cat-btn" id="tab-super" onclick="loadStory('super')">🛒 Supermercado</button>
+            <button type="button" class="cat-btn" id="tab-coche" onclick="loadStory('coche')">🚗 Ir en coche</button>
             <button type="button" class="cat-btn" id="tab-pasear" onclick="loadStory('pasear')">🌳 Salir a pasear</button>
             <button type="button" class="cat-btn" id="tab-playa" onclick="loadStory('playa')">🏖️ Ir a la playa</button>
             <button type="button" class="cat-btn" id="tab-pelo" onclick="loadStory('pelo')">✂️ Cortar el pelo</button>
@@ -1152,7 +1144,7 @@
             <h3 id="memoryPrompt" class="game-prompt">Memoriza estos 4 animales</h3>
             <div class="sequence-board" id="memoryBoard"></div>
             <div id="memoryActionArea">
-                <button type="button" class="btn-control active" onclick="hideTwoAnimals()">🙈 Esconder dos</button>
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" style="color: #FFFFFF;">🙈 Esconder dos</button>
             </div>
             <div class="choice-row" id="memoryChoices" style="display: none;"></div>
             <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
@@ -1246,6 +1238,9 @@
         let selectedVoice = null;
         let calmInterval = null;
 
+        const micIconSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+        const muteIconSvg = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+
         function loadVoices() {
             if (!('speechSynthesis' in window)) return;
             const voices = window.speechSynthesis.getVoices();
@@ -1288,23 +1283,46 @@
         ];
 
         const animalDatabase = [
-            { name: 'Perro', gender: 'el', icon: '🐶', habitat: 'casa', action: 'el perro es un gran compañero en el hogar y hace guau guau' },
-            { name: 'Gato', gender: 'el', icon: '🐱', habitat: 'casa', action: 'el gato vive en el hogar y hace miau con cariño' },
-            { name: 'Loro', gender: 'el', icon: '🦜', habitat: 'casa', action: 'el loro vive en el hogar y repite palabras muy divertido' },
-            { name: 'Vaca', gender: 'la', icon: '🐮', habitat: 'granja', action: 'la vaca vive en el campo y hace muu' },
-            { name: 'Pato', gender: 'el', icon: '🦆', habitat: 'granja', action: 'el pato vive en la granja y nada haciendo cuac cuac' },
-            { name: 'Oveja', gender: 'la', icon: '🐑', habitat: 'granja', action: 'la oveja vive en el campo, tiene lana muy suave y hace bee' },
-            { name: 'Caballo', gender: 'el', icon: '🐴', habitat: 'granja', action: 'el caballo corre veloz por el campo haciendo iiii' },
-            { name: 'Cerdo', gender: 'el', icon: '🐷', habitat: 'granja', action: 'el cerdo vive feliz en la granja haciendo oinc oinc' },
-            { name: 'León', gender: 'el', icon: '🦁', habitat: 'selva', action: 'el león es el rey de la selva y ruge con fuerza' },
-            { name: 'Elefante', gender: 'el', icon: '🐘', habitat: 'selva', action: 'el elefante camina por la selva con su trompa larga' },
-            { name: 'Mono', gender: 'el', icon: '🐵', habitat: 'selva', action: 'el mono salta alegremente por los árboles de la selva' },
-            { name: 'Jirafa', gender: 'la', icon: '🦒', habitat: 'selva', action: 'la jirafa es un animal muy alto que camina por la selva' },
-            { name: 'Tigre', gender: 'el', icon: '🐯', habitat: 'selva', action: 'el tigre camina sigiloso por la selva con rayas hermosas' },
-            { name: 'Pez', gender: 'el', icon: '🐠', habitat: 'agua', action: 'el pez nada feliz y tranquilo bajo el agua' },
-            { name: 'Ballena', gender: 'la', icon: '🐳', habitat: 'agua', action: 'la ballena nada por el mar profundo y emite cantos graves' },
-            { name: 'Delfín', gender: 'el', icon: '🐬', habitat: 'agua', action: 'el delfín salta alegremente sobre las olas del agua' },
-            { name: 'Tiburón', gender: 'el', icon: '🦈', habitat: 'agua', action: 'el tiburón nada elegante y rápido por el mar' }
+            { name: 'Perro', gender: 'el', icon: '🐶', action: 'el perro es un gran compañero en el hogar y hace guau guau' },
+            { name: 'Gato', gender: 'el', icon: '🐱', action: 'el gato vive en el hogar y hace miau con cariño' },
+            { name: 'Conejo', gender: 'el', icon: '🐰', action: 'el conejo salta alegremente por el pasto moviendo sus orejitas' },
+            { name: 'Pato', gender: 'el', icon: '🦆', action: 'el pato nada en el agua haciendo cuac cuac' },
+            { name: 'Tortuga', gender: 'la', icon: '🐢', action: 'la tortuga camina despacito y lleva su caparazón seguro' },
+            { name: 'Loro', gender: 'el', icon: '🦜', action: 'el loro repite palabras y es muy divertido' },
+            { name: 'Vaca', gender: 'la', icon: '🐮', action: 'la vaca vive en el campo y hace muu' },
+            { name: 'Oveja', gender: 'la', icon: '🐑', action: 'la oveja tiene lana suave y hace bee' },
+            { name: 'Caballo', gender: 'el', icon: '🐴', action: 'el caballo corre veloz por el campo haciendo iiii' },
+            { name: 'Cerdo', gender: 'el', icon: '🐷', action: 'el cerdo vive feliz en la granja haciendo oinc oinc' },
+            { name: 'Gallina', gender: 'la', icon: '🐔', action: 'la gallina canta en la granja haciendo coocoo' },
+            { name: 'León', gender: 'el', icon: '🦁', action: 'el león es el rey de la selva y ruge con fuerza' },
+            { name: 'Elefante', gender: 'el', icon: '🐘', action: 'el elefante camina por la selva con su trompa larga' },
+            { name: 'Mono', gender: 'el', icon: '🐵', action: 'el mono salta alegremente por los árboles' },
+            { name: 'Jirafa', gender: 'la', icon: '🦒', action: 'la jirafa es un animal muy alto que come hojitas' },
+            { name: 'Oso', gender: 'el', icon: '🐻', action: 'el oso camina por el bosque y descansa abrigadito' },
+            { name: 'Tigre', gender: 'el', icon: '🐯', action: 'el tigre camina sigiloso con rayas hermosas' },
+            { name: 'Cebra', gender: 'la', icon: '🦓', action: 'la cebra tiene rayas blancas y negras muy lindas' },
+            { name: 'Pez', gender: 'el', icon: '🐠', action: 'el pez nada feliz y tranquilo bajo el agua' },
+            { name: 'Ballena', gender: 'la', icon: '🐳', action: 'la ballena nada por el mar profundo' },
+            { name: 'Delfín', gender: 'el', icon: '🐬', action: 'el delfín salta alegremente sobre las olas del agua' },
+            { name: 'Tiburón', gender: 'el', icon: '🦈', action: 'el tiburón nada elegante y rápido por el mar' },
+            { name: 'Ratón', gender: 'el', icon: '🐭', action: 'el ratón es pequeño, curioso y busca quesito' },
+            { name: 'Zorro', gender: 'el', icon: '🦊', action: 'el zorro camina sigiloso por el bosque con su cola peluda' },
+            { name: 'Koala', gender: 'el', icon: '🐨', action: 'el koala duerme relajado abrazado a los árboles de eucalipto' },
+            { name: 'Panda', gender: 'el', icon: '🐼', action: 'el oso panda come bambú con mucha tranquilidad' },
+            { name: 'Rinoceronte', gender: 'el', icon: '🦏', action: 'el rinoceronte camina fuerte por la sabana' },
+            { name: 'Hipopótamo', gender: 'el', icon: '🦛', action: 'el hipopótamo nada fresquito en el río' },
+            { name: 'Canguro', gender: 'el', icon: '🦘', action: 'el canguro salta muy alto llevando a su bebé en la bolsa' },
+            { name: 'Búho', gender: 'el', icon: '🦉', action: 'el búho abre sus grandes ojos de noche y hace uju uju' },
+            { name: 'Rana', gender: 'la', icon: '🐸', action: 'la rana salta sobre las hojas y hace croac croac' },
+            { name: 'Pingüino', gender: 'el', icon: '🐧', action: 'el pingüino camina divertido con su frac y NADA en el hielo' },
+            { name: 'Camello', gender: 'el', icon: '🐪', action: 'el camello camina tranquilo por la arena del desierto' },
+            { name: 'Serpiente', gender: 'la', icon: '🐍', action: 'la serpiente se desliza suavemente haciendo sss' },
+            { name: 'Águila', gender: 'la', icon: '🦅', action: 'el águila vuela alto en el cielo extendiendo sus grandes alas' },
+            { name: 'Pulpo', gender: 'el', icon: '🐙', action: 'el pulpo mueve sus muchos tentáculos bajo el mar' },
+            { name: 'Cangrejo', gender: 'el', icon: '🦀', action: 'el cangrejo camina de lado en la arena con sus pinzas' },
+            { name: 'Mariposa', gender: 'la', icon: '🦋', action: 'la mariposa vuela de flor en flor con sus alitas coloridas' },
+            { name: 'Abeja', gender: 'la', icon: '🐝', action: 'la abeja vuela zumbando y fabrica miel dulce' },
+            { name: 'Caracol', gender: 'el', icon: '🐌', action: 'el caracol avanza muy despacito llevando su casita' }
         ];
 
         const foodDatabase = [
@@ -1355,6 +1373,12 @@
                 { icon: '💳', title: 'Pasamos por la caja', text: 'Esperamos nuestro turno con paciencia mientras pasan los productos por el lector de código.' },
                 { icon: '🏠', title: 'Volvemos a casa', text: 'Guardamos todo en su lugar. ¡La misión de compras salió perfecta!' }
             ],
+            coche: [
+                { icon: '🔑', title: 'Nos subimos al coche', text: 'Salimos de casa y nos subimos al coche. Nos acomodamos tranquilos en nuestro asiento.' },
+                { icon: '🔒', title: 'Abrochamos el cinturón', text: 'Por seguridad, nos ponemos y abrochamos bien el cinturón de seguridad antes de que el coche arranque.' },
+                { icon: '🛣️', title: 'Disfrutamos el viaje', text: 'El coche se mueve suavemente por la calle. Miramos por la ventana los edificios, los árboles y los autos pasar.' },
+                { icon: '🎯', title: 'Llegamos a destino', text: 'El viaje terminó muy bien. Nos desabrochamos el cinturón y bajamos con alegría a nuestro destino.' }
+            ],
             pasear: [
                 { icon: '🧥', title: 'Nos preparamos para salir', text: 'Elegimos ropa cómoda, zapatos adecuados y miramos el clima antes de abrir la puerta.' },
                 { icon: '🌳', title: 'Disfrutamos el camino', text: 'Caminamos observando los árboles, los autos y el cielo, siempre respetando la mano de un adulto.' },
@@ -1381,9 +1405,9 @@
             ]
         };
 
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
             renderColors('todos');
-            renderAnimals('todos');
+            renderAnimals();
             renderFood('todos');
             showNumberRange(1, 25);
             initVividColorsGame();
@@ -1391,7 +1415,7 @@
             setTimeout(() => {
                 speak("Bienvenido al espacio de Néstor");
             }, 500);
-        };
+        });
 
         function showView(viewId) {
             if ('speechSynthesis' in window) {
@@ -1415,9 +1439,17 @@
 
                 const title = targetSection.querySelector('h2').innerText;
                 const subtitle = targetSection.querySelector('.section-subtitle').innerText;
-                speak(`${title}. ${subtitle}`);
+                
+                if (viewId === 'storyView') {
+                    speak(`Historias. Elige una situación y toca cada tarjeta para saber qué va a pasar y cómo nos cuidamos.`);
+                    loadStory('medico', false);
+                } else {
+                    speak(`${title}. ${subtitle}`);
+                }
 
-                if (viewId === 'storyView') loadStory('medico');
+                if (viewId === 'animalsView') renderAnimals();
+                if (viewId === 'colorsLearnView') renderColors('todos');
+                if (viewId === 'foodView') renderFood('todos');
                 if (viewId === 'gameView') switchGameTab('colors');
                 if (viewId === 'calmView') startCalmBreathing();
             }
@@ -1429,11 +1461,11 @@
             btn.setAttribute('aria-pressed', speechEnabled);
             if (speechEnabled) {
                 btn.classList.add('active');
-                btn.innerText = '🗣️ Voz: Encendida';
+                btn.innerHTML = `${micIconSvg}<span style="color: #FFFFFF;">Voz: Encendida</span>`;
                 speak('Voz encendida y lista');
             } else {
                 btn.classList.remove('active');
-                btn.innerText = '🔇 Voz: Apagada';
+                btn.innerHTML = `${muteIconSvg}<span style="color: #FFFFFF;">Voz: Apagada</span>`;
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                 }
@@ -1524,7 +1556,7 @@
             }
         }
 
-        function renderColors(filter) {
+        function renderColors(filter, clickedBtn) {
             const banner = document.getElementById('colorLearnBanner');
             banner.style.display = 'none';
             banner.innerText = '';
@@ -1532,10 +1564,11 @@
             grid.innerHTML = '';
 
             document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (event && event.target && event.target.classList.contains('cat-btn')) {
-                event.target.classList.add('active-cat');
+            if (clickedBtn) {
+                clickedBtn.classList.add('active-cat');
             } else {
-                document.querySelector('#colorsLearnView .cat-btn').classList.add('active-cat');
+                const firstBtn = document.querySelector('#colorsLearnView .cat-btn');
+                if (firstBtn) firstBtn.classList.add('active-cat');
             }
 
             const filtered = filter === 'todos' ? colorDatabase : colorDatabase.filter(c => c.type === filter);
@@ -1549,16 +1582,16 @@
                     speak(`${item.name}. ${item.desc}`);
                 };
                 card.innerHTML = `
-                    <div style="width: 60px; height: 60px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF; margin: 10px 0;"></div>
-                    <h3 style="color:#FFFFFF; font-size:1.2rem;">${item.name}</h3>
-                    <span class="card-tag">${item.desc}</span>
+                    <span class="card-top-label">${item.name}</span>
+                    <div style="width: 55px; height: 55px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF;"></div>
                 `;
                 grid.appendChild(card);
             });
         }
 
         function filterColors(type) {
-            renderColors(type);
+            const btn = window.event ? window.event.target : null;
+            renderColors(type, btn);
             speak(`Mostrando colores`);
         }
 
@@ -1569,39 +1602,27 @@
             speak(message);
         }
 
-        function renderAnimals(filter) {
+        function renderAnimals() {
             const banner = document.getElementById('animalBanner');
-            banner.style.display = 'none';
-            banner.innerText = '';
+            if (banner) {
+                banner.style.display = 'none';
+                banner.innerText = '';
+            }
             const grid = document.getElementById('animalsGrid');
+            if (!grid) return;
             grid.innerHTML = '';
 
-            document.querySelectorAll('#animalsView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (event && event.target && event.target.classList.contains('cat-btn')) {
-                event.target.classList.add('active-cat');
-            } else {
-                document.querySelector('#animalsView .cat-btn').classList.add('active-cat');
-            }
-
-            const filtered = filter === 'todos' ? animalDatabase : animalDatabase.filter(a => a.habitat === filter);
-            filtered.forEach(animal => {
+            animalDatabase.forEach(animal => {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'grid-card';
                 card.onclick = () => selectAnimal(animal);
                 card.innerHTML = `
-                    <span class="pill-badge">${animal.habitat.toUpperCase()}</span>
+                    <span class="card-top-label">${animal.name}</span>
                     <div class="item-icon" aria-hidden="true">${animal.icon}</div>
-                    <h3 style="color:#FFFFFF; font-size:1.2rem;">${animal.name}</h3>
-                    <span class="card-tag">${animal.name}</span>
                 `;
                 grid.appendChild(card);
             });
-        }
-
-        function filterAnimals(habitat) {
-            renderAnimals(habitat);
-            speak(`Mostrando animales de ${habitat}`);
         }
 
         function selectAnimal(animal) {
@@ -1612,7 +1633,7 @@
             speak(text);
         }
 
-        function renderFood(filter) {
+        function renderFood(filter, clickedBtn) {
             const banner = document.getElementById('foodBanner');
             banner.style.display = 'none';
             banner.innerText = '';
@@ -1620,10 +1641,11 @@
             grid.innerHTML = '';
 
             document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (event && event.target && event.target.classList.contains('cat-btn')) {
-                event.target.classList.add('active-cat');
+            if (clickedBtn) {
+                clickedBtn.classList.add('active-cat');
             } else {
-                document.querySelector('#foodView .cat-btn').classList.add('active-cat');
+                const firstBtn = document.querySelector('#foodView .cat-btn');
+                if (firstBtn) firstBtn.classList.add('active-cat');
             }
 
             const filtered = filter === 'todos' ? foodDatabase : foodDatabase.filter(f => f.category === filter);
@@ -1633,17 +1655,18 @@
                 card.className = 'grid-card';
                 card.onclick = () => selectFoodItem(item);
                 card.innerHTML = `
+                    <span class="card-top-label">${item.name}</span>
                     <div class="item-icon" aria-hidden="true">${item.icon}</div>
-                    <h3 style="color:#FFFFFF; font-size:1.2rem;">${item.name}</h3>
-                    <span class="card-tag">${item.desc}</span>
                 `;
                 grid.appendChild(card);
             });
         }
 
         function filterFood(category) {
-            renderFood(category);
-            speak(`Mostrando alimentos`);
+            const btn = window.event ? window.event.target : null;
+            renderFood(category, btn);
+            const categoryName = btn ? btn.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim() : 'alimentos';
+            speak(`Mostrando ${categoryName}`);
         }
 
         function selectFoodItem(item) {
@@ -1656,8 +1679,8 @@
 
         function showNumberRange(start, end) {
             document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active-range'));
-            if (event && event.target && event.target.classList.contains('range-btn')) {
-                event.target.classList.add('active-range');
+            if (window.event && window.event.target && window.event.target.classList.contains('range-btn')) {
+                window.event.target.classList.add('active-range');
             }
 
             const grid = document.getElementById('numbersGrid100');
@@ -1677,9 +1700,10 @@
             }
         }
 
-        function loadStory(storyKey) {
+        function loadStory(storyKey, shouldSpeak = true) {
             document.querySelectorAll('#storyView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            document.getElementById(`tab-${storyKey}`).classList.add('active-cat');
+            const activeTab = document.getElementById(`tab-${storyKey}`);
+            if (activeTab) activeTab.classList.add('active-cat');
 
             const container = document.getElementById('storyContent');
             container.innerHTML = '';
@@ -1688,10 +1712,10 @@
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
-                card.style.cssText = "min-height: 230px; justify-content: flex-start; padding: 24px 18px; border: 3px solid #334155; transition: all 0.2s ease;";
+                card.style.cssText = "min-height: 230px; justify-content: flex-start; padding: 24px 18px; border: 3px solid #FFFFFF; transition: all 0.2s ease;";
                 
                 card.onclick = () => {
-                    document.querySelectorAll('#storyContent .item-card').forEach(c => c.style.borderColor = '#334155');
+                    document.querySelectorAll('#storyContent .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
                     card.style.borderColor = 'var(--vivid-purple)';
                     card.style.transform = 'scale(1.03)';
                     setTimeout(() => card.style.transform = 'scale(1)', 200);
@@ -1702,13 +1726,15 @@
                 card.innerHTML = `
                     <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px;">${scene.title}</span>
                     <div class="item-icon" aria-hidden="true" style="font-size: 3.6rem; margin: 8px 0 12px 0;">${scene.icon}</div>
-                    <p style="font-size: 1.05rem; font-weight: 600; color: #F8FAFC; line-height: 1.45; text-align: center;">${scene.text}</p>
+                    <p style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; line-height: 1.45; text-align: center;">${scene.text}</p>
                 `;
                 container.appendChild(card);
             });
             
-            const storyLabel = document.getElementById(`tab-${storyKey}`).innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
-            speak(`Historia: ${storyLabel}`);
+            if (shouldSpeak && activeTab) {
+                const storyLabel = activeTab.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
+                speak(storyLabel);
+            }
         }
 
         function selectEmotion(message) {
