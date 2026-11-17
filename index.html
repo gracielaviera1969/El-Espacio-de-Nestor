@@ -524,11 +524,12 @@
 
         .color-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             max-width: 840px;
             margin: 30px auto 0 auto;
             justify-items: center;
-            gap: 20px;
+            gap: 24px;
+            padding: 10px;
         }
 
         /* Estilos mejorados para las figuras geométricas y colores */
@@ -811,9 +812,7 @@
             <div>
                 <h2 id="routineHeading">Mi Rutina Diaria</h2>
                 <p class="section-subtitle">Toca cada actividad cuando la termines.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="items-grid" id="routineGrid">
             <button type="button" class="item-card" data-key="rutina-desayunar" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar rico')">
                 <div class="item-icon" aria-hidden="true">🥣</div>
@@ -864,6 +863,10 @@
                 <h3>Cenar y dormir</h3>
             </button>
         </div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Tablero "QUIERO..." -->
@@ -872,9 +875,7 @@
             <div>
                 <h2 id="commHeading">¿Qué quiero o necesito?</h2>
                 <p class="section-subtitle">Toca una tarjeta para que la voz la diga claramente y puedas repetirla.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="items-grid">
             <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua, por favor')">
                 <div class="item-icon" aria-hidden="true">🥤</div>
@@ -942,6 +943,10 @@
             </button>
         </div>
         <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Me visto y peino -->
@@ -950,9 +955,7 @@
             <div>
                 <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
                 <p class="section-subtitle">Toca cada acción cuando la completes.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="items-grid" id="autonomyGrid">
             <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir la ropa limpia y cómoda')">
                 <div class="item-icon" aria-hidden="true">👕</div>
@@ -979,6 +982,10 @@
                 <h3>¡Todo listo!</h3>
             </button>
         </div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Historias de Anticipación -->
@@ -987,9 +994,7 @@
             <div>
                 <h2 id="anticipateHeading">Historias de Anticipación</h2>
                 <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         
         <div class="category-selector" role="group" aria-label="Elegir situación">
             <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadAnticipation('medico')">🏥 Ir al médico</button>
@@ -1001,6 +1006,10 @@
             <button type="button" class="cat-btn" id="tab-dormir" onclick="loadAnticipation('dormir')">🌙 Hora de dormir</button>
         </div>
         <div id="anticipateContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Las aventuras de Néstor y la Mani -->
@@ -1009,16 +1018,19 @@
             <div>
                 <h2 id="storyHeading">Las aventuras de Néstor y la Mani</h2>
                 <p class="section-subtitle">Historias hermosas para compartir, leer juntos y disfrutar.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         
         <div class="category-selector" role="group" aria-label="Elegir cuento">
             <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto')">✈️ El reencuentro</button>
             <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque')">🛝 Tarde en el parque</button>
             <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos')">🎞️ Tarde de recuerdos</button>
+            <button type="button" class="cat-btn" style="background: var(--vivid-purple-bg); border-color: var(--vivid-purple);" onclick="playFullStory()">▶️ Escuchar cuento completo</button>
         </div>
         <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: El Parque -->
@@ -1027,9 +1039,7 @@
             <div>
                 <h2 id="parkHeading">¿Qué hacemos en el parque?</h2>
                 <p class="section-subtitle">Toca cada actividad para escucharla y disfrutar al aire libre.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="items-grid">
             <button type="button" class="item-card" onclick="selectParkActivity('Me subo al columpio y voy despacio hacia adelante y hacia atrás')">
                 <div class="item-icon" aria-hidden="true">🎠</div>
@@ -1081,6 +1091,10 @@
             </button>
         </div>
         <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Aprender (Colores, Transportes y Abecedario fonético con imágenes) -->
@@ -1089,9 +1103,7 @@
             <div>
                 <h2 id="colorsLearnHeading">Aprender</h2>
                 <p class="section-subtitle">Toca cada elemento para explorar y escuchar.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="category-selector">
             <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('colores')">🎨 Colores</button>
             <button type="button" class="cat-btn" onclick="switchLearnTab('transporte')">🚗 Transportes</button>
@@ -1101,6 +1113,10 @@
             <div class="items-grid" id="learnGrid"></div>
         </div>
         <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Mundo Animal -->
@@ -1109,11 +1125,13 @@
             <div>
                 <h2 id="animalsHeading">Mundo Animal</h2>
                 <p class="section-subtitle">Explora animales y sus características.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="items-grid" id="animalsGrid"></div>
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Alimentos -->
@@ -1122,9 +1140,7 @@
             <div>
                 <h2 id="foodHeading">Frutas, Verduras, Carnes y Alimentos</h2>
                 <p class="section-subtitle">Toca un alimento para nombrarlo y aprender.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="category-selector">
             <button type="button" class="cat-btn active-cat" onclick="filterFood('todos')">Todos</button>
             <button type="button" class="cat-btn" onclick="filterFood('fruta')">Frutas</button>
@@ -1135,28 +1151,27 @@
         </div>
         <div class="items-grid" id="foodGrid"></div>
         <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
-    <!-- Vista: Números del 1 al 100 -->
+        <!-- Vista: Números del 1 al 100 -->
     <section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
         <div class="view-header">
             <div>
                 <h2 id="nums100Heading">Tablero de Números del 1 al 100</h2>
                 <p class="section-subtitle">Toca cualquier número para escucharlo.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="numbers-container">
-            <div class="numbers-toolbar">
-                <button type="button" class="range-btn active-range" onclick="showNumberRange(1, 25)">1 - 25</button>
-                <button type="button" class="range-btn" onclick="showNumberRange(26, 50)">26 - 50</button>
-                <button type="button" class="range-btn" onclick="showNumberRange(51, 75)">51 - 75</button>
-                <button type="button" class="range-btn" onclick="showNumberRange(76, 100)">76 - 100</button>
-                <button type="button" class="range-btn" onclick="showNumberRange(1, 100)" style="background:var(--vivid-blue-bg)">Ver Todos</button>
-            </div>
-            <div class="numbers-grid-100" id="numbersGrid100"></div>
+            <div class="numbers-grid-100" id="numbersGrid100" style="max-height: 580px;"></div>
         </div>
         <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Juegos -->
@@ -1165,9 +1180,7 @@
             <div>
                 <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
                 <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
             <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores y Formas</button>
             <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
@@ -1206,6 +1219,10 @@
             </div>
             <p id="findFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
         </div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <!-- Vista: Emociones -->
@@ -1214,9 +1231,7 @@
             <div>
                 <h2 id="emotionHeading">¿Cómo estoy?</h2>
                 <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual para entenderlo.</p>
-            </div>
-            <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
-        </div>
+            </div></div>
         <div class="items-grid">
             <button type="button" class="item-card" onclick="selectEmotion('¡Qué alegría más linda! Tu sonrisa ilumina todo el espacio.')">
                 <div class="item-icon" aria-hidden="true">😄</div>
@@ -1252,6 +1267,10 @@
             </button>
         </div>
         <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+        </div>
     </section>
 
     <footer>
@@ -1311,7 +1330,15 @@
             { name: 'Marrón', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
             { name: 'Blanco', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
             { name: 'Negro', icon: '⬛', hex: '#020617', desc: 'Negro profundo de la noche.' },
-            { name: 'Gris', icon: '🪙', hex: '#64748B', desc: 'Gris metálico y moderno.' }
+            { name: 'Gris', icon: '🪙', hex: '#64748B', desc: 'Gris metálico y moderno.' },
+            { name: 'Turquesa', icon: '💎', hex: '#14B8A6', desc: 'Turquesa brillante como el mar cristalino.' },
+            { name: 'Fucsia', icon: '🌺', hex: '#D946EF', desc: 'Fucsia alegre y vibrante como las flores.' },
+            { name: 'Dorado', icon: '👑', hex: '#F59E0B', desc: 'Dorado brillante como las estrellas y las medallas.' },
+            { name: 'Plateado', icon: '🥈', hex: '#CBD5E1', desc: 'Plateado luminoso como la luna llena.' },
+            { name: 'Lila', icon: '🪻', hex: '#C084FC', desc: 'Lila suave y delicado como las flores de lavanda.' },
+            { name: 'Verde Lima', icon: '🍋‍🟩', hex: '#84CC16', desc: 'Verde lima fresco y lleno de energía.' },
+            { name: 'Azul Marino', icon: '🌊', hex: '#1E3A8A', desc: 'Azul marino profundo como el océano.' },
+            { name: 'Beige', icon: '🏖️', hex: '#E7D5B8', desc: 'Beige cálido y suave como la arena de la playa.' }
         ];
 
         const transportDatabase = [
@@ -1533,7 +1560,7 @@
             renderLearnTab('colores');
             renderAnimals();
             renderFood('todos');
-            showNumberRange(1, 25);
+            renderNumbers100();
             initVividColorsGame();
         });
 
@@ -1811,15 +1838,11 @@
             speak(text);
         }
 
-        function showNumberRange(start, end) {
-            document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active-range'));
-            if (window.event && window.event.target && window.event.target.classList.contains('range-btn')) {
-                window.event.target.classList.add('active-range');
-            }
-
+        function renderNumbers100() {
             const grid = document.getElementById('numbersGrid100');
+            if (!grid) return;
             grid.innerHTML = '';
-            for (let i = start; i <= end; i++) {
+            for (let i = 1; i <= 100; i++) {
                 const box = document.createElement('button');
                 box.type = 'button';
                 box.className = 'num-box';
@@ -1831,7 +1854,13 @@
             }
         }
 
+        let currentStoryKey = 'aeropuerto';
+
         function loadStory(storyKey, shouldSpeak = true) {
+            currentStoryKey = storyKey;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
             document.querySelectorAll('#storyView .cat-btn').forEach(t => t.classList.remove('active-cat'));
             const activeTab = document.getElementById('tab-' + storyKey);
             if (activeTab) activeTab.classList.add('active-cat');
@@ -1945,7 +1974,16 @@
             { name: 'Naranja', hex: '#F97316' },
             { name: 'Violeta', hex: '#A855F7' },
             { name: 'Rosa', hex: '#EC4899' },
-            { name: 'Celeste', hex: '#38BDF8' }
+            { name: 'Celeste', hex: '#38BDF8' },
+            { name: 'Marrón', hex: '#92400E' },
+            { name: 'Blanco', hex: '#F8FAFC' },
+            { name: 'Negro', hex: '#020617' },
+            { name: 'Gris', hex: '#64748B' },
+            { name: 'Turquesa', hex: '#14B8A6' },
+            { name: 'Fucsia', hex: '#D946EF' },
+            { name: 'Lila', hex: '#C084FC' },
+            { name: 'Azul Marino', hex: '#1E3A8A' },
+            { name: 'Beige', hex: '#E7D5B8' }
         ];
 
         const shapesList = [
@@ -2288,6 +2326,64 @@
                 speak('Sigue buscando');
             }
         }
+    
+        let isPlayingFullStory = false;
+
+        function playFullStory() {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const scenes = stories[currentStoryKey];
+            if (!scenes || scenes.length === 0) return;
+
+            let index = 0;
+            isPlayingFullStory = true;
+
+            const cards = document.querySelectorAll('#storyView .item-card');
+
+            function speakNextScene() {
+                if (!isPlayingFullStory || index >= scenes.length) {
+                    isPlayingFullStory = false;
+                    return;
+                }
+
+                const scene = scenes[index];
+                
+                // Resaltar visualmente la tarjeta actual
+                cards.forEach((c, idx) => {
+                    if (idx === index) {
+                        c.style.borderColor = 'var(--vivid-purple)';
+                        c.style.transform = 'scale(1.02)';
+                    } else {
+                        c.style.borderColor = '#FFFFFF';
+                        c.style.transform = 'none';
+                    }
+                });
+
+                const textToSpeech = scene.title + '. ' + scene.text;
+                const utterance = new SpeechSynthesisUtterance(textToSpeech);
+                utterance.lang = 'es-ES';
+                utterance.rate = 0.92;
+                utterance.pitch = 1.0;
+                if (!selectedVoice) loadVoices();
+                if (selectedVoice) utterance.voice = selectedVoice;
+
+                utterance.onend = function() {
+                    index++;
+                    // Pausa breve entre tarjeta y tarjeta
+                    setTimeout(speakNextScene, 600);
+                };
+
+                utterance.onerror = function() {
+                    isPlayingFullStory = false;
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+
+            speakNextScene();
+        }
+
     </script>
 </body>
 </html>
