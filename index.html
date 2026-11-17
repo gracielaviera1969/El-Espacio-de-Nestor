@@ -933,7 +933,7 @@
         <div class="category-selector" role="group" aria-label="Elegir cuento">
             <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto')">✈️ El reencuentro</button>
             <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque')">🛝 Tarde en el parque</button>
-            <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos')">🎞️ Nuestra tarde de recuerdos</button>
+            <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos')">🎞️ Tarde de recuerdos</button>
         </div>
         <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
     </section>
@@ -1405,10 +1405,10 @@
                 { icon: '💛🏡', title: 'De regreso a casa', text: 'Al terminar de jugar, regresan a casa con una gran sonrisa, sabiendo que cada aventura compartida fortalece el cariño inmenso que los une.' }
             ],
             recuerdos: [
-                { icon: '🎞️❤️', title: 'Abriendo el cofre de los recuerdos', text: 'Preparamos la pantalla y buscamos entre las carpetas de fotos y videos aquellos momentos mágicos que vivimos en nuestros paseos y viajes.' },
-                { icon: '📽️✨', title: '¡Mira lo que hacíamos ahí!', text: 'Al reproducir los videos, escuchamos nuestras voces, las risas y los sonidos de aquel día, sintiendo como si estuviéramos viajando en el tiempo.' },
-                { icon: '📸🔍', title: 'Descubriendo detalles divertidos', text: 'Miramos cada foto con atención: los lugares que visitamos, los gestos graciosos y los abrazos que quedaron congelados en el tiempo.' },
-                { icon: '🫂🌟', title: 'Un presente lleno de cariño', text: 'Apagamos la pantalla con el corazón calentito, felices de saber que tenemos miles de recuerdos hermosos guardados para volver a disfrutar cuando queramos.' }
+                { icon: '🎞️❤️', title: 'Abriendo el cofre de los recuerdos', text: 'Ellos preparan la pantalla y buscan entre las carpetas de fotos y videos aquellos momentos mágicos que Néstor y la Mani vivieron en sus paseos y viajes.' },
+                { icon: '📽️✨', title: '¡Mira lo que hacían ahí!', text: 'Al reproducir los videos, se escuchan sus voces, las risas y los sonidos de aquel día, sintiendo como si estuvieran viajando en el tiempo.' },
+                { icon: '📸🔍', title: 'Descubriendo detalles divertidos', text: 'Ellos miran cada foto con atención: los lugares que visitaron, los gestos graciosos y los abrazos que quedaron congelados en el tiempo.' },
+                { icon: '🫂🌟', title: 'Un presente lleno de cariño', text: 'Apagan la pantalla con el corazón calentito, felices de saber que Néstor y la Mani tienen miles de recuerdos hermosos guardados para volver a disfrutar cuando quieran.' }
             ]
         };
 
@@ -1528,7 +1528,7 @@
                     speak('Las aventuras de Néstor y la Mani' + subtitleText);
                     loadStory('aeropuerto', false);
                 } else if (viewId === 'gameView') {
-                    speak('Juegos y Retos' + subtitleText);
+                    speak('Juegos y Retos Avanzados. Pon a prueba tu agilidad visual con mayor dificultad.');
                     switchGameTab('colors');
                 } else {
                     speak(title + subtitleText);
@@ -1839,10 +1839,21 @@
             const targetPanel = document.getElementById('panel-' + gameKey);
             if (targetPanel) targetPanel.classList.add('active-game');
 
-            if (gameKey === 'colors') initVividColorsGame();
-            if (gameKey === 'memory') initMemoryRound();
-            if (gameKey === 'series') initSeriesRound();
-            if (gameKey === 'find') initFindAnimalRound();
+            if (gameKey === 'colors') {
+                initVividColorsGame();
+                speak('Reto 1, Colores. Toca el círculo del color indicado');
+            }
+            if (gameKey === 'memory') {
+                initMemoryRound();
+                speak('Reto 2, Memoria Avanzada. Memoriza estos 4 animales');
+            }
+            if (gameKey === 'series') {
+                initSeriesRound();
+                speak('Reto 3, Series Complejas. ¿Qué elemento continúa la serie?');
+            }
+            if (gameKey === 'find') {
+                initFindAnimalRound();
+            }
         }
 
         const vividColors = [
@@ -1889,7 +1900,7 @@
             const target = vividColors[currentVividIndex];
             const promptEl = document.getElementById('targetPrompt');
             if (promptEl) promptEl.innerText = 'Toca el círculo: ' + target.name;
-            speak('Toca el color ' + target.name.toLowerCase());
+            speak('Toca el círculo: ' + target.name.toLowerCase());
         }
 
         function checkVividColor(selectedName) {
@@ -2078,6 +2089,9 @@
             const feedbackEl = document.getElementById('seriesFeedback');
             if (feedbackEl) feedbackEl.innerText = '';
 
+            const promptEl = document.getElementById('seriesPrompt');
+            if (promptEl) promptEl.innerText = '¿Qué elemento continúa la serie?';
+
             const board = document.getElementById('seriesBoard');
             if (!board) return;
             board.innerHTML = '';
@@ -2130,7 +2144,8 @@
             const gridAnimals = [targetFindAnimal, ...distractors].sort(() => Math.random() - 0.5);
 
             const promptEl = document.getElementById('findPrompt');
-            if (promptEl) promptEl.innerText = '¿Dónde está ' + (targetFindAnimal.gender === 'la' ? 'la ' : 'el ') + targetFindAnimal.name + '?';
+            const promptText = '¿Dónde está ' + (targetFindAnimal.gender === 'la' ? 'la ' : 'el ') + targetFindAnimal.name + '?';
+            if (promptEl) promptEl.innerText = promptText;
             
             const feedback = document.getElementById('findFeedback');
             if (feedback) feedback.innerText = '';
@@ -2148,7 +2163,7 @@
                 grid.appendChild(card);
             });
 
-            speak('¿Dónde está ' + (targetFindAnimal.gender === 'la' ? 'la ' : 'el ') + targetFindAnimal.name + '?');
+            speak(promptText);
         }
 
         function checkFindChoice(chosenAnimal, cardElement) {
