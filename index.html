@@ -380,6 +380,69 @@
             border-color: var(--vivid-blue);
         }
 
+        /* Estilos específicos para el Tablero de Números al 100 */
+        .numbers-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .numbers-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .range-btn {
+            min-height: 48px;
+            background: #0F172A;
+            border: 3px solid #FFFFFF;
+            padding: 8px 18px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #FFFFFF;
+        }
+
+        .range-btn.active-range {
+            background: var(--vivid-blue-bg);
+            border-color: var(--vivid-blue);
+        }
+
+        .numbers-grid-100 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+            gap: 12px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .num-box {
+            background: #0F172A;
+            border: 3px solid #38BDF8;
+            border-radius: 16px;
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.15s, border-color 0.15s;
+        }
+
+        .num-box span {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .num-box:hover {
+            background: #1E293B;
+            border-color: var(--vivid-yellow);
+        }
+
         /* Tarjetas de Grilla */
         .grid-card {
             background: #0F172A;
@@ -461,20 +524,40 @@
 
         .color-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
             max-width: 840px;
             margin: 30px auto 0 auto;
             justify-items: center;
             gap: 20px;
         }
 
-        .color-ball {
-            width: 105px;
-            height: 105px;
-            border-radius: 50%;
+        /* Estilos mejorados para las figuras geométricas y colores */
+        .game-shape-item {
+            width: 110px;
+            height: 110px;
             cursor: pointer;
             border: 4px solid #FFFFFF;
+            border-radius: 22px;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s;
+        }
+
+        .game-shape-item:hover {
+            transform: scale(1.05);
+        }
+
+        .shape-circle { border-radius: 50%; }
+        .shape-square { border-radius: 20px; }
+        .shape-rectangle { width: 145px; height: 95px; border-radius: 18px; }
+        
+        /* Triángulo robusto basado en SVG integrado */
+        .shape-triangle {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
         .sequence-board {
@@ -1086,24 +1169,24 @@
             <button type="button" class="back-btn" onclick="showView('mainMenu')">⬅ Volver al inicio</button>
         </div>
         <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
-            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores</button>
+            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores y Formas</button>
             <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
             <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
             <button type="button" class="cat-btn" id="gtab-find" onclick="switchGameTab('find')">4. Buscar Animal</button>
         </div>
 
         <div id="panel-colors" class="game-panel active-game">
-            <h3 id="targetPrompt" class="game-prompt">Toca el círculo: ROJO</h3>
+            <h3 id="targetPrompt" class="game-prompt">Toca la figura: Círculo Rojo</h3>
             <div class="color-options" id="vividColorOptions"></div>
             <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
         </div>
 
         <div id="panel-memory" class="game-panel">
-            <h3 id="memoryPrompt" class="game-prompt">Memoriza estos 4 animales</h3>
+            <h3 id="memoryPrompt" class="game-prompt">Memoriza estos animales</h3>
             <div class="sequence-board" id="memoryBoard"></div>
             <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" style="color: #FFFFFF;">🙈 Esconder animal</button>
-                <button type="button" id="memoryRepeekBtn" class="btn-control" onclick="repeekAnimals()" style="display: none; background: #0E7490; border-color: #06B6D4; color: #FFFFFF;">👀 Volver a mirar</button>
+                <button type="button" class="btn-control active" onfocus="speak('Esconder animal')" onclick="hideTwoAnimals()" style="color: #FFFFFF;">🙈 Esconder animal</button>
+                <button type="button" id="memoryRepeekBtn" class="btn-control" onfocus="speak('Volver a mirar')" onclick="repeekAnimals()" style="display: none; background: #0E7490; border-color: #06B6D4; color: #FFFFFF;">👀 Volver a mirar</button>
             </div>
             <div class="choice-row" id="memoryChoices" style="display: none;"></div>
             <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
@@ -1228,20 +1311,9 @@
             { name: 'Marrón', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
             { name: 'Blanco', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
             { name: 'Negro', icon: '⬛', hex: '#020617', desc: 'Negro profundo de la noche.' },
-            { name: 'Gris', icon: '🪙', hex: '#64748B', desc: 'Gris metálico y moderno.' },
-            { name: 'Turquesa', icon: '🌊', hex: '#14B8A6', desc: 'Turquesa brillante como el mar tropical.' },
-            { name: 'Fucsia', icon: '🌺', hex: '#D946EF', desc: 'Fucsia vibrante y muy alegre.' },
-            { name: 'Dorado', icon: '✨', hex: '#EAB308', desc: 'Dorado resplandeciente.' },
-            { name: 'Plateado', icon: '🪙', hex: '#94A3B8', desc: 'Plateado brillante.' },
-            { name: 'Lila', icon: '💜', hex: '#C084FC', desc: 'Lila suave y delicado.' },
-            { name: 'Coral', icon: '🪸', hex: '#FB7185', desc: 'Coral cálido y hermoso.' },
-            { name: 'Esmeralda', icon: '💎', hex: '#059669', desc: 'Verde esmeralda intenso y brillante.' },
-            { name: 'Bordo', icon: '🍷', hex: '#881337', desc: 'Bordo elegante y profundo.' },
-            { name: 'Mostaza', icon: '🌻', hex: '#CA8A04', desc: 'Amarillo mostaza cálido.' },
-            { name: 'Lavanda', icon: '🪻', hex: '#A78BFA', desc: 'Lavanda aromático y suave.' }
+            { name: 'Gris', icon: '🪙', hex: '#64748B', desc: 'Gris metálico y moderno.' }
         ];
 
-        /* Transportes adaptados a niños pequeños */
         const transportDatabase = [
             { name: 'Tren', icon: '🚂', isSvg: false, desc: 'El tren viaja por las vías sobre las ruedas.' },
             { name: 'Taxi', icon: '🚕', isSvg: false, desc: 'El taxi nos lleva de paseo por la ciudad.' },
@@ -1257,7 +1329,6 @@
             { name: 'Cohete', icon: '🚀', isSvg: false, desc: 'El cohete viaja al espacio exterior.' }
         ];
 
-        /* Abecedario limpio en pantalla (solo letra e imagen), voz con la letra primero: "a, amor empieza con la letra a" */
         const alphabetData = [
             { char: 'A', speechText: 'a, amor empieza con la letra a', icon: '❤️', isSvg: false },
             { char: 'B', speechText: 'b, besos empieza con la letra b', icon: '😘', isSvg: false },
@@ -1406,7 +1477,7 @@
             ],
             recuerdos: [
                 { icon: '🎞️❤️', title: 'Abriendo el cofre de los recuerdos', text: 'Ellos preparan la pantalla y buscan entre las carpetas de fotos y videos aquellos momentos mágicos que Néstor y la Mani vivieron en sus paseos y viajes.' },
-                { icon: '📽️✨', title: '¡Mira lo que hacían ahí!', text: 'Al reproducir los videos, se escuchan sus voces, las risas y los sonidos de aquel día, sintiendo como si estuvieran viajando en el tiempo.' },
+                { icon: '📽️✨', title: '¡Mira lo que hacíamos ahí!', text: 'Al reproducir los videos, se escuchan sus voces, las risas y los sonidos de aquel día, sintiendo como si estuvieran viajando en el tiempo.' },
                 { icon: '📸🔍', title: 'Descubriendo detalles divertidos', text: 'Ellos miran cada foto con atención: los lugares que visitaron, los gestos graciosos y los abrazos que quedaron congelados en el tiempo.' },
                 { icon: '🫂🌟', title: 'Un presente lleno de cariño', text: 'Apagan la pantalla con el corazón calentito, felices de saber que Néstor y la Mani tienen miles de recuerdos hermosos guardados para volver a disfrutar cuando quieran.' }
             ]
@@ -1428,7 +1499,7 @@
             coche: [
                 { icon: '🚗', title: 'Subiendo al vehículo', text: 'Salimos de casa, abrimos la puerta del auto con cuidado y nos acomodamos cómodamente en nuestro asiento especial y seguro.' },
                 { icon: '💺', title: 'El cinturón de seguridad', text: 'Por nuestra protección y cuidado, pasamos la correa y abrochamos firmemente el cinturón de seguridad antes de que el motor comience a marchar.' },
-                { icon: '🏙️', title: 'Disfrutando el recorrido', text: 'El coche avanza suavemente por la calle. Miramos atentos por la ventanilla los edificios, the árboles verdes y los automóviles que pasan.' },
+                { icon: '🏙️', title: 'Disfrutando el recorrido', text: 'El coche avanza suavemente por la calle. Miramos atentos por la ventanilla los edificios, los árboles verdes y los automóviles que pasan.' },
                 { icon: '🏁', title: 'Llegando a destino', text: 'El viaje en coche ha finalizado con total seguridad. Nos desabrochamos el cinturón con calma y bajamos con una sonrisa a nuestro destino.' }
             ],
             pasear: [
@@ -1512,25 +1583,30 @@
 
             if (viewId === 'mainMenu') {
                 mainMenu.classList.remove('hidden');
+                speak('Menú principal');
             } else {
                 mainMenu.classList.add('hidden');
                 const targetSection = document.getElementById(viewId);
                 targetSection.classList.add('active');
 
-                const title = targetSection.querySelector('h2').innerText;
-                const subtitleElement = targetSection.querySelector('.section-subtitle');
-                const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
-                
                 if (viewId === 'anticipateView') {
-                    speak('Historias de Anticipación' + subtitleText);
+                    speak('Historias de Anticipación. Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.');
                     loadAnticipation('medico', false);
                 } else if (viewId === 'storyView') {
-                    speak('Las aventuras de Néstor y la Mani' + subtitleText);
+                    speak('Las aventuras de Néstor y la Mani. Historias hermosas para compartir, leer juntos y disfrutar.');
                     loadStory('aeropuerto', false);
                 } else if (viewId === 'gameView') {
                     speak('Juegos y Retos Avanzados. Pon a prueba tu agilidad visual con mayor dificultad.');
-                    switchGameTab('colors');
+                    
+                    document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+                    document.getElementById('gtab-colors').classList.add('active-cat');
+                    document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
+                    document.getElementById('panel-colors').classList.add('active-game');
+                    initVividColorsGame(false);
                 } else {
+                    const title = targetSection.querySelector('h2').innerText;
+                    const subtitleElement = targetSection.querySelector('.section-subtitle');
+                    const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
                     speak(title + subtitleText);
                 }
 
@@ -1831,6 +1907,10 @@
         }
 
         function switchGameTab(gameKey) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+
             document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
             const tabBtn = document.getElementById('gtab-' + gameKey);
             if (tabBtn) tabBtn.classList.add('active-cat');
@@ -1840,80 +1920,102 @@
             if (targetPanel) targetPanel.classList.add('active-game');
 
             if (gameKey === 'colors') {
-                initVividColorsGame();
-                speak('Reto 1, Colores. Toca el círculo del color indicado');
+                speak('Colores y Formas');
+                initVividColorsGame(true);
             }
             if (gameKey === 'memory') {
+                speak('Memoria avanzada');
                 initMemoryRound();
-                speak('Reto 2, Memoria Avanzada. Memoriza estos 4 animales');
             }
             if (gameKey === 'series') {
+                speak('Series complejas');
                 initSeriesRound();
-                speak('Reto 3, Series Complejas. ¿Qué elemento continúa la serie?');
             }
             if (gameKey === 'find') {
+                speak('Buscar animal');
                 initFindAnimalRound();
             }
         }
 
-        const vividColors = [
-            { name: 'ROJO', hex: '#EF4444' },
-            { name: 'AZUL', hex: '#2563EB' },
-            { name: 'AMARILLO', hex: '#FACC15' },
-            { name: 'VERDE', hex: '#22C55E' },
-            { name: 'NARANJA', hex: '#F97316' },
-            { name: 'VIOLETA', hex: '#A855F7' },
-            { name: 'ROSA', hex: '#EC4899' },
-            { name: 'CELESTE', hex: '#38BDF8' },
-            { name: 'MARRÓN', hex: '#92400E' },
-            { name: 'BLANCO', hex: '#F8FAFC' },
-            { name: 'NEGRO', hex: '#020617' },
-            { name: 'GRIS', hex: '#64748B' },
-            { name: 'TURQUESA', hex: '#14B8A6' },
-            { name: 'FUCSIA', hex: '#D946EF' },
-            { name: 'DORADO', hex: '#EAB308' },
-            { name: 'CORAL', hex: '#FB7185' },
-            { name: 'ESMERALDA', hex: '#059669' },
-            { name: 'BORDO', hex: '#881337' },
-            { name: 'MOSTAZA', hex: '#CA8A04' },
-            { name: 'LAVANDA', hex: '#A78BFA' }
+        const shapeColors = [
+            { name: 'Rojo', hex: '#EF4444' },
+            { name: 'Azul', hex: '#3B82F6' },
+            { name: 'Amarillo', hex: '#EAB308' },
+            { name: 'Verde', hex: '#22C55E' },
+            { name: 'Naranja', hex: '#F97316' },
+            { name: 'Violeta', hex: '#A855F7' },
+            { name: 'Rosa', hex: '#EC4899' },
+            { name: 'Celeste', hex: '#38BDF8' }
         ];
-        let currentVividIndex = 0;
 
-        function initVividColorsGame() {
+        const shapesList = [
+            { type: 'circle', name: 'círculo', article: 'el' },
+            { type: 'square', name: 'cuadrado', article: 'el' },
+            { type: 'rectangle', name: 'rectángulo', article: 'el' },
+            { type: 'triangle', name: 'triángulo', article: 'el' }
+        ];
+
+        let currentShapeTarget = null;
+
+        function initVividColorsGame(shouldSpeakColor = true) {
+            const randomColor = shapeColors[Math.floor(Math.random() * shapeColors.length)];
+            const randomShape = shapesList[Math.floor(Math.random() * shapesList.length)];
+            currentShapeTarget = { color: randomColor, shape: randomShape };
+
             const container = document.getElementById('vividColorOptions');
             if (!container) return;
             container.innerHTML = '';
-            vividColors.forEach(c => {
+
+            let optionsSet = [currentShapeTarget];
+            while (optionsSet.length < 6) {
+                const col = shapeColors[Math.floor(Math.random() * shapeColors.length)];
+                const shp = shapesList[Math.floor(Math.random() * shapesList.length)];
+                if (!optionsSet.some(o => o.color.name === col.name && o.shape.type === shp.type)) {
+                    optionsSet.push({ color: col, shape: shp });
+                }
+            }
+            optionsSet.sort(() => Math.random() - 0.5);
+
+            optionsSet.forEach(item => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = 'color-ball';
-                btn.style.backgroundColor = c.hex;
-                btn.setAttribute('aria-label', c.name);
-                btn.onclick = () => checkVividColor(c.name);
+                btn.className = `game-shape-item shape-${item.shape.type}`;
+                
+                if (item.shape.type === 'triangle') {
+                    btn.innerHTML = `<svg width="70" height="70" viewBox="0 0 24 24" fill="${item.color.hex}" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 22 22 2 22"></polygon></svg>`;
+                } else {
+                    btn.style.backgroundColor = item.color.hex;
+                }
+
+                const capitalizedShapeName = item.shape.name.charAt(0).toUpperCase() + item.shape.name.slice(1);
+                const ariaLabelText = `${capitalizedShapeName} ${item.color.name}`;
+                btn.setAttribute('aria-label', ariaLabelText);
+                btn.onclick = () => checkShapeChoice(item);
                 container.appendChild(btn);
             });
-            updateVividPrompt();
+
+            updateVividPrompt(shouldSpeakColor);
         }
 
-        function updateVividPrompt() {
-            const target = vividColors[currentVividIndex];
+        function updateVividPrompt(shouldSpeak = true) {
+            const capitalizedShapeName = currentShapeTarget.shape.name.charAt(0).toUpperCase() + currentShapeTarget.shape.name.slice(1);
+            const promptText = `Toca ${currentShapeTarget.shape.article} ${currentShapeTarget.shape.name} ${currentShapeTarget.color.name.toLowerCase()}`;
             const promptEl = document.getElementById('targetPrompt');
-            if (promptEl) promptEl.innerText = 'Toca el círculo: ' + target.name;
-            speak('Toca el círculo: ' + target.name.toLowerCase());
+            if (promptEl) promptEl.innerText = `Toca: ${capitalizedShapeName} ${currentShapeTarget.color.name}`;
+            if (shouldSpeak) {
+                speak(promptText);
+            }
         }
 
-        function checkVividColor(selectedName) {
-            const target = vividColors[currentVividIndex];
+        function checkShapeChoice(selected) {
             const feedback = document.getElementById('gameFeedback');
-            if (selectedName === target.name) {
+            if (selected.color.name === currentShapeTarget.color.name && selected.shape.type === currentShapeTarget.shape.type) {
                 feedback.style.color = '#22C55E';
                 feedback.innerText = '¡Excelente! 🌟';
                 speak('¡Excelente!');
-                currentVividIndex = (currentVividIndex + 1) % vividColors.length;
                 setTimeout(() => {
                     feedback.innerText = '';
-                    updateVividPrompt();
+                    initVividColorsGame(true);
                 }, 1200);
             } else {
                 feedback.style.color = '#38BDF8';
@@ -1934,7 +2036,9 @@
             foundIndices = [];
 
             const promptEl = document.getElementById('memoryPrompt');
-            if (promptEl) promptEl.innerText = 'Memoriza estos 4 animales';
+            if (promptEl) promptEl.innerText = 'Memoriza estos animales';
+            speak('Memoriza estos animales');
+
             const feedbackEl = document.getElementById('memoryFeedback');
             if (feedbackEl) feedbackEl.innerText = '';
             
@@ -2014,6 +2118,7 @@
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'choice-btn';
+                btn.onfocus = () => speak(item.name);
                 btn.onclick = () => checkMemoryChoice(item, btn);
                 btn.innerHTML = `<span aria-hidden="true">${item.icon}</span><span class="choice-label">${item.name}</span>`;
                 choicesDiv.appendChild(btn);
@@ -2091,6 +2196,7 @@
 
             const promptEl = document.getElementById('seriesPrompt');
             if (promptEl) promptEl.innerText = '¿Qué elemento continúa la serie?';
+            speak('¿Qué elemento continúa la serie?');
 
             const board = document.getElementById('seriesBoard');
             if (!board) return;
@@ -2114,6 +2220,7 @@
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'choice-btn';
+                btn.onfocus = () => speak(opt.name);
                 btn.onclick = () => checkSeriesChoice(opt);
                 btn.innerHTML = `<span aria-hidden="true">${opt.icon}</span><span class="choice-label">${opt.name}</span>`;
                 choicesDiv.appendChild(btn);
@@ -2159,6 +2266,7 @@
                 card.type = 'button';
                 card.className = 'find-card';
                 card.innerHTML = `<span aria-hidden="true">${animal.icon}</span>`;
+                card.onfocus = () => speak(animal.name);
                 card.onclick = () => checkFindChoice(animal, card);
                 grid.appendChild(card);
             });
