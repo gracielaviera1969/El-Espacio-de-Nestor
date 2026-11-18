@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0F172A">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>El Espacio de Néstor</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,34 +11,41 @@
             --bg-color: #0F172A;
             --card-bg: #1E293B;
             --text-main: #FFFFFF;
-            --text-secondary: #FFFFFF;
-
-            /* Colores Vivos y de Alto Contraste AAA */
-            --vivid-blue: #3B82F6;
-            --vivid-blue-bg: #1D4ED8;
-            --vivid-green: #22C55E;
+            --text-secondary: #E2E8F0;
+            --vivid-blue: #7DD3FC;
+            --vivid-blue-bg: #0369A1;
+            --vivid-green: #4ADE80;
             --vivid-green-bg: #15803D;
-            --vivid-purple: #A855F7;
+            --vivid-purple: #C084FC;
             --vivid-purple-bg: #7E22CE;
-            --vivid-yellow: #EAB308;
+            --vivid-yellow: #FDE047;
             --vivid-yellow-bg: #854D0E;
-            --vivid-orange: #F97316;
+            --vivid-orange: #FB923C;
             --vivid-orange-bg: #9A3412;
-            --vivid-pink: #EC4899;
+            --vivid-pink: #F472B6;
             --vivid-pink-bg: #9D174D;
-            --vivid-cyan: #06B6D4;
+            --vivid-cyan: #22D3EE;
             --vivid-cyan-bg: #0E7490;
-            --vivid-red: #EF4444;
+            --vivid-red: #F87171;
             --vivid-red-bg: #991B1B;
-
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             --radius: 24px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+        .skip-link {
+            position: absolute;
+            top: -80px;
+            left: 0;
+            background: var(--vivid-yellow);
+            color: #000000;
+            padding: 16px 24px;
+            z-index: 1000;
+            font-weight: 700;
+            font-size: 1.3rem;
+            border-radius: 0 0 16px 0;
+            text-decoration: none;
         }
+        .skip-link:focus { top: 0; }
 
         * {
             box-sizing: border-box;
@@ -48,10 +53,13 @@
             padding: 0;
             font-family: 'Quicksand', sans-serif;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         html, body {
             touch-action: manipulation;
+            line-height: 1.6;
         }
 
         body {
@@ -63,10 +71,15 @@
             align-items: center;
             padding: 20px;
             font-size: 1.15rem;
-            line-height: 1.5;
         }
 
-        /* Cabecera estática */
+        *:focus-visible {
+            outline: 4px solid var(--vivid-yellow) !important;
+            outline-offset: 4px !important;
+            box-shadow: 0 0 0 6px var(--bg-color) !important;
+            z-index: 10;
+        }
+
         header {
             width: 100%;
             max-width: 1100px;
@@ -76,7 +89,7 @@
             align-items: center;
             gap: 16px;
             background: var(--card-bg);
-            border: 3px solid #38BDF8;
+            border: 3px solid var(--vivid-cyan);
             padding: 20px 26px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
@@ -90,10 +103,10 @@
         }
 
         .brand-badge {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             border-radius: 18px;
-            background: #1E6FF5;
+            background: var(--vivid-blue-bg);
             border: 3px solid #FFFFFF;
             display: flex;
             align-items: center;
@@ -102,16 +115,16 @@
         }
 
         h1 {
-            font-size: 2.4rem;
-            color: #38BDF8;
+            font-size: 2rem;
+            color: var(--vivid-cyan);
             font-weight: 700;
             line-height: 1.2;
         }
 
         .brand-sub {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            color: #FFFFFF;
+            color: var(--text-main);
         }
 
         .audio-controls {
@@ -121,51 +134,36 @@
         }
 
         .btn-control {
-            min-height: 52px;
+            min-height: 64px;
             background: #334155;
             border: 3px solid #FFFFFF;
-            padding: 12px 22px;
+            padding: 12px 24px;
             border-radius: 16px;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.15s;
             color: #FFFFFF;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
 
-        .btn-control:hover {
-            background: #475569;
-        }
-
-        button:focus-visible {
-            outline: 4px solid #38BDF8;
-            outline-offset: 3px;
-            box-shadow: 0 0 0 2px #0F172A;
-        }
-
         .btn-control.active {
-            background: #15803D;
+            background: var(--vivid-green-bg);
             border-color: var(--vivid-green);
-            color: #FFFFFF;
         }
 
-        /* Menú Principal estático */
         .main-container {
             width: 100%;
             max-width: 1100px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
             margin-bottom: 32px;
-            animation: fadeIn 0.3s ease-out;
         }
 
-        .main-container.hidden {
-            display: none;
-        }
+        .main-container.hidden { display: none; }
 
         .module-card {
             background: var(--card-bg);
@@ -177,22 +175,19 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            transition: box-shadow 0.2s;
             border: 3px solid transparent;
-        }
-
-        .module-card:hover {
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+            min-height: 240px;
+            width: 100%;
         }
 
         .module-tag {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 4px 14px;
-            border-radius: 10px;
-            background: #0F172A;
+            padding: 8px 16px;
+            border-radius: 12px;
+            background: var(--bg-color);
             border: 2px solid currentColor;
             margin-bottom: 14px;
         }
@@ -207,15 +202,15 @@
         .module-card.red { border-color: var(--vivid-red); color: var(--vivid-red); }
 
         .module-icon-wrap {
-            width: 92px;
-            height: 92px;
-            border-radius: 22px;
-            background: #0F172A;
+            width: 96px;
+            height: 96px;
+            border-radius: 24px;
+            background: var(--bg-color);
             border: 3px solid currentColor;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.4rem;
+            font-size: 3.6rem;
             margin-bottom: 14px;
         }
 
@@ -228,14 +223,13 @@
 
         .module-desc {
             font-size: 1.15rem;
-            font-weight: 700;
-            color: #FFFFFF;
+            font-weight: 600;
+            color: var(--text-secondary);
             line-height: 1.5;
-            text-align: left;
+            text-align: center;
             width: 100%;
         }
 
-        /* Vistas Internas */
         .view-section {
             display: none;
             width: 100%;
@@ -246,12 +240,9 @@
             padding: 30px;
             box-shadow: var(--shadow);
             margin-bottom: 32px;
-            animation: fadeIn 0.3s ease-out;
         }
 
-        .view-section.active {
-            display: block;
-        }
+        .view-section.active { display: block; }
 
         .view-header {
             display: flex;
@@ -265,20 +256,20 @@
         }
 
         h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #FFFFFF;
             font-weight: 700;
         }
 
         .section-subtitle {
-            color: #FFFFFF;
+            color: var(--text-secondary);
             margin-top: 6px;
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
         .back-btn {
-            min-height: 52px;
+            min-height: 64px;
             background: #334155;
             border: 3px solid #FFFFFF;
             padding: 12px 22px;
@@ -286,49 +277,44 @@
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s;
             color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
         }
 
-        .back-btn:hover {
-            background: #475569;
-        }
-
-        /* Cuadrículas */
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
         }
 
         .item-card {
-            min-height: 155px;
-            background: #0F172A;
+            min-height: 180px;
+            background: var(--bg-color);
             border: 3px solid #FFFFFF;
             border-radius: 20px;
             padding: 20px 14px;
             text-align: left;
             cursor: pointer;
-            transition: background-color 0.15s, border-color 0.15s;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
+            width: 100%;
         }
 
         .item-card h3 {
             font-size: 1.4rem;
             font-weight: 700;
             color: #FFFFFF;
-            line-height: 1.5;
-            text-align: left;
+            line-height: 1.4;
             width: 100%;
-        }
-
-        .item-card:hover {
-            border-color: var(--vivid-blue);
-            background: #1E293B;
         }
 
         .item-card.completed {
@@ -343,7 +329,6 @@
         .item-card.selected-need {
             background: var(--vivid-orange-bg);
             border-color: var(--vivid-orange);
-            box-shadow: 0 0 16px rgba(249, 115, 22, 0.6);
         }
 
         .item-icon {
@@ -355,7 +340,6 @@
             justify-content: center;
         }
 
-        /* Selector de Categorías */
         .category-selector {
             display: flex;
             flex-wrap: wrap;
@@ -364,8 +348,8 @@
         }
 
         .cat-btn {
-            min-height: 52px;
-            background: #0F172A;
+            min-height: 64px;
+            background: var(--bg-color);
             border: 3px solid #FFFFFF;
             padding: 10px 22px;
             border-radius: 14px;
@@ -373,6 +357,8 @@
             font-weight: 700;
             cursor: pointer;
             color: #FFFFFF;
+            flex: 1 1 auto;
+            text-align: center;
         }
 
         .cat-btn.active-cat {
@@ -380,56 +366,24 @@
             border-color: var(--vivid-blue);
         }
 
-        /* Estilos específicos para el Tablero de Números al 100 */
-        .numbers-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .numbers-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .range-btn {
-            min-height: 48px;
-            background: #0F172A;
-            border: 3px solid #FFFFFF;
-            padding: 8px 18px;
-            border-radius: 14px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            color: #FFFFFF;
-        }
-
-        .range-btn.active-range {
-            background: var(--vivid-blue-bg);
-            border-color: var(--vivid-blue);
-        }
-
         .numbers-grid-100 {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             gap: 12px;
-            max-height: 500px;
+            max-height: 580px;
             overflow-y: auto;
             padding: 4px;
         }
 
         .num-box {
-            background: #0F172A;
-            border: 3px solid #38BDF8;
+            background: var(--bg-color);
+            border: 3px solid var(--vivid-cyan);
             border-radius: 16px;
-            min-height: 75px;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: background-color 0.15s, border-color 0.15s;
         }
 
         .num-box span {
@@ -438,14 +392,8 @@
             color: #FFFFFF;
         }
 
-        .num-box:hover {
-            background: #1E293B;
-            border-color: var(--vivid-yellow);
-        }
-
-        /* Tarjetas de Grilla */
         .grid-card {
-            background: #0F172A;
+            background: var(--bg-color);
             border: 3px solid var(--vivid-yellow);
             border-radius: 20px;
             padding: 16px 14px;
@@ -455,13 +403,8 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: background-color 0.15s;
-            min-height: 175px;
-        }
-
-        .grid-card:hover {
-            background: #1E293B;
-            border-color: var(--vivid-blue);
+            min-height: 180px;
+            width: 100%;
         }
 
         .card-top-label {
@@ -470,13 +413,12 @@
             color: #FFFFFF;
             background: #1E293B;
             border: 2px solid #FFFFFF;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 12px;
-            line-height: 1.5;
-            text-align: left;
+            line-height: 1.4;
+            text-align: center;
         }
 
-        /* Banners de Feedback */
         .feedback-banner {
             margin-top: 24px;
             padding: 22px 26px;
@@ -489,7 +431,6 @@
             text-align: left;
             line-height: 1.5;
             display: none;
-            animation: fadeIn 0.25s ease-out;
         }
 
         .feedback-banner.orange-active { background: var(--vivid-orange-bg); border-color: var(--vivid-orange); }
@@ -497,17 +438,13 @@
         .feedback-banner.yellow-active { background: var(--vivid-yellow-bg); border-color: var(--vivid-yellow); }
         .feedback-banner.green-active { background: var(--vivid-green-bg); border-color: var(--vivid-green); }
 
-        /* Juegos */
         .game-panel {
             display: none;
             text-align: center;
             padding: 12px 0;
         }
 
-        .game-panel.active-game {
-            display: block;
-            animation: fadeIn 0.3s ease-out;
-        }
+        .game-panel.active-game { display: block; }
 
         .game-prompt {
             font-size: 1.9rem;
@@ -519,7 +456,9 @@
             padding: 16px 30px;
             border-radius: 18px;
             line-height: 1.5;
-            text-align: left;
+            text-align: center;
+            margin-bottom: 16px;
+            max-width: 100%;
         }
 
         .color-options {
@@ -532,10 +471,9 @@
             padding: 10px;
         }
 
-        /* Estilos mejorados para las figuras geométricas y colores */
         .game-shape-item {
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             cursor: pointer;
             border: 4px solid #FFFFFF;
             border-radius: 22px;
@@ -543,18 +481,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.15s;
-        }
-
-        .game-shape-item:hover {
-            transform: scale(1.05);
         }
 
         .shape-circle { border-radius: 50%; }
         .shape-square { border-radius: 20px; }
-        .shape-rectangle { width: 145px; height: 95px; border-radius: 18px; }
-        
-        /* Triángulo robusto basado en SVG integrado */
+        .shape-rectangle { width: 150px; height: 100px; border-radius: 18px; }
         .shape-triangle {
             background: transparent !important;
             border: none !important;
@@ -573,7 +504,7 @@
             width: 102px;
             height: 102px;
             border-radius: 20px;
-            background: #0F172A;
+            background: var(--bg-color);
             border: 3px solid #FFFFFF;
             display: flex;
             align-items: center;
@@ -581,6 +512,11 @@
             font-size: 3.3rem;
             font-weight: 700;
             color: #FFFFFF;
+        }
+
+        .seq-slot.mystery {
+            background: #334155;
+            border-style: dashed;
         }
 
         .choice-row {
@@ -592,10 +528,10 @@
         }
 
         .choice-btn {
-            min-width: 120px;
-            min-height: 110px;
+            min-width: 130px;
+            min-height: 120px;
             border-radius: 20px;
-            background: #0F172A;
+            background: var(--bg-color);
             border: 3px solid var(--vivid-purple);
             font-size: 3rem;
             cursor: pointer;
@@ -606,26 +542,21 @@
             justify-content: center;
             gap: 6px;
             color: #FFFFFF;
-            transition: background-color 0.15s;
-        }
-
-        .choice-btn:hover:not(:disabled) {
-            background: var(--vivid-purple-bg);
         }
 
         .choice-btn:disabled {
             background: #334155;
             border-color: #64748B;
-            cursor: default;
-            opacity: 0.5;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
 
         .choice-label {
             font-size: 1.15rem;
             font-weight: 700;
             color: #FFFFFF;
-            line-height: 1.5;
-            text-align: left;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .game-feedback-text {
@@ -635,10 +566,9 @@
             min-height: 38px;
             color: #FFFFFF;
             line-height: 1.5;
-            text-align: left;
+            text-align: center;
         }
 
-        /* Estilos específicos para Buscador de Animales */
         .find-arena {
             display: flex;
             flex-direction: column;
@@ -649,28 +579,22 @@
 
         .find-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 16px;
             width: 100%;
             max-width: 650px;
         }
 
         .find-card {
-            background: #0F172A;
+            background: var(--bg-color);
             border: 3px solid #334155;
             border-radius: 20px;
-            height: 102px;
+            height: 110px;
             font-size: 3.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: background-color 0.15s, border-color 0.15s;
-        }
-
-        .find-card:hover {
-            border-color: var(--vivid-yellow);
-            background: #1E293B;
         }
 
         .find-card.found-correct {
@@ -678,29 +602,30 @@
             border-color: var(--vivid-green);
         }
 
-        /* Pie de página profesional */
         footer {
             width: 100%;
             max-width: 1100px;
             text-align: center;
             padding: 20px 0;
-            color: #FFFFFF;
+            color: var(--text-secondary);
             font-size: 1.15rem;
-            font-weight: 700;
+            font-weight: 600;
             border-top: 2px solid #334155;
             margin-top: auto;
             line-height: 1.5;
         }
 
         footer span {
-            color: #38BDF8;
+            color: var(--vivid-cyan);
             font-weight: 700;
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <a href="#mainMenu" class="skip-link">Saltar al contenido principal</a>
+
+    <header role="banner">
         <div class="brand-box">
             <div class="brand-badge" aria-hidden="true">👦🏻</div>
             <div>
@@ -709,507 +634,499 @@
             </div>
         </div>
         <div class="audio-controls">
-            <button type="button" class="btn-control" onclick="resetDayRoutines()" style="background:#334155; border-color:#38BDF8; color:#FFFFFF;" title="Reiniciar el día en blanco">
-                <span>🔄 Reiniciar día</span>
+            <button type="button" class="btn-control" onclick="resetDayRoutines()" aria-label="Reiniciar día. Vamos a empezar de nuevo">
+                <span aria-hidden="true">🔄</span> Reiniciar día
             </button>
-            <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()" style="color: #FFFFFF;">
+            <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()" aria-label="Voz encendida. Toca para detener la voz">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
-                <span style="color: #FFFFFF;">Voz: Encendida</span>
+                <span>Voz: On</span>
             </button>
         </div>
     </header>
 
-    <!-- Menú Principal estático -->
-    <main class="main-container" id="mainMenu">
-        <button type="button" class="module-card blue" style="border-color: var(--vivid-blue); color: var(--vivid-blue);" onclick="showView('routineView')">
-            <span class="module-tag" style="background: #0F172A;">Orden</span>
+    <main class="main-container" id="mainMenu" tabindex="-1" role="main" aria-label="Menú principal de actividades">
+        <button type="button" class="module-card blue" onclick="showView('routineView')" aria-label="Mi Rutina. Colegio y actividades del día en orden.">
+            <span class="module-tag">Orden</span>
             <span class="module-icon-wrap" aria-hidden="true">📅</span>
             <span class="module-title">MI RUTINA</span>
             <span class="module-desc">Colegio y actividades del día en orden.</span>
         </button>
-
-        <button type="button" class="module-card cyan" style="border-color: var(--vivid-cyan); color: var(--vivid-cyan);" onclick="showView('autonomyView')">
-            <span class="module-tag" style="background: #0F172A;">Independencia</span>
+        <button type="button" class="module-card cyan" onclick="showView('autonomyView')" aria-label="Me Visto y Peino. Acciones para vestirme y arreglarme solo.">
+            <span class="module-tag">Independencia</span>
             <span class="module-icon-wrap" aria-hidden="true">👕</span>
             <span class="module-title">ME VISTO Y PEINO</span>
             <span class="module-desc">Acciones para vestirme y arreglarme solo.</span>
         </button>
-
-        <button type="button" class="module-card orange" style="border-color: var(--vivid-orange); color: var(--vivid-orange);" onclick="showView('commView')">
-            <span class="module-tag" style="background: #0F172A;">Comunicar</span>
+        <button type="button" class="module-card orange" onclick="showView('commView')" aria-label="Quiero. Tablero visual para pedir y comunicar.">
+            <span class="module-tag">Comunicar</span>
             <span class="module-icon-wrap" aria-hidden="true">💬</span>
             <span class="module-title">QUIERO...</span>
-            <span class="module-desc">Tablero visual simple para pedir y comunicar.</span>
+            <span class="module-desc">Tablero visual para pedir y comunicar.</span>
         </button>
-
-        <button type="button" class="module-card cyan" style="border-color: var(--vivid-cyan); color: var(--vivid-cyan);" onclick="showView('anticipateView')">
-            <span class="module-tag" style="background: #0F172A;">Anticipar</span>
+        <button type="button" class="module-card cyan" onclick="showView('anticipateView')" aria-label="Historias. Relatos paso a paso para las salidas.">
+            <span class="module-tag">Anticipar</span>
             <span class="module-icon-wrap" aria-hidden="true">🗺️</span>
             <span class="module-title">HISTORIAS</span>
             <span class="module-desc">Relatos paso a paso para las salidas.</span>
         </button>
-
-        <button type="button" class="module-card purple" style="border-color: var(--vivid-purple); color: var(--vivid-purple);" onclick="showView('storyView')">
-            <span class="module-tag" style="background: #0F172A;">Cuentos</span>
+        <button type="button" class="module-card purple" onclick="showView('storyView')" aria-label="Aventuras. Historias hermosas para compartir y leer juntos.">
+            <span class="module-tag">Cuentos</span>
             <span class="module-icon-wrap" aria-hidden="true">📖</span>
-            <span class="module-title">LAS AVENTURAS DE NÉSTOR Y LA MANI</span>
-            <span class="module-desc">Historias hermosas para compartir, leer juntos y disfrutar.</span>
+            <span class="module-title">AVENTURAS</span>
+            <span class="module-desc">Historias hermosas para compartir y leer juntos.</span>
         </button>
-
-        <button type="button" class="module-card green" style="border-color: var(--vivid-green); color: var(--vivid-green);" onclick="showView('parkView')">
-            <span class="module-tag" style="background: #0F172A;">Diversión</span>
+        <button type="button" class="module-card green" onclick="showView('parkView')" aria-label="El Parque. Juegos al aire libre, correr y amigos.">
+            <span class="module-tag">Diversión</span>
             <span class="module-icon-wrap" aria-hidden="true">🛝</span>
             <span class="module-title">EL PARQUE</span>
             <span class="module-desc">Juegos al aire libre, correr y amigos.</span>
         </button>
-
-        <button type="button" class="module-card pink" style="border-color: var(--vivid-pink); color: var(--vivid-pink);" onclick="showView('colorsLearnView')">
-            <span class="module-tag" style="background: #0F172A;">Aprender</span>
+        <button type="button" class="module-card pink" onclick="showView('colorsLearnView')" aria-label="Aprender. Colores, transportes y abecedario.">
+            <span class="module-tag">Aprender</span>
             <span class="module-icon-wrap" aria-hidden="true">🎨</span>
             <span class="module-title">APRENDER</span>
             <span class="module-desc">Colores, transportes y abecedario.</span>
         </button>
-
-        <button type="button" class="module-card yellow" style="border-color: var(--vivid-yellow); color: var(--vivid-yellow);" onclick="showView('animalsView')">
-            <span class="module-tag" style="background: #0F172A;">Animales</span>
+        <button type="button" class="module-card yellow" onclick="showView('animalsView')" aria-label="Animales. Animales y sus características.">
+            <span class="module-tag">Animales</span>
             <span class="module-icon-wrap" aria-hidden="true">🦁</span>
             <span class="module-title">ANIMALES</span>
             <span class="module-desc">Animales y sus características.</span>
         </button>
-
-        <button type="button" class="module-card green" style="border-color: var(--vivid-green); color: var(--vivid-green);" onclick="showView('foodView')">
-            <span class="module-tag" style="background: #0F172A;">Nutrición</span>
+        <button type="button" class="module-card green" onclick="showView('foodView')" aria-label="Alimentos. Frutas, verduras, carnes y platos.">
+            <span class="module-tag">Nutrición</span>
             <span class="module-icon-wrap" aria-hidden="true">🥗</span>
             <span class="module-title">ALIMENTOS</span>
             <span class="module-desc">Frutas, verduras, carnes y platos.</span>
         </button>
-
-        <button type="button" class="module-card cyan" style="border-color: var(--vivid-cyan); color: var(--vivid-cyan);" onclick="showView('numbers100View')">
-            <span class="module-tag" style="background: #0F172A;">Contar</span>
+        <button type="button" class="module-card cyan" onclick="showView('numbers100View')" aria-label="Números al 100. Tablero completo de conteo.">
+            <span class="module-tag">Contar</span>
             <span class="module-icon-wrap" aria-hidden="true">💯</span>
             <span class="module-title">NÚMEROS AL 100</span>
             <span class="module-desc">Tablero completo de conteo.</span>
         </button>
-
-        <button type="button" class="module-card red" style="border-color: var(--vivid-red); color: var(--vivid-red);" onclick="showView('gameView')">
-            <span class="module-tag" style="background: #0F172A;">Retos</span>
+        <button type="button" class="module-card red" onclick="showView('gameView')" aria-label="Juegos y Retos. Memoria avanzada y secuencias lógicas.">
+            <span class="module-tag">Retos</span>
             <span class="module-icon-wrap" aria-hidden="true">⚡</span>
             <span class="module-title">JUEGOS Y RETOS</span>
             <span class="module-desc">Memoria avanzada y secuencias lógicas.</span>
         </button>
-
-        <button type="button" class="module-card green" style="border-color: var(--vivid-green); color: var(--vivid-green);" onclick="showView('emotionView')">
-            <span class="module-tag" style="background: #0F172A;">Sentir</span>
+        <button type="button" class="module-card green" onclick="showView('emotionView')" aria-label="¿Cómo Estoy? Reconocimiento emocional con explicaciones.">
+            <span class="module-tag">Sentir</span>
             <span class="module-icon-wrap" aria-hidden="true">💙</span>
             <span class="module-title">¿CÓMO ESTOY?</span>
             <span class="module-desc">Reconocimiento emocional con explicaciones.</span>
         </button>
     </main>
 
-    <!-- Vista: Rutina Diaria Completa -->
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
         <div class="view-header">
             <div>
                 <h2 id="routineHeading">Mi Rutina Diaria</h2>
                 <p class="section-subtitle">Toca cada actividad cuando la termines.</p>
-            </div></div>
+            </div>
+        </div>
         <div class="items-grid" id="routineGrid">
-            <button type="button" class="item-card" data-key="rutina-desayunar" aria-pressed="false" onclick="toggleRoutine(this, 'Despertar y desayunar rico')">
+            <button type="button" class="item-card" data-key="rutina-desayunar" aria-pressed="false" aria-label="Desayunar. Vamos a comer algo rico para tener mucha energía en el día." onclick="toggleRoutine(this, 'Desayunar. Vamos a comer algo rico para tener mucha energía en el día.')">
                 <div class="item-icon" aria-hidden="true">🥣</div>
                 <h3>Desayunar</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-dientes" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse los dientes con cepillo y pasta')">
+            <button type="button" class="item-card" data-key="rutina-dientes" aria-pressed="false" aria-label="Lavarse dientes. Cepillamos los dientes con pasta para dejarlos bien limpios y brillantes." onclick="toggleRoutine(this, 'Lavarse los dientes. Cepillamos los dientes con pasta para dejarlos bien limpios y brillantes.')">
                 <div class="item-icon" aria-hidden="true">🪥</div>
                 <h3>Lavarse dientes</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-vestirse" aria-pressed="false" onclick="toggleRoutine(this, 'Vestirse con ropa limpia y cómoda')">
+            <button type="button" class="item-card" data-key="rutina-vestirse" aria-pressed="false" aria-label="Vestirse. Nos ponemos ropa limpia y cómoda para estar bien." onclick="toggleRoutine(this, 'Vestirse. Nos ponemos ropa limpia y cómoda para estar bien.')">
                 <div class="item-icon" aria-hidden="true">👕</div>
                 <h3>Vestirse</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-banarse" aria-pressed="false" onclick="toggleRoutine(this, 'Bañarse con agua calentita y jabón')">
+            <button type="button" class="item-card" data-key="rutina-banarse" aria-pressed="false" aria-label="Bañarse. Nos lavamos el cuerpo con agua tibia y jabón para estar fresquitos." onclick="toggleRoutine(this, 'Bañarse. Nos lavamos el cuerpo con agua tibia y jabón para estar fresquitos.')">
                 <div class="item-icon" aria-hidden="true">🚿</div>
                 <h3>Bañarse</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-colegio" aria-pressed="false" onclick="toggleRoutine(this, 'Ir al colegio a aprender')">
+            <button type="button" class="item-card" data-key="rutina-colegio" aria-pressed="false" aria-label="Ir al colegio. Vamos a aprender cosas nuevas y a jugar con los amigos." onclick="toggleRoutine(this, 'Ir al colegio. Vamos a aprender cosas nuevas y a jugar con los amigos.')">
                 <div class="item-icon" aria-hidden="true">🏫</div>
                 <h3>Ir al colegio</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-casa" aria-pressed="false" onclick="toggleRoutine(this, 'Llegar a casa a descansar')">
+            <button type="button" class="item-card" data-key="rutina-casa" aria-pressed="false" aria-label="Llegar a casa. Volvemos a casa a descansar después del colegio." onclick="toggleRoutine(this, 'Llegar a casa. Volvemos a casa a descansar después del colegio.')">
                 <div class="item-icon" aria-hidden="true">🏠</div>
                 <h3>Llegar a casa</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-manos" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse las manos con agua y jabón')">
+            <button type="button" class="item-card" data-key="rutina-manos" aria-pressed="false" aria-label="Lavarse manos. Nos lavamos las manos con agua y jabón antes de comer." onclick="toggleRoutine(this, 'Lavarse las manos. Nos lavamos las manos con agua y jabón antes de comer.')">
                 <div class="item-icon" aria-hidden="true">🧼</div>
                 <h3>Lavarse manos</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-almorzar" aria-pressed="false" onclick="toggleRoutine(this, 'Almorzar y comer rico y saludable')">
+            <button type="button" class="item-card" data-key="rutina-almorzar" aria-pressed="false" aria-label="Almorzar. Comemos algo rico y saludable al mediodía." onclick="toggleRoutine(this, 'Almorzar. Comemos algo rico y saludable al mediodía.')">
                 <div class="item-icon" aria-hidden="true">🥗</div>
                 <h3>Almorzar</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-descansar" aria-pressed="false" onclick="toggleRoutine(this, 'Descansar un ratito tranquilo')">
+            <button type="button" class="item-card" data-key="rutina-descansar" aria-pressed="false" aria-label="Descansar. Nos tomamos un ratito tranquilo para recargar energía." onclick="toggleRoutine(this, 'Descansar. Nos tomamos un ratito tranquilo para recargar energía.')">
                 <div class="item-icon" aria-hidden="true">🛏️</div>
                 <h3>Descansar</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-deberes" aria-pressed="false" onclick="toggleRoutine(this, 'Hacer deberes o tareas con calma')">
+            <button type="button" class="item-card" data-key="rutina-deberes" aria-pressed="false" aria-label="Hacer deberes. Hacemos las tareas con calma y atención." onclick="toggleRoutine(this, 'Hacer deberes. Hacemos las tareas con calma y atención.')">
                 <div class="item-icon" aria-hidden="true">📚</div>
                 <h3>Hacer deberes</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-jugar" aria-pressed="false" onclick="toggleRoutine(this, 'Jugar tranquilo y feliz')">
+            <button type="button" class="item-card" data-key="rutina-jugar" aria-pressed="false" aria-label="Jugar tranquilo. Jugamos con nuestros juguetes favoritos y nos divertimos." onclick="toggleRoutine(this, 'Jugar tranquilo. Jugamos con nuestros juguetes favoritos y nos divertimos.')">
                 <div class="item-icon" aria-hidden="true">🧸</div>
                 <h3>Jugar tranquilo</h3>
             </button>
-            <button type="button" class="item-card" data-key="rutina-cenar" aria-pressed="false" onclick="toggleRoutine(this, 'Cenar rico y prepararse para dormir')">
+            <button type="button" class="item-card" data-key="rutina-cenar" aria-pressed="false" aria-label="Cenar y dormir. Comemos algo rico y nos vamos a la cama a descansar toda la noche." onclick="toggleRoutine(this, 'Cenar y dormir. Comemos algo rico y nos vamos a la cama a descansar toda la noche.')">
                 <div class="item-icon" aria-hidden="true">🌙</div>
                 <h3>Cenar y dormir</h3>
             </button>
         </div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Tablero "QUIERO..." -->
     <section id="commView" class="view-section" aria-labelledby="commHeading">
         <div class="view-header">
             <div>
                 <h2 id="commHeading">¿Qué quiero o necesito?</h2>
-                <p class="section-subtitle">Toca una tarjeta para que la voz la diga claramente y puedas repetirla.</p>
-            </div></div>
+                <p class="section-subtitle">Toca una tarjeta para que la voz la diga claramente.</p>
+            </div>
+        </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero tomar agua, por favor')">
+            <button type="button" class="item-card" aria-label="Quiero agua. Vamos a tomar un vaso de agua fresca." onclick="selectNeed(this, 'Quiero agua. Vamos a tomar un vaso de agua fresca.')">
                 <div class="item-icon" aria-hidden="true">🥤</div>
                 <h3>Quiero agua</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero comer algo rico, por favor')">
+            <button type="button" class="item-card" aria-label="Quiero comer. Vamos a comer algo rico." onclick="selectNeed(this, 'Quiero comer. Vamos a comer algo rico.')">
                 <div class="item-icon" aria-hidden="true">🍌</div>
                 <h3>Quiero comer</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ir al baño, por favor')">
+            <button type="button" class="item-card" aria-label="Ir al baño. Vamos al baño cuando lo necesitamos." onclick="selectNeed(this, 'Ir al baño. Vamos al baño cuando lo necesitamos.')">
                 <div class="item-icon" aria-hidden="true">🚽</div>
                 <h3>Ir al baño</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito ayuda, por favor')">
+            <button type="button" class="item-card" aria-label="Necesito ayuda. Pedimos ayuda a un adulto." onclick="selectNeed(this, 'Necesito ayuda. Pedimos ayuda a un adulto.')">
                 <div class="item-icon" aria-hidden="true">🙋‍♂️</div>
                 <h3>Necesito ayuda</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero parar un momento y descansar')">
+            <button type="button" class="item-card" aria-label="Quiero descansar. Nos tomamos un ratito para descansar." onclick="selectNeed(this, 'Quiero descansar. Nos tomamos un ratito para descansar.')">
                 <div class="item-icon" aria-hidden="true">🛏️</div>
                 <h3>Quiero descansar</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Necesito un poco de silencio, por favor')">
+            <button type="button" class="item-card" aria-label="Quiero silencio. Necesitamos un ratito de calma y silencio." onclick="selectNeed(this, 'Quiero silencio. Necesitamos un ratito de calma y silencio.')">
                 <div class="item-icon" aria-hidden="true">🤫</div>
                 <h3>Quiero silencio</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Hay demasiado ruido y me molesta')">
+            <button type="button" class="item-card" aria-label="Mucho ruido. Hay mucho ruido y necesitamos tranquilidad." onclick="selectNeed(this, 'Mucho ruido. Hay mucho ruido y necesitamos tranquilidad.')">
                 <div class="item-icon" aria-hidden="true">🙉</div>
                 <h3>Mucho ruido</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero escuchar música linda')">
+            <button type="button" class="item-card" aria-label="Quiero música. Vamos a escuchar música bonita." onclick="selectNeed(this, 'Quiero música. Vamos a escuchar música bonita.')">
                 <div class="item-icon" aria-hidden="true">🎵</div>
                 <h3>Quiero música</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero jugar con mi juguete favorito')">
+            <button type="button" class="item-card" aria-label="Quiero jugar. Vamos a jugar con nuestros juguetes." onclick="selectNeed(this, 'Quiero jugar. Vamos a jugar con nuestros juguetes.')">
                 <div class="item-icon" aria-hidden="true">🧸</div>
                 <h3>Quiero jugar</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero salir a pasear un ratito')">
+            <button type="button" class="item-card" aria-label="Quiero pasear. Vamos a salir a pasear un ratito." onclick="selectNeed(this, 'Quiero pasear. Vamos a salir a pasear un ratito.')">
                 <div class="item-icon" aria-hidden="true">🌳</div>
                 <h3>Quiero pasear</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero dar un gran abrazo')">
+            <button type="button" class="item-card" aria-label="Quiero un abrazo. Nos damos un abrazo grande y cariñoso." onclick="selectNeed(this, 'Quiero un abrazo. Nos damos un abrazo grande y cariñoso.')">
                 <div class="item-icon" aria-hidden="true">🫂</div>
                 <h3>Quiero un abrazo</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ver mi dibujo favorito')">
+            <button type="button" class="item-card" aria-label="Ver dibujos. Vamos a ver nuestros dibujos favoritos." onclick="selectNeed(this, 'Ver dibujos. Vamos a ver nuestros dibujos favoritos.')">
                 <div class="item-icon" aria-hidden="true">📺</div>
                 <h3>Ver dibujos</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Quiero ponerme mi abrigo')">
+            <button type="button" class="item-card" aria-label="Quiero mi abrigo. Nos ponemos el abrigo." onclick="selectNeed(this, 'Quiero mi abrigo. Nos ponemos el abrigo.')">
                 <div class="item-icon" aria-hidden="true">🧥</div>
                 <h3>Quiero mi abrigo</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Tengo frío, necesito abrigarme')">
+            <button type="button" class="item-card" aria-label="Tengo frío. Nos abrigamos para entrar en calor." onclick="selectNeed(this, 'Tengo frío. Nos abrigamos para entrar en calor.')">
                 <div class="item-icon" aria-hidden="true">🥶</div>
                 <h3>Tengo frío</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Tengo calor, necesito refrescarme')">
+            <button type="button" class="item-card" aria-label="Tengo calor. Nos refrescamos un ratito." onclick="selectNeed(this, 'Tengo calor. Nos refrescamos un ratito.')">
                 <div class="item-icon" aria-hidden="true">🥵</div>
                 <h3>Tengo calor</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectNeed(this, 'Ya terminé, lo hice muy bien')">
+            <button type="button" class="item-card" aria-label="Ya terminé. ¡Lo hice muy bien y terminé la actividad!" onclick="selectNeed(this, 'Ya terminé. ¡Lo hice muy bien y terminé la actividad!')">
                 <div class="item-icon" aria-hidden="true">✅</div>
                 <h3>Ya terminé</h3>
             </button>
         </div>
         <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Me visto y peino -->
     <section id="autonomyView" class="view-section" aria-labelledby="autonomyHeading">
         <div class="view-header">
             <div>
                 <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
                 <p class="section-subtitle">Toca cada acción cuando la completes.</p>
-            </div></div>
+            </div>
+        </div>
         <div class="items-grid" id="autonomyGrid">
-            <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir la ropa limpia y cómoda')">
+            <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" aria-label="Elegir ropa. Vamos a elegir la ropa limpia y cómoda para ponernos." onclick="toggleRoutine(this, 'Elegir ropa. Vamos a elegir la ropa limpia y cómoda para ponernos.')">
                 <div class="item-icon" aria-hidden="true">👕</div>
                 <h3>Elegir ropa</h3>
             </button>
-            <button type="button" class="item-card" data-key="auto-ponerse" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse la ropa con calma y orden')">
+            <button type="button" class="item-card" data-key="auto-ponerse" aria-pressed="false" aria-label="Ponerse la ropa. Nos vestimos con calma y orden." onclick="toggleRoutine(this, 'Ponerse la ropa. Nos vestimos con calma y orden.')">
                 <div class="item-icon" aria-hidden="true">👖</div>
                 <h3>Ponerse la ropa</h3>
             </button>
-            <button type="button" class="item-card" data-key="auto-zapatos" aria-pressed="false" onclick="toggleRoutine(this, 'Colocarse los zapatos y abrocharlos')">
+            <button type="button" class="item-card" data-key="auto-zapatos" aria-pressed="false" aria-label="Zapatos. Nos colocamos los zapatos y los abrochamos con cuidado." onclick="toggleRoutine(this, 'Zapatos. Nos colocamos los zapatos y los abrochamos con cuidado.')">
                 <div class="item-icon" aria-hidden="true">👟</div>
                 <h3>Zapatos</h3>
             </button>
-            <button type="button" class="item-card" data-key="auto-peinarse" aria-pressed="false" onclick="toggleRoutine(this, 'Cepillar y peinar el cabello frente al espejo')">
+            <button type="button" class="item-card" data-key="auto-peinarse" aria-pressed="false" aria-label="Peinarse. Cepillamos el cabello frente al espejo para estar prolijos." onclick="toggleRoutine(this, 'Peinarse. Cepillamos el cabello frente al espejo para estar prolijos.')">
                 <div class="item-icon" aria-hidden="true">💇‍♂️</div>
                 <h3>Peinarse</h3>
             </button>
-            <button type="button" class="item-card" data-key="auto-cara" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse la cara con agua fresca')">
+            <button type="button" class="item-card" data-key="auto-cara" aria-pressed="false" aria-label="Lavarse la cara. Nos lavamos la cara con agua fresca." onclick="toggleRoutine(this, 'Lavarse la cara. Nos lavamos la cara con agua fresca.')">
                 <div class="item-icon" aria-hidden="true">💧</div>
                 <h3>Lavarse la cara</h3>
             </button>
-            <button type="button" class="item-card" data-key="auto-listo" aria-pressed="false" onclick="toggleRoutine(this, '¡Listo y preparado para empezar el día!')">
+            <button type="button" class="item-card" data-key="auto-listo" aria-pressed="false" aria-label="Todo listo. ¡Ya estamos preparados para empezar el día!" onclick="toggleRoutine(this, 'Todo listo. ¡Ya estamos preparados para empezar el día!')">
                 <div class="item-icon" aria-hidden="true">🌟</div>
                 <h3>¡Todo listo!</h3>
             </button>
         </div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Historias de Anticipación -->
     <section id="anticipateView" class="view-section" aria-labelledby="anticipateHeading">
         <div class="view-header">
             <div>
                 <h2 id="anticipateHeading">Historias de Anticipación</h2>
-                <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.</p>
-            </div></div>
-        
+                <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso.</p>
+            </div>
+        </div>
         <div class="category-selector" role="group" aria-label="Elegir situación">
-            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadAnticipation('medico')">🏥 Ir al médico</button>
-            <button type="button" class="cat-btn" id="tab-super" onclick="loadAnticipation('super')">🛒 Supermercado</button>
-            <button type="button" class="cat-btn" id="tab-coche" onclick="loadAnticipation('coche')">🚗 Ir en coche</button>
-            <button type="button" class="cat-btn" id="tab-pasear" onclick="loadAnticipation('pasear')">🌳 Salir a pasear</button>
-            <button type="button" class="cat-btn" id="tab-playa" onclick="loadAnticipation('playa')">🏖️ Ir a la playa</button>
-            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadAnticipation('pelo')">✂️ Cortar el pelo</button>
-            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadAnticipation('dormir')">🌙 Hora de dormir</button>
+            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadAnticipation('medico', event)" aria-label="Ir al médico. Vamos a ver qué pasa cuando vamos al médico.">🏥 Médico</button>
+            <button type="button" class="cat-btn" id="tab-super" onclick="loadAnticipation('super', event)" aria-label="Supermercado. Vamos a ver qué pasa cuando vamos al supermercado.">🛒 Super</button>
+            <button type="button" class="cat-btn" id="tab-coche" onclick="loadAnticipation('coche', event)" aria-label="Ir en coche. Vamos a ver qué pasa cuando viajamos en coche.">🚗 Coche</button>
+            <button type="button" class="cat-btn" id="tab-pasear" onclick="loadAnticipation('pasear', event)" aria-label="Salir a pasear. Vamos a ver qué pasa cuando salimos a pasear.">🌳 Pasear</button>
+            <button type="button" class="cat-btn" id="tab-playa" onclick="loadAnticipation('playa', event)" aria-label="Ir a la playa. Vamos a ver qué pasa cuando vamos a la playa.">🏖️ Playa</button>
+            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadAnticipation('pelo', event)" aria-label="Cortar el pelo. Vamos a ver qué pasa cuando cortamos el pelo.">✂️ Pelo</button>
+            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadAnticipation('dormir', event)" aria-label="Hora de dormir. Vamos a ver qué pasa cuando nos vamos a dormir.">🌙 Dormir</button>
         </div>
         <div id="anticipateContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Las aventuras de Néstor y la Mani -->
     <section id="storyView" class="view-section" aria-labelledby="storyHeading">
         <div class="view-header">
             <div>
                 <h2 id="storyHeading">Las aventuras de Néstor y la Mani</h2>
                 <p class="section-subtitle">Historias hermosas para compartir, leer juntos y disfrutar.</p>
-            </div></div>
-        
+            </div>
+        </div>
         <div class="category-selector" role="group" aria-label="Elegir cuento">
-            <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto')">✈️ El reencuentro</button>
-            <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque')">🛝 Tarde en el parque</button>
-            <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos')">🎞️ Tarde de recuerdos</button>
-            <button type="button" class="cat-btn" style="background: var(--vivid-purple-bg); border-color: var(--vivid-purple);" onclick="playFullStory()">▶️ Escuchar cuento completo</button>
+            <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El reencuentro. La historia de cuando la Mani vuelve de Uruguay.">✈️ Reencuentro</button>
+            <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque', event)" aria-label="Tarde en el parque. La historia de una tarde divertida en el parque.">🛝 Parque</button>
+            <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos', event)" aria-label="Tarde de recuerdos. La historia de cuando miramos fotos y videos juntos.">🎞️ Recuerdos</button>
         </div>
         <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: El Parque -->
     <section id="parkView" class="view-section" aria-labelledby="parkHeading">
         <div class="view-header">
             <div>
                 <h2 id="parkHeading">¿Qué hacemos en el parque?</h2>
-                <p class="section-subtitle">Toca cada actividad para escucharla y disfrutar al aire libre.</p>
-            </div></div>
+                <p class="section-subtitle">Toca cada actividad para escucharla y disfrutar.</p>
+            </div>
+        </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectParkActivity('Me subo al columpio y voy despacio hacia adelante y hacia atrás')">
+            <button type="button" class="item-card" aria-label="Columpio. Nos subimos y vamos despacio hacia adelante y hacia atrás, ¡qué divertido!" onclick="selectParkActivity('Columpio. Nos subimos y vamos despacio hacia adelante y hacia atrás, ¡qué divertido!')">
                 <div class="item-icon" aria-hidden="true">🎠</div>
                 <h3>Columpio</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Subo por la escalera y me deslizo con cuidado por el tobogán')">
+            <button type="button" class="item-card" aria-label="Tobogán. Subimos por la escalera y nos deslizamos con cuidado." onclick="selectParkActivity('Tobogán. Subimos por la escalera y nos deslizamos con cuidado.')">
                 <div class="item-icon" aria-hidden="true">🛝</div>
                 <h3>Tobogán</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Me subo al subibaja y subo y bajo con un amigo con mucha diversión')">
+            <button type="button" class="item-card" aria-label="Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!" onclick="selectParkActivity('Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!')">
                 <div class="item-icon" aria-hidden="true">🔄</div>
                 <h3>Subibaja</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Juego en la arena haciendo castillos y formas con el balde')">
+            <button type="button" class="item-card" aria-label="Jugar en la arena. Hacemos castillos y formas con el balde y la pala." onclick="selectParkActivity('Jugar en la arena. Hacemos castillos y formas con el balde y la pala.')">
                 <div class="item-icon" aria-hidden="true">🏖️</div>
                 <h3>Jugar en la arena</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Ando en bicicleta sintiendo el viento en la cara con mucha alegría')">
+            <button type="button" class="item-card" aria-label="Andar en bici. Pedaleamos sintiendo el viento en la cara." onclick="selectParkActivity('Andar en bici. Pedaleamos sintiendo el viento en la cara.')">
                 <div class="item-icon" aria-hidden="true">🚲</div>
                 <h3>Andar en bici</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Corro rápido por el césped sintiendo la libertad y la energía')">
+            <button type="button" class="item-card" aria-label="Correr. Corremos por el césped sintiéndonos libres y felices." onclick="selectParkActivity('Correr. Corremos por el césped sintiéndonos libres y felices.')">
                 <div class="item-icon" aria-hidden="true">🏃‍♂️</div>
                 <h3>Correr</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Saltar alto y divertido con mucha energía')">
+            <button type="button" class="item-card" aria-label="Saltar. Saltamos alto con mucha energía." onclick="selectParkActivity('Saltar. Saltamos alto con mucha energía.')">
                 <div class="item-icon" aria-hidden="true">🦘</div>
                 <h3>Saltar</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Juego al fútbol pateando la pelota con mis amigos')">
+            <button type="button" class="item-card" aria-label="Jugar al fútbol. Pateamos la pelota con los amigos." onclick="selectParkActivity('Jugar al fútbol. Pateamos la pelota con los amigos.')">
                 <div class="item-icon" aria-hidden="true">⚽</div>
                 <h3>Jugar al fútbol</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Hago volar un barrilete alto en el cielo con el viento')">
+            <button type="button" class="item-card" aria-label="Volar barrilete. Hacemos volar el barrilete alto en el cielo." onclick="selectParkActivity('Volar barrilete. Hacemos volar el barrilete alto en el cielo.')">
                 <div class="item-icon" aria-hidden="true">🪁</div>
                 <h3>Volar barrilete</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Empujo mi carrito o andador con mucha alegría')">
+            <button type="button" class="item-card" aria-label="Empujar carrito. Empujamos el carrito con alegría." onclick="selectParkActivity('Empujar carrito. Empujamos el carrito con alegría.')">
                 <div class="item-icon" aria-hidden="true">🛴</div>
                 <h3>Empujar carrito</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Miro a los pajaritos volar y cantar en los árboles')">
+            <button type="button" class="item-card" aria-label="Ver pajaritos. Miramos a los pajaritos volar y cantar." onclick="selectParkActivity('Ver pajaritos. Miramos a los pajaritos volar y cantar.')">
                 <div class="item-icon" aria-hidden="true">🐦</div>
                 <h3>Ver pajaritos</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectParkActivity('Me siento un ratito en el banco a descansar y respirar aire fresco')">
+            <button type="button" class="item-card" aria-label="Descansar en banco. Nos sentamos un ratito a descansar." onclick="selectParkActivity('Descansar en banco. Nos sentamos un ratito a descansar.')">
                 <div class="item-icon" aria-hidden="true">🪑</div>
                 <h3>Descansar en banco</h3>
             </button>
         </div>
         <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Aprender (Colores, Transportes y Abecedario fonético con imágenes) -->
     <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
         <div class="view-header">
             <div>
                 <h2 id="colorsLearnHeading">Aprender</h2>
                 <p class="section-subtitle">Toca cada elemento para explorar y escuchar.</p>
-            </div></div>
+            </div>
+        </div>
         <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('colores')">🎨 Colores</button>
-            <button type="button" class="cat-btn" onclick="switchLearnTab('transporte')">🚗 Transportes</button>
-            <button type="button" class="cat-btn" onclick="switchLearnTab('abecedario')">🔤 Abecedario</button>
+            <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('colores', event)" aria-label="Colores. Vamos a aprender los colores.">🎨 Colores</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('transporte', event)" aria-label="Transportes. Vamos a conocer los medios de transporte.">🚗 Transportes</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('abecedario', event)" aria-label="Abecedario. Vamos a aprender las letras del abecedario.">🔤 Abecedario</button>
         </div>
         <div id="learnGridContainer">
             <div class="items-grid" id="learnGrid"></div>
         </div>
         <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Mundo Animal -->
     <section id="animalsView" class="view-section" aria-labelledby="animalsHeading">
         <div class="view-header">
             <div>
                 <h2 id="animalsHeading">Mundo Animal</h2>
                 <p class="section-subtitle">Explora animales y sus características.</p>
-            </div></div>
+            </div>
+        </div>
         <div class="items-grid" id="animalsGrid"></div>
         <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Alimentos -->
     <section id="foodView" class="view-section" aria-labelledby="foodHeading">
         <div class="view-header">
             <div>
                 <h2 id="foodHeading">Frutas, Verduras, Carnes y Alimentos</h2>
                 <p class="section-subtitle">Toca un alimento para nombrarlo y aprender.</p>
-            </div></div>
+            </div>
+        </div>
         <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="filterFood('todos')">Todos</button>
-            <button type="button" class="cat-btn" onclick="filterFood('fruta')">Frutas</button>
-            <button type="button" class="cat-btn" onclick="filterFood('verdura')">Verduras</button>
-            <button type="button" class="cat-btn" onclick="filterFood('carne')">Carnes y Pollo</button>
-            <button type="button" class="cat-btn" onclick="filterFood('pescado')">Pescado</button>
-            <button type="button" class="cat-btn" onclick="filterFood('comida')">Platos y Bebidas</button>
+            <button type="button" class="cat-btn active-cat" onclick="filterFood('todos', event)" aria-label="Todos los alimentos. Vamos a ver todos los alimentos.">Todos</button>
+            <button type="button" class="cat-btn" onclick="filterFood('fruta', event)" aria-label="Frutas. Vamos a conocer las frutas.">Frutas</button>
+            <button type="button" class="cat-btn" onclick="filterFood('verdura', event)" aria-label="Verduras. Vamos a conocer las verduras.">Verduras</button>
+            <button type="button" class="cat-btn" onclick="filterFood('carne', event)" aria-label="Carnes y pollo. Vamos a conocer las carnes.">Carnes</button>
+            <button type="button" class="cat-btn" onclick="filterFood('pescado', event)" aria-label="Pescado. Vamos a conocer el pescado y los mariscos.">Pescado</button>
+            <button type="button" class="cat-btn" onclick="filterFood('comida', event)" aria-label="Platos y bebidas. Vamos a conocer los platos y bebidas.">Platos</button>
         </div>
         <div class="items-grid" id="foodGrid"></div>
         <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-        <!-- Vista: Números del 1 al 100 -->
     <section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
         <div class="view-header">
             <div>
                 <h2 id="nums100Heading">Tablero de Números del 1 al 100</h2>
                 <p class="section-subtitle">Toca cualquier número para escucharlo.</p>
-            </div></div>
-        <div class="numbers-container">
-            <div class="numbers-grid-100" id="numbersGrid100" style="max-height: 580px;"></div>
+            </div>
         </div>
-        <div id="num100Banner" class="feedback-banner" role="status" aria-live="polite" style="display:none; background: #0E7490; border-color: #06B6D4;"></div>
-    
+        <div class="numbers-grid-100" id="numbersGrid100"></div>
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Juegos -->
     <section id="gameView" class="view-section" aria-labelledby="gameHeading">
         <div class="view-header">
             <div>
                 <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
                 <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
-            </div></div>
+            </div>
+        </div>
         <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
-            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors')">1. Colores y Formas</button>
-            <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory')">2. Memoria Avanzada</button>
-            <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series')">3. Series Complejas</button>
-            <button type="button" class="cat-btn" id="gtab-find" onclick="switchGameTab('find')">4. Buscar Animal</button>
+            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors', event)" aria-label="Colores y formas. Vamos a jugar con colores y formas.">1. Colores</button>
+            <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory', event)" aria-label="Memoria. Vamos a jugar a recordar animales.">2. Memoria</button>
+            <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series', event)" aria-label="Series. Vamos a completar las series.">3. Series</button>
+            <button type="button" class="cat-btn" id="gtab-find" onclick="switchGameTab('find', event)" aria-label="Buscar animal. Vamos a buscar al animal escondido.">4. Buscar</button>
         </div>
 
         <div id="panel-colors" class="game-panel active-game">
             <h3 id="targetPrompt" class="game-prompt">Toca la figura: Círculo Rojo</h3>
             <div class="color-options" id="vividColorOptions"></div>
-            <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+            <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
         </div>
 
         <div id="panel-memory" class="game-panel">
             <h3 id="memoryPrompt" class="game-prompt">Memoriza estos animales</h3>
             <div class="sequence-board" id="memoryBoard"></div>
             <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                <button type="button" class="btn-control active" onfocus="speak('Esconder animal')" onclick="hideTwoAnimals()" style="color: #FFFFFF;">🙈 Esconder animal</button>
-                <button type="button" id="memoryRepeekBtn" class="btn-control" onfocus="speak('Volver a mirar')" onclick="repeekAnimals()" style="display: none; background: #0E7490; border-color: #06B6D4; color: #FFFFFF;">👀 Volver a mirar</button>
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" aria-label="Esconder un animal">🙈 Esconder</button>
+                <button type="button" id="memoryRepeekBtn" class="btn-control" onclick="repeekAnimals()" style="display: none; background: var(--vivid-cyan-bg); border-color: var(--vivid-cyan);" aria-label="Volver a mirar los animales">👀 Mirar</button>
             </div>
             <div class="choice-row" id="memoryChoices" style="display: none;"></div>
-            <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+            <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
         </div>
 
         <div id="panel-series" class="game-panel">
             <h3 id="seriesPrompt" class="game-prompt">¿Qué elemento continúa la serie?</h3>
             <div class="sequence-board" id="seriesBoard"></div>
             <div class="choice-row" id="seriesChoices"></div>
-            <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+            <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
         </div>
 
         <div id="panel-find" class="game-panel">
@@ -1217,63 +1134,65 @@
             <div class="find-arena">
                 <div class="find-grid" id="findGrid"></div>
             </div>
-            <p id="findFeedback" class="game-feedback-text" role="status" aria-live="polite"></p>
+            <p id="findFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
         </div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <!-- Vista: Emociones -->
     <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
         <div class="view-header">
             <div>
                 <h2 id="emotionHeading">¿Cómo estoy?</h2>
-                <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual para entenderlo.</p>
-            </div></div>
+                <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
+            </div>
+        </div>
         <div class="items-grid">
-            <button type="button" class="item-card" onclick="selectEmotion('¡Qué alegría más linda! Tu sonrisa ilumina todo el espacio.')">
+            <button type="button" class="item-card" aria-label="Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio." onclick="selectEmotion('Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio.')">
                 <div class="item-icon" aria-hidden="true">😄</div>
                 <h3>Feliz</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Estás en un lugar muy seguro, tranquilo y en paz.')">
+            <button type="button" class="item-card" aria-label="Tranquilo. Estás en un lugar seguro, tranquilo y en paz." onclick="selectEmotion('Tranquilo. Estás en un lugar seguro, tranquilo y en paz.')">
                 <div class="item-icon" aria-hidden="true">😌</div>
                 <h3>Tranquilo</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('¡Cuánta energía y entusiasmo tienes para hoy!')">
+            <button type="button" class="item-card" aria-label="Emocionado. ¡Qué energía y entusiasmo tienes para hoy!" onclick="selectEmotion('Emocionado. ¡Qué energía y entusiasmo tienes para hoy!')">
                 <div class="item-icon" aria-hidden="true">🤩</div>
                 <h3>Emocionado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Es momento de descansar un poquito y recargar energías.')">
+            <button type="button" class="item-card" aria-label="Cansado. Es momento de descansar un poquito y recargar energía." onclick="selectEmotion('Cansado. Es momento de descansar un poquito y recargar energía.')">
                 <div class="item-icon" aria-hidden="true">🥱</div>
                 <h3>Cansado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Sientes un poco de hambre. Vamos a buscar algo rico para comer.')">
+            <button type="button" class="item-card" aria-label="Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer." onclick="selectEmotion('Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer.')">
                 <div class="item-icon" aria-hidden="true">🍎</div>
                 <h3>Hambriento</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Respiramos hondo y despacio. Todo está bien y va a pasar.')">
+            <button type="button" class="item-card" aria-label="Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar." onclick="selectEmotion('Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar.')">
                 <div class="item-icon" aria-hidden="true">😤</div>
                 <h3>Enojado</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('A veces nos sentimos tristes y está bien. Un abrazo y un mimo nos hacen sentir mejor.')">
+            <button type="button" class="item-card" aria-label="Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor." onclick="selectEmotion('Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor.')">
                 <div class="item-icon" aria-hidden="true">💙</div>
                 <h3>Triste</h3>
             </button>
-            <button type="button" class="item-card" onclick="selectEmotion('Si sientes miedo o susto, respira hondo conmigo. Estás a salvo y muy protegido.')">
+            <button type="button" class="item-card" aria-label="Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido." onclick="selectEmotion('Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido.')">
                 <div class="item-icon" aria-hidden="true">🫨</div>
                 <h3>Asustado</h3>
             </button>
         </div>
         <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-    
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" style="width: 100%; max-width: 300px; justify-content: center; margin: 0 auto;">⬅ Volver al inicio</button>
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
         </div>
     </section>
 
-    <footer>
+    <footer role="contentinfo">
         Desarrollado por <span>Graciela Viera</span>
     </footer>
 
@@ -1282,9 +1201,6 @@
         let selectedVoice = null;
         let audioUnlocked = false;
 
-        const megaphoneOnSvg = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>`;
-        const megaphoneOffSvg = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg>`;
-
         const submarinoSvg = `<svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20M12 2v4M8 6h8l2 6H6l2-6zM15 12v3l3 2v2H6v-2l3-2v-3"></path></svg>`;
         const xilofonoSvg = `<svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l16-3v14L4 16z"></path><line x1="8" y1="7" x2="8" y2="17"></line><line x1="12" y1="6" x2="12" y2="18"></line><line x1="16" y1="5.5" x2="16" y2="18.5"></line></svg>`;
 
@@ -1292,10 +1208,9 @@
             if (!('speechSynthesis' in window)) return;
             const voices = window.speechSynthesis.getVoices();
             selectedVoice = voices.find(v => v.lang.startsWith('es') && (
-                v.name.toLowerCase().includes('google español') || 
-                v.name.toLowerCase().includes('microsoft pablo') || 
-                v.name.toLowerCase().includes('microsoft helena') || 
-                v.name.toLowerCase().includes('es-es') ||
+                v.name.toLowerCase().includes('google español') ||
+                v.name.toLowerCase().includes('microsoft pablo') ||
+                v.name.toLowerCase().includes('microsoft helena') ||
                 v.name.toLowerCase().includes('natural')
             )) || voices.find(v => v.lang.startsWith('es-ES')) || voices.find(v => v.lang.startsWith('es')) || voices[0];
         }
@@ -1318,27 +1233,145 @@
         document.addEventListener('touchstart', unlockMobileAudio, { once: true });
         document.addEventListener('click', unlockMobileAudio, { once: true });
 
+        function toggleSpeech() {
+            speechEnabled = !speechEnabled;
+            const btn = document.getElementById('speechToggle');
+            btn.setAttribute('aria-pressed', speechEnabled);
+            if (speechEnabled) {
+                btn.classList.add('active');
+                btn.setAttribute('aria-label', 'Voz encendida. Toca para detener la voz.');
+                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg><span>Voz: On</span>`;
+                speak('Voz encendida');
+            } else {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-label', 'Voz apagada. Toca para encender la voz.');
+                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg><span>Voz: Off</span>`;
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+            }
+        }
+
+        function speak(text) {
+            if (!speechEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.92;
+            utterance.pitch = 1.0;
+            if (!selectedVoice) loadVoices();
+            if (selectedVoice) utterance.voice = selectedVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function loadSavedRoutines() {
+            document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
+                const key = card.getAttribute('data-key');
+                if (key && localStorage.getItem(key) === 'true') {
+                    card.classList.add('completed');
+                    card.setAttribute('aria-pressed', 'true');
+                }
+            });
+        }
+
+        function toggleRoutine(element, text) {
+            const isCompleted = element.classList.toggle('completed');
+            element.setAttribute('aria-pressed', isCompleted);
+            const key = element.getAttribute('data-key');
+            if (key) localStorage.setItem(key, isCompleted);
+            if (isCompleted) {
+                speak('¡Muy bien! Lo hiciste excelente.');
+            } else {
+                speak(text);
+            }
+        }
+
+        function resetDayRoutines() {
+            document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
+                card.classList.remove('completed');
+                card.setAttribute('aria-pressed', 'false');
+                const key = card.getAttribute('data-key');
+                if (key) localStorage.removeItem(key);
+            });
+            speak('Día reiniciado. Vamos a empezar de nuevo.');
+        }
+
+        function showView(viewId) {
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
+            const mainMenu = document.getElementById('mainMenu');
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+
+            if (viewId === 'mainMenu') {
+                mainMenu.classList.remove('hidden');
+                mainMenu.focus();
+                speak('Menú principal. Elige una actividad.');
+            } else {
+                mainMenu.classList.add('hidden');
+                const targetSection = document.getElementById(viewId);
+                targetSection.classList.add('active');
+                targetSection.focus();
+
+                const title = targetSection.querySelector('h2').innerText;
+                const subtitleElement = targetSection.querySelector('.section-subtitle');
+                const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
+                speak(title + subtitleText);
+
+                if (viewId === 'anticipateView') loadAnticipation('medico', false);
+                else if (viewId === 'storyView') loadStory('aeropuerto', false);
+                else if (viewId === 'gameView') {
+                    document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+                    document.getElementById('gtab-colors').classList.add('active-cat');
+                    document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
+                    document.getElementById('panel-colors').classList.add('active-game');
+                    initVividColorsGame(false);
+                }
+                else if (viewId === 'animalsView') renderAnimals();
+                else if (viewId === 'colorsLearnView') renderLearnTab('colores');
+                else if (viewId === 'foodView') renderFood('todos');
+                else if (viewId === 'numbers100View') renderNumbers100();
+            }
+        }
+
+        function selectNeed(element, phrase) {
+            document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
+            element.classList.add('selected-need');
+            const banner = document.getElementById('needBanner');
+            banner.style.display = 'block';
+            banner.innerText = phrase;
+            speak(phrase);
+        }
+
+        function switchLearnTab(tabType, event) {
+            document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
+            if (event && event.target) event.target.classList.add('active-cat');
+            renderLearnTab(tabType);
+            if (tabType === 'colores') speak('Colores. Vamos a aprender los colores.');
+            else if (tabType === 'transporte') speak('Transportes. Vamos a conocer los medios de transporte.');
+            else if (tabType === 'abecedario') speak('Abecedario. Vamos a aprender las letras del abecedario.');
+        }
+
         const colorDatabase = [
-            { name: 'Rojo', icon: '❤️', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
-            { name: 'Azul', icon: '💙', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
-            { name: 'Amarillo', icon: '💛', hex: '#EAB308', desc: 'Amarillo suave, como los plátanos.' },
-            { name: 'Verde', icon: '💚', hex: '#22C55E', desc: 'Verde natural de las hojas y el pasto.' },
-            { name: 'Naranja', icon: '🧡', hex: '#F97316', desc: 'Naranja cálido de las naranjas.' },
-            { name: 'Violeta', icon: '💜', hex: '#A855F7', desc: 'Violeta clásico como las uvas.' },
-            { name: 'Rosa', icon: '🌸', hex: '#EC4899', desc: 'Rosa tierno y suave.' },
-            { name: 'Celeste', icon: '🌐', hex: '#38BDF8', desc: 'Celeste suave como el agua clara.' },
-            { name: 'Marrón', icon: '🪵', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
-            { name: 'Blanco', icon: '⬜', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
-            { name: 'Negro', icon: '⬛', hex: '#020617', desc: 'Negro profundo de la noche.' },
-            { name: 'Gris', icon: '🪙', hex: '#64748B', desc: 'Gris metálico y moderno.' },
-            { name: 'Turquesa', icon: '💎', hex: '#14B8A6', desc: 'Turquesa brillante como el mar cristalino.' },
-            { name: 'Fucsia', icon: '🌺', hex: '#D946EF', desc: 'Fucsia alegre y vibrante como las flores.' },
-            { name: 'Dorado', icon: '👑', hex: '#F59E0B', desc: 'Dorado brillante como las estrellas y las medallas.' },
-            { name: 'Plateado', icon: '🥈', hex: '#CBD5E1', desc: 'Plateado luminoso como la luna llena.' },
-            { name: 'Lila', icon: '🪻', hex: '#C084FC', desc: 'Lila suave y delicado como las flores de lavanda.' },
-            { name: 'Verde Lima', icon: '🍋‍🟩', hex: '#84CC16', desc: 'Verde lima fresco y lleno de energía.' },
-            { name: 'Azul Marino', icon: '🌊', hex: '#1E3A8A', desc: 'Azul marino profundo como el océano.' },
-            { name: 'Beige', icon: '🏖️', hex: '#E7D5B8', desc: 'Beige cálido y suave como la arena de la playa.' }
+            { name: 'Rojo', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
+            { name: 'Azul', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
+            { name: 'Amarillo', hex: '#EAB308', desc: 'Amarillo suave, como los plátanos.' },
+            { name: 'Verde', hex: '#22C55E', desc: 'Verde natural de las hojas y el pasto.' },
+            { name: 'Naranja', hex: '#F97316', desc: 'Naranja cálido de las naranjas.' },
+            { name: 'Violeta', hex: '#A855F7', desc: 'Violeta clásico como las uvas.' },
+            { name: 'Rosa', hex: '#EC4899', desc: 'Rosa tierno y suave.' },
+            { name: 'Celeste', hex: '#38BDF8', desc: 'Celeste suave como el agua clara.' },
+            { name: 'Marrón', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
+            { name: 'Blanco', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
+            { name: 'Negro', hex: '#020617', desc: 'Negro profundo de la noche.' },
+            { name: 'Gris', hex: '#64748B', desc: 'Gris metálico y moderno.' },
+            { name: 'Turquesa', hex: '#14B8A6', desc: 'Turquesa brillante como el mar cristalino.' },
+            { name: 'Fucsia', hex: '#D946EF', desc: 'Fucsia alegre y vibrante como las flores.' },
+            { name: 'Dorado', hex: '#F59E0B', desc: 'Dorado brillante como las estrellas.' },
+            { name: 'Plateado', hex: '#CBD5E1', desc: 'Plateado luminoso como la luna llena.' },
+            { name: 'Lila', hex: '#C084FC', desc: 'Lila suave y delicado como las flores de lavanda.' },
+            { name: 'Verde Lima', hex: '#84CC16', desc: 'Verde lima fresco y lleno de energía.' },
+            { name: 'Azul Marino', hex: '#1E3A8A', desc: 'Azul marino profundo como el océano.' },
+            { name: 'Beige', hex: '#E7D5B8', desc: 'Beige cálido y suave como la arena de la playa.' }
         ];
 
         const transportDatabase = [
@@ -1357,143 +1390,288 @@
         ];
 
         const alphabetData = [
-            { char: 'A', speechText: 'a, amor empieza con la letra a', icon: '❤️', isSvg: false },
-            { char: 'B', speechText: 'b, besos empieza con la letra b', icon: '😘', isSvg: false },
-            { char: 'C', speechText: 'c, casa empieza con la letra c', icon: '🏠', isSvg: false },
-            { char: 'D', speechText: 'd, dedo empieza con la letra d', icon: '👆', isSvg: false },
-            { char: 'E', speechText: 'e, elefante empieza con la letra e', icon: '🐘', isSvg: false },
-            { char: 'F', speechText: 'f, familia empieza con la letra f', icon: '👨‍👩‍👦', isSvg: false },
-            { char: 'G', speechText: 'g, gato empieza con la letra g', icon: '🐱', isSvg: false },
-            { char: 'H', speechText: 'h, helado empieza con la letra h', icon: '🍦', isSvg: false },
-            { char: 'I', speechText: 'i, isla empieza con la letra i', icon: '🏝️', isSvg: false },
-            { char: 'J', speechText: 'j, jirafa empieza con la letra j', icon: '🦒', isSvg: false },
-            { char: 'K', speechText: 'k, koala empieza con la letra k', icon: '🐨', isSvg: false },
-            { char: 'L', speechText: 'l, luna empieza con la letra l', icon: '🌙', isSvg: false },
-            { char: 'M', speechText: 'm, mamá empieza con la letra m', icon: '👩🏻', isSvg: false },
-            { char: 'N', speechText: 'n, Néstor empieza con la letra n', icon: '👦🏻', isSvg: false },
-            { char: 'Ñ', speechText: 'ñ, ñoqui empieza con la letra ñ', icon: '🍝', isSvg: false },
-            { char: 'O', speechText: 'o, oso empieza con la letra o', icon: '🐻', isSvg: false },
-            { char: 'P', speechText: 'p, papá empieza con la letra p', icon: '👨🏻', isSvg: false },
-            { char: 'Q', speechText: 'q, queso empieza con la letra q', icon: '🧀', isSvg: false },
-            { char: 'R', speechText: 'r, risa empieza con la letra r', icon: '😄', isSvg: false },
-            { char: 'S', speechText: 's, sol empieza con la letra s', icon: '☀️', isSvg: false },
-            { char: 'T', speechText: 't, taza empieza con la letra t', icon: '☕', isSvg: false },
-            { char: 'U', speechText: 'u, uva empieza con la letra u', icon: '🍇', isSvg: false },
-            { char: 'V', speechText: 'v, vida empieza con la letra v', icon: '⭐', isSvg: false },
-            { char: 'W', speechText: 'w, waterpolo empieza con la letra w', icon: '🤽‍♂️', isSvg: false },
-            { char: 'X', speechText: 'x, xilófono empieza con la letra x', icon: xilofonoSvg, isSvg: true },
-            { char: 'Y', speechText: 'y, yoyo empieza con la letra y', icon: '🪀', isSvg: false },
-            { char: 'Z', speechText: 'z, zapato empieza con la letra z', icon: '👟', isSvg: false }
+            { char: 'A', speechText: 'A de amor. El amor empieza con la letra A.', icon: '❤️', isSvg: false },
+            { char: 'B', speechText: 'B de besos. Los besos empiezan con la letra B.', icon: '😘', isSvg: false },
+            { char: 'C', speechText: 'C de casa. La casa empieza con la letra C.', icon: '🏠', isSvg: false },
+            { char: 'D', speechText: 'D de dedo. El dedo empieza con la letra D.', icon: '👆', isSvg: false },
+            { char: 'E', speechText: 'E de elefante. El elefante empieza con la letra E.', icon: '🐘', isSvg: false },
+            { char: 'F', speechText: 'F de familia. La familia empieza con la letra F.', icon: '👨‍👩‍👦', isSvg: false },
+            { char: 'G', speechText: 'G de gato. El gato empieza con la letra G.', icon: '🐱', isSvg: false },
+            { char: 'H', speechText: 'H de helado. El helado empieza con la letra H.', icon: '🍦', isSvg: false },
+            { char: 'I', speechText: 'I de isla. La isla empieza con la letra I.', icon: '🏝️', isSvg: false },
+            { char: 'J', speechText: 'J de jirafa. La jirafa empieza con la letra J.', icon: '🦒', isSvg: false },
+            { char: 'K', speechText: 'K de koala. El koala empieza con la letra K.', icon: '🐨', isSvg: false },
+            { char: 'L', speechText: 'L de luna. La luna empieza con la letra L.', icon: '🌙', isSvg: false },
+            { char: 'M', speechText: 'M de mamá. Mamá empieza con la letra M.', icon: '👩🏻', isSvg: false },
+            { char: 'N', speechText: 'N de Néstor. Néstor empieza con la letra N.', icon: '👦🏻', isSvg: false },
+            { char: 'Ñ', speechText: 'Ñ de ñoqui. Los ñoquis empiezan con la letra Ñ.', icon: '🍝', isSvg: false },
+            { char: 'O', speechText: 'O de oso. El oso empieza con la letra O.', icon: '🐻', isSvg: false },
+            { char: 'P', speechText: 'P de papá. Papá empieza con la letra P.', icon: '👨🏻', isSvg: false },
+            { char: 'Q', speechText: 'Q de queso. El queso empieza con la letra Q.', icon: '🧀', isSvg: false },
+            { char: 'R', speechText: 'R de risa. La risa empieza con la letra R.', icon: '😄', isSvg: false },
+            { char: 'S', speechText: 'S de sol. El sol empieza con la letra S.', icon: '☀️', isSvg: false },
+            { char: 'T', speechText: 'T de taza. La taza empieza con la letra T.', icon: '☕', isSvg: false },
+            { char: 'U', speechText: 'U de uva. La uva empieza con la letra U.', icon: '🍇', isSvg: false },
+            { char: 'V', speechText: 'V de vida. La vida empieza con la letra V.', icon: '⭐', isSvg: false },
+            { char: 'W', speechText: 'W de waterpolo. El waterpolo empieza con la letra W.', icon: '🤽‍♂️', isSvg: false },
+            { char: 'X', speechText: 'X de xilófono. El xilófono empieza con la letra X.', icon: xilofonoSvg, isSvg: true },
+            { char: 'Y', speechText: 'Y de yoyo. El yoyo empieza con la letra Y.', icon: '🪀', isSvg: false },
+            { char: 'Z', speechText: 'Z de zapato. El zapato empieza con la letra Z.', icon: '👟', isSvg: false }
         ];
+
+        function renderLearnTab(tabType) {
+            const banner = document.getElementById('colorLearnBanner');
+            banner.style.display = 'none';
+            banner.innerText = '';
+            const grid = document.getElementById('learnGrid');
+            grid.innerHTML = '';
+
+            if (tabType === 'colores') {
+                colorDatabase.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.setAttribute('aria-label', item.name + '. ' + item.desc);
+                    card.onclick = () => {
+                        banner.style.display = 'block';
+                        banner.innerText = item.name + ': ' + item.desc;
+                        speak(item.name + '. ' + item.desc);
+                    };
+                    card.innerHTML = `
+                        <span class="card-top-label">${item.name}</span>
+                        <div style="width: 60px; height: 60px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF;"></div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (tabType === 'transporte') {
+                transportDatabase.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.setAttribute('aria-label', item.name + '. ' + item.desc);
+                    card.onclick = () => {
+                        banner.style.display = 'block';
+                        banner.innerText = item.name + '. ' + item.desc;
+                        speak(item.name + '. ' + item.desc);
+                    };
+                    const iconContent = item.isSvg ? item.icon : `<span class="item-icon" aria-hidden="true">${item.icon}</span>`;
+                    card.innerHTML = `
+                        <span class="card-top-label">${item.name}</span>
+                        ${iconContent}
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (tabType === 'abecedario') {
+                alphabetData.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.style.minHeight = '165px';
+                    card.setAttribute('aria-label', 'Letra ' + item.char + '. ' + item.speechText);
+                    card.onclick = () => {
+                        banner.style.display = 'block';
+                        banner.innerText = item.speechText;
+                        speak(item.speechText);
+                    };
+                    const iconContent = item.isSvg ? item.icon : `<div class="item-icon" aria-hidden="true" style="font-size: 3.2rem; margin: 4px 0;">${item.icon}</div>`;
+                    card.innerHTML = `
+                        <span class="card-top-label" style="color: var(--vivid-cyan); font-size: 1.9rem; padding: 2px 14px; margin-bottom: 2px;">${item.char}</span>
+                        ${iconContent}
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        function selectParkActivity(message) {
+            const banner = document.getElementById('parkBanner');
+            banner.style.display = 'block';
+            banner.innerText = message;
+            speak(message);
+        }
 
         const animalDatabase = [
-            { name: 'Perro', gender: 'el', icon: '🐶', action: 'el perro es un gran compañero en el hogar' },
-            { name: 'Gato', gender: 'el', icon: '🐱', action: 'el gato vive en el hogar con cariño' },
-            { name: 'Conejo', gender: 'el', icon: '🐰', action: 'el conejo salta alegremente por el pasto' },
-            { name: 'Pato', gender: 'el', icon: '🦆', action: 'el pato nada tranquilo en el agua' },
-            { name: 'Tortuga', gender: 'la', icon: '🐢', action: 'la tortuga camina despacito con su caparazón' },
-            { name: 'Loro', gender: 'el', icon: '🦜', action: 'el loro tiene plumas de colores' },
-            { name: 'Vaca', gender: 'la', icon: '🐮', action: 'la vaca vive en el campo' },
-            { name: 'Oveja', gender: 'la', icon: '🐑', action: 'la oveja tiene lana muy suave' },
-            { name: 'Caballo', gender: 'el', icon: '🐴', action: 'el caballo corre veloz por el campo' },
-            { name: 'Cerdo', gender: 'el', icon: '🐷', action: 'el cerdo vive feliz en la granja' },
-            { name: 'Gallina', gender: 'la', icon: '🐔', action: 'la gallina camina por la granja' },
-            { name: 'León', gender: 'el', icon: '🦁', action: 'el león es el rey de la selva' },
-            { name: 'Elefante', gender: 'el', icon: '🐘', action: 'el elefante tiene una trompa larga' },
-            { name: 'Mono', gender: 'el', icon: '🐵', action: 'el mono trepa por los árboles' },
-            { name: 'Jirafa', gender: 'la', icon: '🦒', action: 'la jirafa es un animal muy alto' },
-            { name: 'Oso', gender: 'el', icon: '🐻', action: 'el oso camina por el bosque' },
-            { name: 'Tigre', gender: 'el', icon: '🐯', action: 'el tigre tiene rayas hermosas' },
-            { name: 'Cebra', gender: 'la', icon: '🦓', action: 'la cebra tiene rayas blancas y negras' },
-            { name: 'Pez', gender: 'el', icon: '🐠', action: 'el pez nada feliz bajo el agua' },
-            { name: 'Ballena', gender: 'la', icon: '🐳', action: 'la ballena nada por el mar profundo' },
-            { name: 'Delfín', gender: 'el', icon: '🐬', action: 'el delfín salta sobre las olas del agua' },
-            { name: 'Tiburón', gender: 'el', icon: '🦈', action: 'el tiburón nada en el mar' },
-            { name: 'Ratón', gender: 'el', icon: '🐭', action: 'el ratón es pequeño y curioso' },
-            { name: 'Zorro', gender: 'el', icon: '🦊', action: 'el zorro camina por el bosque' },
-            { name: 'Koala', gender: 'el', icon: '🐨', action: 'el koala descansa en los árboles' },
-            { name: 'Panda', gender: 'el', icon: '🐼', action: 'el oso panda come bambú' },
-            { name: 'Rinoceronte', gender: 'el', icon: '🦏', action: 'el rinoceronte camina fuerte' },
-            { name: 'Hipopótamo', gender: 'el', icon: '🦛', action: 'el hipopótamo nada en el río' },
-            { name: 'Canguro', gender: 'el', icon: '🦘', action: 'el canguro salta muy alto' },
-            { name: 'Búho', gender: 'el', icon: '🦉', action: 'el búho abre sus grandes ojos de noche' },
-            { name: 'Rana', gender: 'la', icon: '🐸', action: 'la rana salta sobre las hojas' },
-            { name: 'Pingüino', gender: 'el', icon: '🐧', action: 'el pingüino camina en el hielo' },
-            { name: 'Camello', gender: 'el', icon: '🐪', action: 'el camello camina por el desierto' },
-            { name: 'Serpiente', gender: 'la', icon: '🐍', action: 'la serpiente se desliza suavemente' },
-            { name: 'Águila', gender: 'la', icon: '🦅', action: 'el águila vuela alto en el cielo' },
-            { name: 'Pulpo', gender: 'el', icon: '🐙', action: 'el pulpo vive bajo el mar' },
-            { name: 'Cangrejo', gender: 'el', icon: '🦀', action: 'el cangrejo camina en la arena' },
-            { name: 'Mariposa', gender: 'la', icon: '🦋', action: 'la mariposa vuela de flor en flor' },
-            { name: 'Abeja', gender: 'la', icon: '🐝', action: 'la abeja vuela entre las flores' },
-            { name: 'Caracol', gender: 'el', icon: '🐌', action: 'el caracol avanza muy despacito' }
+            { name: 'Perro', gender: 'el', icon: '🐶', action: 'El perro es un gran compañero en el hogar.' },
+            { name: 'Gato', gender: 'el', icon: '🐱', action: 'El gato vive en el hogar con cariño.' },
+            { name: 'Conejo', gender: 'el', icon: '🐰', action: 'El conejo salta alegremente por el pasto.' },
+            { name: 'Pato', gender: 'el', icon: '🦆', action: 'El pato nada tranquilo en el agua.' },
+            { name: 'Tortuga', gender: 'la', icon: '🐢', action: 'La tortuga camina despacito con su caparazón.' },
+            { name: 'Loro', gender: 'el', icon: '🦜', action: 'El loro tiene plumas de colores.' },
+            { name: 'Vaca', gender: 'la', icon: '🐮', action: 'La vaca vive en el campo.' },
+            { name: 'Oveja', gender: 'la', icon: '🐑', action: 'La oveja tiene lana muy suave.' },
+            { name: 'Caballo', gender: 'el', icon: '🐴', action: 'El caballo corre veloz por el campo.' },
+            { name: 'Cerdo', gender: 'el', icon: '🐷', action: 'El cerdo vive feliz en la granja.' },
+            { name: 'Gallina', gender: 'la', icon: '🐔', action: 'La gallina camina por la granja.' },
+            { name: 'León', gender: 'el', icon: '🦁', action: 'El león es el rey de la selva.' },
+            { name: 'Elefante', gender: 'el', icon: '🐘', action: 'El elefante tiene una trompa larga.' },
+            { name: 'Mono', gender: 'el', icon: '🐵', action: 'El mono trepa por los árboles.' },
+            { name: 'Jirafa', gender: 'la', icon: '🦒', action: 'La jirafa es un animal muy alto.' },
+            { name: 'Oso', gender: 'el', icon: '🐻', action: 'El oso camina por el bosque.' },
+            { name: 'Tigre', gender: 'el', icon: '🐯', action: 'El tigre tiene rayas hermosas.' },
+            { name: 'Cebra', gender: 'la', icon: '🦓', action: 'La cebra tiene rayas blancas y negras.' },
+            { name: 'Pez', gender: 'el', icon: '🐠', action: 'El pez nada feliz bajo el agua.' },
+            { name: 'Ballena', gender: 'la', icon: '🐳', action: 'La ballena nada por el mar profundo.' },
+            { name: 'Delfín', gender: 'el', icon: '🐬', action: 'El delfín salta sobre las olas del agua.' },
+            { name: 'Tiburón', gender: 'el', icon: '🦈', action: 'El tiburón nada en el mar.' },
+            { name: 'Ratón', gender: 'el', icon: '🐭', action: 'El ratón es pequeño y curioso.' },
+            { name: 'Zorro', gender: 'el', icon: '🦊', action: 'El zorro camina por el bosque.' },
+            { name: 'Koala', gender: 'el', icon: '🐨', action: 'El koala descansa en los árboles.' },
+            { name: 'Panda', gender: 'el', icon: '🐼', action: 'El oso panda come bambú.' },
+            { name: 'Rinoceronte', gender: 'el', icon: '🦏', action: 'El rinoceronte camina fuerte.' },
+            { name: 'Hipopótamo', gender: 'el', icon: '🦛', action: 'El hipopótamo nada en el río.' },
+            { name: 'Canguro', gender: 'el', icon: '🦘', action: 'El canguro salta muy alto.' },
+            { name: 'Búho', gender: 'el', icon: '🦉', action: 'El búho abre sus grandes ojos de noche.' },
+            { name: 'Rana', gender: 'la', icon: '🐸', action: 'La rana salta sobre las hojas.' },
+            { name: 'Pingüino', gender: 'el', icon: '🐧', action: 'El pingüino camina en el hielo.' },
+            { name: 'Camello', gender: 'el', icon: '🐪', action: 'El camello camina por el desierto.' },
+            { name: 'Serpiente', gender: 'la', icon: '🐍', action: 'La serpiente se desliza suavemente.' },
+            { name: 'Águila', gender: 'la', icon: '🦅', action: 'El águila vuela alto en el cielo.' },
+            { name: 'Pulpo', gender: 'el', icon: '🐙', action: 'El pulpo vive bajo el mar.' },
+            { name: 'Cangrejo', gender: 'el', icon: '🦀', action: 'El cangrejo camina en la arena.' },
+            { name: 'Mariposa', gender: 'la', icon: '🦋', action: 'La mariposa vuela de flor en flor.' },
+            { name: 'Abeja', gender: 'la', icon: '🐝', action: 'La abeja vuela entre las flores.' },
+            { name: 'Caracol', gender: 'el', icon: '🐌', action: 'El caracol avanza muy despacito.' }
         ];
 
+        function renderAnimals() {
+            const banner = document.getElementById('animalBanner');
+            if (banner) { banner.style.display = 'none'; banner.innerText = ''; }
+            const grid = document.getElementById('animalsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            animalDatabase.forEach(animal => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'grid-card';
+                card.setAttribute('aria-label', animal.name + '. ' + animal.action);
+                card.onclick = () => selectAnimal(animal);
+                card.innerHTML = `
+                    <span class="card-top-label">${animal.name}</span>
+                    <div class="item-icon" aria-hidden="true">${animal.icon}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectAnimal(animal) {
+            const text = animal.action;
+            const banner = document.getElementById('animalBanner');
+            banner.style.display = 'block';
+            banner.innerText = text;
+            speak(text);
+        }
+
         const foodDatabase = [
-            { name: 'Plátano', icon: '🍌', category: 'fruta', desc: 'Plátano dulce y rico' },
-            { name: 'Manzana', icon: '🍎', category: 'fruta', desc: 'Manzana roja crujiente' },
-            { name: 'Fresa', icon: '🍓', category: 'fruta', desc: 'Fresa dulce y roja' },
-            { name: 'Naranja', icon: '🍊', category: 'fruta', desc: 'Naranja jugosa' },
-            { name: 'Uvas', icon: '🍇', category: 'fruta', desc: 'Uvas dulces' },
-            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca' },
-            { name: 'Pera', icon: '🍐', category: 'fruta', desc: 'Pera suave y jugosa' },
-            { name: 'Kiwi', icon: '🥝', category: 'fruta', desc: 'Kiwi fresco y saludable' },
-            { name: 'Piña', icon: '🍍', category: 'fruta', desc: 'Piña tropical muy dulce' },
-            { name: 'Melón', icon: '🍈', category: 'fruta', desc: 'Melón fresco y jugoso' },
-            { name: 'Cereza', icon: '🍒', category: 'fruta', desc: 'Cerezas rojas y ricas' },
-            { name: 'Melocotón', icon: '🍑', category: 'fruta', desc: 'Melocotón tierno y jugoso' },
-            { name: 'Limón', icon: '🍋', category: 'fruta', desc: 'Limón fresco y cítrico' },
-            { name: 'Mandarina', icon: '🍊', category: 'fruta', desc: 'Mandarina fácil de pelar' },
-            { name: 'Arándanos', icon: '🫐', category: 'fruta', desc: 'Arándanos dulces y pequeños' },
-            { name: 'Mango', icon: '🥭', category: 'fruta', desc: 'Mango tropical delicioso' },
-            { name: 'Lechuga', icon: '🥬', category: 'verdura', desc: 'Lechuga fresca para ensaladas' },
-            { name: 'Tomate', icon: '🍅', category: 'verdura', desc: 'Tomate rojo y fresco' },
-            { name: 'Zanahoria', icon: '🥕', category: 'verdura', desc: 'Zanahoria crujiente y sana' },
-            { name: 'Brócoli', icon: '🥦', category: 'verdura', desc: 'Brócoli verde nutritivo' },
-            { name: 'Patata', icon: '🥔', category: 'verdura', desc: 'Patata rica y nutritiva' },
-            { name: 'Calabaza', icon: '🎃', category: 'verdura', desc: 'Calabaza dulce y suave' },
-            { name: 'Maíz', icon: '🌽', category: 'verdura', desc: 'Maíz tierno y dulce' },
-            { name: 'Palta', icon: '🥑', category: 'verdura', desc: 'Palta cremosa y saludable' },
-            { name: 'Pepino', icon: '🥒', category: 'verdura', desc: 'Pepino fresco y crujiente' },
-            { name: 'Berenjena', icon: '🍆', category: 'verdura', desc: 'Berenjena suave y nutritiva' },
-            { name: 'Ajo', icon: '🧄', category: 'verdura', desc: 'Ajo para dar sabor a las comidas' },
-            { name: 'Cebolla', icon: '🧅', category: 'verdura', desc: 'Cebolla fresca para cocinar' },
-            { name: 'Carne', icon: '🥩', category: 'carne', desc: 'Carne de res tierna y rica' },
-            { name: 'Pollo', icon: '🍗', category: 'carne', desc: 'Pollo tierno y sabroso' },
-            { name: 'Jamón', icon: '🥓', category: 'carne', desc: 'Jamón rico y salado' },
-            { name: 'Salchicha', icon: '🌭', category: 'carne', desc: 'Salchicha rica' },
-            { name: 'Chuleta', icon: '🍖', category: 'carne', desc: 'Chuleta jugosa' },
-            { name: 'Hamburguesa', icon: '🍔', category: 'carne', desc: 'Hamburguesa sabrosa' },
-            { name: 'Pescado', icon: '🐟', category: 'pescado', desc: 'Pescado fresco del mar' },
-            { name: 'Atún', icon: '🍣', category: 'pescado', desc: 'Atún fresco y nutritivo' },
-            { name: 'Camarón', icon: '🍤', category: 'pescado', desc: 'Camarón sabroso' },
-            { name: 'Langosta', icon: '🦞', category: 'pescado', desc: 'Langosta del mar' },
-            { name: 'Cangrejo', icon: '🦀', category: 'pescado', desc: 'Cangrejo marino' },
-            { name: 'Ostras', icon: '🦪', category: 'pescado', desc: 'Mariscos frescos' },
-            { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita y reconfortante' },
-            { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz blanco calentito' },
-            { name: 'Puré', icon: '🥔', category: 'comida', desc: 'Puré suave y cremoso' },
-            { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta rica con salsa' },
-            { name: 'Pizza', icon: '🍕', category: 'comida', desc: 'Porción de pizza rica' },
-            { name: 'Huevo', icon: '🍳', category: 'comida', desc: 'Huevo frito nutritivo' },
-            { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan tierno y fresco' },
-            { name: 'Yogur', icon: '🥛', category: 'comida', desc: 'Yogur suave y fresco' },
-            { name: 'Agua', icon: '🥤', category: 'comida', desc: 'Agua fresca para hidratarse' },
-            { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta' },
-            { name: 'Queso', icon: '🧀', category: 'comida', desc: 'Queso rico y cremoso' },
-            { name: 'Helado', icon: '🍨', category: 'comida', desc: 'Helado dulce y refrescante' },
-            { name: 'Tarta', icon: '🎂', category: 'comida', desc: 'Tarta dulce de celebración' },
-            { name: 'Galletas', icon: '🍪', category: 'comida', desc: 'Galletas dulces y crujientes' },
-            { name: 'Chocolate', icon: '🍫', category: 'comida', desc: 'Chocolate dulce y rico' },
-            { name: 'Café', icon: '☕', category: 'comida', desc: 'Café calentito' },
-            { name: 'Té', icon: '🫖', category: 'comida', desc: 'Té caliente y relajante' }
+            { name: 'Plátano', icon: '🍌', category: 'fruta', desc: 'Plátano dulce y rico.' },
+            { name: 'Manzana', icon: '🍎', category: 'fruta', desc: 'Manzana roja crujiente.' },
+            { name: 'Fresa', icon: '🍓', category: 'fruta', desc: 'Fresa dulce y roja.' },
+            { name: 'Naranja', icon: '🍊', category: 'fruta', desc: 'Naranja jugosa.' },
+            { name: 'Uvas', icon: '🍇', category: 'fruta', desc: 'Uvas dulces.' },
+            { name: 'Sandía', icon: '🍉', category: 'fruta', desc: 'Sandía fresca.' },
+            { name: 'Pera', icon: '🍐', category: 'fruta', desc: 'Pera suave y jugosa.' },
+            { name: 'Kiwi', icon: '🥝', category: 'fruta', desc: 'Kiwi fresco y saludable.' },
+            { name: 'Piña', icon: '🍍', category: 'fruta', desc: 'Piña tropical muy dulce.' },
+            { name: 'Melón', icon: '🍈', category: 'fruta', desc: 'Melón fresco y jugoso.' },
+            { name: 'Cereza', icon: '🍒', category: 'fruta', desc: 'Cerezas rojas y ricas.' },
+            { name: 'Melocotón', icon: '🍑', category: 'fruta', desc: 'Melocotón tierno y jugoso.' },
+            { name: 'Limón', icon: '🍋', category: 'fruta', desc: 'Limón fresco y cítrico.' },
+            { name: 'Mandarina', icon: '🍊', category: 'fruta', desc: 'Mandarina fácil de pelar.' },
+            { name: 'Arándanos', icon: '🫐', category: 'fruta', desc: 'Arándanos dulces y pequeños.' },
+            { name: 'Mango', icon: '🥭', category: 'fruta', desc: 'Mango tropical delicioso.' },
+            { name: 'Lechuga', icon: '🥬', category: 'verdura', desc: 'Lechuga fresca para ensaladas.' },
+            { name: 'Tomate', icon: '🍅', category: 'verdura', desc: 'Tomate rojo y fresco.' },
+            { name: 'Zanahoria', icon: '🥕', category: 'verdura', desc: 'Zanahoria crujiente y sana.' },
+            { name: 'Brócoli', icon: '🥦', category: 'verdura', desc: 'Brócoli verde nutritivo.' },
+            { name: 'Patata', icon: '🥔', category: 'verdura', desc: 'Patata rica y nutritiva.' },
+            { name: 'Calabaza', icon: '🎃', category: 'verdura', desc: 'Calabaza dulce y suave.' },
+            { name: 'Maíz', icon: '🌽', category: 'verdura', desc: 'Maíz tierno y dulce.' },
+            { name: 'Palta', icon: '🥑', category: 'verdura', desc: 'Palta cremosa y saludable.' },
+            { name: 'Pepino', icon: '🥒', category: 'verdura', desc: 'Pepino fresco y crujiente.' },
+            { name: 'Berenjena', icon: '🍆', category: 'verdura', desc: 'Berenjena suave y nutritiva.' },
+            { name: 'Ajo', icon: '🧄', category: 'verdura', desc: 'Ajo para dar sabor a las comidas.' },
+            { name: 'Cebolla', icon: '🧅', category: 'verdura', desc: 'Cebolla fresca para cocinar.' },
+            { name: 'Carne', icon: '🥩', category: 'carne', desc: 'Carne de res tierna y rica.' },
+            { name: 'Pollo', icon: '🍗', category: 'carne', desc: 'Pollo tierno y sabroso.' },
+            { name: 'Jamón', icon: '🥓', category: 'carne', desc: 'Jamón rico y salado.' },
+            { name: 'Salchicha', icon: '🌭', category: 'carne', desc: 'Salchicha rica.' },
+            { name: 'Chuleta', icon: '🍖', category: 'carne', desc: 'Chuleta jugosa.' },
+            { name: 'Hamburguesa', icon: '🍔', category: 'carne', desc: 'Hamburguesa sabrosa.' },
+            { name: 'Pescado', icon: '🐟', category: 'pescado', desc: 'Pescado fresco del mar.' },
+            { name: 'Atún', icon: '🍣', category: 'pescado', desc: 'Atún fresco y nutritivo.' },
+            { name: 'Camarón', icon: '🍤', category: 'pescado', desc: 'Camarón sabroso.' },
+            { name: 'Langosta', icon: '🦞', category: 'pescado', desc: 'Langosta del mar.' },
+            { name: 'Cangrejo', icon: '🦀', category: 'pescado', desc: 'Cangrejo marino.' },
+            { name: 'Ostras', icon: '🦪', category: 'pescado', desc: 'Mariscos frescos.' },
+            { name: 'Sopa', icon: '🍲', category: 'comida', desc: 'Sopa calentita y reconfortante.' },
+            { name: 'Arroz', icon: '🍚', category: 'comida', desc: 'Arroz blanco calentito.' },
+            { name: 'Puré', icon: '🥔', category: 'comida', desc: 'Puré suave y cremoso.' },
+            { name: 'Pasta', icon: '🍝', category: 'comida', desc: 'Pasta rica con salsa.' },
+            { name: 'Pizza', icon: '🍕', category: 'comida', desc: 'Porción de pizza rica.' },
+            { name: 'Huevo', icon: '🍳', category: 'comida', desc: 'Huevo frito nutritivo.' },
+            { name: 'Pan', icon: '🍞', category: 'comida', desc: 'Pan tierno y fresco.' },
+            { name: 'Yogur', icon: '🥛', category: 'comida', desc: 'Yogur suave y fresco.' },
+            { name: 'Agua', icon: '🥤', category: 'comida', desc: 'Agua fresca para hidratarse.' },
+            { name: 'Jugo', icon: '🧃', category: 'comida', desc: 'Jugo dulce de fruta.' },
+            { name: 'Queso', icon: '🧀', category: 'comida', desc: 'Queso rico y cremoso.' },
+            { name: 'Helado', icon: '🍨', category: 'comida', desc: 'Helado dulce y refrescante.' },
+            { name: 'Tarta', icon: '🎂', category: 'comida', desc: 'Tarta dulce de celebración.' },
+            { name: 'Galletas', icon: '🍪', category: 'comida', desc: 'Galletas dulces y crujientes.' },
+            { name: 'Chocolate', icon: '🍫', category: 'comida', desc: 'Chocolate dulce y rico.' },
+            { name: 'Café', icon: '☕', category: 'comida', desc: 'Café calentito.' },
+            { name: 'Té', icon: '🫖', category: 'comida', desc: 'Té caliente y relajante.' }
         ];
+
+        function filterFood(category, event) {
+            const banner = document.getElementById('foodBanner');
+            banner.style.display = 'none';
+            banner.innerText = '';
+            const grid = document.getElementById('foodGrid');
+            grid.innerHTML = '';
+            document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
+            if (event && event.target) event.target.classList.add('active-cat');
+            const filtered = category === 'todos' ? foodDatabase : foodDatabase.filter(f => f.category === category);
+            filtered.forEach(item => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'grid-card';
+                card.setAttribute('aria-label', item.name + '. ' + item.desc);
+                card.onclick = () => selectFoodItem(item);
+                card.innerHTML = `
+                    <span class="card-top-label">${item.name}</span>
+                    <div class="item-icon" aria-hidden="true">${item.icon}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectFoodItem(item) {
+            const text = item.name + '. ' + item.desc;
+            const banner = document.getElementById('foodBanner');
+            banner.style.display = 'block';
+            banner.innerText = text;
+            speak(text);
+        }
+
+        function renderNumbers100() {
+            const grid = document.getElementById('numbersGrid100');
+            if (!grid) return;
+            grid.innerHTML = '';
+            for (let i = 1; i <= 100; i++) {
+                const box = document.createElement('button');
+                box.type = 'button';
+                box.className = 'num-box';
+                box.setAttribute('aria-label', 'Número ' + i);
+                box.onclick = () => speak('Número ' + i);
+                box.innerHTML = '<span>' + i + '</span>';
+                grid.appendChild(box);
+            }
+        }
 
         const stories = {
             aeropuerto: [
                 { icon: '✈️🇺🇾', title: 'Cruzando el gran océano', text: 'Desde Uruguay, la Mani cruza el gran océano azul en un viaje largo y lleno de ilusión, lista para volar hacia Gran Canaria y reencontrarse con Néstor.' },
                 { icon: '🛫👩🏻‍🦯', title: 'El reencuentro en el aeropuerto', text: 'El avión aterriza y las puertas se abren. Al salir al aeropuerto con su bastón, la Mani ve a Néstor esperándola con los brazos abiertos y una enorme sonrisa.' },
-                { icon: '👦🏻🛝', title: 'Muchos días de juegos y risas', text: 'Comienzan días maravilloso compartiendo paseos al aire libre, risas cómplices y juegos divertidos por cada rincón bajo el sol.' },
+                { icon: '👦🏻🛝', title: 'Muchos días de juegos y risas', text: 'Comienzan días maravillosos compartiendo paseos al aire libre, risas cómplices y juegos divertidos por cada rincón bajo el sol.' },
                 { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Uruguay y Gran Canaria estén lejos, el cariño que nos une es tan fuerte que cada abrazo guarda la magia de estar siempre juntos.' }
             ],
             parque: [
@@ -1555,331 +1733,24 @@
             ]
         };
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadSavedRoutines();
-            renderLearnTab('colores');
-            renderAnimals();
-            renderFood('todos');
-            renderNumbers100();
-            initVividColorsGame();
-        });
-
-        function loadSavedRoutines() {
-            document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
-                const key = card.getAttribute('data-key');
-                if (key && localStorage.getItem(key) === 'true') {
-                    card.classList.add('completed');
-                    card.setAttribute('aria-pressed', 'true');
-                }
-            });
-        }
-
-        function toggleRoutine(element, text) {
-            const isCompleted = element.classList.toggle('completed');
-            element.setAttribute('aria-pressed', isCompleted);
-            const key = element.getAttribute('data-key');
-            if (key) {
-                localStorage.setItem(key, isCompleted);
+        function loadStory(storyKey, event) {
+            if (event && event.target) {
+                document.querySelectorAll('#storyView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+                event.target.classList.add('active-cat');
             }
-            if (isCompleted) {
-                speak('¡Excelente!');
-            } else {
-                speak(text);
-            }
-        }
-
-        function resetDayRoutines() {
-            document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
-                card.classList.remove('completed');
-                card.setAttribute('aria-pressed', 'false');
-                const key = card.getAttribute('data-key');
-                if (key) {
-                    localStorage.removeItem(key);
-                }
-            });
-            speak('Día reiniciado');
-        }
-
-        function showView(viewId) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-
-            const mainMenu = document.getElementById('mainMenu');
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-
-            if (viewId === 'mainMenu') {
-                mainMenu.classList.remove('hidden');
-                speak('Menú principal');
-            } else {
-                mainMenu.classList.add('hidden');
-                const targetSection = document.getElementById(viewId);
-                targetSection.classList.add('active');
-
-                if (viewId === 'anticipateView') {
-                    speak('Historias de Anticipación. Elige una situación y toca cada tarjeta para anticipar paso a paso qué va a suceder.');
-                    loadAnticipation('medico', false);
-                } else if (viewId === 'storyView') {
-                    speak('Las aventuras de Néstor y la Mani. Historias hermosas para compartir, leer juntos y disfrutar.');
-                    loadStory('aeropuerto', false);
-                } else if (viewId === 'gameView') {
-                    speak('Juegos y Retos Avanzados. Pon a prueba tu agilidad visual con mayor dificultad.');
-                    
-                    document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-                    document.getElementById('gtab-colors').classList.add('active-cat');
-                    document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
-                    document.getElementById('panel-colors').classList.add('active-game');
-                    initVividColorsGame(false);
-                } else {
-                    const title = targetSection.querySelector('h2').innerText;
-                    const subtitleElement = targetSection.querySelector('.section-subtitle');
-                    const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
-                    speak(title + subtitleText);
-                }
-
-                if (viewId === 'animalsView') renderAnimals();
-                if (viewId === 'colorsLearnView') renderLearnTab('colores');
-                if (viewId === 'foodView') renderFood('todos');
-            }
-        }
-
-        function toggleSpeech() {
-            speechEnabled = !speechEnabled;
-            const btn = document.getElementById('speechToggle');
-            btn.setAttribute('aria-pressed', speechEnabled);
-            if (speechEnabled) {
-                btn.classList.add('active');
-                btn.innerHTML = megaphoneOnSvg + '<span style="color: #FFFFFF;">Voz: Encendida</span>';
-                speak('Voz encendida');
-            } else {
-                btn.classList.remove('active');
-                btn.innerHTML = megaphoneOffSvg + '<span style="color: #FFFFFF;">Voz: Apagada</span>';
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                }
-            }
-        }
-
-        function speak(text) {
-            if (!speechEnabled || !('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.rate = 0.92;
-            utterance.pitch = 1.0;
-
-            if (!selectedVoice) loadVoices();
-            if (selectedVoice) utterance.voice = selectedVoice;
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function selectNeed(element, phrase) {
-            document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
-            element.classList.add('selected-need');
-            const banner = document.getElementById('needBanner');
-            banner.style.display = 'block';
-            banner.innerText = phrase;
-            speak(phrase);
-        }
-
-        function switchLearnTab(tabType) {
-            document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (window.event && window.event.target) {
-                window.event.target.classList.add('active-cat');
-            }
-            renderLearnTab(tabType);
-            if (tabType === 'colores') speak('Colores');
-            else if (tabType === 'transporte') speak('Medios de transporte');
-            else if (tabType === 'abecedario') speak('Abecedario. Toca cada letra para escuchar cómo empieza');
-        }
-
-        function renderLearnTab(tabType) {
-            const banner = document.getElementById('colorLearnBanner');
-            banner.style.display = 'none';
-            banner.innerText = '';
-            const grid = document.getElementById('learnGrid');
-            grid.innerHTML = '';
-
-            if (tabType === 'colores') {
-                colorDatabase.forEach(item => {
-                    const card = document.createElement('button');
-                    card.type = 'button';
-                    card.className = 'grid-card';
-                    card.onclick = () => {
-                        banner.style.display = 'block';
-                        banner.innerText = item.name + ': ' + item.desc;
-                        speak(item.name + '. ' + item.desc);
-                    };
-                    card.innerHTML = `
-                        <span class="card-top-label">${item.name}</span>
-                        <div style="width: 60px; height: 60px; background: ${item.hex}; border-radius: 50%; border: 3px solid #FFFFFF;"></div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } else if (tabType === 'transporte') {
-                transportDatabase.forEach(item => {
-                    const card = document.createElement('button');
-                    card.type = 'button';
-                    card.className = 'grid-card';
-                    card.onclick = () => {
-                        banner.style.display = 'block';
-                        banner.innerText = item.name + '. ' + item.desc;
-                        speak(item.name + '. ' + item.desc);
-                    };
-                    const iconContent = item.isSvg ? item.icon : `<span class="item-icon" aria-hidden="true">${item.icon}</span>`;
-                    card.innerHTML = `
-                        <span class="card-top-label">${item.name}</span>
-                        ${iconContent}
-                    `;
-                    grid.appendChild(card);
-                });
-            } else if (tabType === 'abecedario') {
-                alphabetData.forEach(item => {
-                    const card = document.createElement('button');
-                    card.type = 'button';
-                    card.className = 'grid-card';
-                    card.style.minHeight = '165px';
-                    card.onclick = () => {
-                        banner.style.display = 'block';
-                        banner.innerText = item.speechText;
-                        speak(item.speechText);
-                    };
-                    const iconContent = item.isSvg ? item.icon : `<div class="item-icon" aria-hidden="true" style="font-size: 3.2rem; margin: 4px 0;">${item.icon}</div>`;
-                    card.innerHTML = `
-                        <span class="card-top-label" style="color: #38BDF8; font-size: 1.9rem; padding: 2px 14px; margin-bottom: 2px;">${item.char}</span>
-                        ${iconContent}
-                    `;
-                    grid.appendChild(card);
-                });
-            }
-        }
-
-        function selectParkActivity(message) {
-            const banner = document.getElementById('parkBanner');
-            banner.style.display = 'block';
-            banner.innerText = message;
-            speak(message);
-        }
-
-        function renderAnimals() {
-            const banner = document.getElementById('animalBanner');
-            if (banner) {
-                banner.style.display = 'none';
-                banner.innerText = '';
-            }
-            const grid = document.getElementById('animalsGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            animalDatabase.forEach(animal => {
-                const card = document.createElement('button');
-                card.type = 'button';
-                card.className = 'grid-card';
-                card.onclick = () => selectAnimal(animal);
-                card.innerHTML = `
-                    <span class="card-top-label">${animal.name}</span>
-                    <div class="item-icon" aria-hidden="true">${animal.icon}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function selectAnimal(animal) {
-            const text = animal.action;
-            const banner = document.getElementById('animalBanner');
-            banner.style.display = 'block';
-            banner.innerText = text;
-            speak(text);
-        }
-
-        function renderFood(filter, clickedBtn) {
-            const banner = document.getElementById('foodBanner');
-            banner.style.display = 'none';
-            banner.innerText = '';
-            const grid = document.getElementById('foodGrid');
-            grid.innerHTML = '';
-
-            document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (clickedBtn) {
-                clickedBtn.classList.add('active-cat');
-            } else {
-                const firstBtn = document.querySelector('#foodView .cat-btn');
-                if (firstBtn) firstBtn.classList.add('active-cat');
-            }
-
-            const filtered = filter === 'todos' ? foodDatabase : foodDatabase.filter(f => f.category === filter);
-            filtered.forEach(item => {
-                const card = document.createElement('button');
-                card.type = 'button';
-                card.className = 'grid-card';
-                card.onclick = () => selectFoodItem(item);
-                card.innerHTML = `
-                    <span class="card-top-label">${item.name}</span>
-                    <div class="item-icon" aria-hidden="true">${item.icon}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function filterFood(category) {
-            const btn = window.event ? window.event.target : null;
-            renderFood(category, btn);
-            const categoryName = btn ? btn.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim() : 'alimentos';
-            speak(categoryName);
-        }
-
-        function selectFoodItem(item) {
-            const text = item.name + '. ' + item.desc;
-            const banner = document.getElementById('foodBanner');
-            banner.style.display = 'block';
-            banner.innerText = text;
-            speak(text);
-        }
-
-        function renderNumbers100() {
-            const grid = document.getElementById('numbersGrid100');
-            if (!grid) return;
-            grid.innerHTML = '';
-            for (let i = 1; i <= 100; i++) {
-                const box = document.createElement('button');
-                box.type = 'button';
-                box.className = 'num-box';
-                box.onclick = () => {
-                    speak('Número ' + i);
-                };
-                box.innerHTML = '<span>' + i + '</span>';
-                grid.appendChild(box);
-            }
-        }
-
-        let currentStoryKey = 'aeropuerto';
-
-        function loadStory(storyKey, shouldSpeak = true) {
-            currentStoryKey = storyKey;
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            document.querySelectorAll('#storyView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            const activeTab = document.getElementById('tab-' + storyKey);
-            if (activeTab) activeTab.classList.add('active-cat');
-
             const container = document.getElementById('storyContent');
             container.innerHTML = '';
-            
             stories[storyKey].forEach(scene => {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
                 card.style.cssText = "min-height: 270px; justify-content: flex-start; align-items: flex-start; padding: 24px 20px; border: 3px solid #FFFFFF;";
-                
+                card.setAttribute('aria-label', scene.title + '. ' + scene.text);
                 card.onclick = () => {
                     document.querySelectorAll('#storyView .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
                     card.style.borderColor = 'var(--vivid-purple)';
                     speak(scene.title + '. ' + scene.text);
                 };
-
                 card.innerHTML = `
                     <span style="background: var(--vivid-purple-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--vivid-purple); margin-bottom: 12px; align-self: center;">${scene.title}</span>
                     <div class="item-icon" aria-hidden="true" style="font-size: 3.8rem; margin: 8px 0 12px 0; align-self: center;">${scene.icon}</div>
@@ -1887,33 +1758,30 @@
                 `;
                 container.appendChild(card);
             });
-            
-            if (shouldSpeak && activeTab) {
-                const storyLabel = activeTab.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
-                speak(storyLabel);
+            if (event && event.target) {
+                const label = event.target.getAttribute('aria-label');
+                if (label) speak(label);
             }
         }
 
-        function loadAnticipation(anticipateKey, shouldSpeak = true) {
-            document.querySelectorAll('#anticipateView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            const activeTab = document.getElementById('tab-' + anticipateKey);
-            if (activeTab) activeTab.classList.add('active-cat');
-
+        function loadAnticipation(anticipateKey, event) {
+            if (event && event.target) {
+                document.querySelectorAll('#anticipateView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+                event.target.classList.add('active-cat');
+            }
             const container = document.getElementById('anticipateContent');
             container.innerHTML = '';
-            
             anticipations[anticipateKey].forEach(scene => {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'item-card';
                 card.style.cssText = "min-height: 270px; justify-content: flex-start; align-items: flex-start; padding: 24px 20px; border: 3px solid #FFFFFF;";
-                
+                card.setAttribute('aria-label', scene.title + '. ' + scene.text);
                 card.onclick = () => {
                     document.querySelectorAll('#anticipateView .item-card').forEach(c => c.style.borderColor = '#FFFFFF');
                     card.style.borderColor = 'var(--vivid-cyan)';
                     speak(scene.title + '. ' + scene.text);
                 };
-
                 card.innerHTML = `
                     <span style="background: var(--vivid-cyan-bg); color: #FFFFFF; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--vivid-cyan); margin-bottom: 12px; align-self: center;">${scene.title}</span>
                     <div class="item-icon" aria-hidden="true" style="font-size: 3.8rem; margin: 8px 0 12px 0; align-self: center;">${scene.icon}</div>
@@ -1921,10 +1789,9 @@
                 `;
                 container.appendChild(card);
             });
-            
-            if (shouldSpeak && activeTab) {
-                const label = activeTab.innerText.replace(/^[^\w\sÁÉÍÓÚáéíóúÑñ]+/, '').trim();
-                speak(label);
+            if (event && event.target) {
+                const label = event.target.getAttribute('aria-label');
+                if (label) speak(label);
             }
         }
 
@@ -1935,55 +1802,28 @@
             speak(message);
         }
 
-        function switchGameTab(gameKey) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
+        function switchGameTab(gameKey, event) {
+            if (event && event.target) {
+                document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+                event.target.classList.add('active-cat');
             }
-
-            document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-            const tabBtn = document.getElementById('gtab-' + gameKey);
-            if (tabBtn) tabBtn.classList.add('active-cat');
-
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
             const targetPanel = document.getElementById('panel-' + gameKey);
             if (targetPanel) targetPanel.classList.add('active-game');
-
-            if (gameKey === 'colors') {
-                speak('Colores y Formas');
-                initVividColorsGame(true);
-            }
-            if (gameKey === 'memory') {
-                speak('Memoria avanzada');
-                initMemoryRound();
-            }
-            if (gameKey === 'series') {
-                speak('Series complejas');
-                initSeriesRound();
-            }
-            if (gameKey === 'find') {
-                speak('Buscar animal');
-                initFindAnimalRound();
-            }
+            if (gameKey === 'colors') { speak('Colores y formas. Vamos a jugar con colores y formas.'); initVividColorsGame(true); }
+            if (gameKey === 'memory') { speak('Memoria. Vamos a jugar a recordar animales.'); initMemoryRound(); }
+            if (gameKey === 'series') { speak('Series. Vamos a completar las series.'); initSeriesRound(); }
+            if (gameKey === 'find') { speak('Buscar animal. Vamos a buscar al animal escondido.'); initFindAnimalRound(); }
         }
 
         const shapeColors = [
-            { name: 'Rojo', hex: '#EF4444' },
-            { name: 'Azul', hex: '#3B82F6' },
-            { name: 'Amarillo', hex: '#EAB308' },
-            { name: 'Verde', hex: '#22C55E' },
-            { name: 'Naranja', hex: '#F97316' },
-            { name: 'Violeta', hex: '#A855F7' },
-            { name: 'Rosa', hex: '#EC4899' },
-            { name: 'Celeste', hex: '#38BDF8' },
-            { name: 'Marrón', hex: '#92400E' },
-            { name: 'Blanco', hex: '#F8FAFC' },
-            { name: 'Negro', hex: '#020617' },
-            { name: 'Gris', hex: '#64748B' },
-            { name: 'Turquesa', hex: '#14B8A6' },
-            { name: 'Fucsia', hex: '#D946EF' },
-            { name: 'Lila', hex: '#C084FC' },
-            { name: 'Azul Marino', hex: '#1E3A8A' },
-            { name: 'Beige', hex: '#E7D5B8' }
+            { name: 'Rojo', hex: '#EF4444' }, { name: 'Azul', hex: '#3B82F6' }, { name: 'Amarillo', hex: '#EAB308' },
+            { name: 'Verde', hex: '#22C55E' }, { name: 'Naranja', hex: '#F97316' }, { name: 'Violeta', hex: '#A855F7' },
+            { name: 'Rosa', hex: '#EC4899' }, { name: 'Celeste', hex: '#38BDF8' }, { name: 'Marrón', hex: '#92400E' },
+            { name: 'Blanco', hex: '#F8FAFC' }, { name: 'Negro', hex: '#020617' }, { name: 'Gris', hex: '#64748B' },
+            { name: 'Turquesa', hex: '#14B8A6' }, { name: 'Fucsia', hex: '#D946EF' }, { name: 'Lila', hex: '#C084FC' },
+            { name: 'Azul Marino', hex: '#1E3A8A' }, { name: 'Beige', hex: '#E7D5B8' }
         ];
 
         const shapesList = [
@@ -1999,11 +1839,9 @@
             const randomColor = shapeColors[Math.floor(Math.random() * shapeColors.length)];
             const randomShape = shapesList[Math.floor(Math.random() * shapesList.length)];
             currentShapeTarget = { color: randomColor, shape: randomShape };
-
             const container = document.getElementById('vividColorOptions');
             if (!container) return;
             container.innerHTML = '';
-
             let optionsSet = [currentShapeTarget];
             while (optionsSet.length < 6) {
                 const col = shapeColors[Math.floor(Math.random() * shapeColors.length)];
@@ -2013,25 +1851,20 @@
                 }
             }
             optionsSet.sort(() => Math.random() - 0.5);
-
             optionsSet.forEach(item => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = `game-shape-item shape-${item.shape.type}`;
-                
                 if (item.shape.type === 'triangle') {
                     btn.innerHTML = `<svg width="70" height="70" viewBox="0 0 24 24" fill="${item.color.hex}" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 22 22 2 22"></polygon></svg>`;
                 } else {
                     btn.style.backgroundColor = item.color.hex;
                 }
-
-                const capitalizedShapeName = item.shape.name.charAt(0).toUpperCase() + item.shape.name.slice(1);
-                const ariaLabelText = `${capitalizedShapeName} ${item.color.name}`;
+                const ariaLabelText = item.shape.name.charAt(0).toUpperCase() + item.shape.name.slice(1) + ' ' + item.color.name;
                 btn.setAttribute('aria-label', ariaLabelText);
                 btn.onclick = () => checkShapeChoice(item);
                 container.appendChild(btn);
             });
-
             updateVividPrompt(shouldSpeakColor);
         }
 
@@ -2040,25 +1873,21 @@
             const promptText = `Toca ${currentShapeTarget.shape.article} ${currentShapeTarget.shape.name} ${currentShapeTarget.color.name.toLowerCase()}`;
             const promptEl = document.getElementById('targetPrompt');
             if (promptEl) promptEl.innerText = `Toca: ${capitalizedShapeName} ${currentShapeTarget.color.name}`;
-            if (shouldSpeak) {
-                speak(promptText);
-            }
+            if (shouldSpeak) speak(promptText);
         }
 
         function checkShapeChoice(selected) {
             const feedback = document.getElementById('gameFeedback');
             if (selected.color.name === currentShapeTarget.color.name && selected.shape.type === currentShapeTarget.shape.type) {
-                feedback.style.color = '#22C55E';
-                feedback.innerText = '¡Excelente! 🌟';
-                speak('¡Excelente!');
-                setTimeout(() => {
-                    feedback.innerText = '';
-                    initVividColorsGame(true);
-                }, 1200);
+                feedback.style.color = 'var(--vivid-green)';
+                feedback.innerText = '¡Muy bien! 🌟';
+                speak('¡Muy bien! Lo hiciste excelente.');
+                setTimeout(() => { feedback.innerText = ''; initVividColorsGame(true); }, 1500);
             } else {
-                feedback.style.color = '#38BDF8';
-                feedback.innerText = 'Inténtalo otra vez';
-                speak('Inténtalo otra vez');
+                feedback.style.color = 'var(--vivid-yellow)';
+                const targetDesc = `${currentShapeTarget.shape.name} ${currentShapeTarget.color.name.toLowerCase()}`;
+                feedback.innerText = `Ese no es. Busca el ${targetDesc}. Inténtalo otra vez.`;
+                speak(`Ese no es. Busca el ${targetDesc}. Inténtalo otra vez.`);
             }
         }
 
@@ -2072,26 +1901,19 @@
             const posPool = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
             hiddenIndices = [posPool[0]];
             foundIndices = [];
-
             const promptEl = document.getElementById('memoryPrompt');
             if (promptEl) promptEl.innerText = 'Memoriza estos animales';
             speak('Memoriza estos animales');
-
             const feedbackEl = document.getElementById('memoryFeedback');
             if (feedbackEl) feedbackEl.innerText = '';
-            
             const actionArea = document.getElementById('memoryActionArea');
             if (actionArea) actionArea.style.display = 'flex';
-            
             const hideBtn = document.querySelector('#memoryActionArea button:first-child');
             if (hideBtn) hideBtn.style.display = 'inline-flex';
-
             const repeekBtn = document.getElementById('memoryRepeekBtn');
             if (repeekBtn) repeekBtn.style.display = 'none';
-
             const choicesDiv = document.getElementById('memoryChoices');
             if (choicesDiv) choicesDiv.style.display = 'none';
-
             const board = document.getElementById('memoryBoard');
             if (!board) return;
             board.innerHTML = '';
@@ -2113,7 +1935,7 @@
                     slot.className = 'seq-slot mystery';
                     slot.innerText = '?';
                 } else if (foundIndices.includes(idx)) {
-                    slot.className = 'seq-slot revealed';
+                    slot.className = 'seq-slot';
                     slot.innerText = item.icon;
                 } else {
                     slot.className = 'seq-slot';
@@ -2128,35 +1950,23 @@
             const promptEl = document.getElementById('memoryPrompt');
             if (promptEl) promptEl.innerText = '¿Qué animal se escondió?';
             speak('¿Qué animal se escondió?');
-            
             const hideBtn = document.querySelector('#memoryActionArea button:first-child');
             if (hideBtn) hideBtn.style.display = 'none';
-
             const repeekBtn = document.getElementById('memoryRepeekBtn');
             if (repeekBtn) repeekBtn.style.display = 'inline-flex';
-
             renderMemoryBoardState();
-
             const choicesDiv = document.getElementById('memoryChoices');
             if (!choicesDiv) return;
             choicesDiv.innerHTML = '';
             choicesDiv.style.display = 'flex';
-
             const usedNames = new Set(memorySet.map(a => a.name));
             const distractors = animalDatabase.filter(a => !usedNames.has(a.name)).sort(() => Math.random() - 0.5).slice(0, 3);
-
-            const options = [
-                memorySet[hiddenIndices[0]],
-                distractors[0],
-                distractors[1],
-                distractors[2]
-            ].sort(() => Math.random() - 0.5);
-
+            const options = [memorySet[hiddenIndices[0]], distractors[0], distractors[1], distractors[2]].sort(() => Math.random() - 0.5);
             options.forEach(item => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'choice-btn';
-                btn.onfocus = () => speak(item.name);
+                btn.setAttribute('aria-label', 'Opción: ' + item.name);
                 btn.onclick = () => checkMemoryChoice(item, btn);
                 btn.innerHTML = `<span aria-hidden="true">${item.icon}</span><span class="choice-label">${item.name}</span>`;
                 choicesDiv.appendChild(btn);
@@ -2165,60 +1975,53 @@
 
         function repeekAnimals() {
             const board = document.getElementById('memoryBoard');
+            const choicesDiv = document.getElementById('memoryChoices');
             if (!board) return;
+            if (choicesDiv) Array.from(choicesDiv.querySelectorAll('button')).forEach(btn => btn.disabled = true);
             board.innerHTML = '';
             memorySet.forEach(item => {
                 const slot = document.createElement('div');
-                slot.className = 'seq-slot revealed';
+                slot.className = 'seq-slot';
                 slot.innerText = item.icon;
                 board.appendChild(slot);
             });
             speak('Miramos un momento');
-
             setTimeout(() => {
                 renderMemoryBoardState();
+                if (choicesDiv) Array.from(choicesDiv.querySelectorAll('button')).forEach(btn => btn.disabled = false);
             }, 2000);
         }
 
         function checkMemoryChoice(chosen, btnElement) {
             if (foundIndices.length >= 1) return;
-
             const matchedSlotIndex = hiddenIndices.find(idx => memorySet[idx].name === chosen.name && !foundIndices.includes(idx));
             const feedback = document.getElementById('memoryFeedback');
-
             if (matchedSlotIndex !== undefined) {
                 foundIndices.push(matchedSlotIndex);
                 btnElement.disabled = true;
                 renderMemoryBoardState();
-
-                feedback.style.color = '#22C55E';
+                feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Muy bien!';
-                speak('¡Muy bien!');
-
+                speak('¡Muy bien! Lo hiciste excelente.');
                 setTimeout(initMemoryRound, 2000);
             } else {
-                feedback.style.color = '#38BDF8';
-                feedback.innerText = 'Prueba con otro animal';
-                speak('Prueba con otro animal');
+                feedback.style.color = 'var(--vivid-yellow)';
+                feedback.innerText = 'Ese no es. Prueba con otro animal.';
+                speak('Ese no es. Prueba con otro animal.');
             }
         }
 
-        const seriesPuzzles = [
-            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro', gender: 'el' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }, { icon: '🐸', name: 'Rana' }] },
-            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano', gender: 'el' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }, { icon: '🍉', name: 'Sandía' }] },
-            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella', gender: 'la' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }, { icon: '🌙', name: 'Luna' }] },
-            { seq: ['🚗', '🚌', '🚗', '🚌'], answer: { icon: '🚗', name: 'Auto', gender: 'el' }, options: [{ icon: '🚗', name: 'Auto' }, { icon: '🚲', name: 'Bicicleta' }, { icon: '✈️', name: 'Avión' }] },
-            { seq: ['🔵', '🟡', '🔵', '🟡'], answer: { icon: '🔵', name: 'Círculo azul', gender: 'el' }, options: [{ icon: '🔵', name: 'Círculo azul' }, { icon: '🔴', name: 'Círculo rojo' }, { icon: '🟢', name: 'Círculo verde' }] },
-            { seq: ['⚽', '🏀', '⚽', '🏀'], answer: { icon: '⚽', name: 'Pelota de fútbol', gender: 'la' }, options: [{ icon: '⚽', name: 'Pelota de fútbol' }, { icon: '🎾', name: 'Pelota de tenis' }, { icon: '🎈', name: 'Globo' }] },
-            { seq: ['🌧️', '🌈', '🌧️', '🌈'], answer: { icon: '🌧️', name: 'Lluvia', gender: 'la' }, options: [{ icon: '🌧️', name: 'Lluvia' }, { icon: '❄️', name: 'Nieve' }, { icon: '☀️', name: 'Sol' }] },
-            { seq: ['🐢', '🐇', '🐢', '🐇'], answer: { icon: '🐢', name: 'Tortuga', gender: 'la' }, options: [{ icon: '🐢', name: 'Tortuga' }, { icon: '🐘', name: 'Elefante' }, { icon: '🐬', name: 'Delfín' }] },
-            { seq: ['🍓', '🍊', '🍓', '🍊'], answer: { icon: '🍓', name: 'Fresa', gender: 'la' }, options: [{ icon: '🍓', name: 'Fresa' }, { icon: '🍐', name: 'Pera' }, { icon: '🥕', name: 'Zanahoria' }] },
-            { seq: ['🌳', '🌸', '🌳', '🌸'], answer: { icon: '🌳', name: 'Árbol', gender: 'el' }, options: [{ icon: '🌳', name: 'Árbol' }, { icon: '🍄', name: 'Hongo' }, { icon: '🌵', name: 'Cactus' }] },
-            { seq: ['🚂', '⛵', '🚂', '⛵'], answer: { icon: '🚂', name: 'Tren', gender: 'el' }, options: [{ icon: '🚂', name: 'Tren' }, { icon: '🚀', name: 'Cohete' }, { icon: '🚁', name: 'Helicóptero' }] },
-            { seq: ['🔺', '🟦', '🔺', '🟦'], answer: { icon: '🔺', name: 'Triángulo', gender: 'el' }, options: [{ icon: '🔺', name: 'Triángulo' }, { icon: '⭐', name: 'Estrella' }, { icon: '🟡', name: 'Círculo' }] }
-        ];
         let lastSeriesIndex = -1;
         let currentSeriesIndex = 0;
+
+        const seriesPuzzles = [
+            { seq: ['🐶', '🐱', '🐶', '🐱'], answer: { icon: '🐶', name: 'Perro' }, options: [{ icon: '🐶', name: 'Perro' }, { icon: '🦁', name: 'León' }, { icon: '🐸', name: 'Rana' }] },
+            { seq: ['🍌', '🍎', '🍌', '🍎'], answer: { icon: '🍌', name: 'Plátano' }, options: [{ icon: '🍌', name: 'Plátano' }, { icon: '🍇', name: 'Uvas' }, { icon: '🍉', name: 'Sandía' }] },
+            { seq: ['⭐', '☀️', '⭐', '☀️'], answer: { icon: '⭐', name: 'Estrella' }, options: [{ icon: '⭐', name: 'Estrella' }, { icon: '☀️', name: 'Sol' }, { icon: '🌙', name: 'Luna' }] },
+            { seq: ['🚗', '🚌', '🚗', '🚌'], answer: { icon: '🚗', name: 'Auto' }, options: [{ icon: '🚗', name: 'Auto' }, { icon: '🚲', name: 'Bicicleta' }, { icon: '✈️', name: 'Avión' }] },
+            { seq: ['🔵', '🟡', '🔵', '🟡'], answer: { icon: '🔵', name: 'Círculo azul' }, options: [{ icon: '🔵', name: 'Círculo azul' }, { icon: '🔴', name: 'Círculo rojo' }, { icon: '🟢', name: 'Círculo verde' }] },
+            { seq: ['⚽', '🏀', '⚽', '🏀'], answer: { icon: '⚽', name: 'Pelota de fútbol' }, options: [{ icon: '⚽', name: 'Pelota de fútbol' }, { icon: '🎾', name: 'Pelota de tenis' }, { icon: '🎈', name: 'Globo' }] }
+        ];
 
         function initSeriesRound() {
             let nextIdx;
@@ -2227,15 +2030,12 @@
             } while (nextIdx === lastSeriesIndex && seriesPuzzles.length > 1);
             lastSeriesIndex = nextIdx;
             currentSeriesIndex = nextIdx;
-
             const puzzle = seriesPuzzles[currentSeriesIndex];
             const feedbackEl = document.getElementById('seriesFeedback');
             if (feedbackEl) feedbackEl.innerText = '';
-
             const promptEl = document.getElementById('seriesPrompt');
             if (promptEl) promptEl.innerText = '¿Qué elemento continúa la serie?';
             speak('¿Qué elemento continúa la serie?');
-
             const board = document.getElementById('seriesBoard');
             if (!board) return;
             board.innerHTML = '';
@@ -2249,7 +2049,6 @@
             mysterySlot.className = 'seq-slot mystery';
             mysterySlot.innerText = '?';
             board.appendChild(mysterySlot);
-
             const choicesDiv = document.getElementById('seriesChoices');
             if (!choicesDiv) return;
             choicesDiv.innerHTML = '';
@@ -2258,7 +2057,7 @@
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'choice-btn';
-                btn.onfocus = () => speak(opt.name);
+                btn.setAttribute('aria-label', 'Opción: ' + opt.name);
                 btn.onclick = () => checkSeriesChoice(opt);
                 btn.innerHTML = `<span aria-hidden="true">${opt.icon}</span><span class="choice-label">${opt.name}</span>`;
                 choicesDiv.appendChild(btn);
@@ -2269,14 +2068,14 @@
             const puzzle = seriesPuzzles[currentSeriesIndex];
             const feedback = document.getElementById('seriesFeedback');
             if (chosen.name === puzzle.answer.name) {
-                feedback.style.color = '#22C55E';
+                feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Excelente! ⭐';
-                speak('¡Excelente!');
+                speak('¡Excelente! Lo hiciste muy bien.');
                 setTimeout(initSeriesRound, 1800);
             } else {
-                feedback.style.color = '#38BDF8';
-                feedback.innerText = 'Prueba otra opción';
-                speak('Prueba otra opción');
+                feedback.style.color = 'var(--vivid-yellow)';
+                feedback.innerText = 'Ese no encaja. Prueba con otra opción.';
+                speak('Ese no encaja. Prueba con otra opción.');
             }
         }
 
@@ -2287,28 +2086,23 @@
             targetFindAnimal = shuffled[0];
             const distractors = shuffled.slice(1, 6);
             const gridAnimals = [targetFindAnimal, ...distractors].sort(() => Math.random() - 0.5);
-
             const promptEl = document.getElementById('findPrompt');
             const promptText = '¿Dónde está ' + (targetFindAnimal.gender === 'la' ? 'la ' : 'el ') + targetFindAnimal.name + '?';
             if (promptEl) promptEl.innerText = promptText;
-            
             const feedback = document.getElementById('findFeedback');
             if (feedback) feedback.innerText = '';
-
             const grid = document.getElementById('findGrid');
             if (!grid) return;
             grid.innerHTML = '';
-
             gridAnimals.forEach(animal => {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'find-card';
+                card.setAttribute('aria-label', 'Opción: ' + animal.name);
                 card.innerHTML = `<span aria-hidden="true">${animal.icon}</span>`;
-                card.onfocus = () => speak(animal.name);
                 card.onclick = () => checkFindChoice(animal, card);
                 grid.appendChild(card);
             });
-
             speak(promptText);
         }
 
@@ -2316,74 +2110,25 @@
             const feedback = document.getElementById('findFeedback');
             if (chosenAnimal.name === targetFindAnimal.name) {
                 cardElement.classList.add('found-correct');
-                feedback.style.color = '#22C55E';
+                feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Muy bien! 🌟';
-                speak('¡Muy bien!');
+                speak('¡Muy bien! Lo encontraste.');
                 setTimeout(initFindAnimalRound, 2000);
             } else {
-                feedback.style.color = '#38BDF8';
-                feedback.innerText = 'Sigue buscando';
-                speak('Sigue buscando');
+                feedback.style.color = 'var(--vivid-yellow)';
+                feedback.innerText = `Ese es ${chosenAnimal.name}. Sigue buscando a ${targetFindAnimal.name}.`;
+                speak(`Ese es ${chosenAnimal.name}. Sigue buscando a ${targetFindAnimal.name}.`);
             }
         }
-    
-        let isPlayingFullStory = false;
 
-        function playFullStory() {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-
-            const scenes = stories[currentStoryKey];
-            if (!scenes || scenes.length === 0) return;
-
-            let index = 0;
-            isPlayingFullStory = true;
-
-            const cards = document.querySelectorAll('#storyView .item-card');
-
-            function speakNextScene() {
-                if (!isPlayingFullStory || index >= scenes.length) {
-                    isPlayingFullStory = false;
-                    return;
-                }
-
-                const scene = scenes[index];
-                
-                // Resaltar visualmente la tarjeta actual
-                cards.forEach((c, idx) => {
-                    if (idx === index) {
-                        c.style.borderColor = 'var(--vivid-purple)';
-                        c.style.transform = 'scale(1.02)';
-                    } else {
-                        c.style.borderColor = '#FFFFFF';
-                        c.style.transform = 'none';
-                    }
-                });
-
-                const textToSpeech = scene.title + '. ' + scene.text;
-                const utterance = new SpeechSynthesisUtterance(textToSpeech);
-                utterance.lang = 'es-ES';
-                utterance.rate = 0.92;
-                utterance.pitch = 1.0;
-                if (!selectedVoice) loadVoices();
-                if (selectedVoice) utterance.voice = selectedVoice;
-
-                utterance.onend = function() {
-                    index++;
-                    // Pausa breve entre tarjeta y tarjeta
-                    setTimeout(speakNextScene, 600);
-                };
-
-                utterance.onerror = function() {
-                    isPlayingFullStory = false;
-                };
-
-                window.speechSynthesis.speak(utterance);
-            }
-
-            speakNextScene();
-        }
-
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedRoutines();
+            renderLearnTab('colores');
+            renderAnimals();
+            renderFood('todos');
+            renderNumbers100();
+            initVividColorsGame();
+        });
     </script>
 </body>
 </html>
