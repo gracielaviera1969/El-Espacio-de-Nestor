@@ -607,12 +607,7 @@
             background: var(--vivid-green-bg);
             border-color: var(--vivid-green);
         }
-
         footer {
-            width: 100%;
-            max-width: 1100px;
-            text-align: center;
-            padding: 20px 0;
             color: var(--text-secondary);
             font-size: 1.15rem;
             font-weight: 600;
@@ -625,55 +620,46 @@
             color: var(--vivid-cyan);
             font-weight: 700;
         }
-        .draw-section {
+
+         /* === SECCIÓN DIBUJAR LETRAS (Ultra simplificada) === */
+         .draw-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
+            padding: 16px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        .letter-display {
-            background: #1E293B;
-            border: 3px solid #22D3EE;
-            border-radius: 20px;
-            padding: 20px 40px;
-            text-align: center;
-        }
-        .letter-display p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #E2E8F0;
-        }
-        .letter-display .big-letter {
-            font-size: 10rem;
-            font-weight: 700;
-            color: #FDE047;
-            line-height: 1;
-        }
+
         .canvas-container {
             position: relative;
             background: #FFF;
             border: 4px solid #FDE047;
             border-radius: 20px;
             touch-action: none;
-            width: 400px;
-            max-width: calc(100vw - 80px);
+            width: 100%;
+            max-width: 420px;
             aspect-ratio: 1 / 1;
             overflow: hidden;
             margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+
         .guide-letter {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 18rem;
+            font-size: min(16rem, 45vw);
             font-weight: 700;
-            color: rgba(100, 116, 139, 0.4);
+            color: rgba(100, 116, 139, 0.35);
             pointer-events: none;
             line-height: 1;
             z-index: 1;
             user-select: none;
         }
+
         canvas {
             display: block;
             position: absolute;
@@ -686,50 +672,41 @@
             touch-action: none;
             background: transparent !important;
         }
+
         .draw-controls {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
+            max-width: 420px;
         }
+
         .draw-btn {
-            min-height: 72px;
-            padding: 16px 32px;
+            min-height: 64px;
+            padding: 12px 24px;
             border-radius: 16px;
             border: 3px solid #FFF;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             color: #FFF;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
+            flex: 1 1 150px;
+            min-width: 140px;
+            transition: transform 0.1s;
         }
-        .draw-btn.erase {
-            background: #DC2626;
+
+        .draw-btn:active {
+            transform: scale(0.95);
         }
-        .draw-btn.next {
-            background: #15803D;
-        }
-        .draw-btn.prev {
-            background: #0369A1;
-        }
-        .color-picker {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .color-option {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 3px solid #FFF;
-            cursor: pointer;
-        }
-        .color-option.active {
-            border-color: #FDE047;
-            box-shadow: 0 0 0 3px #FDE047;
-        }
+
+        .draw-btn.erase { background: #DC2626; }
+        .draw-btn.next { background: #15803D; }
+
         .module-card.teal {
             border-color: var(--vivid-cyan);
             color: var(--vivid-cyan);
@@ -843,25 +820,28 @@
         <div class="view-header">
             <div>
                 <h2 id="drawHeading">Dibujar Letras</h2>
-                <p class="section-subtitle">Dibuja la letra.</p> <!-- CAMBIO AQUÍ -->
+                <p class="section-subtitle">Dibuja la letra.</p>
             </div>
         </div>
-        <!-- ... el resto del HTML de drawView sigue igual ... -->
+        
+        <div class="draw-section">
+            <!-- Aquí está el lienzo con la letra de fondo -->
             <div class="canvas-container">
                 <div class="guide-letter" id="guideLetter">A</div>
-                <canvas id="drawCanvas" width="400" height="400" aria-label="Área para dibujar la letra"></canvas>
+                <canvas id="drawCanvas" aria-label="Área para dibujar la letra"></canvas>
             </div>
-            <div class="color-picker" aria-label="Elegir color del trazo">
-                <span style="font-weight:700;">Color:</span>
-                <button type="button" class="color-option active" style="background:#1E3A8A;" onclick="changeColor('#1E3A8A', this)" aria-label="Color azul"></button>
-                <button type="button" class="color-option" style="background:#000000;" onclick="changeColor('#000000', this)" aria-label="Color negro"></button>
-            </div>
+            
+            <!-- Aquí están los botones (ya sin colores) -->
             <div class="draw-controls">
                 <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar dibujo">🗑️ Borrar</button>
                 <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra al azar">🎲 Otra letra</button>
             </div>
+            
+            <!-- Mensaje de felicitación o guía -->
             <div class="feedback-banner green-active" id="drawFeedback" role="status" aria-live="polite"></div>
         </div>
+
+        <!-- Botón para volver al menú -->
         <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
             <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
                 <span aria-hidden="true">⬅</span> Volver al inicio
@@ -1344,34 +1324,24 @@
         <div class="view-header">
             <div>
                 <h2 id="drawHeading">Dibujar Letras</h2>
-                <p class="section-subtitle">Dibuja la letra con el dedo, mouse o lápiz.</p>
+                <p class="section-subtitle">Dibuja la letra.</p>
             </div>
         </div>
         <div class="draw-section">
-            <div class="letter-display">
-                <p>Dibuja la letra:</p>
-                <div class="big-letter" id="currentLetter">A</div>
-            </div>
             <div class="canvas-container">
                 <div class="guide-letter" id="guideLetter">A</div>
-                <canvas id="drawCanvas" width="400" height="400" aria-label="Área para dibujar la letra"></canvas>
+                <canvas id="drawCanvas" aria-label="Área para dibujar la letra"></canvas>
             </div>
-            <div class="color-picker" aria-label="Elegir color del trazo">
-                <span style="font-weight:700;">Color:</span>
-                <button type="button" class="color-option active" style="background:#1E3A8A;" onclick="changeColor('#1E3A8A', this)" aria-label="Color azul oscuro"></button>
-                <button type="button" class="color-option" style="background:#DC2626;" onclick="changeColor('#DC2626', this)" aria-label="Color rojo"></button>
-                <button type="button" class="color-option" style="background:#15803D;" onclick="changeColor('#15803D', this)" aria-label="Color verde"></button>
-                <button type="button" class="color-option" style="background:#7E22CE;" onclick="changeColor('#7E22CE', this)" aria-label="Color violeta"></button>
-                <button type="button" class="color-option" style="background:#000000;" onclick="changeColor('#000000', this)" aria-label="Color negro"></button>
-            </div>
+            
+            <!-- SE ELIMINÓ EL SELECTOR DE COLORES -->
+
             <div class="draw-controls">
-                <button type="button" class="draw-btn prev" onclick="prevLetter()" aria-label="Letra anterior">⬅ Anterior</button>
                 <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar dibujo">🗑️ Borrar</button>
-                <button type="button" class="draw-btn next" onclick="nextLetter()" aria-label="Siguiente letra">Siguiente ➡</button>
+                <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra al azar">🎲 Otra letra</button>
             </div>
             <div class="feedback-banner green-active" id="drawFeedback" role="status" aria-live="polite"></div>
         </div>
-        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+        <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
             <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
                 <span aria-hidden="true">⬅</span> Volver al inicio
             </button>
@@ -2329,8 +2299,8 @@
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             
-            ctx.strokeStyle = '#1E3A8A';
-            ctx.lineWidth = 80; // TRAZO SUPER GRUESO
+            ctx.strokeStyle = '#000000'; // <-- SOLO NEGRO (Máximo contraste)
+            ctx.lineWidth = 40; 
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             
@@ -2340,9 +2310,11 @@
             
             function getPos(e) {
                 const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
                 return {
-                    x: e.clientX - rect.left,
-                    y: e.clientY - rect.top
+                    x: (e.clientX - rect.left) * scaleX,
+                    y: (e.clientY - rect.top) * scaleY
                 };
             }
             
@@ -2394,17 +2366,15 @@
             speak('Dibujo borrado. Puedes empezar de nuevo.');
         }
 
-        // FUNCIÓN MUY ALENTADORA: Evaluación relajada
+        // FUNCIÓN DE EVALUACIÓN: EXTREMADAMENTE AMABLE
         function evaluateDrawing() {
             const canvas = document.getElementById('drawCanvas');
             const ctx = canvas.getContext('2d');
             const letter = letters[currentLetterIndex];
 
-            // 1. Obtener los píxeles del dibujo del niño
             const userData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
             let userPixelsCount = 0;
 
-            // 2. Crear un lienzo invisible con la letra guía exacta
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = canvas.width;
             tempCanvas.height = canvas.height;
@@ -2420,25 +2390,24 @@
             const templateData = tempCtx.getImageData(0, 0, canvas.width, canvas.height).data;
             let overlapPixels = 0;
 
-            // 3. Comparar píxeles
             for (let i = 0; i < templateData.length; i += 4) {
-                const isTemplate = templateData[i + 3] > 100; // Es parte de la letra gris
-                const isUser = userData[i + 3] > 0;           // Es parte del dibujo del niño
+                const isTemplate = templateData[i + 3] > 100; 
+                const isUser = userData[i + 3] > 0;           
 
                 if (isUser) userPixelsCount++;
-                if (isTemplate && isUser) overlapPixels++;      // ¡Se tocaron!
+                if (isTemplate && isUser) overlapPixels++; 
             }
 
-            // Si no dibujó casi nada (apenas un toque)
-            if (userPixelsCount < 300) return 'empty';
+            if (userPixelsCount < 200) return 'empty';
 
-            // 4. Decisión muy alentadora: 
-            // Si su trazo tocó la letra al menos un poquito (umbral muy bajo), ¡es un éxito!
-            // Solo fallará si dibujó completamente en una esquina vacía.
-            return overlapPixels > 100 ? 'good' : 'bad';
+            // Si tocó la letra al menos un poquito, ¡es un éxito!
+            if (overlapPixels > 50) {
+                return 'good';
+            } 
+            
+            return 'bad';
         }
 
-        // FUNCIÓN: Muestra el mensaje y habla
         function showFeedbackMessage(color, text, speechText) {
             const feedback = document.getElementById('drawFeedback');
             if (!feedback) return;
@@ -2464,25 +2433,21 @@
         function randomLetter() {
             const currentLetter = letters[currentLetterIndex];
 
-            // 1. Si no tocó el canvas
             if (!hasDrawn) {
                 showFeedbackMessage('orange', 'Primero intenta dibujar la letra, ¡tú puedes! ✏️', 'Primero intenta dibujar la letra, ¡tú puedes!');
                 return;
             }
 
-            // 2. Si dibujó, evaluamos
             const result = evaluateDrawing();
             
             if (result === 'bad') {
                 showFeedbackMessage('orange', 'Casi, casi. Intenta tocar la letra gris. 💪', 'Casi, casi. Intenta tocar la letra gris.');
-                return; // Se queda en la misma letra
+                return; 
             }
 
-            // 3. Si lo hizo bien (aunque no sea perfecto)
             if (result === 'good') {
                 showFeedbackMessage('green', `¡Muy bien! Dibujaste la letra ${currentLetter} 🌟`, `¡Muy bien! Dibujaste la letra ${currentLetter}`);
 
-                // Esperamos 2.5 segundos para que escuche el elogio y luego cambiamos
                 setTimeout(() => {
                     let newIndex;
                     do {
@@ -2510,16 +2475,8 @@
                 speak('Dibuja la letra.');
             }, 1500);
         }
-
-        function changeColor(color, btn) {
-            const canvas = document.getElementById('drawCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            ctx.strokeStyle = color;
-            document.querySelectorAll('.color-option').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            speak('Color cambiado');
-        }
+        
+        // (La función changeColor fue eliminada porque ya no se necesita)
         // ===== INICIALIZACIÓN GENERAL =====
         document.addEventListener('DOMContentLoaded', function() {
             loadSavedRoutines();
