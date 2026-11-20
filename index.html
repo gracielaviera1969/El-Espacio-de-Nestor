@@ -840,22 +840,20 @@
         </button>
     </main>
     <section id="drawView" class="view-section" aria-labelledby="drawHeading">
-        <div class="view-header"><div><h2 id="drawHeading">Dibujar Letras</h2><p class="section-subtitle">Dibuja la letra con el dedo, mouse o lápiz.</p></div></div>
-        <div class="draw-section">
-            <div class="letter-display">
-                <p>Dibuja la letra:</p>
-                <div class="big-letter" id="currentLetter">A</div>
+        <div class="view-header">
+            <div>
+                <h2 id="drawHeading">Dibujar Letras</h2>
+                <p class="section-subtitle">Dibuja la letra.</p> <!-- CAMBIO AQUÍ -->
             </div>
+        </div>
+        <!-- ... el resto del HTML de drawView sigue igual ... -->
             <div class="canvas-container">
                 <div class="guide-letter" id="guideLetter">A</div>
                 <canvas id="drawCanvas" width="400" height="400" aria-label="Área para dibujar la letra"></canvas>
             </div>
             <div class="color-picker" aria-label="Elegir color del trazo">
                 <span style="font-weight:700;">Color:</span>
-                <button type="button" class="color-option active" style="background:#1E3A8A;" onclick="changeColor('#1E3A8A', this)" aria-label="Color azul oscuro"></button>
-                <button type="button" class="color-option" style="background:#DC2626;" onclick="changeColor('#DC2626', this)" aria-label="Color rojo"></button>
-                <button type="button" class="color-option" style="background:#15803D;" onclick="changeColor('#15803D', this)" aria-label="Color verde"></button>
-                <button type="button" class="color-option" style="background:#7E22CE;" onclick="changeColor('#7E22CE', this)" aria-label="Color violeta"></button>
+                <button type="button" class="color-option active" style="background:#1E3A8A;" onclick="changeColor('#1E3A8A', this)" aria-label="Color azul"></button>
                 <button type="button" class="color-option" style="background:#000000;" onclick="changeColor('#000000', this)" aria-label="Color negro"></button>
             </div>
             <div class="draw-controls">
@@ -2320,8 +2318,8 @@
                 speak(`Ese es ${chosenAnimal.name}. Sigue buscando a ${targetFindAnimal.name}.`);
             }
         }
-          // ===== SECCIÓN DIBUJAR LETRAS =====
-          const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        // ===== SECCIÓN DIBUJAR LETRAS =====
+        const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         let currentLetterIndex = 0;
         let isDrawing = false;
         let hasDrawn = false;
@@ -2332,17 +2330,13 @@
             const ctx = canvas.getContext('2d');
             
             ctx.strokeStyle = '#1E3A8A';
-            ctx.lineWidth = 12;
+            ctx.lineWidth = 80; // TRAZO SUPER GRUESO
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             
-            // Ajustar tamaño del canvas para que coincida exactamente con el contenedor CSS
             const container = canvas.parentElement;
             canvas.width = container.offsetWidth;
             canvas.height = container.offsetHeight;
-            
-            // IMPORTANTE: NO pintamos de blanco. El canvas debe ser transparente 
-            // para que se vea la letra guía de fondo.
             
             function getPos(e) {
                 const rect = canvas.getBoundingClientRect();
@@ -2352,17 +2346,17 @@
                 };
             }
             
-            // Remover listeners anteriores para evitar duplicados
             canvas.removeEventListener('pointerdown', startDraw);
             canvas.removeEventListener('pointermove', draw);
             canvas.removeEventListener('pointerup', stopDraw);
             canvas.removeEventListener('pointerleave', stopDraw);
+            canvas.removeEventListener('pointercancel', stopDraw);
             
-            // Agregar listeners
             canvas.addEventListener('pointerdown', startDraw);
             canvas.addEventListener('pointermove', draw);
             canvas.addEventListener('pointerup', stopDraw);
             canvas.addEventListener('pointerleave', stopDraw);
+            canvas.addEventListener('pointercancel', stopDraw);
             
             function startDraw(e) {
                 e.preventDefault();
@@ -2385,7 +2379,6 @@
                 if (!isDrawing) return;
                 e.preventDefault();
                 isDrawing = false;
-                if (hasDrawn) showDrawFeedback();
             }
         }
 
@@ -2394,74 +2387,128 @@
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             
-            // IMPORTANTE: Solo limpiamos el trazo (lo hacemos transparente), 
-            // NO pintamos de blanco para no tapar la letra guía.
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            hasDrawn = false; // Reseteamos la bandera para la nueva letra
+            hasDrawn = false;
             const feedback = document.getElementById('drawFeedback');
             if (feedback) feedback.style.display = 'none';
             speak('Dibujo borrado. Puedes empezar de nuevo.');
         }
 
-        // NUEVA FUNCIÓN: Letra aleatoria con verificación de intento
-        function randomLetter() {
-            // 1. Verificar si el niño intentó dibujar
-            if (!hasDrawn) {
-                const feedback = document.getElementById('drawFeedback');
-                if (feedback) {
-                    feedback.style.display = 'block';
-                    feedback.style.background = 'var(--vivid-orange-bg)'; // Naranja suave para guía
-                    feedback.style.borderColor = 'var(--vivid-orange)';
-                    feedback.innerText = 'Primero intenta dibujar la letra, ¡tú puedes! ✏️';
-                    speak('Primero intenta dibujar la letra, ¡tú puedes!');
-                    
-                    setTimeout(() => { 
-                        feedback.style.display = 'none';
-                        // Restaurar colores originales del feedback (verde)
-                        feedback.style.background = 'var(--vivid-green-bg)';
-                        feedback.style.borderColor = 'var(--vivid-green)';
-                    }, 3500);
-                }
-                return; // No cambiamos la letra hasta que dibuje
+        // FUNCIÓN MUY ALENTADORA: Evaluación relajada
+        function evaluateDrawing() {
+            const canvas = document.getElementById('drawCanvas');
+            const ctx = canvas.getContext('2d');
+            const letter = letters[currentLetterIndex];
+
+            // 1. Obtener los píxeles del dibujo del niño
+            const userData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            let userPixelsCount = 0;
+
+            // 2. Crear un lienzo invisible con la letra guía exacta
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            const fontSize = canvas.height * 0.75;
+            tempCtx.font = `bold ${fontSize}px Quicksand, Arial, sans-serif`;
+            tempCtx.textAlign = 'center';
+            tempCtx.textBaseline = 'middle';
+            tempCtx.fillStyle = 'black';
+            tempCtx.fillText(letter, canvas.width / 2, canvas.height / 2);
+
+            const templateData = tempCtx.getImageData(0, 0, canvas.width, canvas.height).data;
+            let overlapPixels = 0;
+
+            // 3. Comparar píxeles
+            for (let i = 0; i < templateData.length; i += 4) {
+                const isTemplate = templateData[i + 3] > 100; // Es parte de la letra gris
+                const isUser = userData[i + 3] > 0;           // Es parte del dibujo del niño
+
+                if (isUser) userPixelsCount++;
+                if (isTemplate && isUser) overlapPixels++;      // ¡Se tocaron!
             }
 
-            // 2. Si ya dibujó, elegimos una letra aleatoria diferente a la actual
-            let newIndex;
-            do {
-                newIndex = Math.floor(Math.random() * letters.length);
-            } while (newIndex === currentLetterIndex && letters.length > 1);
+            // Si no dibujó casi nada (apenas un toque)
+            if (userPixelsCount < 300) return 'empty';
+
+            // 4. Decisión muy alentadora: 
+            // Si su trazo tocó la letra al menos un poquito (umbral muy bajo), ¡es un éxito!
+            // Solo fallará si dibujó completamente en una esquina vacía.
+            return overlapPixels > 100 ? 'good' : 'bad';
+        }
+
+        // FUNCIÓN: Muestra el mensaje y habla
+        function showFeedbackMessage(color, text, speechText) {
+            const feedback = document.getElementById('drawFeedback');
+            if (!feedback) return;
+
+            feedback.style.display = 'block';
+            feedback.innerText = text;
+
+            if (color === 'green') {
+                feedback.style.background = 'var(--vivid-green-bg)';
+                feedback.style.borderColor = 'var(--vivid-green)';
+            } else {
+                feedback.style.background = 'var(--vivid-orange-bg)';
+                feedback.style.borderColor = 'var(--vivid-orange)';
+            }
+
+            speak(speechText);
+
+            if (color !== 'green') {
+                setTimeout(() => { feedback.style.display = 'none'; }, 3500);
+            }
+        }
+
+        function randomLetter() {
+            const currentLetter = letters[currentLetterIndex];
+
+            // 1. Si no tocó el canvas
+            if (!hasDrawn) {
+                showFeedbackMessage('orange', 'Primero intenta dibujar la letra, ¡tú puedes! ✏️', 'Primero intenta dibujar la letra, ¡tú puedes!');
+                return;
+            }
+
+            // 2. Si dibujó, evaluamos
+            const result = evaluateDrawing();
             
-            currentLetterIndex = newIndex;
-            updateDrawLetter();
+            if (result === 'bad') {
+                showFeedbackMessage('orange', 'Casi, casi. Intenta tocar la letra gris. 💪', 'Casi, casi. Intenta tocar la letra gris.');
+                return; // Se queda en la misma letra
+            }
+
+            // 3. Si lo hizo bien (aunque no sea perfecto)
+            if (result === 'good') {
+                showFeedbackMessage('green', `¡Muy bien! Dibujaste la letra ${currentLetter} 🌟`, `¡Muy bien! Dibujaste la letra ${currentLetter}`);
+
+                // Esperamos 2.5 segundos para que escuche el elogio y luego cambiamos
+                setTimeout(() => {
+                    let newIndex;
+                    do {
+                        newIndex = Math.floor(Math.random() * letters.length);
+                    } while (newIndex === currentLetterIndex && letters.length > 1);
+                    
+                    currentLetterIndex = newIndex;
+                    updateDrawLetter();
+                }, 2500);
+            }
         }
 
         function updateDrawLetter() {
             const letter = letters[currentLetterIndex];
-            const currentEl = document.getElementById('currentLetter');
             const guideEl = document.getElementById('guideLetter');
             
-            if (currentEl) currentEl.textContent = letter;
             if (guideEl) guideEl.textContent = letter;
-            
-            // Limpiamos el canvas y reseteamos la bandera de dibujo
             clearCanvas();
             
-            // Pequeña pausa para que se vea la letra nueva antes de hablar
             setTimeout(() => {
-                speak('Letra ' + letter + '. Dibuja la letra ' + letter);
+                speak('Letra ' + letter + '.');
             }, 300);
-        }
-
-        function showDrawFeedback() {
-            const feedback = document.getElementById('drawFeedback');
-            if (!feedback) return;
-            feedback.style.display = 'block';
-            feedback.style.background = 'var(--vivid-green-bg)'; // Asegurar color verde de éxito
-            feedback.style.borderColor = 'var(--vivid-green)';
-            feedback.innerText = '¡Muy bien! Dibujaste la letra ' + letters[currentLetterIndex] + ' 🌟';
-            speak('¡Muy bien! Dibujaste la letra ' + letters[currentLetterIndex]);
-            setTimeout(() => { feedback.style.display = 'none'; }, 3000);
+            
+            setTimeout(() => {
+                speak('Dibuja la letra.');
+            }, 1500);
         }
 
         function changeColor(color, btn) {
@@ -2473,7 +2520,6 @@
             btn.classList.add('active');
             speak('Color cambiado');
         }
-
         // ===== INICIALIZACIÓN GENERAL =====
         document.addEventListener('DOMContentLoaded', function() {
             loadSavedRoutines();
