@@ -384,6 +384,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .num-box.number-active {
+            background: var(--vivid-yellow-bg);
+            border-color: var(--vivid-yellow);
         }
 
         .num-box span {
@@ -619,6 +625,115 @@
             color: var(--vivid-cyan);
             font-weight: 700;
         }
+        .draw-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .letter-display {
+            background: #1E293B;
+            border: 3px solid #22D3EE;
+            border-radius: 20px;
+            padding: 20px 40px;
+            text-align: center;
+        }
+        .letter-display p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #E2E8F0;
+        }
+        .letter-display .big-letter {
+            font-size: 10rem;
+            font-weight: 700;
+            color: #FDE047;
+            line-height: 1;
+        }
+        .canvas-container {
+            position: relative;
+            background: #FFF;
+            border: 4px solid #FDE047;
+            border-radius: 20px;
+            touch-action: none;
+            width: 400px;
+            max-width: calc(100vw - 80px);
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .guide-letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18rem;
+            font-weight: 700;
+            color: rgba(100, 116, 139, 0.4);
+            pointer-events: none;
+            line-height: 1;
+            z-index: 1;
+            user-select: none;
+        }
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            cursor: crosshair;
+            touch-action: none;
+            background: transparent !important;
+        }
+        .draw-controls {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .draw-btn {
+            min-height: 72px;
+            padding: 16px 32px;
+            border-radius: 16px;
+            border: 3px solid #FFF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .draw-btn.erase {
+            background: #DC2626;
+        }
+        .draw-btn.next {
+            background: #15803D;
+        }
+        .draw-btn.prev {
+            background: #0369A1;
+        }
+        .color-picker {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .color-option {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid #FFF;
+            cursor: pointer;
+        }
+        .color-option.active {
+            border-color: #FDE047;
+            box-shadow: 0 0 0 3px #FDE047;
+        }
+        .module-card.teal {
+            border-color: var(--vivid-cyan);
+            color: var(--vivid-cyan);
+        }
     </style>
 </head>
 <body>
@@ -639,7 +754,7 @@
             </button>
             <button type="button" class="btn-control active" id="speechToggle" aria-pressed="true" onclick="toggleSpeech()" aria-label="Voz encendida. Toca para detener la voz">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
-                <span>Voz: On</span>
+                <span>Voz encendida</span>
             </button>
         </div>
     </header>
@@ -717,7 +832,44 @@
             <span class="module-title">¿CÓMO ESTOY?</span>
             <span class="module-desc">Reconocimiento emocional con explicaciones.</span>
         </button>
+        <button type="button" class="module-card teal" onclick="showView('drawView')" aria-label="Dibujar Letras. Dibuja letras con el dedo o el mouse." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+            <span class="module-tag">Crear</span>
+            <span class="module-icon-wrap" aria-hidden="true">✏️</span>
+            <span class="module-title">DIBUJAR LETRAS</span>
+            <span class="module-desc">Dibuja letras con el dedo o el mouse.</span>
+        </button>
     </main>
+    <section id="drawView" class="view-section" aria-labelledby="drawHeading">
+        <div class="view-header"><div><h2 id="drawHeading">Dibujar Letras</h2><p class="section-subtitle">Dibuja la letra con el dedo, mouse o lápiz.</p></div></div>
+        <div class="draw-section">
+            <div class="letter-display">
+                <p>Dibuja la letra:</p>
+                <div class="big-letter" id="currentLetter">A</div>
+            </div>
+            <div class="canvas-container">
+                <div class="guide-letter" id="guideLetter">A</div>
+                <canvas id="drawCanvas" width="400" height="400" aria-label="Área para dibujar la letra"></canvas>
+            </div>
+            <div class="color-picker" aria-label="Elegir color del trazo">
+                <span style="font-weight:700;">Color:</span>
+                <button type="button" class="color-option active" style="background:#1E3A8A;" onclick="changeColor('#1E3A8A', this)" aria-label="Color azul oscuro"></button>
+                <button type="button" class="color-option" style="background:#DC2626;" onclick="changeColor('#DC2626', this)" aria-label="Color rojo"></button>
+                <button type="button" class="color-option" style="background:#15803D;" onclick="changeColor('#15803D', this)" aria-label="Color verde"></button>
+                <button type="button" class="color-option" style="background:#7E22CE;" onclick="changeColor('#7E22CE', this)" aria-label="Color violeta"></button>
+                <button type="button" class="color-option" style="background:#000000;" onclick="changeColor('#000000', this)" aria-label="Color negro"></button>
+            </div>
+            <div class="draw-controls">
+                <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar dibujo">🗑️ Borrar</button>
+                <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra al azar">🎲 Otra letra</button>
+            </div>
+            <div class="feedback-banner green-active" id="drawFeedback" role="status" aria-live="polite"></div>
+        </div>
+        <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
+        </div>
+    </section>
 
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
         <div class="view-header">
@@ -936,7 +1088,7 @@
             </div>
         </div>
         <div class="category-selector" role="group" aria-label="Elegir cuento">
-            <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El reencuentro. La historia de cuando la Mani vuelve de Uruguay.">✈️ Reencuentro</button>
+            <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El reencuentro. La historia de cuando la Mani vuelve de Gran Canaria.">✈️ Reencuentro</button>
             <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque', event)" aria-label="Tarde en el parque. La historia de una tarde divertida en el parque.">🛝 Parque</button>
             <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos', event)" aria-label="Tarde de recuerdos. La historia de cuando miramos fotos y videos juntos.">🎞️ Recuerdos</button>
         </div>
@@ -1060,8 +1212,7 @@
             </div>
         </div>
         <div class="category-selector">
-            <button type="button" class="cat-btn active-cat" onclick="filterFood('todos', event)" aria-label="Todos los alimentos. Vamos a ver todos los alimentos.">Todos</button>
-            <button type="button" class="cat-btn" onclick="filterFood('fruta', event)" aria-label="Frutas. Vamos a conocer las frutas.">Frutas</button>
+            <button type="button" class="cat-btn active-cat" onclick="filterFood('fruta', event)" aria-label="Frutas. Vamos a conocer las frutas.">Frutas</button>
             <button type="button" class="cat-btn" onclick="filterFood('verdura', event)" aria-label="Verduras. Vamos a conocer las verduras.">Verduras</button>
             <button type="button" class="cat-btn" onclick="filterFood('carne', event)" aria-label="Carnes y pollo. Vamos a conocer las carnes.">Carnes</button>
             <button type="button" class="cat-btn" onclick="filterFood('pescado', event)" aria-label="Pescado. Vamos a conocer el pescado y los mariscos.">Pescado</button>
@@ -1115,7 +1266,7 @@
             <h3 id="memoryPrompt" class="game-prompt">Memoriza estos animales</h3>
             <div class="sequence-board" id="memoryBoard"></div>
             <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" aria-label="Esconder un animal">🙈 Esconder</button>
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" aria-label="Esconder animal. Vamos a esconder un animal.">🙈 Esconder</button>
                 <button type="button" id="memoryRepeekBtn" class="btn-control" onclick="repeekAnimals()" style="display: none; background: var(--vivid-cyan-bg); border-color: var(--vivid-cyan);" aria-label="Volver a mirar los animales">👀 Mirar</button>
             </div>
             <div class="choice-row" id="memoryChoices" style="display: none;"></div>
@@ -1191,6 +1342,43 @@
             </button>
         </div>
     </section>
+    <section id="drawView" class="view-section" aria-labelledby="drawHeading">
+        <div class="view-header">
+            <div>
+                <h2 id="drawHeading">Dibujar Letras</h2>
+                <p class="section-subtitle">Dibuja la letra con el dedo, mouse o lápiz.</p>
+            </div>
+        </div>
+        <div class="draw-section">
+            <div class="letter-display">
+                <p>Dibuja la letra:</p>
+                <div class="big-letter" id="currentLetter">A</div>
+            </div>
+            <div class="canvas-container">
+                <div class="guide-letter" id="guideLetter">A</div>
+                <canvas id="drawCanvas" width="400" height="400" aria-label="Área para dibujar la letra"></canvas>
+            </div>
+            <div class="color-picker" aria-label="Elegir color del trazo">
+                <span style="font-weight:700;">Color:</span>
+                <button type="button" class="color-option active" style="background:#1E3A8A;" onclick="changeColor('#1E3A8A', this)" aria-label="Color azul oscuro"></button>
+                <button type="button" class="color-option" style="background:#DC2626;" onclick="changeColor('#DC2626', this)" aria-label="Color rojo"></button>
+                <button type="button" class="color-option" style="background:#15803D;" onclick="changeColor('#15803D', this)" aria-label="Color verde"></button>
+                <button type="button" class="color-option" style="background:#7E22CE;" onclick="changeColor('#7E22CE', this)" aria-label="Color violeta"></button>
+                <button type="button" class="color-option" style="background:#000000;" onclick="changeColor('#000000', this)" aria-label="Color negro"></button>
+            </div>
+            <div class="draw-controls">
+                <button type="button" class="draw-btn prev" onclick="prevLetter()" aria-label="Letra anterior">⬅ Anterior</button>
+                <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar dibujo">🗑️ Borrar</button>
+                <button type="button" class="draw-btn next" onclick="nextLetter()" aria-label="Siguiente letra">Siguiente ➡</button>
+            </div>
+            <div class="feedback-banner green-active" id="drawFeedback" role="status" aria-live="polite"></div>
+        </div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al inicio
+            </button>
+        </div>
+    </section>
 
     <footer role="contentinfo">
         Desarrollado por <span>Graciela Viera</span>
@@ -1240,12 +1428,12 @@
             if (speechEnabled) {
                 btn.classList.add('active');
                 btn.setAttribute('aria-label', 'Voz encendida. Toca para detener la voz.');
-                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg><span>Voz: On</span>`;
+                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg><span>Voz encendida</span>`;
                 speak('Voz encendida');
             } else {
                 btn.classList.remove('active');
                 btn.setAttribute('aria-label', 'Voz apagada. Toca para encender la voz.');
-                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg><span>Voz: Off</span>`;
+                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg><span>Voz apagada</span>`;
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                 }
@@ -1279,8 +1467,10 @@
             element.setAttribute('aria-pressed', isCompleted);
             const key = element.getAttribute('data-key');
             if (key) localStorage.setItem(key, isCompleted);
+            
+            // Primero decir el texto completo, luego el mensaje de felicitación
             if (isCompleted) {
-                speak('¡Muy bien! Lo hiciste excelente.');
+                speak(text + ' ¡Muy bien! Lo hiciste excelente.');
             } else {
                 speak(text);
             }
@@ -1328,8 +1518,11 @@
                 }
                 else if (viewId === 'animalsView') renderAnimals();
                 else if (viewId === 'colorsLearnView') renderLearnTab('colores');
-                else if (viewId === 'foodView') renderFood('todos');
+                else if (viewId === 'foodView') renderFood('fruta');
                 else if (viewId === 'numbers100View') renderNumbers100();
+                else if (viewId === 'drawView') {
+                    setTimeout(() => initDrawCanvas(), 100);
+                }
             }
         }
 
@@ -1629,7 +1822,7 @@
             grid.innerHTML = '';
             document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
             if (event && event.target) event.target.classList.add('active-cat');
-            const filtered = category === 'todos' ? foodDatabase : foodDatabase.filter(f => f.category === category);
+            const filtered = foodDatabase.filter(f => f.category === category);
             filtered.forEach(item => {
                 const card = document.createElement('button');
                 card.type = 'button';
@@ -1661,7 +1854,14 @@
                 box.type = 'button';
                 box.className = 'num-box';
                 box.setAttribute('aria-label', 'Número ' + i);
-                box.onclick = () => speak('Número ' + i);
+                box.onclick = () => {
+                    // Feedback visual
+                    box.classList.add('number-active');
+                    setTimeout(() => {
+                        box.classList.remove('number-active');
+                    }, 500);
+                    speak('Número ' + i);
+                };
                 box.innerHTML = '<span>' + i + '</span>';
                 grid.appendChild(box);
             }
@@ -1669,10 +1869,10 @@
 
         const stories = {
             aeropuerto: [
-                { icon: '✈️🇺🇾', title: 'Cruzando el gran océano', text: 'Desde Uruguay, la Mani cruza el gran océano azul en un viaje largo y lleno de ilusión, lista para volar hacia Gran Canaria y reencontrarse con Néstor.' },
+                { icon: '✈️🇺🇾', title: 'Cruzando el gran océano', text: 'Desde Gran Canaria, la Mani cruza el gran océano azul en un viaje largo y lleno de ilusión, lista para volar hacia Uruguay y reencontrarse con Néstor.' },
                 { icon: '🛫👩🏻‍🦯', title: 'El reencuentro en el aeropuerto', text: 'El avión aterriza y las puertas se abren. Al salir al aeropuerto con su bastón, la Mani ve a Néstor esperándola con los brazos abiertos y una enorme sonrisa.' },
                 { icon: '👦🏻🛝', title: 'Muchos días de juegos y risas', text: 'Comienzan días maravillosos compartiendo paseos al aire libre, risas cómplices y juegos divertidos por cada rincón bajo el sol.' },
-                { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Uruguay y Gran Canaria estén lejos, el cariño que nos une es tan fuerte que cada abrazo guarda la magia de estar siempre juntos.' }
+                { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Gran Canaria y Uruguay estén lejos, el cariño que nos une es tan fuerte que cada abrazo guarda la magia de estar siempre juntos.' }
             ],
             parque: [
                 { icon: '☀️🏝️', title: 'Una gran tarde al sol', text: 'Bajo el sol radiante de Gran Canaria, Néstor y la Mani salen a disfrutar de una hermosa jornada al aire libre llenos de energía y alegría.' },
@@ -1882,7 +2082,7 @@
                 feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Muy bien! 🌟';
                 speak('¡Muy bien! Lo hiciste excelente.');
-                setTimeout(() => { feedback.innerText = ''; initVividColorsGame(true); }, 1500);
+                setTimeout(() => { feedback.innerText = ''; initVividColorsGame(true); }, 2500);
             } else {
                 feedback.style.color = 'var(--vivid-yellow)';
                 const targetDesc = `${currentShapeTarget.shape.name} ${currentShapeTarget.color.name.toLowerCase()}`;
@@ -1949,7 +2149,7 @@
             foundIndices = [];
             const promptEl = document.getElementById('memoryPrompt');
             if (promptEl) promptEl.innerText = '¿Qué animal se escondió?';
-            speak('¿Qué animal se escondió?');
+            speak('Esconder animal. Vamos a ver qué animal se escondió.');
             const hideBtn = document.querySelector('#memoryActionArea button:first-child');
             if (hideBtn) hideBtn.style.display = 'none';
             const repeekBtn = document.getElementById('memoryRepeekBtn');
@@ -2003,7 +2203,7 @@
                 feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Muy bien!';
                 speak('¡Muy bien! Lo hiciste excelente.');
-                setTimeout(initMemoryRound, 2000);
+                setTimeout(initMemoryRound, 3000);
             } else {
                 feedback.style.color = 'var(--vivid-yellow)';
                 feedback.innerText = 'Ese no es. Prueba con otro animal.';
@@ -2071,7 +2271,7 @@
                 feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Excelente! ⭐';
                 speak('¡Excelente! Lo hiciste muy bien.');
-                setTimeout(initSeriesRound, 1800);
+                setTimeout(initSeriesRound, 2500);
             } else {
                 feedback.style.color = 'var(--vivid-yellow)';
                 feedback.innerText = 'Ese no encaja. Prueba con otra opción.';
@@ -2113,21 +2313,176 @@
                 feedback.style.color = 'var(--vivid-green)';
                 feedback.innerText = '¡Muy bien! 🌟';
                 speak('¡Muy bien! Lo encontraste.');
-                setTimeout(initFindAnimalRound, 2000);
+                setTimeout(initFindAnimalRound, 2500);
             } else {
                 feedback.style.color = 'var(--vivid-yellow)';
                 feedback.innerText = `Ese es ${chosenAnimal.name}. Sigue buscando a ${targetFindAnimal.name}.`;
                 speak(`Ese es ${chosenAnimal.name}. Sigue buscando a ${targetFindAnimal.name}.`);
             }
         }
+          // ===== SECCIÓN DIBUJAR LETRAS =====
+          const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        let currentLetterIndex = 0;
+        let isDrawing = false;
+        let hasDrawn = false;
 
+        function initDrawCanvas() {
+            const canvas = document.getElementById('drawCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.strokeStyle = '#1E3A8A';
+            ctx.lineWidth = 12;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // Ajustar tamaño del canvas para que coincida exactamente con el contenedor CSS
+            const container = canvas.parentElement;
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // IMPORTANTE: NO pintamos de blanco. El canvas debe ser transparente 
+            // para que se vea la letra guía de fondo.
+            
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
+                };
+            }
+            
+            // Remover listeners anteriores para evitar duplicados
+            canvas.removeEventListener('pointerdown', startDraw);
+            canvas.removeEventListener('pointermove', draw);
+            canvas.removeEventListener('pointerup', stopDraw);
+            canvas.removeEventListener('pointerleave', stopDraw);
+            
+            // Agregar listeners
+            canvas.addEventListener('pointerdown', startDraw);
+            canvas.addEventListener('pointermove', draw);
+            canvas.addEventListener('pointerup', stopDraw);
+            canvas.addEventListener('pointerleave', stopDraw);
+            
+            function startDraw(e) {
+                e.preventDefault();
+                isDrawing = true;
+                hasDrawn = true;
+                const pos = getPos(e);
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            }
+            
+            function stopDraw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                isDrawing = false;
+                if (hasDrawn) showDrawFeedback();
+            }
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('drawCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            // IMPORTANTE: Solo limpiamos el trazo (lo hacemos transparente), 
+            // NO pintamos de blanco para no tapar la letra guía.
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            hasDrawn = false; // Reseteamos la bandera para la nueva letra
+            const feedback = document.getElementById('drawFeedback');
+            if (feedback) feedback.style.display = 'none';
+            speak('Dibujo borrado. Puedes empezar de nuevo.');
+        }
+
+        // NUEVA FUNCIÓN: Letra aleatoria con verificación de intento
+        function randomLetter() {
+            // 1. Verificar si el niño intentó dibujar
+            if (!hasDrawn) {
+                const feedback = document.getElementById('drawFeedback');
+                if (feedback) {
+                    feedback.style.display = 'block';
+                    feedback.style.background = 'var(--vivid-orange-bg)'; // Naranja suave para guía
+                    feedback.style.borderColor = 'var(--vivid-orange)';
+                    feedback.innerText = 'Primero intenta dibujar la letra, ¡tú puedes! ✏️';
+                    speak('Primero intenta dibujar la letra, ¡tú puedes!');
+                    
+                    setTimeout(() => { 
+                        feedback.style.display = 'none';
+                        // Restaurar colores originales del feedback (verde)
+                        feedback.style.background = 'var(--vivid-green-bg)';
+                        feedback.style.borderColor = 'var(--vivid-green)';
+                    }, 3500);
+                }
+                return; // No cambiamos la letra hasta que dibuje
+            }
+
+            // 2. Si ya dibujó, elegimos una letra aleatoria diferente a la actual
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * letters.length);
+            } while (newIndex === currentLetterIndex && letters.length > 1);
+            
+            currentLetterIndex = newIndex;
+            updateDrawLetter();
+        }
+
+        function updateDrawLetter() {
+            const letter = letters[currentLetterIndex];
+            const currentEl = document.getElementById('currentLetter');
+            const guideEl = document.getElementById('guideLetter');
+            
+            if (currentEl) currentEl.textContent = letter;
+            if (guideEl) guideEl.textContent = letter;
+            
+            // Limpiamos el canvas y reseteamos la bandera de dibujo
+            clearCanvas();
+            
+            // Pequeña pausa para que se vea la letra nueva antes de hablar
+            setTimeout(() => {
+                speak('Letra ' + letter + '. Dibuja la letra ' + letter);
+            }, 300);
+        }
+
+        function showDrawFeedback() {
+            const feedback = document.getElementById('drawFeedback');
+            if (!feedback) return;
+            feedback.style.display = 'block';
+            feedback.style.background = 'var(--vivid-green-bg)'; // Asegurar color verde de éxito
+            feedback.style.borderColor = 'var(--vivid-green)';
+            feedback.innerText = '¡Muy bien! Dibujaste la letra ' + letters[currentLetterIndex] + ' 🌟';
+            speak('¡Muy bien! Dibujaste la letra ' + letters[currentLetterIndex]);
+            setTimeout(() => { feedback.style.display = 'none'; }, 3000);
+        }
+
+        function changeColor(color, btn) {
+            const canvas = document.getElementById('drawCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.strokeStyle = color;
+            document.querySelectorAll('.color-option').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            speak('Color cambiado');
+        }
+
+        // ===== INICIALIZACIÓN GENERAL =====
         document.addEventListener('DOMContentLoaded', function() {
             loadSavedRoutines();
             renderLearnTab('colores');
             renderAnimals();
-            renderFood('todos');
+            renderFood('fruta');
             renderNumbers100();
             initVividColorsGame();
+            // initDrawCanvas() se llama desde showView cuando se abre la sección
         });
     </script>
 </body>
