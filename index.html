@@ -1029,11 +1029,11 @@
     <div class="view-header">
         <div>
             <h2 id="storyHeading">Las aventuras de Néstor y la Mani</h2>
-            <p class="section-subtitle">Historias hermosas para compartir, leer juntos y disfrutar.</p>
+            <p class="section-subtitle">Historias de la Mani en su viaje desde Uruguay a Gran Canaria para leer juntos.</p>
         </div>
     </div>
     <div class="category-selector" role="group" aria-label="Elegir cuento">
-        <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El reencuentro. La historia de cuando la Mani vuelve de Gran Canaria.">✈️ Reencuentro</button>
+        <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El viaje y el reencuentro. La Mani viaja desde Uruguay a Gran Canaria.">✈️ El viaje</button>
         <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque', event)" aria-label="Tarde en el parque. La historia de una tarde divertida en el parque.">🛝 Parque</button>
         <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos', event)" aria-label="Tarde de recuerdos. La historia de cuando miramos fotos y videos juntos.">🎞️ Recuerdos</button>
     </div>
@@ -1822,13 +1822,12 @@ Desarrollado por <span>Graciela Viera</span>
                 grid.appendChild(box);
             }
         }
-
         const stories = {
             aeropuerto: [
-                { icon: '✈️🇺🇾', title: 'Cruzando el gran océano', text: 'Desde Gran Canaria, la Mani cruza el gran océano azul en un viaje largo y lleno de ilusión, lista para volar hacia Uruguay y reencontrarse con Néstor.' },
-                { icon: '🛫👩🏻‍🦯', title: 'El reencuentro en el aeropuerto', text: 'El avión aterriza y las puertas se abren. Al salir al aeropuerto con su bastón, la Mani ve a Néstor esperándola con los brazos abiertos y una enorme sonrisa.' },
-                { icon: '👦🏻🛝', title: 'Muchos días de juegos y risas', text: 'Comienzan días maravillosos compartiendo paseos al aire libre, risas cómplices y juegos divertidos por cada rincón bajo el sol.' },
-                { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Gran Canaria y Uruguay estén lejos, el cariño que nos une es tan fuerte que cada abrazo guarda la magia de estar siempre juntos.' }
+            { icon: '✈️', title: 'Viajando con ilusión', text: 'Desde Uruguay, la Mani viaja con mucha ilusión hacia Gran Canaria para reencontrarse con Néstor.' },
+                { icon: '🛫👩🏻‍🦯', title: 'El reencuentro en Gran Canaria', text: 'El avión aterriza y las puertas se abren. Al avanzar en el aeropuerto con su bastón, la Mani siente la alegría de llegar a Gran Canaria y reencontrarse con Néstor.' },
+                { icon: '👦🏻🛝', title: 'Días de juegos y paseos', text: 'Comienzan días lindos compartiendo paseos, risas y juegos divertidos bajo el sol, disfrutando cada momento juntos.' },
+                { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Uruguay y Gran Canaria estén lejos, el cariño que los une es tan fuerte que cada abrazo los hace sentir cerca.' }
             ],
             parque: [
                 { icon: '☀️🏝️', title: 'Una gran tarde al sol', text: 'Bajo el sol radiante de Gran Canaria, Néstor y la Mani salen a disfrutar de una hermosa jornada al aire libre llenos de energía y alegría.' },
@@ -1843,7 +1842,6 @@ Desarrollado por <span>Graciela Viera</span>
                 { icon: '🫂🌟', title: 'Un presente lleno de cariño', text: 'Apagan la pantalla con el corazón calentito, felices de saber que Néstor y la Mani tienen miles de recuerdos hermosos guardados para volver a disfrutar cuando quieran.' }
             ]
         };
-
         const anticipations = {
             medico: [
                 { icon: '🚗', title: 'El viaje a la clínica', text: 'Hoy nos dirigimos al consultorio médico. El doctor nos espera para revisar que nuestro cuerpo funcione de maravilla y estemos llenos de salud y energía.' },
