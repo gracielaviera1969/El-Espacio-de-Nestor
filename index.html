@@ -7,55 +7,62 @@
     <title>El Espacio de Néstor</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #0F172A;
-            --card-bg: #1E293B;
-            --text-main: #FFFFFF;
-            --text-secondary: #E2E8F0;
-            --vivid-blue: #7DD3FC;
-            --vivid-blue-bg: #0369A1;
-            --vivid-green: #4ADE80;
-            --vivid-green-bg: #15803D;
-            --vivid-purple: #C084FC;
-            --vivid-purple-bg: #7E22CE;
-            --vivid-yellow: #FDE047;
-            --vivid-yellow-bg: #854D0E;
-            --vivid-orange: #FB923C;
-            --vivid-orange-bg: #9A3412;
-            --vivid-pink: #F472B6;
-            --vivid-pink-bg: #9D174D;
-            --vivid-cyan: #22D3EE;
-            --vivid-cyan-bg: #0E7490;
-            --vivid-red: #F87171;
-            --vivid-red-bg: #991B1B;
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            --radius: 24px;
-        }
+:root {
+    --bg-color: #0F172A;
+    --card-bg: #1E293B;
+    --text-main: #FFFFFF;
+    --text-secondary: #E2E8F0;
+    --vivid-blue: #7DD3FC;
+    --vivid-blue-bg: #0369A1;
+    --vivid-green: #4ADE80;
+    --vivid-green-bg: #15803D;
+    --vivid-purple: #D8B4FE;
+    --vivid-purple-bg: #7E22CE;
+    --vivid-yellow: #FDE047;
+    --vivid-yellow-bg: #854D0E;
+    --vivid-orange: #FB923C;
+    --vivid-orange-bg: #9A3412;
+    --vivid-pink: #F9A8D4;
+    --vivid-pink-bg: #9D174D;
+    --vivid-cyan: #22D3EE;
+    --vivid-cyan-bg: #0E7490;
+    --vivid-red: #FECACA;
+    --vivid-red-bg: #991B1B;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --radius: 24px;
+}
 
-        .skip-link {
-            position: absolute;
-            top: -80px;
-            left: 0;
-            background: var(--vivid-yellow);
-            color: #000000;
-            padding: 16px 24px;
-            z-index: 1000;
-            font-weight: 700;
-            font-size: 1.3rem;
-            border-radius: 0 0 16px 0;
-            text-decoration: none;
-        }
-        .skip-link:focus { top: 0; }
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background-color: var(--vivid-yellow);
+    color: #000000;
+    padding: 16px 24px;
+    z-index: 1000;
+    font-weight: 700;
+    font-size: 1.3rem;
+    border-radius: 0 0 16px 0;
+    text-decoration: none;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Quicksand', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+.skip-link:focus,
+.skip-link:focus-visible {
+    left: 0;
+    top: 0;
+    outline: 3px solid #FFFFFF;
+    outline-offset: 2px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+}
 
         html, body {
             touch-action: manipulation;
@@ -745,77 +752,72 @@
             <span class="module-desc">Colegio y actividades del día en orden.</span>
         </button>
         <button type="button" class="module-card cyan" onclick="showView('autonomyView')" aria-label="Me Visto y Peino. Acciones para vestirme y arreglarme solo.">
-            <span class="module-tag">Independencia</span>
+            <span class="module-tag" aria-hidden="true">Independencia</span>
             <span class="module-icon-wrap" aria-hidden="true">👕</span>
             <span class="module-title">ME VISTO Y PEINO</span>
             <span class="module-desc">Acciones para vestirme y arreglarme solo.</span>
         </button>
         <button type="button" class="module-card orange" onclick="showView('commView')" aria-label="Quiero. Tablero visual para pedir y comunicar.">
-            <span class="module-tag">Comunicar</span>
+            <span class="module-tag" aria-hidden="true">Comunicar</span>
             <span class="module-icon-wrap" aria-hidden="true">💬</span>
             <span class="module-title">QUIERO...</span>
             <span class="module-desc">Tablero visual para pedir y comunicar.</span>
         </button>
         <button type="button" class="module-card cyan" onclick="showView('anticipateView')" aria-label="Historias. Relatos paso a paso para las salidas.">
-            <span class="module-tag">Anticipar</span>
+            <span class="module-tag" aria-hidden="true">Anticipar</span>
             <span class="module-icon-wrap" aria-hidden="true">🗺️</span>
             <span class="module-title">HISTORIAS</span>
             <span class="module-desc">Relatos paso a paso para las salidas.</span>
         </button>
         <button type="button" class="module-card purple" onclick="showView('storyView')" aria-label="Aventuras. Historias hermosas para compartir y leer juntos.">
-            <span class="module-tag">Cuentos</span>
+            <span class="module-tag" aria-hidden="true">Cuentos</span>
             <span class="module-icon-wrap" aria-hidden="true">📖</span>
             <span class="module-title">AVENTURAS</span>
             <span class="module-desc">Historias hermosas para compartir y leer juntos.</span>
         </button>
         <button type="button" class="module-card green" onclick="showView('parkView')" aria-label="El Parque. Juegos al aire libre, correr y amigos.">
-            <span class="module-tag">Diversión</span>
+            <span class="module-tag" aria-hidden="true">Diversión</span>
             <span class="module-icon-wrap" aria-hidden="true">🛝</span>
             <span class="module-title">EL PARQUE</span>
             <span class="module-desc">Juegos al aire libre, correr y amigos.</span>
         </button>
         <button type="button" class="module-card pink" onclick="showView('colorsLearnView')" aria-label="Aprender. Colores, transportes y abecedario.">
-            <span class="module-tag">Aprender</span>
+            <span class="module-tag" aria-hidden="true">Aprender</span>
             <span class="module-icon-wrap" aria-hidden="true">🎨</span>
             <span class="module-title">APRENDER</span>
             <span class="module-desc">Colores, transportes y abecedario.</span>
         </button>
         <button type="button" class="module-card yellow" onclick="showView('animalsView')" aria-label="Animales. Animales y sus características.">
-            <span class="module-tag">Animales</span>
+            <span class="module-tag" aria-hidden="true">Animales</span>
             <span class="module-icon-wrap" aria-hidden="true">🦁</span>
             <span class="module-title">ANIMALES</span>
             <span class="module-desc">Animales y sus características.</span>
         </button>
         <button type="button" class="module-card green" onclick="showView('foodView')" aria-label="Alimentos. Frutas, verduras, carnes y platos.">
-            <span class="module-tag">Nutrición</span>
+            <span class="module-tag" aria-hidden="true">Nutrición</span>
             <span class="module-icon-wrap" aria-hidden="true">🥗</span>
             <span class="module-title">ALIMENTOS</span>
             <span class="module-desc">Frutas, verduras, carnes y platos.</span>
         </button>
         <button type="button" class="module-card cyan" onclick="showView('numbers100View')" aria-label="Números al 100. Tablero completo de conteo.">
-            <span class="module-tag">Contar</span>
+            <span class="module-tag" aria-hidden="true">Contar</span>
             <span class="module-icon-wrap" aria-hidden="true">💯</span>
             <span class="module-title">NÚMEROS AL 100</span>
             <span class="module-desc">Tablero completo de conteo.</span>
         </button>
         <button type="button" class="module-card red" onclick="showView('gameView')" aria-label="Juegos y Retos. Memoria avanzada y secuencias lógicas.">
-            <span class="module-tag">Retos</span>
+            <span class="module-tag" aria-hidden="true">Retos</span>
             <span class="module-icon-wrap" aria-hidden="true">⚡</span>
             <span class="module-title">JUEGOS Y RETOS</span>
             <span class="module-desc">Memoria avanzada y secuencias lógicas.</span>
         </button>
         <button type="button" class="module-card green" onclick="showView('emotionView')" aria-label="¿Cómo Estoy? Reconocimiento emocional con explicaciones.">
-            <span class="module-tag">Sentir</span>
+            <span class="module-tag" aria-hidden="true">Sentir</span>
             <span class="module-icon-wrap" aria-hidden="true">💙</span>
             <span class="module-title">¿CÓMO ESTOY?</span>
             <span class="module-desc">Reconocimiento emocional con explicaciones.</span>
         </button>
-        <button type="button" class="module-card teal" onclick="showView('drawView')" aria-label="Dibujar Letras. Dibuja letras con el dedo o el mouse." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
-            <span class="module-tag">Crear</span>
-            <span class="module-icon-wrap" aria-hidden="true">✏️</span>
-            <span class="module-title">DIBUJAR LETRAS</span>
-            <span class="module-desc">Dibuja letras con el dedo o el mouse.</span>
-        </button>
+       
     </main>
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
         <div class="view-header">
@@ -860,19 +862,7 @@
         </div>
     </div>
 
-    <div class="draw-section">
-        <div class="canvas-container">
-            <div class="guide-letter" id="guideLetter">A</div>
-            <canvas id="drawCanvas" aria-label="Área para escribir la letra"></canvas>
-        </div>
 
-        <div class="draw-controls">
-            <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar">🗑️ Borrar</button>
-            <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra">🎲 Otra letra</button>
-        </div>
-
-        <div class="feedback-banner green-active" id="drawFeedback" role="status" aria-live="polite"></div>
-    </div>
 
     <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
         <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
@@ -1111,27 +1101,46 @@
 </section>
 
 <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
-<div class="view-header">
-    <div>
-        <h2 id="colorsLearnHeading">Aprender</h2>
-        <p class="section-subtitle">Toca cada elemento para explorar y escuchar.</p>
+    <div class="view-header">
+        <div>
+            <h2 id="colorsLearnHeading">Aprender</h2>
+            <p class="section-subtitle">Toca cada elemento para explorar y escuchar.</p>
+        </div>
     </div>
-</div>
-<div class="category-selector">
-    <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('colores', event)" aria-label="Colores. Vamos a aprender los colores.">🎨 Colores</button>
-    <button type="button" class="cat-btn" onclick="switchLearnTab('transporte', event)" aria-label="Transportes. Vamos a conocer los medios de transporte.">🚗 Transportes</button>
-    <button type="button" class="cat-btn" onclick="switchLearnTab('abecedario', event)" aria-label="Abecedario. Vamos a aprender las letras del abecedario.">🔤 Abecedario</button>
-</div>
-<div id="learnGridContainer">
-    <div class="items-grid" id="learnGrid"></div>
-</div>
-<div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
-<div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
+    <div class="category-selector">
+        <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('abecedario', event)" aria-label="Abecedario. Vamos a aprender las letras del abecedario.">🔤 Abecedario</button>
+        <button type="button" class="cat-btn" onclick="switchLearnTab('dibujar', event)" aria-label="Dibujar letras. Vamos a aprender a escribir las letras.">✍️ Dibujar letras</button>
+        <button type="button" class="cat-btn" onclick="switchLearnTab('colores', event)" aria-label="Colores. Vamos a aprender los colores.">🎨 Colores</button>
+        <button type="button" class="cat-btn" onclick="switchLearnTab('transporte', event)" aria-label="Transportes. Vamos a conocer los medios de transporte.">🚗 Transportes</button>
+    </div>
+    <div id="learnGridContainer">
+        <div class="items-grid" id="learnGrid"></div>
+    </div>
+    <div id="learnDrawPanel" style="display: none;">
+        <div class="view-header">
+            <div>
+                <h3>Aprendo a escribir las letras</h3>
+            </div>
+        </div>
+        <div class="draw-section">
+            <div class="canvas-container">
+                <div class="guide-letter" id="guideLetter">A</div>
+                <canvas id="drawCanvas" aria-label="Área para escribir la letra"></canvas>
+            </div>
+            <div class="draw-controls">
+                <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar">🗑️ Borrar</button>
+                <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra">🎲 Otra letra</button>
+            </div>
+            <div id="drawFeedback" class="feedback-banner" role="status" aria-live="polite" style="display: none;"></div>
+        </div>
+    </div>
+    <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
+    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+            <span aria-hidden="true">⬅</span> Volver al inicio
+        </button>
+    </div>
+    </section>
 
 <section id="animalsView" class="view-section" aria-labelledby="animalsHeading">
 <div class="view-header">
@@ -1359,39 +1368,55 @@ Desarrollado por <span>Graciela Viera</span>
         function toggleSpeech() {
             speechEnabled = !speechEnabled;
             const btn = document.getElementById('speechToggle');
-            btn.setAttribute('aria-pressed', speechEnabled);
+            if (btn) {
+                btn.setAttribute('aria-pressed', speechEnabled);
+            }
             if (speechEnabled) {
-                btn.classList.add('active');
-                btn.setAttribute('aria-label', 'Voz encendida. Toca para detener la voz.');
-                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg><span>Voz encendida</span>`;
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-label', 'Voz encendida. Toca para detener la voz.');
+                    btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg><span>Voz encendida</span>`;
+                }
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.resume();
+                }
                 speak('Voz encendida');
             } else {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-label', 'Voz apagada. Toca para encender la voz.');
-                btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg><span>Voz apagada</span>`;
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-label', 'Voz apagada. Toca para encender la voz.');
+                    btn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path><line x1="22" y1="2" x2="2" y2="22"></line></svg><span>Voz apagada</span>`;
+                }
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                 }
             }
         }
 
+        let blockSpeakUntil = 0;
+
         function speak(text) {
-            if (!speechEnabled || !('speechSynthesis' in window)) return;
-            
-            // 1. Cancelar voz anterior
+            if (!speechEnabled || !('speechSynthesis' in window) || !text) return;
+            if (typeof blockSpeakUntil === 'number' && Date.now() < blockSpeakUntil) return;
+
+            // 1. Cancelar voz anterior y asegurar que no esté pausada
             window.speechSynthesis.cancel();
-            
-            // 2. TRUCO PARA MÓVIL: Pequeña pausa para que el celular procese el cancel() 
+            window.speechSynthesis.resume();
+
+            // 2. TRUCO PARA MÓVIL: Pequeña pausa para que el celular procese el cancel()
             // antes de intentar hablar de nuevo. (Esto evita que se corte el audio)
             setTimeout(() => {
+                if (!speechEnabled) return;
+                if (typeof blockSpeakUntil === 'number' && Date.now() < blockSpeakUntil) return;
+
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'es-ES';
                 utterance.rate = 0.92;
                 utterance.pitch = 1.0;
-                
+
                 if (!selectedVoice) loadVoices();
                 if (selectedVoice) utterance.voice = selectedVoice;
-                
+
                 // 3. Trucos extra para que el celular no duerma la voz
                 utterance.onend = function() {
                     window.speechSynthesis.resume();
@@ -1401,8 +1426,9 @@ Desarrollado por <span>Graciela Viera</span>
                 };
 
                 window.speechSynthesis.speak(utterance);
-            }, 150); 
+            }, 150);
         }
+
         function loadSavedRoutines() {
             document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
                 const key = card.getAttribute('data-key');
@@ -1470,7 +1496,7 @@ Desarrollado por <span>Graciela Viera</span>
                     initVividColorsGame(false);
                 }
                 else if (viewId === 'animalsView') renderAnimals();
-                else if (viewId === 'colorsLearnView') renderLearnTab('colores');
+                else if (viewId === 'colorsLearnView') renderLearnTab('abecedario');
                 else if (viewId === 'foodView') renderFood('fruta');
                 else if (viewId === 'numbers100View') renderNumbers100();
                 else if (viewId === 'drawView') {
@@ -1493,7 +1519,27 @@ Desarrollado por <span>Graciela Viera</span>
 
         function switchLearnTab(tabType, event) {
             document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
-            if (event && event.target) event.target.classList.add('active-cat');
+            if (event && event.target) {
+                const btn = event.target.closest('.cat-btn') || event.target;
+                btn.classList.add('active-cat');
+            }
+
+            const gridContainer = document.getElementById('learnGridContainer');
+            const drawPanel = document.getElementById('learnDrawPanel');
+
+            if (tabType === 'dibujar') {
+                if (gridContainer) gridContainer.style.display = 'none';
+                if (drawPanel) drawPanel.style.display = 'block';
+                setTimeout(() => {
+                    initDrawCanvas();
+                    updateDrawLetter();
+                }, 50);
+                return;
+            }
+
+            if (drawPanel) drawPanel.style.display = 'none';
+            if (gridContainer) gridContainer.style.display = 'block';
+
             renderLearnTab(tabType);
             if (tabType === 'colores') speak('Colores. Vamos a aprender los colores.');
             else if (tabType === 'transporte') speak('Transportes. Vamos a conocer los medios de transporte.');
@@ -1567,7 +1613,6 @@ Desarrollado por <span>Graciela Viera</span>
             { char: 'Y', speechText: 'Y de yoyo. El yoyo empieza con la letra Y.', icon: '🪀', isSvg: false },
             { char: 'Z', speechText: 'Z de zapato. El zapato empieza con la letra Z.', icon: '👟', isSvg: false }
         ];
-
         function renderLearnTab(tabType) {
             const banner = document.getElementById('colorLearnBanner');
             banner.style.display = 'none';
@@ -2274,17 +2319,17 @@ Desarrollado por <span>Graciela Viera</span>
                 speak(`Ese es ${chosenAnimal.name}. Sigue buscando a ${targetFindAnimal.name}.`);
             }
         }
-        // ===== SECCIÓN DIBUJAR LETRAS =====
-        const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-        let currentLetterIndex = 0;
+// ===== SECCIÓN DIBUJAR LETRAS =====
+const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+let currentLetterIndex = 12;
         let isDrawing = false;
         let hasDrawn = false;
+
         function initDrawCanvas() {
             const canvas = document.getElementById('drawCanvas');
             if (!canvas) return;
             
             const container = canvas.parentElement;
-            
             // 1. PRIMERO definimos el tamaño (esto resetea el canvas internamente)
             canvas.width = container.offsetWidth || 300;
             canvas.height = container.offsetHeight || 300;
@@ -2293,9 +2338,9 @@ Desarrollado por <span>Graciela Viera</span>
             const ctx = canvas.getContext('2d');
             ctx.strokeStyle = '#000000'; 
             ctx.globalAlpha = 1.0;       // FORZAR QUE EL TRAZO SEA 100% VISIBLE
-                        // Detecta si es pantalla táctil (celular/tablet) o computadora (mouse)
-                        const esCelular = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            ctx.lineWidth = esCelular ? 22 : 14; // 22px para el dedo, 14px para el mouse14; 
+            // Detecta si es pantalla táctil (celular/tablet) o computadora (mouse)
+            const esCelular = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            ctx.lineWidth = esCelular ? 22 : 14; // 22px para el dedo, 14px para el mouse
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             
@@ -2348,7 +2393,7 @@ Desarrollado por <span>Graciela Viera</span>
             }
         }
 
-        function clearCanvas() {
+        function clearCanvas(silent = false) {
             const canvas = document.getElementById('drawCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
@@ -2357,7 +2402,9 @@ Desarrollado por <span>Graciela Viera</span>
             hasDrawn = false;
             const feedback = document.getElementById('drawFeedback');
             if (feedback) feedback.style.display = 'none';
-            speak('Dibujo borrado. Puedes empezar de nuevo.');
+            if (!silent) {
+                speak('Dibujo borrado. Puedes empezar de nuevo.');
+            }
         }
 
         // FUNCIÓN DE EVALUACIÓN: EXTREMADAMENTE AMABLE
@@ -2458,7 +2505,7 @@ Desarrollado por <span>Graciela Viera</span>
             const guideEl = document.getElementById('guideLetter');
             
             if (guideEl) guideEl.textContent = letter;
-            clearCanvas();
+            clearCanvas(true);
             
             setTimeout(() => {
                 // UNA SOLA FRASE: Dice el título y luego la instrucción. 
