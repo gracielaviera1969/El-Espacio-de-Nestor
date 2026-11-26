@@ -427,11 +427,11 @@
             cursor: pointer;
             transition: background-color 0.2s, border-color 0.2s;
         }
-
         .num-box.number-active {
-            background: var(--vivid-yellow-bg);
-            border-color: var(--vivid-yellow);
-        }
+    background-color: #2e7d32 !important;
+    border-color: #1b5e20 !important;
+    color: #ffffff !important;
+}
 
         .num-box span {
             font-size: 1.6rem;
@@ -1267,7 +1267,6 @@
     <div class="sequence-board" id="memoryBoard"></div>
     <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
         <button type="button" class="btn-control active" onclick="hideTwoAnimals()" aria-label="Esconder animal. Vamos a esconder un animal.">🙈 Esconder</button>
-        <button type="button" id="memoryRepeekBtn" class="btn-control" onclick="repeekAnimals()" style="display: none; background: var(--vivid-cyan-bg); border-color: var(--vivid-cyan);" aria-label="Volver a mirar los animales">👀 Mirar</button>
     </div>
     <div class="choice-row" id="memoryChoices" style="display: none;"></div>
     <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
@@ -1438,42 +1437,40 @@ Desarrollado por <span>Graciela Viera</span>
                 }
             }
         }
+        let currentUtterance = null;
 
-        let blockSpeakUntil = 0;
+function speak(text) {
+    if (!speechEnabled || !('speechSynthesis' in window) || !text) return;
+    if (typeof blockSpeakUntil === 'number' && Date.now() < blockSpeakUntil) return;
 
-        function speak(text) {
-            if (!speechEnabled || !('speechSynthesis' in window) || !text) return;
-            if (typeof blockSpeakUntil === 'number' && Date.now() < blockSpeakUntil) return;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.resume();
 
-            // 1. Cancelar voz anterior y asegurar que no esté pausada
-            window.speechSynthesis.cancel();
+    setTimeout(() => {
+        if (!speechEnabled) return;
+        if (typeof blockSpeakUntil === 'number' && Date.now() < blockSpeakUntil) return;
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        currentUtterance = utterance;
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.92;
+        utterance.pitch = 1.0;
+
+        if (!selectedVoice) loadVoices();
+        if (selectedVoice) utterance.voice = selectedVoice;
+
+        utterance.onend = function() {
             window.speechSynthesis.resume();
+            if (currentUtterance === utterance) currentUtterance = null;
+        };
+        utterance.onerror = function() {
+            window.speechSynthesis.resume();
+            if (currentUtterance === utterance) currentUtterance = null;
+        };
 
-            // 2. TRUCO PARA MÓVIL: Pequeña pausa para que el celular procese el cancel()
-            // antes de intentar hablar de nuevo. (Esto evita que se corte el audio)
-            setTimeout(() => {
-                if (!speechEnabled) return;
-                if (typeof blockSpeakUntil === 'number' && Date.now() < blockSpeakUntil) return;
-
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-ES';
-                utterance.rate = 0.92;
-                utterance.pitch = 1.0;
-
-                if (!selectedVoice) loadVoices();
-                if (selectedVoice) utterance.voice = selectedVoice;
-
-                // 3. Trucos extra para que el celular no duerma la voz
-                utterance.onend = function() {
-                    window.speechSynthesis.resume();
-                };
-                utterance.onerror = function() {
-                    window.speechSynthesis.resume();
-                };
-
-                window.speechSynthesis.speak(utterance);
-            }, 150);
-        }
+        window.speechSynthesis.speak(utterance);
+    }, 150);
+}
 
         function loadSavedRoutines() {
             document.querySelectorAll('#routineGrid .item-card, #autonomyGrid .item-card').forEach(card => {
@@ -1659,57 +1656,57 @@ Desarrollado por <span>Graciela Viera</span>
         const dinosaurDatabase = [
     {
         name: 'Tiranosaurio',
-        desc: 'Dinosaurio grande que camina en dos patas.',
+        desc: 'Dinosaurio grande, camina en dos patas, tiene brazos chiquitos y come carne.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#E65100" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M42 12c12 0 22 6 22 14 0 5-4 8-10 9h-8l2 5H42v6h6v4h-6v16h-7V52h-5v14h-7V48c-6 0-12-3-16-9 5 1 10 0 14-3 4-4 7-12 9-18 2-4 6-6 12-6z"/><path fill="#FFFFFF" d="M51 31l2 4 2-4 2 4 2-4z"/><circle cx="52" cy="19" r="3" fill="#FFFFFF"/><circle cx="53" cy="19" r="1.5" fill="#212121"/></svg>'
     },
     {
         name: 'Triceratops',
-        desc: 'Tiene tres cuernos en la cabeza y un escudo.',
+        desc: 'Tiene tres cuernos en la cara, un escudo en el cuello y come plantas.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#D84315" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M12 48c0-11 9-18 21-18h8l4-10c6 2 10 8 9 16l6 4v8H48v14h-7V50H27v12h-7V50c-5 0-8-1-8-2z"/><path fill="#FFF8E1" stroke="#212121" stroke-width="2" stroke-linejoin="round" d="M54 32l15-7-11 11zm2 8l13-1-12 5zm-9-11l8-11-3 12z"/><circle cx="48" cy="36" r="2.8" fill="#FFFFFF"/><circle cx="49" cy="36" r="1.4" fill="#212121"/></svg>'
     },
     {
         name: 'Estegosaurio',
-        desc: 'Tiene placas triangulares en la espalda y pinchos en la cola.',
+        desc: 'Tiene puntas en la espalda, pinchos en la cola y come plantas.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#FFB300" stroke="#212121" stroke-width="2.2" stroke-linejoin="round" d="M22 36l5-13 6 11zm12-3l6-14 6 13zm12 2l6-12 5 13z"/><path fill="#8D6E63" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M10 46l10-8c7-5 19-6 29-2l12 4c4 1 7 4 7 7s-3 5-7 5H52v12h-7V52H31v12h-7V52H14l-6 4 2-6-6-2z"/><path fill="#FFF8E1" stroke="#212121" stroke-width="1.8" d="M10 46l-6-5 8 2zm1 4l-7 3 7 1z"/><circle cx="60" cy="44" r="2.5" fill="#FFFFFF"/><circle cx="61" cy="44" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Diplodocus',
-        desc: 'Tiene cuello muy largo y cola larga como un látigo.',
+        desc: 'Tiene cuello y cola muy largos y come hojas de los árboles.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#0288D1" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M6 52c8 0 14-5 19-10 4-3 10-4 15-3l14-25c2-4 7-5 11-3s5 6 2 9l-5 4-11 24v16h-6V50H32v14h-6V50c-6 3-13 5-20 2z"/><circle cx="60" cy="15" r="2.5" fill="#FFFFFF"/><circle cx="61" cy="15" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Pterodáctilo',
-        desc: 'Reptil volador con alas grandes y pico largo.',
+        desc: 'Vuela por el cielo con alas grandes y come peces y bichitos.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#7B1FA2" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M4 32c12-6 23-4 30 3l5-9-9-6 14 2 5 8 23 5-22 6-5 6 5 13-10-9-10 9 5-13-4-4C22 45 11 41 4 32z"/><path fill="#FFB300" stroke="#212121" stroke-width="2" d="M49 30l23 5-22 5z"/><circle cx="45" cy="31" r="2.5" fill="#FFFFFF"/><circle cx="46" cy="31" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Braquiosaurio',
-        desc: 'Dinosaurio muy alto con patas delanteras más largas.',
+        desc: 'Es bien alto, tiene cuello largo y come hojas de arriba de los árboles.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#F57C00" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M12 52l9-6c5-3 11-4 17-3l8-28c1-4 5-6 9-5 5 1 8 5 6 9l-4 3-7 26v18h-7V50H29v14h-6V52l-11 3z"/><circle cx="53" cy="15" r="2.5" fill="#FFFFFF"/><circle cx="54" cy="15" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Parasaurio',
-        desc: 'Tiene una cresta larga y curva hacia atrás en la cabeza.',
+        desc: 'Tiene una cresta larga en la cabeza y come hojas y plantas.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#C2185B" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M10 52l11-7c6-4 13-5 20-3l7-14c-6-4-13-6-20-4 4-6 13-8 21-4 5 3 8 8 7 14l7 4v6H52v18h-7V50H32v12h-6V50l-16 5z"/><circle cx="51" cy="31" r="2.5" fill="#FFFFFF"/><circle cx="52" cy="31" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Anquilosaurio',
-        desc: 'Tiene armadura dura en el lomo y una maza en la cola.',
+        desc: 'Tiene una capa dura en el lomo, una bola en la cola y come plantas.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#6D4C41" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M16 48l10-2c4-10 15-16 27-14 8 1 14 6 16 14v6H56v10h-7V52H35v10h-7V52H16z"/><circle cx="12" cy="48" r="6" fill="#FFB300" stroke="#212121" stroke-width="2.5"/><path fill="#FFF8E1" stroke="#212121" stroke-width="1.8" d="M32 35l3-6 3 5zm10-2l3-6 3 6zm10 2l3-6 3 6z"/><circle cx="62" cy="43" r="2.5" fill="#FFFFFF"/><circle cx="63" cy="43" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Espinosaurio',
-        desc: 'Tiene una gran vela en la espalda y hocico alargado.',
+        desc: 'Tiene una aleta grande en la espalda, le gusta el agua y come peces.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#FFCA28" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M24 40c2-18 11-26 20-26s14 10 12 26z"/><path fill="#D32F2F" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M8 50l13-7c8-3 18-4 28-3l23-3c3 0 5 2 5 5s-2 4-5 4H54v18h-7V50H35v14h-7V50l-20 4z"/><circle cx="62" cy="40" r="2.5" fill="#FFFFFF"/><circle cx="63" cy="40" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Brontosaurio',
-        desc: 'Herbívoro gigante de cuello largo y cuerpo robusto.',
+        desc: 'Es enorme y tranquilo, tiene cuello largo y come muchas plantas.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#5E35B1" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M8 54l12-7c6-4 15-5 23-3l9-22c2-4 7-6 11-4s6 6 3 10l-4 3-8 21v14h-7V52H31v14h-7V52L8 57z"/><circle cx="58" cy="21" r="2.5" fill="#FFFFFF"/><circle cx="59" cy="21" r="1.3" fill="#212121"/></svg>'
     },
     {
         name: 'Bebé Dino',
-        desc: 'Cría pequeña que sale del huevo.',
+        desc: 'Es chiquito, sale del huevo y come hojitas tiernas.',
         icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#FF7043" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M29 36c0-9 5-15 11-15s11 6 11 15v6H29z"/><circle cx="36" cy="30" r="2.5" fill="#FFFFFF"/><circle cx="36.5" cy="30" r="1.3" fill="#212121"/><circle cx="44" cy="30" r="2.5" fill="#FFFFFF"/><circle cx="44.5" cy="30" r="1.3" fill="#212121"/><path fill="#FFF8E1" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M21 40l7 5 6-5 6 5 6-5 7 5c1 14-7 24-16 24S20 54 21 40z"/></svg>'
     }
 ];
@@ -2180,7 +2177,7 @@ Desarrollado por <span>Graciela Viera</span>
             const targetPanel = document.getElementById('panel-' + gameKey);
             if (targetPanel) targetPanel.classList.add('active-game');
             if (gameKey === 'colors') { speak('Colores y formas. Vamos a jugar con colores y formas.'); initVividColorsGame(true); }
-            if (gameKey === 'memory') { speak('Memoria. Vamos a jugar a recordar animales.'); initMemoryRound(); }
+            if (gameKey === 'memory') { initMemoryRound(); }
             if (gameKey === 'series') { speak('Series. Vamos a completar las series.'); initSeriesRound(); }
             if (gameKey === 'find') { speak('Buscar animal. Vamos a buscar al animal escondido.'); initFindAnimalRound(); }
         }
@@ -2193,7 +2190,6 @@ Desarrollado por <span>Graciela Viera</span>
             { name: 'Turquesa', hex: '#14B8A6' }, { name: 'Fucsia', hex: '#D946EF' }, { name: 'Lila', hex: '#C084FC' },
             { name: 'Azul Marino', hex: '#1E3A8A' }, { name: 'Beige', hex: '#E7D5B8' }
         ];
-
         const shapesList = [
             { type: 'circle', name: 'círculo', article: 'el' },
             { type: 'square', name: 'cuadrado', article: 'el' },
@@ -2262,35 +2258,70 @@ Desarrollado por <span>Graciela Viera</span>
         let memorySet = [];
         let hiddenIndices = [];
         let foundIndices = [];
+        let memoryHideTimeout = null;
 
         function initMemoryRound() {
+            if (memoryHideTimeout) {
+                clearTimeout(memoryHideTimeout);
+                memoryHideTimeout = null;
+            }
+            if (typeof memorySpeechTimeout !== 'undefined' && memorySpeechTimeout) {
+                clearTimeout(memorySpeechTimeout);
+                memorySpeechTimeout = null;
+            }
+            if (typeof memorySpeechQueue !== 'undefined') {
+                memorySpeechQueue = [];
+            }
+
             const shuffled = [...animalDatabase].sort(() => Math.random() - 0.5);
-            memorySet = shuffled.slice(0, 4);
-            const posPool = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+            memorySet = shuffled.slice(0, 3);
+            const posPool = [0, 1, 2].sort(() => Math.random() - 0.5);
             hiddenIndices = [posPool[0]];
             foundIndices = [];
+
+            const board = document.getElementById('memoryBoard');
+            if (board) {
+                board.innerHTML = '';
+                memorySet.forEach(item => {
+                    const slot = document.createElement('div');
+                    slot.className = 'seq-slot';
+                    slot.innerText = item.icon;
+                    board.appendChild(slot);
+                });
+            }
+
             const promptEl = document.getElementById('memoryPrompt');
-            if (promptEl) promptEl.innerText = 'Memoriza estos animales';
-            speak('Memoriza estos animales');
+            if (promptEl) promptEl.innerText = 'Estos son los 3 animales';
+
             const feedbackEl = document.getElementById('memoryFeedback');
             if (feedbackEl) feedbackEl.innerText = '';
+
             const actionArea = document.getElementById('memoryActionArea');
             if (actionArea) actionArea.style.display = 'flex';
+
             const hideBtn = document.querySelector('#memoryActionArea button:first-child');
-            if (hideBtn) hideBtn.style.display = 'inline-flex';
-            const repeekBtn = document.getElementById('memoryRepeekBtn');
-            if (repeekBtn) repeekBtn.style.display = 'none';
+            if (hideBtn) hideBtn.style.display = 'none';
+
             const choicesDiv = document.getElementById('memoryChoices');
             if (choicesDiv) choicesDiv.style.display = 'none';
-            const board = document.getElementById('memoryBoard');
-            if (!board) return;
-            board.innerHTML = '';
-            memorySet.forEach(item => {
-                const slot = document.createElement('div');
-                slot.className = 'seq-slot';
-                slot.innerText = item.icon;
-                board.appendChild(slot);
-            });
+
+            const animalNames = memorySet
+                .map(item => item.name || item.label || '')
+                .filter(Boolean);
+
+            if (typeof speakMemorySequence === 'function') {
+                speakMemorySequence([
+                    'Juego de memoria. Mira bien los animales.',
+                    'Estos son los tres animales',
+                    ...animalNames
+                ]);
+            } else if (typeof speak === 'function') {
+                speak('Juego de memoria. Mira bien los animales. Estos son los tres animales: ' + animalNames.join(', '));
+            }
+
+            memoryHideTimeout = setTimeout(() => {
+                hideTwoAnimals();
+            }, 9500);
         }
 
         function renderMemoryBoardState() {
@@ -2312,16 +2343,13 @@ Desarrollado por <span>Graciela Viera</span>
                 board.appendChild(slot);
             });
         }
-
         function hideTwoAnimals() {
             foundIndices = [];
             const promptEl = document.getElementById('memoryPrompt');
             if (promptEl) promptEl.innerText = '¿Qué animal se escondió?';
-            speak('Esconder animal. Vamos a ver qué animal se escondió.');
+            speak('Vamos a ver qué animal se escondió.');
             const hideBtn = document.querySelector('#memoryActionArea button:first-child');
             if (hideBtn) hideBtn.style.display = 'none';
-            const repeekBtn = document.getElementById('memoryRepeekBtn');
-            if (repeekBtn) repeekBtn.style.display = 'inline-flex';
             renderMemoryBoardState();
             const choicesDiv = document.getElementById('memoryChoices');
             if (!choicesDiv) return;
@@ -2373,9 +2401,15 @@ Desarrollado por <span>Graciela Viera</span>
                 speak('¡Muy bien! Lo hiciste excelente.');
                 setTimeout(initMemoryRound, 3000);
             } else {
+                const chosenName = chosen.name || chosen.label || 'animal';
+                const isFeminine = chosen.gender === 'la';
+                const demonstrator = isFeminine ? 'Esa' : 'Ese';
+                const article = isFeminine ? 'la' : (chosen.gender === 'el' ? 'el' : '');
+                const namedAnimal = article ? `${article} ${chosenName}` : chosenName;
+                const errorMsg = `${demonstrator} es ${namedAnimal}. Inténtalo otra vez.`;
                 feedback.style.color = 'var(--vivid-yellow)';
-                feedback.innerText = 'Ese no es. Prueba con otro animal.';
-                speak('Ese no es. Prueba con otro animal.');
+                feedback.innerText = errorMsg;
+                speak(errorMsg);
             }
         }
 
