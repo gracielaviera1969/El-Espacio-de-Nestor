@@ -817,11 +817,11 @@
             <span class="module-title">EL PARQUE</span>
             <span class="module-desc">Juegos al aire libre, correr y amigos.</span>
         </button>
-        <button type="button" class="module-card pink" onclick="showView('colorsLearnView')" aria-label="Aprender. Colores, transportes y abecedario.">
+        <button type="button" class="module-card pink" onclick="showView('colorsLearnView')" aria-label="Aprender. Colores, transportes, abecedario y dinosaurios.">
             <span class="module-tag" aria-hidden="true">Aprender</span>
             <span class="module-icon-wrap" aria-hidden="true">🎨</span>
             <span class="module-title">APRENDER</span>
-            <span class="module-desc">Colores, transportes y abecedario.</span>
+            <span class="module-desc">Colores, transportes, abecedario y dinosaurios.</span>
         </button>
         <button type="button" class="module-card yellow" onclick="showView('animalsView')" aria-label="Animales. Animales y sus características.">
             <span class="module-tag" aria-hidden="true">Animales</span>
@@ -1157,6 +1157,7 @@
         <button type="button" class="cat-btn" onclick="switchLearnTab('dibujar', event)" aria-label="Dibujar letras. Vamos a aprender a escribir las letras.">✍️ Dibujar letras</button>
         <button type="button" class="cat-btn" onclick="switchLearnTab('colores', event)" aria-label="Colores. Vamos a aprender los colores.">🎨 Colores</button>
         <button type="button" class="cat-btn" onclick="switchLearnTab('transporte', event)" aria-label="Transportes. Vamos a conocer los medios de transporte.">🚗 Transportes</button>
+        <button type="button" class="cat-btn" onclick="switchLearnTab('dinosaurios', event)" aria-label="Dinosaurios. Vamos a conocer los dinosaurios.">🦕 Dinosaurios</button>
     </div>
     <div id="learnGridContainer">
         <div class="items-grid" id="learnGrid"></div>
@@ -1590,6 +1591,7 @@ Desarrollado por <span>Graciela Viera</span>
             if (tabType === 'colores') speak('Colores. Vamos a escuchar los colores.');
             else if (tabType === 'transporte') speak('Transportes. Vamos a conocer los medios de transporte.');
             else if (tabType === 'abecedario') speak('Abecedario. Vamos a escuchar las letras.');
+            else if (tabType === 'dinosaurios') speak('Dinosaurios. Vamos a conocer los dinosaurios.');
         }
 
         const colorDatabase = [
@@ -1625,7 +1627,6 @@ Desarrollado por <span>Graciela Viera</span>
             { name: 'Submarino', icon: submarinoSvg, isSvg: true, desc: 'Navega por debajo del agua.' },
             { name: 'Cohete', icon: '🚀', isSvg: false, desc: 'Viaja al espacio.' }
         ];
-
         const alphabetData = [
             { char: 'A', speechText: 'A, de amor. El amor nos cuida todos los días.', icon: '❤️', isSvg: false },
             { char: 'B', speechText: 'B, de besos. Los besos dan cariño.', icon: '😘', isSvg: false },
@@ -1655,7 +1656,63 @@ Desarrollado por <span>Graciela Viera</span>
             { char: 'Y', speechText: 'Y, de yoyo. El yoyo sube y baja con un hilo.', icon: '🪀', isSvg: false },
             { char: 'Z', speechText: 'Z, de zapato. Los zapatos nos protegen al caminar.', icon: '👟', isSvg: false }
         ];
-
+        const dinosaurDatabase = [
+    {
+        name: 'Tiranosaurio',
+        desc: 'Dinosaurio grande que camina en dos patas.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#E65100" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M42 12c12 0 22 6 22 14 0 5-4 8-10 9h-8l2 5H42v6h6v4h-6v16h-7V52h-5v14h-7V48c-6 0-12-3-16-9 5 1 10 0 14-3 4-4 7-12 9-18 2-4 6-6 12-6z"/><path fill="#FFFFFF" d="M51 31l2 4 2-4 2 4 2-4z"/><circle cx="52" cy="19" r="3" fill="#FFFFFF"/><circle cx="53" cy="19" r="1.5" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Triceratops',
+        desc: 'Tiene tres cuernos en la cabeza y un escudo.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#D84315" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M12 48c0-11 9-18 21-18h8l4-10c6 2 10 8 9 16l6 4v8H48v14h-7V50H27v12h-7V50c-5 0-8-1-8-2z"/><path fill="#FFF8E1" stroke="#212121" stroke-width="2" stroke-linejoin="round" d="M54 32l15-7-11 11zm2 8l13-1-12 5zm-9-11l8-11-3 12z"/><circle cx="48" cy="36" r="2.8" fill="#FFFFFF"/><circle cx="49" cy="36" r="1.4" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Estegosaurio',
+        desc: 'Tiene placas triangulares en la espalda y pinchos en la cola.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#FFB300" stroke="#212121" stroke-width="2.2" stroke-linejoin="round" d="M22 36l5-13 6 11zm12-3l6-14 6 13zm12 2l6-12 5 13z"/><path fill="#8D6E63" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M10 46l10-8c7-5 19-6 29-2l12 4c4 1 7 4 7 7s-3 5-7 5H52v12h-7V52H31v12h-7V52H14l-6 4 2-6-6-2z"/><path fill="#FFF8E1" stroke="#212121" stroke-width="1.8" d="M10 46l-6-5 8 2zm1 4l-7 3 7 1z"/><circle cx="60" cy="44" r="2.5" fill="#FFFFFF"/><circle cx="61" cy="44" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Diplodocus',
+        desc: 'Tiene cuello muy largo y cola larga como un látigo.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#0288D1" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M6 52c8 0 14-5 19-10 4-3 10-4 15-3l14-25c2-4 7-5 11-3s5 6 2 9l-5 4-11 24v16h-6V50H32v14h-6V50c-6 3-13 5-20 2z"/><circle cx="60" cy="15" r="2.5" fill="#FFFFFF"/><circle cx="61" cy="15" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Pterodáctilo',
+        desc: 'Reptil volador con alas grandes y pico largo.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#7B1FA2" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M4 32c12-6 23-4 30 3l5-9-9-6 14 2 5 8 23 5-22 6-5 6 5 13-10-9-10 9 5-13-4-4C22 45 11 41 4 32z"/><path fill="#FFB300" stroke="#212121" stroke-width="2" d="M49 30l23 5-22 5z"/><circle cx="45" cy="31" r="2.5" fill="#FFFFFF"/><circle cx="46" cy="31" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Braquiosaurio',
+        desc: 'Dinosaurio muy alto con patas delanteras más largas.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#F57C00" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M12 52l9-6c5-3 11-4 17-3l8-28c1-4 5-6 9-5 5 1 8 5 6 9l-4 3-7 26v18h-7V50H29v14h-6V52l-11 3z"/><circle cx="53" cy="15" r="2.5" fill="#FFFFFF"/><circle cx="54" cy="15" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Parasaurio',
+        desc: 'Tiene una cresta larga y curva hacia atrás en la cabeza.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#C2185B" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M10 52l11-7c6-4 13-5 20-3l7-14c-6-4-13-6-20-4 4-6 13-8 21-4 5 3 8 8 7 14l7 4v6H52v18h-7V50H32v12h-6V50l-16 5z"/><circle cx="51" cy="31" r="2.5" fill="#FFFFFF"/><circle cx="52" cy="31" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Anquilosaurio',
+        desc: 'Tiene armadura dura en el lomo y una maza en la cola.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#6D4C41" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M16 48l10-2c4-10 15-16 27-14 8 1 14 6 16 14v6H56v10h-7V52H35v10h-7V52H16z"/><circle cx="12" cy="48" r="6" fill="#FFB300" stroke="#212121" stroke-width="2.5"/><path fill="#FFF8E1" stroke="#212121" stroke-width="1.8" d="M32 35l3-6 3 5zm10-2l3-6 3 6zm10 2l3-6 3 6z"/><circle cx="62" cy="43" r="2.5" fill="#FFFFFF"/><circle cx="63" cy="43" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Espinosaurio',
+        desc: 'Tiene una gran vela en la espalda y hocico alargado.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#FFCA28" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M24 40c2-18 11-26 20-26s14 10 12 26z"/><path fill="#D32F2F" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M8 50l13-7c8-3 18-4 28-3l23-3c3 0 5 2 5 5s-2 4-5 4H54v18h-7V50H35v14h-7V50l-20 4z"/><circle cx="62" cy="40" r="2.5" fill="#FFFFFF"/><circle cx="63" cy="40" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Brontosaurio',
+        desc: 'Herbívoro gigante de cuello largo y cuerpo robusto.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#5E35B1" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M8 54l12-7c6-4 15-5 23-3l9-22c2-4 7-6 11-4s6 6 3 10l-4 3-8 21v14h-7V52H31v14h-7V52L8 57z"/><circle cx="58" cy="21" r="2.5" fill="#FFFFFF"/><circle cx="59" cy="21" r="1.3" fill="#212121"/></svg>'
+    },
+    {
+        name: 'Bebé Dino',
+        desc: 'Cría pequeña que sale del huevo.',
+        icon: '<svg viewBox="0 0 80 80" width="76" height="76" aria-hidden="true"><path fill="#FF7043" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M29 36c0-9 5-15 11-15s11 6 11 15v6H29z"/><circle cx="36" cy="30" r="2.5" fill="#FFFFFF"/><circle cx="36.5" cy="30" r="1.3" fill="#212121"/><circle cx="44" cy="30" r="2.5" fill="#FFFFFF"/><circle cx="44.5" cy="30" r="1.3" fill="#212121"/><path fill="#FFF8E1" stroke="#212121" stroke-width="2.5" stroke-linejoin="round" d="M21 40l7 5 6-5 6 5 6-5 7 5c1 14-7 24-16 24S20 54 21 40z"/></svg>'
+    }
+];
         function renderLearnTab(tabType) {
             const banner = document.getElementById('colorLearnBanner');
             if (banner) {
@@ -1735,6 +1792,23 @@ Desarrollado por <span>Graciela Viera</span>
                     card.innerHTML = `
                         <span class="card-top-label" style="color: var(--vivid-cyan); font-size: 1.9rem; padding: 2px 14px; margin-bottom: 2px;">${item.char}</span>
                         ${iconContent}
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (tabType === 'dinosaurios') {
+                dinosaurDatabase.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'grid-card';
+                    card.setAttribute('aria-pressed', 'false');
+                    card.setAttribute('aria-label', item.name + '. ' + item.desc);
+                    card.onclick = () => {
+                        const msg = item.name + '. ' + item.desc;
+                        seleccionarTarjeta(card, msg, msg);
+                    };
+                    card.innerHTML = `
+                        <span class="card-top-label">${item.name}</span>
+                        <span class="item-icon" aria-hidden="true">${item.icon}</span>
                     `;
                     grid.appendChild(card);
                 });
