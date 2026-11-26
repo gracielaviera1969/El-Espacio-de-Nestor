@@ -333,6 +333,39 @@
     .item-card.completed span:not(.item-icon)::after {
         content: " ✓";
     }
+    .grid-card.completed {
+        background: var(--vivid-green-bg);
+        border-color: var(--vivid-green);
+    }
+    #emotionView .items-grid {
+            justify-items: center;
+        }
+
+        #emotionView .item-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #emotionView .item-card .item-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+        }
+
+        #emotionView .item-card span:not(.item-icon) {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+    .grid-card.completed .card-top-label::after {
+        content: " ✓";
+    }
 
     .item-card.selected-need {
         background: var(--vivid-orange-bg);
@@ -447,10 +480,13 @@
             display: none;
         }
 
-        .feedback-banner.orange-active { background: var(--vivid-orange-bg); border-color: var(--vivid-orange); }
-        .feedback-banner.pink-active { background: var(--vivid-pink-bg); border-color: var(--vivid-pink); }
-        .feedback-banner.yellow-active { background: var(--vivid-yellow-bg); border-color: var(--vivid-yellow); }
-        .feedback-banner.green-active { background: var(--vivid-green-bg); border-color: var(--vivid-green); }
+        .feedback-banner.orange-active,
+        .feedback-banner.pink-active,
+        .feedback-banner.yellow-active,
+        .feedback-banner.green-active {
+            background: var(--vivid-green-bg);
+            border-color: var(--vivid-green);
+        }
 
         .game-panel {
             display: none;
@@ -1258,52 +1294,52 @@
 </section>
 
 <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
-<div class="view-header">
-    <div>
-        <h2 id="emotionHeading">¿Cómo estoy?</h2>
-        <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
+    <div class="view-header">
+        <div>
+            <h2 id="emotionHeading">¿Cómo estoy?</h2>
+            <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
+        </div>
     </div>
-</div>
-<div class="items-grid">
-    <button type="button" class="item-card" aria-label="Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio." onclick="selectEmotion('Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio.')">
-        <span class="item-icon" aria-hidden="true">😄</span>
-        <span>Feliz</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Tranquilo. Estás en un lugar seguro, tranquilo y en paz." onclick="selectEmotion('Tranquilo. Estás en un lugar seguro, tranquilo y en paz.')">
-        <span class="item-icon" aria-hidden="true">😌</span>
-        <span>Tranquilo</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Emocionado. ¡Qué energía y entusiasmo tienes para hoy!" onclick="selectEmotion('Emocionado. ¡Qué energía y entusiasmo tienes para hoy!')">
-        <span class="item-icon" aria-hidden="true">🤩</span>
-        <span>Emocionado</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Cansado. Es momento de descansar un poquito y recargar energía." onclick="selectEmotion('Cansado. Es momento de descansar un poquito y recargar energía.')">
-        <span class="item-icon" aria-hidden="true">🥱</span>
-        <span>Cansado</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer." onclick="selectEmotion('Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer.')">
-        <span class="item-icon" aria-hidden="true">🍎</span>
-        <span>Hambriento</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar." onclick="selectEmotion('Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar.')">
-        <span class="item-icon" aria-hidden="true">😤</span>
-        <span>Enojado</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor." onclick="selectEmotion('Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor.')">
-        <span class="item-icon" aria-hidden="true">💙</span>
-        <span>Triste</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido." onclick="selectEmotion('Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido.')">
-        <span class="item-icon" aria-hidden="true">🫨</span>
-        <span>Asustado</span>
-    </button>
-        </div>
-        <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-                <span aria-hidden="true">⬅</span> Volver al inicio
-            </button>
-        </div>
+    <div class="items-grid">
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio." onclick="selectEmotion('Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio.', this)">
+            <span class="item-icon" aria-hidden="true">😄</span>
+            <span>Feliz</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Tranquilo. Estás en un lugar seguro, tranquilo y en paz." onclick="selectEmotion('Tranquilo. Estás en un lugar seguro, tranquilo y en paz.', this)">
+            <span class="item-icon" aria-hidden="true">😌</span>
+            <span>Tranquilo</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Emocionado. ¡Qué energía y entusiasmo tienes para hoy!" onclick="selectEmotion('Emocionado. ¡Qué energía y entusiasmo tienes para hoy!', this)">
+            <span class="item-icon" aria-hidden="true">🤩</span>
+            <span>Emocionado</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Cansado. Es momento de descansar un poquito y recargar energía." onclick="selectEmotion('Cansado. Es momento de descansar un poquito y recargar energía.', this)">
+            <span class="item-icon" aria-hidden="true">🥱</span>
+            <span>Cansado</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer." onclick="selectEmotion('Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer.', this)">
+            <span class="item-icon" aria-hidden="true">🍎</span>
+            <span>Hambriento</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar." onclick="selectEmotion('Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar.', this)">
+            <span class="item-icon" aria-hidden="true">😤</span>
+            <span>Enojado</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor." onclick="selectEmotion('Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor.', this)">
+            <span class="item-icon" aria-hidden="true">💙</span>
+            <span>Triste</span>
+        </button>
+        <button type="button" class="item-card" aria-pressed="false" aria-label="Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido." onclick="selectEmotion('Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido.', this)">
+            <span class="item-icon" aria-hidden="true">🫨</span>
+            <span>Asustado</span>
+        </button>
+    </div>
+    <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
+            <span aria-hidden="true">⬅</span> Volver al inicio
+        </button>
+    </div>
     </section>
     <section id="drawLettersView" class="view-section" aria-labelledby="drawLettersHeading">
     <div class="view-header">
@@ -1472,50 +1508,52 @@ Desarrollado por <span>Graciela Viera</span>
             speak('Día reiniciado. Vamos a empezar de nuevo.');
         }
         function showView(viewId) {
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 
-            const mainMenu = document.getElementById('mainMenu');
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+    const mainMenu = document.getElementById('mainMenu');
+    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
 
-            if (viewId === 'mainMenu') {
-                mainMenu.classList.remove('hidden');
-                mainMenu.focus();
-                speak('Menú principal. Elige una actividad.');
-            } else {
-                mainMenu.classList.add('hidden');
-                const targetSection = document.getElementById(viewId);
-                targetSection.classList.add('active');
-                targetSection.focus();
+    if (viewId === 'mainMenu') {
+        mainMenu.classList.remove('hidden');
+        mainMenu.focus();
+        speak('Menú principal. Elige una actividad.');
+    } else {
+        mainMenu.classList.add('hidden');
+        const targetSection = document.getElementById(viewId);
+        targetSection.classList.add('active');
+        targetSection.focus();
 
-                // CAMBIO CLAVE: Si es drawView, NO decimos el título aquí para evitar que se corte
-                if (viewId !== 'drawView') {
-                    const title = targetSection.querySelector('h2').innerText;
-                    const subtitleElement = targetSection.querySelector('.section-subtitle');
-                    const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
-                    speak(title + subtitleText);
-                }
-
-                if (viewId === 'anticipateView') loadAnticipation('medico', false);
-                else if (viewId === 'storyView') loadStory('aeropuerto', false);
-                else if (viewId === 'gameView') {
-                    document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
-                    document.getElementById('gtab-colors').classList.add('active-cat');
-                    document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
-                    document.getElementById('panel-colors').classList.add('active-game');
-                    initVividColorsGame(false);
-                }
-                else if (viewId === 'animalsView') renderAnimals();
-                else if (viewId === 'colorsLearnView') renderLearnTab('abecedario');
-                else if (viewId === 'foodView') renderFood('fruta');
-                else if (viewId === 'numbers100View') renderNumbers100();
-                else if (viewId === 'drawView') {
-                    setTimeout(() => {
-                        initDrawCanvas();
-                        updateDrawLetter(); // Esto hace que hable al entrar
-                    }, 150);
-                }
-            }
+        // CAMBIO CLAVE: Si es drawView, NO decimos el título aquí para evitar que se corte
+        if (viewId !== 'drawView') {
+            const title = targetSection.querySelector('h2').innerText;
+            const subtitleElement = targetSection.querySelector('.section-subtitle');
+            const subtitleText = subtitleElement ? '. ' + subtitleElement.innerText : '';
+            speak(title + subtitleText);
         }
+
+        if (viewId === 'anticipateView') loadAnticipation('medico', false);
+        else if (viewId === 'storyView') loadStory('aeropuerto', false);
+        else if (viewId === 'gameView') {
+            document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
+            document.getElementById('gtab-colors').classList.add('active-cat');
+            document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active-game'));
+            document.getElementById('panel-colors').classList.add('active-game');
+            initVividColorsGame(false);
+        }
+        else if (viewId === 'animalsView') renderAnimals();
+        else if (viewId === 'colorsLearnView') renderLearnTab('abecedario');
+        else if (viewId === 'foodView') renderFood('fruta');
+        else if (viewId === 'numbers100View') renderNumbers100();
+        else if (viewId === 'drawView') {
+            setTimeout(() => {
+                initDrawCanvas();
+                updateDrawLetter(); // Esto hace que hable al entrar
+            }, 150);
+        }
+    }
+
+    window.scrollTo(0, 0);
+}
 
         function selectNeed(element, phrase) {
             document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
@@ -1525,7 +1563,6 @@ Desarrollado por <span>Graciela Viera</span>
             banner.innerText = phrase;
             speak(phrase);
         }
-
         function switchLearnTab(tabType, event) {
             document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
             if (event && event.target) {
@@ -1550,95 +1587,114 @@ Desarrollado por <span>Graciela Viera</span>
             if (gridContainer) gridContainer.style.display = 'block';
 
             renderLearnTab(tabType);
-            if (tabType === 'colores') speak('Colores. Vamos a aprender los colores.');
+            if (tabType === 'colores') speak('Colores. Vamos a escuchar los colores.');
             else if (tabType === 'transporte') speak('Transportes. Vamos a conocer los medios de transporte.');
-            else if (tabType === 'abecedario') speak('Abecedario. Vamos a aprender las letras del abecedario.');
+            else if (tabType === 'abecedario') speak('Abecedario. Vamos a escuchar las letras.');
         }
 
         const colorDatabase = [
-            { name: 'Rojo', hex: '#EF4444', desc: 'Rojo clásico, como las manzanas y las fresas.' },
-            { name: 'Azul', hex: '#3B82F6', desc: 'Azul común, como el cielo despejado.' },
-            { name: 'Amarillo', hex: '#EAB308', desc: 'Amarillo suave, como los plátanos.' },
-            { name: 'Verde', hex: '#22C55E', desc: 'Verde natural de las hojas y el pasto.' },
-            { name: 'Naranja', hex: '#F97316', desc: 'Naranja cálido de las naranjas.' },
-            { name: 'Violeta', hex: '#A855F7', desc: 'Violeta clásico como las uvas.' },
-            { name: 'Rosa', hex: '#EC4899', desc: 'Rosa tierno y suave.' },
-            { name: 'Celeste', hex: '#38BDF8', desc: 'Celeste suave como el agua clara.' },
-            { name: 'Marrón', hex: '#92400E', desc: 'Marrón de la madera y la tierra.' },
-            { name: 'Blanco', hex: '#F8FAFC', desc: 'Blanco puro como las nubes.' },
-            { name: 'Negro', hex: '#020617', desc: 'Negro profundo de la noche.' },
-            { name: 'Gris', hex: '#64748B', desc: 'Gris metálico y moderno.' },
-            { name: 'Turquesa', hex: '#14B8A6', desc: 'Turquesa brillante como el mar cristalino.' },
-            { name: 'Fucsia', hex: '#D946EF', desc: 'Fucsia alegre y vibrante como las flores.' },
-            { name: 'Dorado', hex: '#F59E0B', desc: 'Dorado brillante como las estrellas.' },
-            { name: 'Plateado', hex: '#CBD5E1', desc: 'Plateado luminoso como la luna llena.' },
-            { name: 'Lila', hex: '#C084FC', desc: 'Lila suave y delicado como las flores de lavanda.' },
-            { name: 'Verde Lima', hex: '#84CC16', desc: 'Verde lima fresco y lleno de energía.' },
-            { name: 'Azul Marino', hex: '#1E3A8A', desc: 'Azul marino profundo como el océano.' },
-            { name: 'Beige', hex: '#E7D5B8', desc: 'Beige cálido y suave como la arena de la playa.' }
+            { name: 'Rojo', hex: '#EF4444', desc: 'Como las manzanas y las fresas.' },
+            { name: 'Azul', hex: '#3B82F6', desc: 'Como el cielo despejado.' },
+            { name: 'Amarillo', hex: '#EAB308', desc: 'Como los plátanos.' },
+            { name: 'Verde', hex: '#22C55E', desc: 'Como las hojas y el pasto.' },
+            { name: 'Naranja', hex: '#F97316', desc: 'Cálido como las naranjas.' },
+            { name: 'Violeta', hex: '#A855F7', desc: 'Como las uvas.' },
+            { name: 'Rosa', hex: '#EC4899', desc: 'Suave y tierno.' },
+            { name: 'Celeste', hex: '#38BDF8', desc: 'Suave como el agua clara.' },
+            { name: 'Marrón', hex: '#92400E', desc: 'Como la madera y la tierra.' },
+            { name: 'Blanco', hex: '#F8FAFC', desc: 'Puro como las nubes.' },
+            { name: 'Negro', hex: '#020617', desc: 'Profundo como la noche.' },
+            { name: 'Gris', hex: '#64748B', desc: 'Como las piedras y los metales.' },
+            { name: 'Turquesa', hex: '#14B8A6', desc: 'Brillante como el mar.' },
+            { name: 'Lila', hex: '#C084FC', desc: 'Suave como las flores de lavanda.' },
+            { name: 'Azul Marino', hex: '#1E3A8A', desc: 'Profundo como el océano.' },
+            { name: 'Beige', hex: '#E7D5B8', desc: 'Suave como la arena de la playa.' }
         ];
 
         const transportDatabase = [
-            { name: 'Tren', icon: '🚂', isSvg: false, desc: 'El tren viaja por las vías sobre las ruedas.' },
-            { name: 'Taxi', icon: '🚕', isSvg: false, desc: 'El taxi nos lleva de paseo por la ciudad.' },
-            { name: 'Autobús', icon: '🚌', isSvg: false, desc: 'El autobús lleva a muchas personas juntas.' },
-            { name: 'Lancha', icon: '🚤', isSvg: false, desc: 'La lancha navega rápido sobre el agua.' },
-            { name: 'Barco', icon: '🚢', isSvg: false, desc: 'El barco grande navega por el mar.' },
-            { name: 'Avión', icon: '✈️', isSvg: false, desc: 'El avión vuela muy alto por el cielo.' },
-            { name: 'Bicicleta', icon: '🚲', isSvg: false, desc: 'La bicicleta se mueve pedaleando.' },
-            { name: 'Auto', icon: '🚗', isSvg: false, desc: 'El auto viaja por la calle.' },
-            { name: 'Moto', icon: '🏍️', isSvg: false, desc: 'La moto tiene dos ruedas y va rápido.' },
-            { name: 'Helicóptero', icon: '🚁', isSvg: false, desc: 'El helicóptero gira sus hélices en el cielo.' },
-            { name: 'Submarino', icon: submarinoSvg, isSvg: true, desc: 'El submarino navega por debajo del agua.' },
-            { name: 'Cohete', icon: '🚀', isSvg: false, desc: 'El cohete viaja al espacio exterior.' }
+            { name: 'Tren', icon: '🚂', isSvg: false, desc: 'Viaja por las vías sobre ruedas.' },
+            { name: 'Taxi', icon: '🚕', isSvg: false, desc: 'Nos lleva de paseo por la ciudad.' },
+            { name: 'Autobús', icon: '🚌', isSvg: false, desc: 'Lleva a muchas personas juntas.' },
+            { name: 'Lancha', icon: '🚤', isSvg: false, desc: 'Navega rápido sobre el agua.' },
+            { name: 'Barco', icon: '🚢', isSvg: false, desc: 'Es grande y navega por el mar.' },
+            { name: 'Avión', icon: '✈️', isSvg: false, desc: 'Vuela muy alto por el cielo.' },
+            { name: 'Bicicleta', icon: '🚲', isSvg: false, desc: 'Se mueve pedaleando.' },
+            { name: 'Auto', icon: '🚗', isSvg: false, desc: 'Viaja por la calle.' },
+            { name: 'Moto', icon: '🏍️', isSvg: false, desc: 'Tiene dos ruedas y va rápido.' },
+            { name: 'Helicóptero', icon: '🚁', isSvg: false, desc: 'Gira sus hélices en el cielo.' },
+            { name: 'Submarino', icon: submarinoSvg, isSvg: true, desc: 'Navega por debajo del agua.' },
+            { name: 'Cohete', icon: '🚀', isSvg: false, desc: 'Viaja al espacio.' }
         ];
 
         const alphabetData = [
-            { char: 'A', speechText: 'A de amor. El amor empieza con la letra A.', icon: '❤️', isSvg: false },
-            { char: 'B', speechText: 'B de besos. Los besos empiezan con la letra B.', icon: '😘', isSvg: false },
-            { char: 'C', speechText: 'C de casa. La casa empieza con la letra C.', icon: '🏠', isSvg: false },
-            { char: 'D', speechText: 'D de dedo. El dedo empieza con la letra D.', icon: '👆', isSvg: false },
-            { char: 'E', speechText: 'E de elefante. El elefante empieza con la letra E.', icon: '🐘', isSvg: false },
-            { char: 'F', speechText: 'F de familia. La familia empieza con la letra F.', icon: '👨‍👩‍👦', isSvg: false },
-            { char: 'G', speechText: 'G de gato. El gato empieza con la letra G.', icon: '🐱', isSvg: false },
-            { char: 'H', speechText: 'H de helado. El helado empieza con la letra H.', icon: '🍦', isSvg: false },
-            { char: 'I', speechText: 'I de isla. La isla empieza con la letra I.', icon: '🏝️', isSvg: false },
-            { char: 'J', speechText: 'J de jirafa. La jirafa empieza con la letra J.', icon: '🦒', isSvg: false },
-            { char: 'K', speechText: 'K de koala. El koala empieza con la letra K.', icon: '🐨', isSvg: false },
-            { char: 'L', speechText: 'L de luna. La luna empieza con la letra L.', icon: '🌙', isSvg: false },
-            { char: 'M', speechText: 'M de mamá. Mamá empieza con la letra M.', icon: '👩🏻', isSvg: false },
-            { char: 'N', speechText: 'N de Néstor. Néstor empieza con la letra N.', icon: '👦🏻', isSvg: false },
-            { char: 'Ñ', speechText: 'Ñ de ñoqui. Los ñoquis empiezan con la letra Ñ.', icon: '🍝', isSvg: false },
-            { char: 'O', speechText: 'O de oso. El oso empieza con la letra O.', icon: '🐻', isSvg: false },
-            { char: 'P', speechText: 'P de papá. Papá empieza con la letra P.', icon: '👨🏻', isSvg: false },
-            { char: 'Q', speechText: 'Q de queso. El queso empieza con la letra Q.', icon: '🧀', isSvg: false },
-            { char: 'R', speechText: 'R de risa. La risa empieza con la letra R.', icon: '😄', isSvg: false },
-            { char: 'S', speechText: 'S de sol. El sol empieza con la letra S.', icon: '☀️', isSvg: false },
-            { char: 'T', speechText: 'T de taza. La taza empieza con la letra T.', icon: '☕', isSvg: false },
-            { char: 'U', speechText: 'U de uva. La uva empieza con la letra U.', icon: '🍇', isSvg: false },
-            { char: 'V', speechText: 'V de vida. La vida empieza con la letra V.', icon: '⭐', isSvg: false },
-            { char: 'W', speechText: 'W de waterpolo. El waterpolo empieza con la letra W.', icon: '🤽‍♂️', isSvg: false },
-            { char: 'X', speechText: 'X de xilófono. El xilófono empieza con la letra X.', icon: xilofonoSvg, isSvg: true },
-            { char: 'Y', speechText: 'Y de yoyo. El yoyo empieza con la letra Y.', icon: '🪀', isSvg: false },
-            { char: 'Z', speechText: 'Z de zapato. El zapato empieza con la letra Z.', icon: '👟', isSvg: false }
+            { char: 'A', speechText: 'A, de amor. El amor nos cuida todos los días.', icon: '❤️', isSvg: false },
+            { char: 'B', speechText: 'B, de besos. Los besos dan cariño.', icon: '😘', isSvg: false },
+            { char: 'C', speechText: 'C, de casa. La casa es nuestro lugar seguro.', icon: '🏠', isSvg: false },
+            { char: 'D', speechText: 'D, de dedo. Con los dedos podemos tocar y jugar.', icon: '👆', isSvg: false },
+            { char: 'E', speechText: 'E, de elefante. El elefante es grande y tranquilo.', icon: '🐘', isSvg: false },
+            { char: 'F', speechText: 'F, de familia. La familia nos acompaña.', icon: '👨‍👩‍👦', isSvg: false },
+            { char: 'G', speechText: 'G, de gato. El gato maúlla suavemente.', icon: '🐱', isSvg: false },
+            { char: 'H', speechText: 'H, de helado. El helado es frío y rico.', icon: '🍦', isSvg: false },
+            { char: 'I', speechText: 'I, de isla. Una isla está rodeada de agua.', icon: '🏝️', isSvg: false },
+            { char: 'J', speechText: 'J, de jirafa. La jirafa tiene el cuello muy largo.', icon: '🦒', isSvg: false },
+            { char: 'K', speechText: 'K, de koala. El koala trepa a los árboles.', icon: '🐨', isSvg: false },
+            { char: 'L', speechText: 'L, de luna. La luna brilla de noche.', icon: '🌙', isSvg: false },
+            { char: 'M', speechText: 'M, de mamá. Mamá nos abraza y nos cuida.', icon: '👩🏻', isSvg: false },
+            { char: 'N', speechText: 'N, de Néstor. Este es tu espacio para jugar y aprender.', icon: '👦🏻', isSvg: false },
+            { char: 'Ñ', speechText: 'Ñ, de ñoqui. Los ñoquis son ricos para compartir.', icon: '🍝', isSvg: false },
+            { char: 'O', speechText: 'O, de oso. El oso es grande y peludo.', icon: '🐻', isSvg: false },
+            { char: 'P', speechText: 'P, de papá. Papá nos acompaña y juega.', icon: '👨🏻', isSvg: false },
+            { char: 'Q', speechText: 'Q, de queso. El queso es una comida rica.', icon: '🧀', isSvg: false },
+            { char: 'R', speechText: 'R, de risa. Reír nos hace sentir bien.', icon: '😄', isSvg: false },
+            { char: 'S', speechText: 'S, de sol. El sol alumbra y da calorcito.', icon: '☀️', isSvg: false },
+            { char: 'T', speechText: 'T, de taza. En la taza tomamos algo calentito.', icon: '☕', isSvg: false },
+            { char: 'U', speechText: 'U, de uva. Las uvas son frutas dulces.', icon: '🍇', isSvg: false },
+            { char: 'V', speechText: 'V, de vida. La vida está llena de momentos lindos.', icon: '🌱', isSvg: false },
+            { char: 'W', speechText: 'W, de waterpolo. Se juega en el agua.', icon: '🤽‍♂️', isSvg: false },
+            { char: 'X', speechText: 'X, de xilófono. El xilófono suena al tocar sus teclas.', icon: xilofonoSvg, isSvg: true },
+            { char: 'Y', speechText: 'Y, de yoyo. El yoyo sube y baja con un hilo.', icon: '🪀', isSvg: false },
+            { char: 'Z', speechText: 'Z, de zapato. Los zapatos nos protegen al caminar.', icon: '👟', isSvg: false }
         ];
+
         function renderLearnTab(tabType) {
             const banner = document.getElementById('colorLearnBanner');
-            banner.style.display = 'none';
-            banner.innerText = '';
+            if (banner) {
+                banner.style.display = 'none';
+                banner.innerText = '';
+                banner.classList.remove('green-active');
+            }
             const grid = document.getElementById('learnGrid');
+            if (!grid) return;
             grid.innerHTML = '';
+
+            function seleccionarTarjeta(card, bannerText, speechText) {
+                grid.querySelectorAll('.grid-card.completed').forEach(el => {
+                    el.classList.remove('completed');
+                    el.setAttribute('aria-pressed', 'false');
+                });
+                card.classList.add('completed');
+                card.setAttribute('aria-pressed', 'true');
+
+                if (banner) {
+                    banner.style.display = 'block';
+                    banner.classList.add('green-active');
+                    banner.innerText = bannerText;
+                }
+                if (typeof speak === 'function') {
+                    speak(speechText);
+                }
+            }
 
             if (tabType === 'colores') {
                 colorDatabase.forEach(item => {
                     const card = document.createElement('button');
                     card.type = 'button';
                     card.className = 'grid-card';
+                    card.setAttribute('aria-pressed', 'false');
                     card.setAttribute('aria-label', item.name + '. ' + item.desc);
                     card.onclick = () => {
-                        banner.style.display = 'block';
-                        banner.innerText = item.name + ': ' + item.desc;
-                        speak(item.name + '. ' + item.desc);
+                        const msg = item.name + '. ' + item.desc;
+                        seleccionarTarjeta(card, item.name + ': ' + item.desc, msg);
                     };
                     card.innerHTML = `
                         <span class="card-top-label">${item.name}</span>
@@ -1651,11 +1707,11 @@ Desarrollado por <span>Graciela Viera</span>
                     const card = document.createElement('button');
                     card.type = 'button';
                     card.className = 'grid-card';
+                    card.setAttribute('aria-pressed', 'false');
                     card.setAttribute('aria-label', item.name + '. ' + item.desc);
                     card.onclick = () => {
-                        banner.style.display = 'block';
-                        banner.innerText = item.name + '. ' + item.desc;
-                        speak(item.name + '. ' + item.desc);
+                        const msg = item.name + '. ' + item.desc;
+                        seleccionarTarjeta(card, msg, msg);
                     };
                     const iconContent = item.isSvg ? item.icon : `<span class="item-icon" aria-hidden="true">${item.icon}</span>`;
                     card.innerHTML = `
@@ -1670,11 +1726,10 @@ Desarrollado por <span>Graciela Viera</span>
                     card.type = 'button';
                     card.className = 'grid-card';
                     card.style.minHeight = '165px';
-                    card.setAttribute('aria-label', 'Letra ' + item.char + '. ' + item.speechText);
+                    card.setAttribute('aria-pressed', 'false');
+                    card.setAttribute('aria-label', item.speechText);
                     card.onclick = () => {
-                        banner.style.display = 'block';
-                        banner.innerText = item.speechText;
-                        speak(item.speechText);
+                        seleccionarTarjeta(card, item.speechText, item.speechText);
                     };
                     const iconContent = item.isSvg ? item.icon : `<div class="item-icon" aria-hidden="true" style="font-size: 3.2rem; margin: 4px 0;">${item.icon}</div>`;
                     card.innerHTML = `
@@ -1747,7 +1802,16 @@ Desarrollado por <span>Graciela Viera</span>
                 card.type = 'button';
                 card.className = 'grid-card';
                 card.setAttribute('aria-label', animal.name + '. ' + animal.action);
-                card.onclick = () => selectAnimal(animal);
+                card.setAttribute('aria-pressed', 'false');
+                card.onclick = () => {
+                    grid.querySelectorAll('.grid-card.completed').forEach(el => {
+                        el.classList.remove('completed');
+                        el.setAttribute('aria-pressed', 'false');
+                    });
+                    card.classList.add('completed');
+                    card.setAttribute('aria-pressed', 'true');
+                    selectAnimal(animal);
+                };
                 card.innerHTML = `
                     <span class="card-top-label">${animal.name}</span>
                     <div class="item-icon" aria-hidden="true">${animal.icon}</div>
@@ -1755,9 +1819,8 @@ Desarrollado por <span>Graciela Viera</span>
                 grid.appendChild(card);
             });
         }
-
         function selectAnimal(animal) {
-            const text = animal.action;
+            const text = `${animal.name}. ${animal.action}`;
             const banner = document.getElementById('animalBanner');
             banner.style.display = 'block';
             banner.innerText = text;
@@ -1823,12 +1886,11 @@ Desarrollado por <span>Graciela Viera</span>
             { name: 'Café', icon: '☕', category: 'comida', desc: 'Café calentito.' },
             { name: 'Té', icon: '🫖', category: 'comida', desc: 'Té caliente y relajante.' }
         ];
-
         function filterFood(category, event) {
             const banner = document.getElementById('foodBanner');
-            banner.style.display = 'none';
-            banner.innerText = '';
+            if (banner) { banner.style.display = 'none'; banner.innerText = ''; }
             const grid = document.getElementById('foodGrid');
+            if (!grid) return;
             grid.innerHTML = '';
             document.querySelectorAll('#foodView .cat-btn').forEach(b => b.classList.remove('active-cat'));
             if (event && event.target) event.target.classList.add('active-cat');
@@ -1838,7 +1900,16 @@ Desarrollado por <span>Graciela Viera</span>
                 card.type = 'button';
                 card.className = 'grid-card';
                 card.setAttribute('aria-label', item.name + '. ' + item.desc);
-                card.onclick = () => selectFoodItem(item);
+                card.setAttribute('aria-pressed', 'false');
+                card.onclick = () => {
+                    grid.querySelectorAll('.grid-card.completed').forEach(el => {
+                        el.classList.remove('completed');
+                        el.setAttribute('aria-pressed', 'false');
+                    });
+                    card.classList.add('completed');
+                    card.setAttribute('aria-pressed', 'true');
+                    selectFoodItem(item);
+                };
                 card.innerHTML = `
                     <span class="card-top-label">${item.name}</span>
                     <div class="item-icon" aria-hidden="true">${item.icon}</div>
@@ -2004,13 +2075,27 @@ Desarrollado por <span>Graciela Viera</span>
             }
         }
 
-        function selectEmotion(message) {
+        function selectEmotion(message, btn) {
+            const grid = document.querySelector('#emotionView .items-grid');
+            if (grid) {
+                grid.querySelectorAll('.item-card.completed').forEach(el => {
+                    el.classList.remove('completed');
+                    el.setAttribute('aria-pressed', 'false');
+                });
+            }
+            if (btn) {
+                btn.classList.add('completed');
+                btn.setAttribute('aria-pressed', 'true');
+            }
             const box = document.getElementById('emotionMessage');
-            box.style.display = 'block';
-            box.innerText = message;
-            speak(message);
+            if (box) {
+                box.style.display = 'block';
+                box.innerText = message;
+            }
+            if (typeof speak === 'function') {
+                speak(message);
+            }
         }
-
         function switchGameTab(gameKey, event) {
             if (event && event.target) {
                 document.querySelectorAll('#gameView .cat-btn').forEach(t => t.classList.remove('active-cat'));
