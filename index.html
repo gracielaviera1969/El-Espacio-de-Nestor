@@ -318,20 +318,20 @@
         }
 
         .item-card {
-            min-height: 180px;
-            background: var(--bg-color);
-            border: 3px solid #FFFFFF;
-            border-radius: 20px;
-            padding: 20px 14px;
-            text-align: left;
-            cursor: pointer;
-            color: #FFFFFF;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            width: 100%;
-        }
+    min-height: 180px;
+    background: var(--bg-color);
+    border: 3px solid #FFFFFF;
+    border-radius: 20px;
+    padding: 20px 14px;
+    text-align: center;
+    cursor: pointer;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
         .item-card span:not(.item-icon) {
         display: block;
@@ -1156,51 +1156,84 @@
             </button>
         </div>
         <div class="items-grid">
-            <button type="button" class="item-card" aria-label="Columpio. Nos balanceamos suavemente hacia adelante y atrás." onclick="selectParkActivity('Columpio. Nos balanceamos suavemente hacia adelante y atrás.')">
-                <span class="item-icon" aria-hidden="true">🎠</span>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Columpio. Nos balanceamos suavemente hacia adelante y atrás." onclick="selectParkActivity(this, 'Columpio. Nos balanceamos suavemente hacia adelante y atrás.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="1em" height="1em" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
+                        <!-- Estructura en azul -->
+                        <path d="M12 54 L26 10 L38 10 L52 54" stroke="#38bdf8" stroke-width="4" />
+                        <line x1="22" y1="10" x2="42" y2="10" stroke="#0284c7" stroke-width="4.5" />
+                        <!-- Cuerdas y asiento en ámbar/naranja -->
+                        <line x1="27" y1="10" x2="25" y2="38" stroke="#fbbf24" stroke-width="3" />
+                        <line x1="37" y1="10" x2="39" y2="38" stroke="#fbbf24" stroke-width="3" />
+                        <rect x="20" y="38" width="24" height="6" rx="3" fill="#f97316" stroke="#ea580c" stroke-width="2" />
+                    </svg>
+                </span>
                 <span>Columpio</span>
             </button>
-            <button type="button" class="item-card" aria-label="Tobogán. Subimos por la escalera y nos deslizamos con cuidado." onclick="selectParkActivity('Tobogán. Subimos por la escalera y nos deslizamos con cuidado.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Tobogán. Subimos por la escalera y nos deslizamos con cuidado." onclick="selectParkActivity(this, 'Tobogán. Subimos por la escalera y nos deslizamos con cuidado.')">
                 <span class="item-icon" aria-hidden="true">🛝</span>
                 <span>Tobogán</span>
             </button>
-            <button type="button" class="item-card" aria-label="Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!" onclick="selectParkActivity('Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!')">
-                <span class="item-icon" aria-hidden="true">🔄</span>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!" onclick="selectParkActivity(this, 'Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="1em" height="1em" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
+                        <!-- Base triangular en verde -->
+                        <polygon points="32,34 22,54 42,54" fill="#22c55e" stroke="#15803d" stroke-width="3" />
+                        <!-- Tabla en coral/rojo -->
+                        <line x1="10" y1="24" x2="54" y2="42" stroke="#fb7185" stroke-width="5" />
+                        <!-- Asientos en amarillo -->
+                        <rect x="7" y="19" width="9" height="4.5" rx="2" fill="#facc15" stroke="#ca8a04" stroke-width="2" />
+                        <rect x="48" y="38" width="9" height="4.5" rx="2" fill="#facc15" stroke="#ca8a04" stroke-width="2" />
+                    </svg>
+                </span>
                 <span>Subibaja</span>
             </button>
-            <button type="button" class="item-card" aria-label="Jugar en la arena. Hacemos castillos y formas con el balde y la pala." onclick="selectParkActivity('Jugar en la arena. Hacemos castillos y formas con el balde y la pala.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Jugar en la arena. Hacemos castillos y formas con el balde y la pala." onclick="selectParkActivity(this, 'Jugar en la arena. Hacemos castillos y formas con el balde y la pala.')">
                 <span class="item-icon" aria-hidden="true">🏖️</span>
                 <span>Jugar en la arena</span>
             </button>
-            <button type="button" class="item-card" aria-label="Andar en bici. Pedaleamos sintiendo el viento en la cara." onclick="selectParkActivity('Andar en bici. Pedaleamos sintiendo el viento en la cara.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Andar en bici. Pedaleamos sintiendo el viento en la cara." onclick="selectParkActivity(this, 'Andar en bici. Pedaleamos sintiendo el viento en la cara.')">
                 <span class="item-icon" aria-hidden="true">🚲</span>
                 <span>Andar en bici</span>
             </button>
-            <button type="button" class="item-card" aria-label="Correr. Corremos por el césped sintiéndonos libres y felices." onclick="selectParkActivity('Correr. Corremos por el césped sintiéndonos libres y felices.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Correr. Corremos por el césped sintiéndonos libres y felices." onclick="selectParkActivity(this, 'Correr. Corremos por el césped sintiéndonos libres y felices.')">
                 <span class="item-icon" aria-hidden="true">🏃‍♂️</span>
                 <span>Correr</span>
             </button>
-            <button type="button" class="item-card" aria-label="Saltar. Saltamos alto con mucha energía." onclick="selectParkActivity('Saltar. Saltamos alto con mucha energía.')">
-                <span class="item-icon" aria-hidden="true">🦘</span>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Saltar. Saltamos alto con mucha energía." onclick="selectParkActivity(this, 'Saltar. Saltamos alto con mucha energía.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="1em" height="1em" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
+                        <!-- Cabeza y cuerpo en naranja/coral -->
+                        <circle cx="34" cy="13" r="5" fill="#fb923c" stroke="#ea580c" stroke-width="2" />
+                        <path d="M33 18 L30 32 L20 39" stroke="#f97316" stroke-width="4" />
+                        <path d="M30 32 L42 38 L46 46" stroke="#38bdf8" stroke-width="4" />
+                        <!-- Brazos arriba -->
+                        <path d="M32 22 L20 16" stroke="#fbbf24" stroke-width="3.5" />
+                        <path d="M33 22 L46 18" stroke="#fbbf24" stroke-width="3.5" />
+                        <!-- Ondas de salto en verde lima -->
+                        <path d="M21 50 Q32 45 43 50" stroke="#4ade80" stroke-width="3.5" />
+                        <path d="M26 56 Q32 52 38 56" stroke="#22c55e" stroke-width="3" />
+                    </svg>
+                </span>
                 <span>Saltar</span>
             </button>
-            <button type="button" class="item-card" aria-label="Jugar al fútbol. Pateamos la pelota con los amigos." onclick="selectParkActivity('Jugar al fútbol. Pateamos la pelota con los amigos.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Jugar al fútbol. Pateamos la pelota con los amigos." onclick="selectParkActivity(this, 'Jugar al fútbol. Pateamos la pelota con los amigos.')">
                 <span class="item-icon" aria-hidden="true">⚽</span>
                 <span>Jugar al fútbol</span>
             </button>
-            <button type="button" class="item-card" aria-label="Volar barrilete. Hacemos volar el barrilete alto en el cielo." onclick="selectParkActivity('Volar barrilete. Hacemos volar el barrilete alto en el cielo.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Volar barrilete. Hacemos volar el barrilete alto en el cielo." onclick="selectParkActivity(this, 'Volar barrilete. Hacemos volar el barrilete alto en el cielo.')">
                 <span class="item-icon" aria-hidden="true">🪁</span>
                 <span>Volar barrilete</span>
             </button>
-            <button type="button" class="item-card" aria-label="Empujar carrito. Empujamos el carrito con alegría." onclick="selectParkActivity('Empujar carrito. Empujamos el carrito con alegría.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Andar en patinete. Rodamos en patinete con alegría." onclick="selectParkActivity(this, 'Andar en patinete. Rodamos en patinete con alegría.')">
                 <span class="item-icon" aria-hidden="true">🛴</span>
-                <span>Empujar carrito</span>
+                <span>Andar en patinete</span>
             </button>
-            <button type="button" class="item-card" aria-label="Ver pajaritos. Miramos a los pajaritos volar y cantar." onclick="selectParkActivity('Ver pajaritos. Miramos a los pajaritos volar y cantar.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Ver pajaritos. Miramos a los pajaritos volar y cantar." onclick="selectParkActivity(this, 'Ver pajaritos. Miramos a los pajaritos volar y cantar.')">
                 <span class="item-icon" aria-hidden="true">🐦</span>
                 <span>Ver pajaritos</span>
             </button>
-            <button type="button" class="item-card" aria-label="Descansar en banco. Nos sentamos un ratito a descansar." onclick="selectParkActivity('Descansar en banco. Nos sentamos un ratito a descansar.')">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Descansar en banco. Nos sentamos un ratito a descansar." onclick="selectParkActivity(this, 'Descansar en banco. Nos sentamos un ratito a descansar.')">
                 <span class="item-icon" aria-hidden="true">🪑</span>
                 <span>Descansar en banco</span>
             </button>
@@ -1952,12 +1985,30 @@ function returnToSectionTop(triggerEl) {
             }
         }
 
-        function selectParkActivity(message) {
-            const banner = document.getElementById('parkBanner');
-            banner.style.display = 'block';
-            banner.innerText = message;
-            speak(message);
+        function selectParkActivity(buttonEl, message) {
+    if (buttonEl) {
+        const yaEstabaMarcada = buttonEl.classList.contains('completed');
+
+        document.querySelectorAll('#parkView .item-card').forEach((card) => {
+            card.classList.remove('completed');
+            card.setAttribute('aria-pressed', 'false');
+        });
+
+        if (!yaEstabaMarcada) {
+            buttonEl.classList.add('completed');
+            buttonEl.setAttribute('aria-pressed', 'true');
         }
+    }
+
+    const banner = document.getElementById('parkBanner');
+    if (banner) {
+        banner.textContent = message;
+    }
+
+    if (typeof speak === 'function') {
+        speak(message);
+    }
+}
 
         const animalDatabase = [
             { name: 'Perro', gender: 'el', icon: '🐶', action: 'El perro es un gran compañero en el hogar.' },
