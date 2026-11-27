@@ -274,7 +274,6 @@
             font-size: 1.2rem;
             font-weight: 600;
         }
-
         .back-btn {
             min-height: 64px;
             background: #334155;
@@ -292,6 +291,24 @@
             width: 100%;
             max-width: 300px;
             margin: 0 auto;
+        }
+
+        .back-btn--up {
+            background: #1e3a8a;
+            border-color: #dbeafe;
+        }
+
+        .back-btn--up:hover {
+            background: #1d4ed8;
+        }
+
+        .back-btn--panel {
+            background: #115e59;
+            border-color: #ccfbf1;
+        }
+
+        .back-btn--panel:hover {
+            background: #0f766e;
         }
 
         .items-grid {
@@ -520,7 +537,6 @@
             gap: 24px;
             padding: 10px;
         }
-
         .game-shape-item {
             width: 120px;
             height: 120px;
@@ -531,6 +547,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .shape-circle { border-radius: 50%; }
@@ -540,6 +557,45 @@
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
+        }
+
+        .game-shape-item.selected-correct::after,
+        .game-shape-item.selected-wrong::after {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #020617;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+            z-index: 5;
+        }
+
+        .game-shape-item.selected-correct::after {
+            content: "✓";
+            background: #22C55E;
+        }
+
+        .game-shape-item.selected-wrong::after {
+            content: "!";
+            background: #FACC15;
+        }
+
+        .game-shape-item.selected-correct {
+            border: 6px solid #22C55E !important;
+            transform: scale(1.06);
+        }
+
+        .game-shape-item.selected-wrong {
+            border: 6px solid #FACC15 !important;
+            transform: scale(1.05);
         }
 
         .sequence-board {
@@ -779,10 +835,9 @@
             </button>
         </div>
     </header>
-
     <main class="main-container" id="mainMenu" tabindex="-1" aria-label="Menú principal de actividades">
         <button type="button" class="module-card blue" onclick="showView('routineView')" aria-label="Mi Rutina. Colegio y actividades del día en orden.">
-            <span class="module-tag">Orden</span>
+            <span class="module-tag" aria-hidden="true">Orden</span>
             <span class="module-icon-wrap" aria-hidden="true">📅</span>
             <span class="module-title">MI RUTINA</span>
             <span class="module-desc">Colegio y actividades del día en orden.</span>
@@ -853,14 +908,16 @@
             <span class="module-title">¿CÓMO ESTOY?</span>
             <span class="module-desc">Reconocimiento emocional con explicaciones.</span>
         </button>
-       
     </main>
     <section id="routineView" class="view-section" aria-labelledby="routineHeading">
-        <div class="view-header">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
             <div>
                 <h2 id="routineHeading">Mi rutina del día</h2>
                 <p class="section-subtitle">Actividades en orden para saber qué sigue.</p>
             </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
         </div>
         <div class="items-grid" id="routineGrid">
             <button type="button" class="item-card" onclick="this.classList.toggle('completed'); speak('¡Buen día! Hora de despertarse y desayunar rico.')">
@@ -885,115 +942,117 @@
             </button>
         </div>
         <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio.">
-                <span aria-hidden="true">⬅</span> Volver al inicio
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
             </button>
         </div>
     </section>
 
     <section id="drawView" class="view-section" aria-labelledby="drawHeading">
-    <div class="view-header">
-        <div>
-            <h2 id="drawHeading">Aprendo a escribir las letras</h2>
+        <div class="view-header">
+            <div>
+                <h2 id="drawHeading">Aprendo a escribir las letras</h2>
+            </div>
         </div>
-    </div>
-
-
-
-    <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
-        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
-            <span aria-hidden="true">⬅</span> Volver al inicio
-        </button>
-    </div>
-</section>
-<section id="commView" class="view-section" aria-labelledby="commHeading">
-<div class="view-header">
-    <div>
-        <h2 id="commHeading">¿Qué quiero o necesito?</h2>
-        <p class="section-subtitle">Toca una tarjeta para que la voz la diga claramente.</p>
-    </div>
-</div>
-<div class="items-grid">
-    <button type="button" class="item-card" aria-label="Quiero agua. Quiero agua, por favor." onclick="selectNeed(this, 'Quiero agua, por favor.')">
-        <span class="item-icon" aria-hidden="true">🥤</span>
-        <span>Quiero agua</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero comer. ¡Tengo hambre, quiero comer!" onclick="selectNeed(this, '¡Tengo hambre, quiero comer!')">
-        <span class="item-icon" aria-hidden="true">🍌</span>
-        <span>Quiero comer</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Ir al baño. ¡Quiero ir al baño!" onclick="selectNeed(this, '¡Quiero ir al baño!')">
-        <span class="item-icon" aria-hidden="true">🚽</span>
-        <span>Ir al baño</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Necesito ayuda. ¿Me ayudás?" onclick="selectNeed(this, '¿Me ayudás?')">
-        <span class="item-icon" aria-hidden="true">🙋‍♂️</span>
-        <span>Necesito ayuda</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero descansar. Tengo sueño, quiero descansar." onclick="selectNeed(this, 'Tengo sueño, quiero descansar.')">
-        <span class="item-icon" aria-hidden="true">🛏️</span>
-        <span>Quiero descansar</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero silencio. Un ratito en silencio, por favor." onclick="selectNeed(this, 'Un ratito en silencio, por favor.')">
-        <span class="item-icon" aria-hidden="true">🤫</span>
-        <span>Quiero silencio</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Mucho ruido. Hay mucho ruido aquí." onclick="selectNeed(this, 'Hay mucho ruido aquí.')">
-        <span class="item-icon" aria-hidden="true">🙉</span>
-        <span>Mucho ruido</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero música. ¡Pongamos música!" onclick="selectNeed(this, '¡Pongamos música!')">
-        <span class="item-icon" aria-hidden="true">🎵</span>
-        <span>Quiero música</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero jugar. ¡Vamos a jugar!" onclick="selectNeed(this, '¡Vamos a jugar!')">
-        <span class="item-icon" aria-hidden="true">🧸</span>
-        <span>Quiero jugar</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero pasear. ¡Vamos a pasear!" onclick="selectNeed(this, '¡Vamos a pasear!')">
-        <span class="item-icon" aria-hidden="true">🌳</span>
-        <span>Quiero pasear</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero un abrazo. ¡Dame un abrazo!" onclick="selectNeed(this, '¡Dame un abrazo!')">
-        <span class="item-icon" aria-hidden="true">🫂</span>
-        <span>Quiero un abrazo</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Ver dibujos. ¡Quiero ver dibujitos!" onclick="selectNeed(this, '¡Quiero ver dibujitos!')">
-        <span class="item-icon" aria-hidden="true">📺</span>
-        <span>Ver dibujos</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Quiero mi abrigo. ¡Quiero el abrigo!" onclick="selectNeed(this, '¡Quiero el abrigo!')">
-        <span class="item-icon" aria-hidden="true">🧥</span>
-        <span>Quiero mi abrigo</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Tengo frío. ¡Tengo frío!" onclick="selectNeed(this, '¡Tengo frío!')">
-        <span class="item-icon" aria-hidden="true">🥶</span>
-        <span>Tengo frío</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Tengo calor. ¡Tengo calor!" onclick="selectNeed(this, '¡Tengo calor!')">
-        <span class="item-icon" aria-hidden="true">🥵</span>
-        <span>Tengo calor</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Ya terminé. ¡Ya terminé!" onclick="selectNeed(this, '¡Ya terminé!')">
-        <span class="item-icon" aria-hidden="true">✅</span>
-        <span>Ya terminé</span>
-    </button>
-</div>
+        <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+    </section>
+    <section id="commView" class="view-section" aria-labelledby="commHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="commHeading">¿Qué quiero o necesito?</h2>
+                <p class="section-subtitle">Toca una tarjeta para que la voz la diga claramente.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" aria-label="Quiero agua. Quiero agua, por favor." onclick="selectNeed(this, 'Quiero agua, por favor.')">
+                <span class="item-icon" aria-hidden="true">🥤</span>
+                <span>Quiero agua</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero comer. ¡Tengo hambre, quiero comer!" onclick="selectNeed(this, '¡Tengo hambre, quiero comer!')">
+                <span class="item-icon" aria-hidden="true">🍌</span>
+                <span>Quiero comer</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Ir al baño. ¡Quiero ir al baño!" onclick="selectNeed(this, '¡Quiero ir al baño!')">
+                <span class="item-icon" aria-hidden="true">🚽</span>
+                <span>Ir al baño</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Necesito ayuda. ¿Me ayudás?" onclick="selectNeed(this, '¿Me ayudás?')">
+                <span class="item-icon" aria-hidden="true">🙋‍♂️</span>
+                <span>Necesito ayuda</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero descansar. Tengo sueño, quiero descansar." onclick="selectNeed(this, 'Tengo sueño, quiero descansar.')">
+                <span class="item-icon" aria-hidden="true">🛏️</span>
+                <span>Quiero descansar</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero silencio. Un ratito en silencio, por favor." onclick="selectNeed(this, 'Un ratito en silencio, por favor.')">
+                <span class="item-icon" aria-hidden="true">🤫</span>
+                <span>Quiero silencio</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Mucho ruido. Hay mucho ruido aquí." onclick="selectNeed(this, 'Hay mucho ruido aquí.')">
+                <span class="item-icon" aria-hidden="true">🙉</span>
+                <span>Mucho ruido</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero música. ¡Pongamos música!" onclick="selectNeed(this, '¡Pongamos música!')">
+                <span class="item-icon" aria-hidden="true">🎵</span>
+                <span>Quiero música</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero jugar. ¡Vamos a jugar!" onclick="selectNeed(this, '¡Vamos a jugar!')">
+                <span class="item-icon" aria-hidden="true">🧸</span>
+                <span>Quiero jugar</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero pasear. ¡Vamos a pasear!" onclick="selectNeed(this, '¡Vamos a pasear!')">
+                <span class="item-icon" aria-hidden="true">🌳</span>
+                <span>Quiero pasear</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero un abrazo. ¡Dame un abrazo!" onclick="selectNeed(this, '¡Dame un abrazo!')">
+                <span class="item-icon" aria-hidden="true">🫂</span>
+                <span>Quiero un abrazo</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Ver dibujos. ¡Quiero ver dibujitos!" onclick="selectNeed(this, '¡Quiero ver dibujitos!')">
+                <span class="item-icon" aria-hidden="true">📺</span>
+                <span>Ver dibujos</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Quiero mi abrigo. ¡Quiero el abrigo!" onclick="selectNeed(this, '¡Quiero el abrigo!')">
+                <span class="item-icon" aria-hidden="true">🧥</span>
+                <span>Quiero mi abrigo</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Tengo frío. ¡Tengo frío!" onclick="selectNeed(this, '¡Tengo frío!')">
+                <span class="item-icon" aria-hidden="true">🥶</span>
+                <span>Tengo frío</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Tengo calor. ¡Tengo calor!" onclick="selectNeed(this, '¡Tengo calor!')">
+                <span class="item-icon" aria-hidden="true">🥵</span>
+                <span>Tengo calor</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Ya terminé. ¡Ya terminé!" onclick="selectNeed(this, '¡Ya terminé!')">
+                <span class="item-icon" aria-hidden="true">✅</span>
+                <span>Ya terminé</span>
+            </button>
         </div>
         <div id="needBanner" class="feedback-banner orange-active" role="status" aria-live="polite"></div>
         <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-            <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-                <span aria-hidden="true">⬅</span> Volver al inicio
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
             </button>
         </div>
     </section>
 
     <section id="autonomyView" class="view-section" aria-labelledby="autonomyHeading">
-        <div class="view-header">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
             <div>
                 <h2 id="autonomyHeading">Me Visto y Peino Solo</h2>
                 <p class="section-subtitle">Toca cada acción cuando la completes.</p>
             </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
         </div>
         <div class="items-grid" id="autonomyGrid">
             <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" aria-label="Elegir ropa. Elegimos la ropa que más nos guste y que sea cómoda." onclick="toggleRoutine(this, 'Elegir ropa. Elegimos la ropa que más nos guste y que sea cómoda.')">
@@ -1029,345 +1088,374 @@
                 <span>¡Todo listo!</span>
             </button>
         </div>
-    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-            <span aria-hidden="true">⬅</span> Volver al inicio
-        </button>
-    </div>
-</section>
-
-<section id="anticipateView" class="view-section" aria-labelledby="anticipateHeading">
-    <div class="view-header">
-        <div>
-            <h2 id="anticipateHeading">Historias de Anticipación</h2>
-            <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso.</p>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
         </div>
-    </div>
-    <div class="category-selector" role="group" aria-label="Elegir situación">
-        <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadAnticipation('medico', event)" aria-label="Ir al médico. Vamos a ver qué pasa cuando vamos al médico.">🏥 Médico</button>
-        <button type="button" class="cat-btn" id="tab-super" onclick="loadAnticipation('super', event)" aria-label="Supermercado. Vamos a ver qué pasa cuando vamos al supermercado.">🛒 Super</button>
-        <button type="button" class="cat-btn" id="tab-coche" onclick="loadAnticipation('coche', event)" aria-label="Ir en coche. Vamos a ver qué pasa cuando viajamos en coche.">🚗 Coche</button>
-        <button type="button" class="cat-btn" id="tab-pasear" onclick="loadAnticipation('pasear', event)" aria-label="Salir a pasear. Vamos a ver qué pasa cuando salimos a pasear.">🌳 Pasear</button>
-        <button type="button" class="cat-btn" id="tab-playa" onclick="loadAnticipation('playa', event)" aria-label="Ir a la playa. Vamos a ver qué pasa cuando vamos a la playa.">🏖️ Playa</button>
-        <button type="button" class="cat-btn" id="tab-pelo" onclick="loadAnticipation('pelo', event)" aria-label="Cortar el pelo. Vamos a ver qué pasa cuando cortamos el pelo.">✂️ Pelo</button>
-        <button type="button" class="cat-btn" id="tab-dormir" onclick="loadAnticipation('dormir', event)" aria-label="Hora de dormir. Vamos a ver qué pasa cuando nos vamos a dormir.">🌙 Dormir</button>
-    </div>
-    <div id="anticipateContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
-    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-            <span aria-hidden="true">⬅</span> Volver al inicio
-        </button>
-    </div>
-</section>
+    </section>
 
-<section id="storyView" class="view-section" aria-labelledby="storyHeading">
-    <div class="view-header">
-        <div>
-            <h2 id="storyHeading">Las aventuras de Néstor y la Mani</h2>
-            <p class="section-subtitle">Historias de la Mani en su viaje desde Uruguay a Gran Canaria para leer juntos.</p>
-        </div>
-    </div>
-    <div class="category-selector" role="group" aria-label="Elegir cuento">
-        <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El viaje y el reencuentro. La Mani viaja desde Uruguay a Gran Canaria.">✈️ El viaje</button>
-        <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque', event)" aria-label="Tarde en el parque. La historia de una tarde divertida en el parque.">🛝 Parque</button>
-        <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos', event)" aria-label="Tarde de recuerdos. La historia de cuando miramos fotos y videos juntos.">🎞️ Recuerdos</button>
-    </div>
-    <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
-    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-            <span aria-hidden="true">⬅</span> Volver al inicio
-        </button>
-    </div>
-</section>
-
-<section id="parkView" class="view-section" aria-labelledby="parkHeading">
-<div class="view-header">
-    <div>
-        <h2 id="parkHeading">¿Qué hacemos en el parque?</h2>
-        <p class="section-subtitle">Toca cada actividad para escucharla y disfrutar.</p>
-    </div>
-</div>
-<div class="items-grid">
-    <button type="button" class="item-card" aria-label="Columpio. Nos balanceamos suavemente hacia adelante y atrás." onclick="selectParkActivity('Columpio. Nos balanceamos suavemente hacia adelante y atrás.')">
-        <span class="item-icon" aria-hidden="true">🎠</span>
-        <span>Columpio</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Tobogán. Subimos por la escalera y nos deslizamos con cuidado." onclick="selectParkActivity('Tobogán. Subimos por la escalera y nos deslizamos con cuidado.')">
-        <span class="item-icon" aria-hidden="true">🛝</span>
-        <span>Tobogán</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!" onclick="selectParkActivity('Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!')">
-        <span class="item-icon" aria-hidden="true">🔄</span>
-        <span>Subibaja</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Jugar en la arena. Hacemos castillos y formas con el balde y la pala." onclick="selectParkActivity('Jugar en la arena. Hacemos castillos y formas con el balde y la pala.')">
-        <span class="item-icon" aria-hidden="true">🏖️</span>
-        <span>Jugar en la arena</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Andar en bici. Pedaleamos sintiendo el viento en la cara." onclick="selectParkActivity('Andar en bici. Pedaleamos sintiendo el viento en la cara.')">
-        <span class="item-icon" aria-hidden="true">🚲</span>
-        <span>Andar en bici</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Correr. Corremos por el césped sintiéndonos libres y felices." onclick="selectParkActivity('Correr. Corremos por el césped sintiéndonos libres y felices.')">
-        <span class="item-icon" aria-hidden="true">🏃‍♂️</span>
-        <span>Correr</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Saltar. Saltamos alto con mucha energía." onclick="selectParkActivity('Saltar. Saltamos alto con mucha energía.')">
-        <span class="item-icon" aria-hidden="true">🦘</span>
-        <span>Saltar</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Jugar al fútbol. Pateamos la pelota con los amigos." onclick="selectParkActivity('Jugar al fútbol. Pateamos la pelota con los amigos.')">
-        <span class="item-icon" aria-hidden="true">⚽</span>
-        <span>Jugar al fútbol</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Volar barrilete. Hacemos volar el barrilete alto en el cielo." onclick="selectParkActivity('Volar barrilete. Hacemos volar el barrilete alto en el cielo.')">
-        <span class="item-icon" aria-hidden="true">🪁</span>
-        <span>Volar barrilete</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Empujar carrito. Empujamos el carrito con alegría." onclick="selectParkActivity('Empujar carrito. Empujamos el carrito con alegría.')">
-        <span class="item-icon" aria-hidden="true">🛴</span>
-        <span>Empujar carrito</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Ver pajaritos. Miramos a los pajaritos volar y cantar." onclick="selectParkActivity('Ver pajaritos. Miramos a los pajaritos volar y cantar.')">
-        <span class="item-icon" aria-hidden="true">🐦</span>
-        <span>Ver pajaritos</span>
-    </button>
-    <button type="button" class="item-card" aria-label="Descansar en banco. Nos sentamos un ratito a descansar." onclick="selectParkActivity('Descansar en banco. Nos sentamos un ratito a descansar.')">
-        <span class="item-icon" aria-hidden="true">🪑</span>
-        <span>Descansar en banco</span>
-    </button>
-</div>
-<div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-<div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
-
-<section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
-    <div class="view-header">
-        <div>
-            <h2 id="colorsLearnHeading">Aprender</h2>
-            <p class="section-subtitle">Toca cada elemento para explorar y escuchar.</p>
-        </div>
-    </div>
-    <div class="category-selector">
-        <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('abecedario', event)" aria-label="Abecedario. Vamos a aprender las letras del abecedario.">🔤 Abecedario</button>
-        <button type="button" class="cat-btn" onclick="switchLearnTab('dibujar', event)" aria-label="Dibujar letras. Vamos a aprender a escribir las letras.">✍️ Dibujar letras</button>
-        <button type="button" class="cat-btn" onclick="switchLearnTab('colores', event)" aria-label="Colores. Vamos a aprender los colores.">🎨 Colores</button>
-        <button type="button" class="cat-btn" onclick="switchLearnTab('transporte', event)" aria-label="Transportes. Vamos a conocer los medios de transporte.">🚗 Transportes</button>
-        <button type="button" class="cat-btn" onclick="switchLearnTab('dinosaurios', event)" aria-label="Dinosaurios. Vamos a conocer los dinosaurios.">🦕 Dinosaurios</button>
-    </div>
-    <div id="learnGridContainer">
-        <div class="items-grid" id="learnGrid"></div>
-    </div>
-    <div id="learnDrawPanel" style="display: none;">
-        <div class="view-header">
+    <section id="anticipateView" class="view-section" aria-labelledby="anticipateHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
             <div>
-                <h3>Aprendo a escribir las letras</h3>
+                <h2 id="anticipateHeading">Historias de Anticipación</h2>
+                <p class="section-subtitle">Elige una situación y toca cada tarjeta para anticipar paso a paso.</p>
             </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="category-selector" role="group" aria-label="Elegir situación">
+            <button type="button" class="cat-btn active-cat" id="tab-medico" onclick="loadAnticipation('medico', event)" aria-label="Ir al médico. Vamos a ver qué pasa cuando vamos al médico.">🏥 Médico</button>
+            <button type="button" class="cat-btn" id="tab-super" onclick="loadAnticipation('super', event)" aria-label="Supermercado. Vamos a ver qué pasa cuando vamos al supermercado.">🛒 Super</button>
+            <button type="button" class="cat-btn" id="tab-coche" onclick="loadAnticipation('coche', event)" aria-label="Ir en coche. Vamos a ver qué pasa cuando viajamos en coche.">🚗 Coche</button>
+            <button type="button" class="cat-btn" id="tab-pasear" onclick="loadAnticipation('pasear', event)" aria-label="Salir a pasear. Vamos a ver qué pasa cuando salimos a pasear.">🌳 Pasear</button>
+            <button type="button" class="cat-btn" id="tab-playa" onclick="loadAnticipation('playa', event)" aria-label="Ir a la playa. Vamos a ver qué pasa cuando vamos a la playa.">🏖️ Playa</button>
+            <button type="button" class="cat-btn" id="tab-pelo" onclick="loadAnticipation('pelo', event)" aria-label="Cortar el pelo. Vamos a ver qué pasa cuando cortamos el pelo.">✂️ Pelo</button>
+            <button type="button" class="cat-btn" id="tab-dormir" onclick="loadAnticipation('dormir', event)" aria-label="Hora de dormir. Vamos a ver qué pasa cuando nos vamos a dormir.">🌙 Dormir</button>
+        </div>
+        <div id="anticipateContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+    
+    <section id="storyView" class="view-section" aria-labelledby="storyHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="storyHeading">Las aventuras de Néstor y la Mani</h2>
+                <p class="section-subtitle">Historias de la Mani en su viaje desde Uruguay a Gran Canaria para leer juntos.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="category-selector" role="group" aria-label="Elegir cuento">
+            <button type="button" class="cat-btn active-cat" id="tab-aeropuerto" onclick="loadStory('aeropuerto', event)" aria-label="El viaje y el reencuentro. La Mani viaja desde Uruguay a Gran Canaria.">✈️ El viaje</button>
+            <button type="button" class="cat-btn" id="tab-parque" onclick="loadStory('parque', event)" aria-label="Tarde en el parque. La historia de una tarde divertida en el parque.">🛝 Parque</button>
+            <button type="button" class="cat-btn" id="tab-recuerdos" onclick="loadStory('recuerdos', event)" aria-label="Tarde de recuerdos. La historia de cuando miramos fotos y videos juntos.">🎞️ Recuerdos</button>
+        </div>
+        <div id="storyContent" class="items-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+
+    <section id="parkView" class="view-section" aria-labelledby="parkHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="parkHeading">¿Qué hacemos en el parque?</h2>
+                <p class="section-subtitle">Toca cada actividad para escucharla y disfrutar.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" aria-label="Columpio. Nos balanceamos suavemente hacia adelante y atrás." onclick="selectParkActivity('Columpio. Nos balanceamos suavemente hacia adelante y atrás.')">
+                <span class="item-icon" aria-hidden="true">🎠</span>
+                <span>Columpio</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Tobogán. Subimos por la escalera y nos deslizamos con cuidado." onclick="selectParkActivity('Tobogán. Subimos por la escalera y nos deslizamos con cuidado.')">
+                <span class="item-icon" aria-hidden="true">🛝</span>
+                <span>Tobogán</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!" onclick="selectParkActivity('Subibaja. Subimos y bajamos con un amigo, ¡qué divertido!')">
+                <span class="item-icon" aria-hidden="true">🔄</span>
+                <span>Subibaja</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Jugar en la arena. Hacemos castillos y formas con el balde y la pala." onclick="selectParkActivity('Jugar en la arena. Hacemos castillos y formas con el balde y la pala.')">
+                <span class="item-icon" aria-hidden="true">🏖️</span>
+                <span>Jugar en la arena</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Andar en bici. Pedaleamos sintiendo el viento en la cara." onclick="selectParkActivity('Andar en bici. Pedaleamos sintiendo el viento en la cara.')">
+                <span class="item-icon" aria-hidden="true">🚲</span>
+                <span>Andar en bici</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Correr. Corremos por el césped sintiéndonos libres y felices." onclick="selectParkActivity('Correr. Corremos por el césped sintiéndonos libres y felices.')">
+                <span class="item-icon" aria-hidden="true">🏃‍♂️</span>
+                <span>Correr</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Saltar. Saltamos alto con mucha energía." onclick="selectParkActivity('Saltar. Saltamos alto con mucha energía.')">
+                <span class="item-icon" aria-hidden="true">🦘</span>
+                <span>Saltar</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Jugar al fútbol. Pateamos la pelota con los amigos." onclick="selectParkActivity('Jugar al fútbol. Pateamos la pelota con los amigos.')">
+                <span class="item-icon" aria-hidden="true">⚽</span>
+                <span>Jugar al fútbol</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Volar barrilete. Hacemos volar el barrilete alto en el cielo." onclick="selectParkActivity('Volar barrilete. Hacemos volar el barrilete alto en el cielo.')">
+                <span class="item-icon" aria-hidden="true">🪁</span>
+                <span>Volar barrilete</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Empujar carrito. Empujamos el carrito con alegría." onclick="selectParkActivity('Empujar carrito. Empujamos el carrito con alegría.')">
+                <span class="item-icon" aria-hidden="true">🛴</span>
+                <span>Empujar carrito</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Ver pajaritos. Miramos a los pajaritos volar y cantar." onclick="selectParkActivity('Ver pajaritos. Miramos a los pajaritos volar y cantar.')">
+                <span class="item-icon" aria-hidden="true">🐦</span>
+                <span>Ver pajaritos</span>
+            </button>
+            <button type="button" class="item-card" aria-label="Descansar en banco. Nos sentamos un ratito a descansar." onclick="selectParkActivity('Descansar en banco. Nos sentamos un ratito a descansar.')">
+                <span class="item-icon" aria-hidden="true">🪑</span>
+                <span>Descansar en banco</span>
+            </button>
+        </div>
+        <div id="parkBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+
+    <section id="colorsLearnView" class="view-section" aria-labelledby="colorsLearnHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="colorsLearnHeading">Aprender</h2>
+                <p class="section-subtitle">Toca cada elemento para explorar y escuchar.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="category-selector">
+            <button type="button" class="cat-btn active-cat" onclick="switchLearnTab('abecedario', event)" aria-label="Abecedario. Vamos a aprender las letras del abecedario.">🔤 Abecedario</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('dibujar', event)" aria-label="Dibujar letras. Vamos a aprender a escribir las letras.">✍️ Dibujar letras</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('colores', event)" aria-label="Colores. Vamos a aprender los colores.">🎨 Colores</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('transporte', event)" aria-label="Transportes. Vamos a conocer los medios de transporte.">🚗 Transportes</button>
+            <button type="button" class="cat-btn" onclick="switchLearnTab('dinosaurios', event)" aria-label="Dinosaurios. Vamos a conocer los dinosaurios.">🦕 Dinosaurios</button>
+        </div>
+        <div id="learnGridContainer">
+            <div class="items-grid" id="learnGrid"></div>
+        </div>
+        <div id="learnDrawPanel" style="display: none;">
+            <div class="view-header">
+                <div>
+                    <h3>Aprendo a escribir las letras</h3>
+                </div>
+            </div>
+            <div class="draw-section">
+                <div class="canvas-container">
+                    <div class="guide-letter" id="guideLetter">A</div>
+                    <canvas id="drawCanvas" aria-label="Área para escribir la letra"></canvas>
+                </div>
+                <div class="draw-controls">
+                    <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar">🗑️ Borrar</button>
+                    <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra">🎲 Otra letra</button>
+                </div>
+                <div id="drawFeedback" class="feedback-banner" role="status" aria-live="polite" style="display: none;"></div>
+            </div>
+        </div>
+        <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+    
+    <section id="animalsView" class="view-section" aria-labelledby="animalsHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="animalsHeading">Mundo Animal</h2>
+                <p class="section-subtitle">Explora animales y sus características.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="items-grid" id="animalsGrid"></div>
+        <div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+
+    <section id="foodView" class="view-section" aria-labelledby="foodHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="foodHeading">Frutas, Verduras, Carnes y Alimentos</h2>
+                <p class="section-subtitle">Toca un alimento para nombrarlo y aprender.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="category-selector">
+            <button type="button" class="cat-btn active-cat" onclick="filterFood('fruta', event)" aria-label="Frutas. Vamos a conocer las frutas.">Frutas</button>
+            <button type="button" class="cat-btn" onclick="filterFood('verdura', event)" aria-label="Verduras. Vamos a conocer las verduras.">Verduras</button>
+            <button type="button" class="cat-btn" onclick="filterFood('carne', event)" aria-label="Carnes y pollo. Vamos a conocer las carnes.">Carnes</button>
+            <button type="button" class="cat-btn" onclick="filterFood('pescado', event)" aria-label="Pescado. Vamos a conocer el pescado y los mariscos.">Pescado</button>
+            <button type="button" class="cat-btn" onclick="filterFood('comida', event)" aria-label="Platos y bebidas. Vamos a conocer los platos y bebidas.">Platos</button>
+        </div>
+        <div class="items-grid" id="foodGrid"></div>
+        <div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+    
+    <section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="nums100Heading">Tablero de Números del 1 al 100</h2>
+                <p class="section-subtitle">Toca cualquier número para escucharlo.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="numbers-grid-100" id="numbersGrid100"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+
+    <section id="gameView" class="view-section" aria-labelledby="gameHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
+                <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="category-selector" role="group" aria-label="Elegir tipo de juego">
+            <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors', event)" aria-label="Colores y formas. Vamos a jugar con colores y formas.">1. Colores</button>
+            <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory', event)" aria-label="Memoria. Vamos a jugar a recordar animales.">2. Memoria</button>
+            <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series', event)" aria-label="Series. Vamos a completar las series.">3. Series</button>
+            <button type="button" class="cat-btn" id="gtab-find" onclick="switchGameTab('find', event)" aria-label="Buscar animal. Vamos a buscar al animal escondido.">4. Buscar</button>
+        </div>
+        
+        <div id="panel-colors" class="game-panel active-game">
+            <h3 id="targetPrompt" class="game-prompt">Toca la figura: Círculo Rojo</h3>
+            <div class="color-options" id="vividColorOptions"></div>
+            <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
+        </div>
+        
+        <div id="panel-memory" class="game-panel">
+            <h3 id="memoryPrompt" class="game-prompt">Memoriza estos animales</h3>
+            <div class="sequence-board" id="memoryBoard"></div>
+            <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <button type="button" class="btn-control active" onclick="hideTwoAnimals()" aria-label="Esconder animal. Vamos a esconder un animal.">🙈 Esconder</button>
+            </div>
+            <div class="choice-row" id="memoryChoices" style="display: none;"></div>
+            <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
+        </div>
+        
+        <div id="panel-series" class="game-panel">
+            <h3 id="seriesPrompt" class="game-prompt">¿Qué elemento continúa la serie?</h3>
+            <div class="sequence-board" id="seriesBoard"></div>
+            <div class="choice-row" id="seriesChoices"></div>
+            <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
+        </div>
+        
+        <div id="panel-find" class="game-panel">
+            <h3 id="findPrompt" class="game-prompt">¿Dónde está el animal?</h3>
+            <div class="find-arena">
+                <div class="find-grid" id="findGrid"></div>
+            </div>
+            <p id="findFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
+        </div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+
+    <section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="emotionHeading">¿Cómo estoy?</h2>
+                <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
+        </div>
+        <div class="items-grid">
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio." onclick="selectEmotion('Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio.', this)">
+                <span class="item-icon" aria-hidden="true">😄</span>
+                <span>Feliz</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Tranquilo. Estás en un lugar seguro, tranquilo y en paz." onclick="selectEmotion('Tranquilo. Estás en un lugar seguro, tranquilo y en paz.', this)">
+                <span class="item-icon" aria-hidden="true">😌</span>
+                <span>Tranquilo</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Emocionado. ¡Qué energía y entusiasmo tienes para hoy!" onclick="selectEmotion('Emocionado. ¡Qué energía y entusiasmo tienes para hoy!', this)">
+                <span class="item-icon" aria-hidden="true">🤩</span>
+                <span>Emocionado</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Cansado. Es momento de descansar un poquito y recargar energía." onclick="selectEmotion('Cansado. Es momento de descansar un poquito y recargar energía.', this)">
+                <span class="item-icon" aria-hidden="true">🥱</span>
+                <span>Cansado</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer." onclick="selectEmotion('Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer.', this)">
+                <span class="item-icon" aria-hidden="true">🍎</span>
+                <span>Hambriento</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar." onclick="selectEmotion('Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar.', this)">
+                <span class="item-icon" aria-hidden="true">😤</span>
+                <span>Enojado</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor." onclick="selectEmotion('Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor.', this)">
+                <span class="item-icon" aria-hidden="true">💙</span>
+                <span>Triste</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" aria-label="Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido." onclick="selectEmotion('Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido.', this)">
+                <span class="item-icon" aria-hidden="true">🫨</span>
+                <span>Asustado</span>
+            </button>
+        </div>
+        <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
+        <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
+
+    <section id="drawLettersView" class="view-section" aria-labelledby="drawLettersHeading">
+        <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div>
+                <h2 id="drawLettersHeading">Aprender a escribir letras</h2>
+                <p class="section-subtitle">Sigue la guía para practicar el trazo de la letra.</p>
+            </div>
+            <button type="button" class="back-btn back-btn--panel" onclick="showView('mainMenu')" aria-label="Volver al panel. Salimos de aquí y vamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬅</span> Volver al panel
+            </button>
         </div>
         <div class="draw-section">
             <div class="canvas-container">
-                <div class="guide-letter" id="guideLetter">A</div>
-                <canvas id="drawCanvas" aria-label="Área para escribir la letra"></canvas>
+                <div class="guide-letter" id="guideLetterLetters">A</div>
+                <canvas id="drawCanvasLetters" aria-label="Área para practicar la escritura de la letra"></canvas>
             </div>
-            <div class="draw-controls">
-                <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar">🗑️ Borrar</button>
-                <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra">🎲 Otra letra</button>
-            </div>
-            <div id="drawFeedback" class="feedback-banner" role="status" aria-live="polite" style="display: none;"></div>
-        </div>
-    </div>
-    <div id="colorLearnBanner" class="feedback-banner pink-active" role="status" aria-live="polite"></div>
-    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-            <span aria-hidden="true">⬅</span> Volver al inicio
-        </button>
-    </div>
-    </section>
-
-<section id="animalsView" class="view-section" aria-labelledby="animalsHeading">
-<div class="view-header">
-    <div>
-        <h2 id="animalsHeading">Mundo Animal</h2>
-        <p class="section-subtitle">Explora animales y sus características.</p>
-    </div>
-</div>
-<div class="items-grid" id="animalsGrid"></div>
-<div id="animalBanner" class="feedback-banner yellow-active" role="status" aria-live="polite"></div>
-<div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
-
-<section id="foodView" class="view-section" aria-labelledby="foodHeading">
-<div class="view-header">
-    <div>
-        <h2 id="foodHeading">Frutas, Verduras, Carnes y Alimentos</h2>
-        <p class="section-subtitle">Toca un alimento para nombrarlo y aprender.</p>
-    </div>
-</div>
-<div class="category-selector">
-    <button type="button" class="cat-btn active-cat" onclick="filterFood('fruta', event)" aria-label="Frutas. Vamos a conocer las frutas.">Frutas</button>
-    <button type="button" class="cat-btn" onclick="filterFood('verdura', event)" aria-label="Verduras. Vamos a conocer las verduras.">Verduras</button>
-    <button type="button" class="cat-btn" onclick="filterFood('carne', event)" aria-label="Carnes y pollo. Vamos a conocer las carnes.">Carnes</button>
-    <button type="button" class="cat-btn" onclick="filterFood('pescado', event)" aria-label="Pescado. Vamos a conocer el pescado y los mariscos.">Pescado</button>
-    <button type="button" class="cat-btn" onclick="filterFood('comida', event)" aria-label="Platos y bebidas. Vamos a conocer los platos y bebidas.">Platos</button>
-</div>
-<div class="items-grid" id="foodGrid"></div>
-<div id="foodBanner" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-<div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
-
-<section id="numbers100View" class="view-section" aria-labelledby="nums100Heading">
-<div class="view-header">
-    <div>
-        <h2 id="nums100Heading">Tablero de Números del 1 al 100</h2>
-        <p class="section-subtitle">Toca cualquier número para escucharlo.</p>
-    </div>
-</div>
-<div class="numbers-grid-100" id="numbersGrid100"></div>
-<div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
-
-<section id="gameView" class="view-section" aria-labelledby="gameHeading">
-<div class="view-header">
-    <div>
-        <h2 id="gameHeading">Juegos y Retos Avanzados</h2>
-        <p class="section-subtitle">Pon a prueba tu agilidad visual con mayor dificultad.</p>
-    </div>
-</div>
-<div class="category-selector" role="group" aria-label="Elegir tipo de juego">
-    <button type="button" class="cat-btn active-cat" id="gtab-colors" onclick="switchGameTab('colors', event)" aria-label="Colores y formas. Vamos a jugar con colores y formas.">1. Colores</button>
-    <button type="button" class="cat-btn" id="gtab-memory" onclick="switchGameTab('memory', event)" aria-label="Memoria. Vamos a jugar a recordar animales.">2. Memoria</button>
-    <button type="button" class="cat-btn" id="gtab-series" onclick="switchGameTab('series', event)" aria-label="Series. Vamos a completar las series.">3. Series</button>
-    <button type="button" class="cat-btn" id="gtab-find" onclick="switchGameTab('find', event)" aria-label="Buscar animal. Vamos a buscar al animal escondido.">4. Buscar</button>
-</div>
-
-<div id="panel-colors" class="game-panel active-game">
-    <h3 id="targetPrompt" class="game-prompt">Toca la figura: Círculo Rojo</h3>
-    <div class="color-options" id="vividColorOptions"></div>
-    <p id="gameFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
-</div>
-
-<div id="panel-memory" class="game-panel">
-    <h3 id="memoryPrompt" class="game-prompt">Memoriza estos animales</h3>
-    <div class="sequence-board" id="memoryBoard"></div>
-    <div id="memoryActionArea" style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
-        <button type="button" class="btn-control active" onclick="hideTwoAnimals()" aria-label="Esconder animal. Vamos a esconder un animal.">🙈 Esconder</button>
-    </div>
-    <div class="choice-row" id="memoryChoices" style="display: none;"></div>
-    <p id="memoryFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
-</div>
-
-<div id="panel-series" class="game-panel">
-    <h3 id="seriesPrompt" class="game-prompt">¿Qué elemento continúa la serie?</h3>
-    <div class="sequence-board" id="seriesBoard"></div>
-    <div class="choice-row" id="seriesChoices"></div>
-    <p id="seriesFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
-</div>
-
-<div id="panel-find" class="game-panel">
-    <h3 id="findPrompt" class="game-prompt">¿Dónde está el animal?</h3>
-    <div class="find-arena">
-        <div class="find-grid" id="findGrid"></div>
-    </div>
-    <p id="findFeedback" class="game-feedback-text" role="status" aria-live="assertive"></p>
-</div>
-<div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
-
-<section id="emotionView" class="view-section" aria-labelledby="emotionHeading">
-    <div class="view-header">
-        <div>
-            <h2 id="emotionHeading">¿Cómo estoy?</h2>
-            <p class="section-subtitle">Toca la cara que muestra tu estado de ánimo actual.</p>
-        </div>
-    </div>
-    <div class="items-grid">
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio." onclick="selectEmotion('Feliz. ¡Qué alegría tan linda! Tu sonrisa ilumina todo el espacio.', this)">
-            <span class="item-icon" aria-hidden="true">😄</span>
-            <span>Feliz</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Tranquilo. Estás en un lugar seguro, tranquilo y en paz." onclick="selectEmotion('Tranquilo. Estás en un lugar seguro, tranquilo y en paz.', this)">
-            <span class="item-icon" aria-hidden="true">😌</span>
-            <span>Tranquilo</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Emocionado. ¡Qué energía y entusiasmo tienes para hoy!" onclick="selectEmotion('Emocionado. ¡Qué energía y entusiasmo tienes para hoy!', this)">
-            <span class="item-icon" aria-hidden="true">🤩</span>
-            <span>Emocionado</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Cansado. Es momento de descansar un poquito y recargar energía." onclick="selectEmotion('Cansado. Es momento de descansar un poquito y recargar energía.', this)">
-            <span class="item-icon" aria-hidden="true">🥱</span>
-            <span>Cansado</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer." onclick="selectEmotion('Hambriento. Sentimos un poco de hambre. Vamos a buscar algo rico para comer.', this)">
-            <span class="item-icon" aria-hidden="true">🍎</span>
-            <span>Hambriento</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar." onclick="selectEmotion('Enojado. Respiramos hondo y despacio. Todo está bien y va a pasar.', this)">
-            <span class="item-icon" aria-hidden="true">😤</span>
-            <span>Enojado</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor." onclick="selectEmotion('Triste. A veces nos sentimos tristes y está bien. Un abrazo nos hace sentir mejor.', this)">
-            <span class="item-icon" aria-hidden="true">💙</span>
-            <span>Triste</span>
-        </button>
-        <button type="button" class="item-card" aria-pressed="false" aria-label="Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido." onclick="selectEmotion('Asustado. Si sientes miedo, respira hondo conmigo. Estás a salvo y protegido.', this)">
-            <span class="item-icon" aria-hidden="true">🫨</span>
-            <span>Asustado</span>
-        </button>
-    </div>
-    <div id="emotionMessage" class="feedback-banner green-active" role="status" aria-live="polite"></div>
-    <div style="margin-top: 30px; text-align: center; border-top: 2px solid #334155; padding-top: 20px;">
-        <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal.">
-            <span aria-hidden="true">⬅</span> Volver al inicio
-        </button>
-    </div>
-    </section>
-    <section id="drawLettersView" class="view-section" aria-labelledby="drawLettersHeading">
-    <div class="view-header">
-        <div>
-            <h2 id="drawLettersHeading">Aprender a escribir letras</h2>
-            <p class="section-subtitle">Sigue la guía para practicar el trazo de la letra.</p>
-        </div>
-    </div>
-    <div class="draw-section">
-    <div class="canvas-container">
-        <div class="guide-letter" id="guideLetterLetters">A</div>
-        <canvas id="drawCanvasLetters" aria-label="Área para practicar la escritura de la letra"></canvas>
-    </div>
     
-    <!-- SE ELIMINÓ EL SELECTOR DE COLORES -->
-
-    <div class="draw-controls">
-        <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar dibujo">🗑️ Borrar</button>
-        <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra al azar">🎲 Otra letra</button>
-    </div>
-    <div class="feedback-banner green-active" id="drawFeedbackLetters" role="status" aria-live="polite"></div>
-</div>
-<div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
-    <button type="button" class="back-btn" onclick="showView('mainMenu')" aria-label="Volver al inicio. Regresamos al menú principal." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
-        <span aria-hidden="true">⬅</span> Volver al inicio
-    </button>
-</div>
-</section>
+            <div class="draw-controls">
+                <button type="button" class="draw-btn erase" onclick="clearCanvas()" aria-label="Borrar dibujo">🗑️ Borrar</button>
+                <button type="button" class="draw-btn next" onclick="randomLetter()" aria-label="Cambiar a otra letra al azar">🎲 Otra letra</button>
+            </div>
+            <div class="feedback-banner green-active" id="drawFeedbackLetters" role="status" aria-live="polite"></div>
+        </div>
+        <div style="margin-top:30px;text-align:center;border-top:2px solid #334155;padding-top:20px;">
+            <button type="button" class="back-btn back-btn--up" onclick="returnToCommTop(this)" aria-label="Subir. Vamos arriba en esta pantalla sin salir de aquí." onmouseover="speak(this.getAttribute('aria-label'))" onfocus="speak(this.getAttribute('aria-label'))">
+                <span aria-hidden="true">⬆</span> Subir
+            </button>
+        </div>
+    </section>
 
 <footer>
 Desarrollado por <span>Graciela Viera</span>
@@ -1561,6 +1649,58 @@ function speak(text) {
             banner.innerText = phrase;
             speak(phrase);
         }
+
+        function scrollToElementAccessible(targetEl) {
+    if (!targetEl) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+
+    const scrollableCard = targetEl.closest('[data-scroll-card]');
+    if (scrollableCard && scrollableCard.scrollHeight > scrollableCard.clientHeight) {
+        scrollableCard.scrollTo({ top: 0, behavior });
+    } else {
+        window.scrollTo({ top: 0, left: 0, behavior });
+    }
+
+    if (typeof targetEl.focus === 'function') {
+        if (!targetEl.hasAttribute('tabindex')) {
+            targetEl.setAttribute('tabindex', '-1');
+        }
+        targetEl.focus({ preventScroll: true });
+    }
+
+
+            if (!targetEl.hasAttribute('tabindex')) {
+                targetEl.setAttribute('tabindex', '-1');
+            }
+            targetEl.focus({ preventScroll: true });
+        }
+        function returnToCommTop(triggerEl) {
+    const learnSection = triggerEl ? triggerEl.closest('#colorsLearnView') : null;
+    if (learnSection) {
+        const activeTarget =
+            document.getElementById('learnGridContainer')?.style.display !== 'none'
+                ? document.getElementById('learnGridContainer')
+                : document.getElementById('learnDrawPanel');
+        scrollToElementAccessible(activeTarget || learnSection);
+        return;
+    }
+
+    const section = triggerEl ? triggerEl.closest('.view-section') : null;
+    if (section) {
+        const heading = section.querySelector('h2, h3') || section;
+        scrollToElementAccessible(heading);
+        return;
+    }
+
+    const card = triggerEl ? triggerEl.closest('.item-card, .game-panel, .card') : null;
+    const target = card || document.getElementById('needBanner') || document.getElementById('commView');
+    scrollToElementAccessible(target);
+}
+
+function returnToSectionTop(triggerEl) {
+    returnToCommTop(triggerEl);
+}
         function switchLearnTab(tabType, event) {
             document.querySelectorAll('#colorsLearnView .cat-btn').forEach(b => b.classList.remove('active-cat'));
             if (event && event.target) {
@@ -2206,6 +2346,10 @@ function speak(text) {
             const container = document.getElementById('vividColorOptions');
             if (!container) return;
             container.innerHTML = '';
+
+            const feedbackEl = document.getElementById('colorFeedback');
+            if (feedbackEl) feedbackEl.innerText = '';
+
             let optionsSet = [currentShapeTarget];
             while (optionsSet.length < 6) {
                 const col = shapeColors[Math.floor(Math.random() * shapeColors.length)];
@@ -2226,10 +2370,50 @@ function speak(text) {
                 }
                 const ariaLabelText = item.shape.name.charAt(0).toUpperCase() + item.shape.name.slice(1) + ' ' + item.color.name;
                 btn.setAttribute('aria-label', ariaLabelText);
-                btn.onclick = () => checkShapeChoice(item);
+                btn.onclick = () => checkShapeChoice(item, btn);
                 container.appendChild(btn);
             });
             updateVividPrompt(shouldSpeakColor);
+        }
+        function checkShapeChoice(chosen, btnElement) {
+            document.querySelectorAll('#vividColorOptions .game-shape-item').forEach(b => {
+                b.classList.remove('selected-correct', 'selected-wrong');
+                b.removeAttribute('aria-current');
+            });
+
+            const feedback = document.getElementById('gameFeedback') || document.getElementById('colorFeedback');
+            const isCorrect =
+                chosen.color.name === currentShapeTarget.color.name &&
+                chosen.shape.type === currentShapeTarget.shape.type;
+
+            if (isCorrect) {
+                if (btnElement) {
+                    btnElement.classList.add('selected-correct');
+                    btnElement.setAttribute('aria-current', 'true');
+                }
+                if (feedback) {
+                    feedback.style.color = 'var(--vivid-green)';
+                    feedback.innerText = '¡Muy bien! 🌟';
+                }
+                speak('¡Muy bien! Lo hiciste excelente.');
+                setTimeout(() => {
+                    if (feedback) feedback.innerText = '';
+                    initVividColorsGame(true);
+                }, 2500);
+            } else {
+                if (btnElement) {
+                    btnElement.classList.add('selected-wrong');
+                    btnElement.setAttribute('aria-current', 'true');
+                }
+                const isFeminine = chosen.shape.article === 'la';
+                const demonstrator = isFeminine ? 'Esa' : 'Ese';
+                const errorMsg = `${demonstrator} es ${chosen.shape.article} ${chosen.shape.name} ${chosen.color.name.toLowerCase()}. Inténtalo otra vez.`;
+                if (feedback) {
+                    feedback.style.color = 'var(--vivid-yellow)';
+                    feedback.innerText = errorMsg;
+                }
+                speak(errorMsg);
+            }
         }
 
         function updateVividPrompt(shouldSpeak = true) {
@@ -2239,22 +2423,6 @@ function speak(text) {
             if (promptEl) promptEl.innerText = `Toca: ${capitalizedShapeName} ${currentShapeTarget.color.name}`;
             if (shouldSpeak) speak(promptText);
         }
-
-        function checkShapeChoice(selected) {
-            const feedback = document.getElementById('gameFeedback');
-            if (selected.color.name === currentShapeTarget.color.name && selected.shape.type === currentShapeTarget.shape.type) {
-                feedback.style.color = 'var(--vivid-green)';
-                feedback.innerText = '¡Muy bien! 🌟';
-                speak('¡Muy bien! Lo hiciste excelente.');
-                setTimeout(() => { feedback.innerText = ''; initVividColorsGame(true); }, 2500);
-            } else {
-                feedback.style.color = 'var(--vivid-yellow)';
-                const targetDesc = `${currentShapeTarget.shape.name} ${currentShapeTarget.color.name.toLowerCase()}`;
-                feedback.innerText = `Ese no es. Busca el ${targetDesc}. Inténtalo otra vez.`;
-                speak(`Ese no es. Busca el ${targetDesc}. Inténtalo otra vez.`);
-            }
-        }
-
         let memorySet = [];
         let hiddenIndices = [];
         let foundIndices = [];
