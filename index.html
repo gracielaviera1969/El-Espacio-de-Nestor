@@ -1724,7 +1724,12 @@ function showView(viewId) {
         const targetSection = document.getElementById(viewId);
         if (!targetSection) return;
         targetSection.classList.add('active');
-        targetSection.focus();
+
+        if (backBtn) {
+            backBtn.focus();
+        } else {
+            targetSection.focus();
+        }
 
         // CAMBIO CLAVE: Si es drawView, NO decimos el título aquí para evitar que se corte
         if (viewId !== 'drawView') {
@@ -1758,6 +1763,151 @@ function showView(viewId) {
 
     window.scrollTo(0, 0);
 }
+
+// ===== INICIALIZACIÓN GENERAL =====
+(function() {
+    function runInit() {
+        if (window.__appInitDone) return;
+        window.__appInitDone = true;
+
+        loadSavedRoutines();
+        renderLearnTab('colores');
+        renderAnimals();
+        renderFood('fruta');
+        renderNumbers100();
+        initVividColorsGame();
+        // initDrawCanvas() se llama desde showView cuando se abre la sección
+
+        function isElementVisible(el) {
+            if (!el || el.disabled) return false;
+            let curr = el;
+            while (curr && curr !== document.body && curr !== document.documentElement) {
+                const st = window.getComputedStyle(curr);
+                if (st.display === 'none' || st.visibility === 'hidden') return false;
+                curr = curr.parentElement;
+            }
+            return true;
+        }
+
+        function getFirstVisibleHeaderBtn() {
+            const backBtn = document.getElementById('headerBackToPanelBtn');
+            if (backBtn && isElementVisible(backBtn)) {
+                return backBtn;
+            }
+            const headerBtns = Array.from(document.querySelectorAll('header .audio-controls button, header button'));
+            return headerBtns.find(isElementVisible) || null;
+        }
+
+        function redirectTabToHeader(e) {
+            if (e.key !== 'Tab' || e.shiftKey) return;
+
+            const backBtn = document.getElementById('headerBackToPanelBtn');
+            const sectionOpen = backBtn && isElementVisible(backBtn);
+            if (!sectionOpen) return;
+
+            const activeBefore = document.activeElement;
+            if (activeBefore && activeBefore.closest('header')) {
+                return;
+            }
+
+            const firstBtn = getFirstVisibleHeaderBtn();
+            if (!firstBtn) return;
+
+            e.preventDefault();
+            firstBtn.focus();
+
+            requestAnimationFrame(function() {
+                const nowActive = document.activeElement;
+                if (!nowActive || (!nowActive.closest('header') && nowActive !== firstBtn)) {
+                    firstBtn.focus();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', redirectTabToHeader, true);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runInit);
+    } else {
+        runInit();
+    }
+})();
+
+// ===== INICIALIZACIÓN GENERAL =====
+(function() {
+    function runInit() {
+        if (window.__appInitDone) return;
+        window.__appInitDone = true;
+
+        loadSavedRoutines();
+        renderLearnTab('colores');
+        renderAnimals();
+        renderFood('fruta');
+        renderNumbers100();
+        initVividColorsGame();
+        // initDrawCanvas() se llama desde showView cuando se abre la sección
+
+        function isElementVisible(el) {
+            if (!el || el.disabled) return false;
+            let curr = el;
+            while (curr && curr !== document.body && curr !== document.documentElement) {
+                const st = window.getComputedStyle(curr);
+                if (st.display === 'none' || st.visibility === 'hidden') return false;
+                curr = curr.parentElement;
+            }
+            return true;
+        }
+
+        function getFirstVisibleHeaderBtn() {
+            const backBtn = document.getElementById('headerBackToPanelBtn');
+            if (backBtn && isElementVisible(backBtn)) {
+                return backBtn;
+            }
+            const headerBtns = Array.from(document.querySelectorAll('header .audio-controls button, header button'));
+            return headerBtns.find(isElementVisible) || null;
+        }
+
+        function handleTabToHeader(e) {
+            if (e.key !== 'Tab' || e.shiftKey) return;
+
+            const backBtn = document.getElementById('headerBackToPanelBtn');
+            const sectionOpen = backBtn && isElementVisible(backBtn);
+            if (!sectionOpen) return;
+
+            const activeEl = document.activeElement;
+            // Si ya está dentro del header, Tab sigue normal: Reiniciar día -> Voz encendida -> contenido
+            if (activeEl && activeEl.closest('header')) {
+                return;
+            }
+
+            const firstBtn = getFirstVisibleHeaderBtn();
+            if (!firstBtn) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof e.stopImmediatePropagation === 'function') {
+                e.stopImmediatePropagation();
+            }
+
+            firstBtn.focus();
+            setTimeout(function() {
+                if (document.activeElement !== firstBtn) {
+                    firstBtn.focus();
+                }
+            }, 0);
+        }
+
+        window.addEventListener('keydown', handleTabToHeader, true);
+        document.addEventListener('keydown', handleTabToHeader, true);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runInit);
+    } else {
+        runInit();
+    }
+})();
         function selectNeed(element, phrase) {
             document.querySelectorAll('#commView .item-card').forEach(el => el.classList.remove('selected-need'));
             element.classList.add('selected-need');
@@ -3360,99 +3510,6 @@ function updateDrawLetter() {
         renderNumbers100();
         initVividColorsGame();
         // initDrawCanvas() se llama desde showView cuando se abre la sección
-
-        let nextTabToHeader = false;
-        let lastSectionId = null;
-
-        function isElementVisible(el) {
-            if (!el || el.disabled) return false;
-            let curr = el;
-            while (curr && curr !== document.body && curr !== document.documentElement) {
-                const st = window.getComputedStyle(curr);
-                if (st.display === 'none' || st.visibility === 'hidden') return false;
-                curr = curr.parentElement;
-            }
-            return true;
-        }
-
-        function getFirstVisibleHeaderBtn() {
-            const backBtn = document.getElementById('headerBackToPanelBtn');
-            if (backBtn && isElementVisible(backBtn)) {
-                return backBtn;
-            }
-            const headerBtns = Array.from(document.querySelectorAll('header button, [role="banner"] button'));
-            return headerBtns.find(isElementVisible) || null;
-        }
-
-        function markNextTabToHeader() {
-            const backBtn = document.getElementById('headerBackToPanelBtn');
-            if (backBtn && isElementVisible(backBtn)) {
-                nextTabToHeader = true;
-            }
-        }
-
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('button, [role="button"], a, .menu-card, .card, [onclick*="showView"], #headerBackToPanelBtn')) {
-                setTimeout(markNextTabToHeader, 0);
-            }
-        }, true);
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (e.target && e.target.closest('button, [role="button"], a, .menu-card, .card, [onclick*="showView"]')) {
-                    setTimeout(markNextTabToHeader, 0);
-                }
-            }
-        }, true);
-
-        document.addEventListener('focusin', function(e) {
-            const sec = e.target.closest('.view-section.active, .view-section');
-            if (sec && sec.id && sec.id !== lastSectionId) {
-                nextTabToHeader = true;
-                lastSectionId = sec.id;
-            }
-        }, true);
-
-        function handleHeaderTab(e) {
-            if (e.key !== 'Tab' || e.shiftKey) return;
-
-            const firstBtn = getFirstVisibleHeaderBtn();
-            if (!firstBtn) return;
-
-            const activeEl = document.activeElement;
-            if (activeEl && activeEl.closest('header, [role="banner"]')) {
-                nextTabToHeader = false;
-                return;
-            }
-
-            const isSubirBtn = activeEl && (
-                activeEl.id === 'backToTopBtn' ||
-                /subir/i.test(activeEl.textContent || '')
-            );
-
-            const isInActiveSection = activeEl && (
-                (activeEl.classList && activeEl.classList.contains('view-section')) ||
-                activeEl.closest('.view-section.active')
-            );
-
-            if (nextTabToHeader || isSubirBtn || isInActiveSection) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (typeof e.stopImmediatePropagation === 'function') {
-                    e.stopImmediatePropagation();
-                }
-                nextTabToHeader = false;
-                firstBtn.focus();
-                setTimeout(function() {
-                    if (document.activeElement !== firstBtn && (!document.activeElement.closest || !document.activeElement.closest('header, [role="banner"]'))) {
-                        firstBtn.focus();
-                    }
-                }, 0);
-            }
-        }
-
-        window.addEventListener('keydown', handleHeaderTab, true);
-        document.addEventListener('keydown', handleHeaderTab, true);
     }
 
     if (document.readyState === 'loading') {
@@ -3461,6 +3518,75 @@ function updateDrawLetter() {
         runInit();
     }
 })();
+
+function isVisibleControl(el) {
+    if (!el || el.disabled) return false;
+    let curr = el;
+    while (curr && curr !== document.body && curr !== document.documentElement) {
+        const st = window.getComputedStyle(curr);
+        if (st.display === 'none' || st.visibility === 'hidden') return false;
+        curr = curr.parentElement;
+    }
+    return true;
+}
+
+function getFirstHeaderControl() {
+    const backBtn = document.getElementById('headerBackToPanelBtn');
+    if (backBtn && isVisibleControl(backBtn)) {
+        return backBtn;
+    }
+    const controls = Array.from(document.querySelectorAll('header button, header [href], header [tabindex]:not([tabindex="-1"])'));
+    return controls.find(isVisibleControl) || null;
+}
+
+function focusHeaderAfterScrollUp() {
+    const firstControl = getFirstHeaderControl();
+    if (!firstControl) return;
+
+    setTimeout(function() {
+        firstControl.focus();
+    }, 60);
+}
+
+document.addEventListener('click', function(e) {
+    const candidate = e.target.closest('button, a, [role="button"]');
+    if (!candidate) return;
+
+    const label = (candidate.textContent || '').trim().toLowerCase();
+    const isUpControl =
+        candidate.id === 'backToTopBtn' ||
+        /subir|arriba|volver arriba/i.test(label) ||
+        /subir|top|up/i.test(candidate.id || '');
+
+    if (!isUpControl) return;
+
+    const backBtn = document.getElementById('headerBackToPanelBtn');
+    if (!backBtn || !isVisibleControl(backBtn)) return;
+
+    focusHeaderAfterScrollUp();
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab' || e.shiftKey) return;
+
+    const header = document.querySelector('header');
+    const backBtn = document.getElementById('headerBackToPanelBtn');
+    if (!header || !backBtn || !isVisibleControl(backBtn)) return;
+
+    const active = document.activeElement;
+    if (!active || header.contains(active)) return;
+
+    const isUpControl =
+        active.id === 'backToTopBtn' ||
+        /subir|arriba|volver arriba/i.test((active.textContent || '').trim());
+
+    if (active.tagName === 'H2' || isUpControl) {
+        const firstControl = getFirstHeaderControl();
+        if (!firstControl) return;
+        e.preventDefault();
+        firstControl.focus();
+    }
+});
     </script>
 </body>
 </html>
