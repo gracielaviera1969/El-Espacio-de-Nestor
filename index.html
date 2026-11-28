@@ -1038,23 +1038,88 @@ user-select: none;
         </div>
         <div class="items-grid" id="routineGrid">
             <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('¡Buen día! Hora de despertarse y desayunar rico.')">
-                <span class="item-icon" aria-hidden="true">🌅</span>
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M24 18c0-3 3-4 3-7" stroke="#FBBF24" />
+                        <path d="M35 18c0-3 3-4 3-7" stroke="#FBBF24" />
+                        <path d="M15 24h28v12a12 12 0 0 1-12 12H27a12 12 0 0 1-12-12V24z" fill="#38BDF8" fill-opacity="0.3" stroke="#38BDF8" />
+                        <path d="M43 28h5a5 5 0 0 1 0 10h-5" stroke="#38BDF8" />
+                        <line x1="12" y1="53" x2="46" y2="53" stroke="#CBD5E1" />
+                    </svg>
+                </span>
                 <span>Despertar y desayunar</span>
             </button>
             <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('¡Vamos al cole! A jugar y aprender.')">
-                <span class="item-icon" aria-hidden="true">🏫</span>
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M24 18a8 8 0 0 1 16 0" stroke="#FBBF24" />
+                        <rect x="15" y="20" width="34" height="32" rx="9" fill="#38BDF8" fill-opacity="0.28" stroke="#38BDF8" />
+                        <path d="M15 31h34" stroke="#7DD3FC" />
+                        <rect x="22" y="36" width="20" height="10" rx="3" fill="#FBBF24" fill-opacity="0.3" stroke="#FBBF24" />
+                    </svg>
+                </span>
                 <span>Vamos al cole</span>
             </button>
             <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('Hora de comer rico y descansar un ratito.')">
-                <span class="item-icon" aria-hidden="true">🍽️</span>
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M11 34h42c0 10-9 16-21 16S11 44 11 34z" fill="#38BDF8" fill-opacity="0.28" stroke="#38BDF8" />
+                        <path d="M18 34c0-8 6-14 14-14s14 6 14 14" fill="#FBBF24" fill-opacity="0.3" stroke="#FBBF24" />
+                    </svg>
+                </span>
                 <span>Comer y descansar</span>
             </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('Hora de la merienda. Un ratito para recargar pilas.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M15 26h24v22a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4V26z" fill="#38BDF8" fill-opacity="0.28" stroke="#38BDF8" />
+                        <line x1="13" y1="26" x2="41" y2="26" stroke="#7DD3FC" />
+                        <circle cx="46" cy="40" r="8" fill="#FBBF24" fill-opacity="0.32" stroke="#FBBF24" />
+                        <circle cx="44" cy="38" r="1.5" fill="#FBBF24" stroke="none" />
+                        <circle cx="48" cy="42" r="1.5" fill="#FBBF24" stroke="none" />
+                    </svg>
+                </span>
+                <span>Merienda</span>
+            </button>
             <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('¡A jugar! Es hora de jugar.')">
-                <span class="item-icon" aria-hidden="true">🧸</span>
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <rect x="11" y="33" width="19" height="19" rx="4" fill="#38BDF8" fill-opacity="0.3" stroke="#38BDF8" />
+                        <rect x="34" y="33" width="19" height="19" rx="4" fill="#FBBF24" fill-opacity="0.3" stroke="#FBBF24" />
+                        <rect x="22" y="13" width="20" height="20" rx="4" fill="#FB7185" fill-opacity="0.3" stroke="#FB7185" />
+                    </svg>
+                </span>
                 <span>A jugar</span>
             </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('A guardar los juguetes. Cada cosa en su lugar.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <rect x="12" y="25" width="40" height="26" rx="5" fill="#FBBF24" fill-opacity="0.28" stroke="#FBBF24" />
+                        <path d="M10 25h44" stroke="#FBBF24" stroke-width="4.2" />
+                        <rect x="25" y="13" width="14" height="10" rx="3" fill="#38BDF8" fill-opacity="0.3" stroke="#38BDF8" />
+                    </svg>
+                </span>
+                <span>Guardar juguetes</span>
+            </button>
+            <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('Hora de lavarse los dientes. ¡Bien limpios y brillantes!')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M14 49l22-22" stroke="#38BDF8" stroke-width="4.8" />
+                        <rect x="34" y="14" width="16" height="10" rx="3" transform="rotate(-45 34 14)" fill="#F8FAFC" stroke="#E2E8F0" />
+                        <path d="M40 12c2-3 6-3 8 0" stroke="#7DD3FC" stroke-width="3" />
+                    </svg>
+                </span>
+                <span>Lavarse los dientes</span>
+            </button>
             <button type="button" class="item-card" aria-pressed="false" onclick="this.classList.toggle('completed'); this.setAttribute('aria-pressed', this.classList.contains('completed')); speak('Llegó la noche. Nos ponemos el pijama y a dormir.')">
-                <span class="item-icon" aria-hidden="true">🌙</span>
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M10 42h44v9H10z" fill="#38BDF8" fill-opacity="0.26" stroke="#38BDF8" />
+                        <path d="M10 34h44v8H10z" fill="#FBBF24" fill-opacity="0.26" stroke="#FBBF24" />
+                        <rect x="14" y="27" width="17" height="7" rx="3" fill="#F8FAFC" stroke="#F8FAFC" />
+                        <line x1="10" y1="22" x2="10" y2="52" stroke="#CBD5E1" stroke-width="4.2" />
+                    </svg>
+                </span>
                 <span>Hora de dormir</span>
             </button>
         </div>
@@ -1157,41 +1222,82 @@ user-select: none;
         <div class="view-header" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
             <div>
                 <h2 id="autonomyHeading">Me visto y peino solo</h2>
-                <p class="section-subtitle">Toca cada acción cuando la completes.</p>
+                <p class="section-subtitle">Toca cada acción y escucha qué sigue.</p>
             </div>
         </div>
         <div class="items-grid" id="autonomyGrid" role="group" aria-label="Pasos para vestirse y peinarse">
-            <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir ropa. Elegimos la ropa que más nos guste y que sea cómoda.')">
+            <button type="button" class="item-card" data-key="auto-ropa" aria-pressed="false" onclick="toggleRoutine(this, 'Elegir ropa. Elegimos la ropa que más nos guste y que sea cómoda. Después toca lavarse la cara.')">
                 <span class="item-icon" aria-hidden="true">👕</span>
                 <span>Elegir ropa</span>
             </button>
-            <button type="button" class="item-card" data-key="auto-calcetines" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse los calcetines. Nos ponemos los calcetines, uno en cada pie.')">
+            <button type="button" class="item-card" data-key="auto-cara" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse la cara. Agua fresca para despertarse y estar limpitos. Después toca ponerse los calcetines.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <!-- Rostro -->
+                        <circle cx="32" cy="27" r="13" fill="#FDBA74" stroke="#FDBA74" />
+                        <!-- Ojos cerrados suaves -->
+                        <path d="M25.5 26.5c1.5 2 3.5 2 5 0" stroke="#1E293B" />
+                        <path d="M33.5 26.5c1.5 2 3.5 2 5 0" stroke="#1E293B" />
+                        <!-- Sonrisa -->
+                        <path d="M29 33c1.8 2 4.2 2 6 0" stroke="#1E293B" />
+                        <!-- Manos ahuecadas con agua -->
+                        <path d="M12 36c0 8 5 13 12 13 2 0 3.5-1.2 3.5-3s-1.5-3-3.5-3c-3 0-5-2.5-5-7z" fill="#FDBA74" stroke="#FED7AA" />
+                        <path d="M52 36c0 8-5 13-12 13-2 0-3.5-1.2-3.5-3s1.5-3 3.5-3c3 0 5-2.5 5-7z" fill="#FDBA74" stroke="#FED7AA" />
+                        <!-- Gotas de agua -->
+                        <circle cx="15" cy="23" r="2.8" fill="#38BDF8" stroke="#7DD3FC" stroke-width="1.8" />
+                        <circle cx="49" cy="23" r="2.8" fill="#38BDF8" stroke="#7DD3FC" stroke-width="1.8" />
+                        <circle cx="21" cy="34" r="2.2" fill="#7DD3FC" stroke="#BAE6FD" stroke-width="1.5" />
+                        <circle cx="43" cy="34" r="2.2" fill="#7DD3FC" stroke="#BAE6FD" stroke-width="1.5" />
+                    </svg>
+                </span>
+                <span>Lavarse la cara</span>
+            </button>
+            <button type="button" class="item-card" data-key="auto-calcetines" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse los calcetines. Nos ponemos los calcetines, uno en cada pie. Después toca ponerse la ropa.')">
                 <span class="item-icon" aria-hidden="true">🧦</span>
                 <span>Ponerse los calcetines</span>
             </button>
-            <button type="button" class="item-card" data-key="auto-ponerse" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse la ropa. Nos vestimos solos, tranquilos y despacito.')">
+            <button type="button" class="item-card" data-key="auto-ponerse" aria-pressed="false" onclick="toggleRoutine(this, 'Ponerse la ropa. Nos vestimos solos, tranquilos y despacito. Después tocan los zapatos.')">
                 <span class="item-icon" aria-hidden="true">👖</span>
                 <span>Ponerse la ropa</span>
             </button>
-            <button type="button" class="item-card" data-key="auto-zapatos" aria-pressed="false" onclick="toggleRoutine(this, 'Zapatos. Nos ponemos los zapatos listos para caminar.')">
+            <button type="button" class="item-card" data-key="auto-zapatos" aria-pressed="false" onclick="toggleRoutine(this, 'Zapatos. Nos ponemos los zapatos listos para caminar. Después toca peinarse.')">
                 <span class="item-icon" aria-hidden="true">👟</span>
                 <span>Zapatos</span>
             </button>
-            <button type="button" class="item-card" data-key="auto-peinarse" aria-pressed="false" onclick="toggleRoutine(this, 'Peinarse. Nos peinamos y acomodamos el pelo re lindo.')">
-                <span class="item-icon" aria-hidden="true">💇‍♂️</span>
+            <button type="button" class="item-card" data-key="auto-peinarse" aria-pressed="false" onclick="toggleRoutine(this, 'Peinarse. Nos peinamos y acomodamos el pelo re lindo. Después toca mirarse al espejo.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <!-- Mango -->
+                        <path d="M22 42L10 54a4 4 0 0 0 5.6 5.6L28 47" fill="#F59E0B" stroke="#FBBF24" />
+                        <!-- Cabeza del cepillo -->
+                        <path d="M25 23c7-7 19-7 25-1 5 5 4 15-3 22s-17 8-22 3c-5-5-5-14 0-24z" fill="#38BDF8" fill-opacity="0.28" stroke="#38BDF8" />
+                        <!-- Cerdas -->
+                        <line x1="34" y1="18" x2="28" y2="12" stroke="#7DD3FC" />
+                        <line x1="41" y1="20" x2="38" y2="12" stroke="#7DD3FC" />
+                        <line x1="47" y1="25" x2="48" y2="16" stroke="#7DD3FC" />
+                        <line x1="29" y1="24" x2="21" y2="21" stroke="#7DD3FC" />
+                        <line x1="27" y1="31" x2="18" y2="31" stroke="#7DD3FC" />
+                    </svg>
+                </span>
                 <span>Peinarse</span>
             </button>
-            <button type="button" class="item-card" data-key="auto-cara" aria-pressed="false" onclick="toggleRoutine(this, 'Lavarse la cara. Agua fresca para despertarse y estar limpitos.')">
-                <span class="item-icon" aria-hidden="true">💧</span>
-                <span>Lavarse la cara</span>
-            </button>
-            <button type="button" class="item-card" data-key="auto-espejo" aria-pressed="false" onclick="toggleRoutine(this, 'Mirarse al espejo. ¡Miramos en el espejo qué bien nos quedó!')">
+            <button type="button" class="item-card" data-key="auto-espejo" aria-pressed="false" onclick="toggleRoutine(this, 'Mirarse al espejo. ¡Miramos en el espejo qué bien nos quedó! Después toca guardar la ropa sucia.')">
                 <span class="item-icon" aria-hidden="true">🪞</span>
                 <span>Mirarse al espejo</span>
             </button>
-            <button type="button" class="item-card" data-key="auto-listo" aria-pressed="false" onclick="toggleRoutine(this, 'Todo listo. ¡Ya estamos listos para arrancar el día!')">
-                <span class="item-icon" aria-hidden="true">🌟</span>
-                <span>¡Todo listo!</span>
+            <button type="button" class="item-card" data-key="auto-ropa-sucia" aria-pressed="false" onclick="toggleRoutine(this, 'Guardar la ropa sucia. Llevamos la ropa que sacamos a su canasto. Terminamos este paso.')">
+                <span class="item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <!-- Canasto -->
+                        <path d="M14 26h36l-4 24a4 4 0 0 1-4 3H22a4 4 0 0 1-4-3l-4-24z" fill="#38BDF8" fill-opacity="0.25" stroke="#38BDF8" />
+                        <line x1="12" y1="26" x2="52" y2="26" stroke="#7DD3FC" stroke-width="4" />
+                        <line x1="25" y1="33" x2="26" y2="46" stroke="#7DD3FC" stroke-width="2.5" />
+                        <line x1="39" y1="33" x2="38" y2="46" stroke="#7DD3FC" stroke-width="2.5" />
+                        <!-- Prenda guardada encima -->
+                        <path d="M22 14h20l5 6-4 5-3-3v4H24v-4l-3 3-4-5 5-6z" fill="#FBBF24" fill-opacity="0.32" stroke="#FBBF24" stroke-width="3" />
+                    </svg>
+                </span>
+                <span>Guardar la ropa sucia</span>
             </button>
         </div>
         <div style="margin-top: 30px; text-align: right; border-top: 2px solid #334155; padding-top: 20px;">
@@ -2446,7 +2552,7 @@ function returnToSectionTop(triggerEl) {
         const stories = {
             aeropuerto: [
             { icon: '✈️', title: 'Viajando con ilusión', text: 'Desde Uruguay, la Mani viaja con mucha ilusión hacia Gran Canaria para reencontrarse con Néstor.' },
-                { icon: '🛫👩🏻‍🦯', title: 'El reencuentro en Gran Canaria', text: 'El avión aterriza y las puertas se abren. Al avanzar en el aeropuerto con su bastón, la Mani siente la alegría de llegar a Gran Canaria y reencontrarse con Néstor.' },
+                { icon: '🛫👩��‍🦯', title: 'El reencuentro en Gran Canaria', text: 'El avión aterriza y las puertas se abren. Al avanzar en el aeropuerto con su bastón, la Mani siente la alegría de llegar a Gran Canaria y reencontrarse con Néstor.' },
                 { icon: '👦🏻🛝', title: 'Días de juegos y paseos', text: 'Comienzan días lindos compartiendo paseos, risas y juegos divertidos bajo el sol, disfrutando cada momento juntos.' },
                 { icon: '🫂✨', title: 'Un lazo que cruza el mundo', text: 'Aunque Uruguay y Gran Canaria estén lejos, el cariño que los une es tan fuerte que cada abrazo los hace sentir cerca.' }
             ],
